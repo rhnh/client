@@ -1,0 +1,93 @@
+{
+  "taxonomies": [
+    {
+      "_id": 1,
+      "binomial": "Haliaeetus vocifer",
+      "info": "lorem",
+      "englishName": "African fish eagle",
+      "taxonomy": ["Accipitriformes", "Accipitridae", "Haliaeetus"],
+      "parent": "Haliaeetus",
+      "image": "african-fish-eagle.jpg"
+    },
+    {
+      "_id": 2,
+      "binomial": "Haliaeetus leucogaster",
+      "englishName": "White-bellied sea eagle",
+      "taxonomy": ["Accipitriformes", "Accipitridae", "Haliaeetus"],
+      "parent": "Haliaeetus",
+      "image": "white-bellied-sea-eagle.jpg"
+    },
+    {
+      "_id": 3,
+      "binomial": "Haliaeetus vociferoides",
+      "englishName": "Madagascar fish eagle",
+      "taxonomy": ["Accipitriformes", "Accipitridae", "Haliaeetus"],
+      "parent": "Haliaeetus",
+      "image": "madagascar-fish-eagle.jpg"
+    },
+    {
+      "_id": 4,
+      "binomial": "Coracias caudatus",
+      "englishName": "Lilac-breasted roller",
+      "taxonomy": ["Coraciiformes", "Coraciidae", "Coracias"],
+      "parent": "Coracias",
+      "image": "lilac-breasted-roller.jpg"
+    },
+    {
+      "_id": 5,
+      "binomial": "Coracias naevius",
+      "englishName": "Purple roller",
+      "taxonomy": ["Coraciiformes", "Coraciidae", "Coracias"],
+      "parent": "Coracias",
+      "image": "purple-roller.jpg"
+    },
+    {
+      "_id": 6,
+      "binomial": "Coracias affinis",
+      "englishName": "Indochinese roller",
+      "taxonomy": ["Coraciiformes", "Coraciidae", "Coracias"],
+      "parent": "Coracias",
+      "image": "indochinese-roller.jpg"
+    },
+    {
+      "_id": 7,
+      "binomial": "Eurystomus orientalis",
+      "englishName": "Oriental dollarbird",
+      "taxonomy": ["Coraciiformes", "Coraciidae", "Eurystomus"],
+      "parent": "Eurystomus",
+      "image": "oriental-roller.jpg"
+    },
+    {
+      "_id": 8,
+      "binomial": "Corvus albus",
+      "englishName": "Pied crow",
+      "taxonomy": ["Passeriformes", "Corvidae", "Corvus"],
+      "parent": "Corvus",
+      "image": "pied-crow.jpg"
+    },
+    {
+      "_id": 9,
+      "binomial": "Corvus corax",
+      "englishName": "Common raven",
+      "taxonomy": ["Passeriformes", "Corvidae", "Corvus"],
+      "parent": "Corvus",
+      "image": "common-raven.jpg"
+    },
+    {
+      "_id": 10,
+      "binomial": "Corvus corone",
+      "englishName": "Carrion crow",
+      "taxonomy": ["Passeriformes", "Corvidae", "Corvus"],
+      "parent": "Corvus",
+      "image": "carrion-crow.jpg"
+    },
+    {
+      "_id": 11,
+      "binomial": "Sagittarius serpentarius",
+      "englishName": "Secretarybird",
+      "taxonomy": ["Accipitriformes", "Sagittariidae", "Sagittarius"],
+      "parent": "Sagittarius",
+      "image": "secretarybird.jpg"
+    }
+  ]
+}
