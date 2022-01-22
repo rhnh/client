@@ -1,6 +1,5 @@
 import { css } from '@emotion/css'
-import { Modal, ModalContents, ModalOpenButton } from 'components/modal'
-import { Button, Input, Label, LinkButton } from 'components/themed-components'
+import { Button, Input, Label } from 'components/themed-components'
 import { ChangeEvent, FormEvent, ReactElement, useState } from 'react'
 import * as colors from 'utils/colors'
 import { User } from 'utils/types'
@@ -22,10 +21,10 @@ export const Register = ({ ShowModel }: Props) => {
     const { name, value } = e.target
     setUser((user: User) => ({ ...user, [name]: value }))
   }
-  const isValidUser =
-    user.username === '' ||
-    user.password === '' ||
-    user.password !== user.confirmPassword
+  // const isValidUser =
+  //   user.username === '' ||
+  //   user.password === '' ||
+  //   user.password !== user.confirmPassword
 
   return (
     <div

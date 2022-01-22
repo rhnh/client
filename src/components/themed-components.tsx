@@ -4,10 +4,20 @@ import { Dialog as ReachDialog } from '@reach/dialog'
 import { getObjectKeyValue } from 'utils'
 import { Link as ButtonLink } from 'react-router-dom'
 import * as colors from 'utils/colors'
+import { keyframes } from '@emotion/css'
 
 type ULProps = {
   isMobile: boolean
 }
+
+const fadeIn = keyframes`
+    from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`
 export const NavUL = styled('ul')<ULProps>(
   {
     display: 'flex',
@@ -18,8 +28,10 @@ export const NavUL = styled('ul')<ULProps>(
     zIndex: 1000,
     justifyContent: 'space-between',
     alignItems: 'center',
-    background: 'black',
+    background: '#1d2535',
     height: '60%',
+
+    animation: `${fadeIn} .2s .2s both`,
     li: {
       width: '100%',
       padding: 0,
@@ -36,6 +48,7 @@ export const NavUL = styled('ul')<ULProps>(
     'li > a:hover': {
       color: 'white',
       background: '#aa0000',
+      animation: `${fadeIn} .2s .2s both`,
     },
   },
   ({ isMobile = false }) => {

@@ -1,83 +1,57 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import logo from '../logo2.svg'
+import React, { Children, cloneElement, FC, isValidElement } from 'react'
+
 import { NavUL } from './themed-components'
-import { css } from '@emotion/css'
 import menu from '../menu.svg'
 import closeSVG from '../close.svg'
-interface Props {}
-
-export const NavMobile = (props: Props) => {
-  const [toggle, setToggle] = useState<boolean>(true)
-
-  return (
-    <div>
-      <div
-        className={css({
-          display: 'flex',
-          padding: '1em',
-        })}
-      >
+import { css } from '@emotion/css'
+interface Props {
+  on?: boolean
+  className?: string
+  onClick?: () => any
+}
+export const NavMobile: FC<Props> = ({ on, onClick, children }) => {
+  return !on ? (
+    <img
+      src={`${menu}`}
+      onClick={onClick}
+      alt="menu"
+      className={css({
+        top: 0,
+        right: 0,
+        position: 'absolute',
+        padding: '.6em',
+      })}
+    ></img>
+  ) : (
+    <div
+      className={css({
+        transition: ' all .5s ease-in-out',
+      })}
+    >
+      <NavUL isMobile={true}>
         <img
           className={css({
-            display: 'block',
+            top: 0,
+            right: 0,
+            position: 'absolute',
+            padding: '.6em',
           })}
-          src={`${logo}`}
-          alt="safarilive"
-        />
-        <div
-          className={css({
-            marginLeft: 'auto',
-            color: '#aa0000',
-            '>img': {
-              display: 'block',
-            },
-          })}
-        >
-          {toggle ? (
-            <img
-              src={`${closeSVG}`}
-              alt="close"
-              onClick={() => setToggle(false)}
-            ></img>
-          ) : (
-            <img
-              src={`${menu}`}
-              alt="menu"
-              onClick={() => setToggle(true)}
-            ></img>
-          )}
-        </div>
-      </div>
-      {toggle && (
-        <div
-          className={css({
-            left: 0,
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            width: '100%',
-            height: '100%',
-          })}
-        >
-          <NavUL isMobile={true}>
-            <li>
-              <Link to="#">Lists</Link>
-            </li>
-            <li>
-              <Link to="#">On Show</Link>
-            </li>
-            <li>
-              <Link to="#">Login</Link>
-            </li>
-            <li>
-              <Link to="#">Register</Link>
-            </li>
-            <li>
-              <Link to="#">About</Link>
-            </li>
-          </NavUL>
-        </div>
-      )}
+          src={`${closeSVG}`}
+          onClick={onClick}
+          alt="close"
+        ></img>
+        {Children.map(children, child => {
+          if (isValidElement(child)) {
+            return (
+              <li>
+                {cloneElement(child, {
+                  onClick: onClick,
+                })}
+              </li>
+            )
+          }
+        })}
+      </NavUL>
     </div>
   )
 }

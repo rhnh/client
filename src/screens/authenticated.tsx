@@ -1,15 +1,14 @@
-import { Header } from 'components/header'
-import { Nav } from 'components/nav'
-import { NavLink } from 'react-router-dom'
+import { Menu } from 'components/Menu'
+import { Link } from 'react-router-dom'
+import Logo from '../logo2.svg'
 
-interface Props {}
-
-export const Authenticated = (props: Props) => {
+export const Authenticated = () => {
   return (
     <div>
-      <Header>
-        <p>Hello</p>
-      </Header>
+      <img src={Logo} alt="safarilive" />
+      <Menu>
+        <Link to="/">Home</Link>
+      </Menu>
     </div>
   )
 }

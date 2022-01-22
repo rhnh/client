@@ -1,7 +1,7 @@
 import { css } from '@emotion/css'
-import { Modal, ModalContents, ModalOpenButton } from 'components/modal'
+
 import { Button, Input, Label } from 'components/themed-components'
-import { useAuth } from 'contexts/userContext'
+// import { useAuth } from 'contexts/userContext'
 import { ChangeEvent, FormEvent, ReactElement, useState } from 'react'
 import * as colors from 'utils/colors'
 import { User } from 'utils/types'
@@ -12,7 +12,7 @@ interface Props {
 
 export const Login = ({ ShowModel }: Props) => {
   const [user, setUser] = useState<User>({ username: '', password: '' })
-  const { user: UserInfo } = useAuth()
+  // const { user: UserInfo } = useAuth()
   console.log(user)
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -21,7 +21,7 @@ export const Login = ({ ShowModel }: Props) => {
     const { name, value } = e.target
     setUser((user: User) => ({ ...user, [name]: value }))
   }
-  const isValidUser = user.username === '' || user.password === ''
+  // const isValidUser = user.username === '' || user.password === ''
   return (
     <div
       className={css({

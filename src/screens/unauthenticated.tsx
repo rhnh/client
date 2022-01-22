@@ -1,18 +1,21 @@
-import { Header } from 'components/header'
-import { Nav } from 'components/nav'
+import { Menu } from 'components/Menu'
 import { Button } from 'components/themed-components'
 import { UserProvider } from 'contexts/userContext'
-import { NavLink, Route, Routes } from 'react-router-dom'
+import { Link, Route, Routes } from 'react-router-dom'
 import { Login } from './login'
 import { Main } from './main'
 import { Register } from './register'
-
+import Logo from '../logo2.svg'
 export const Unauthenticated = () => {
   return (
     <div>
-      <Header>
-        <Nav></Nav>
-      </Header>
+      <img src={Logo} alt="safarilive" />
+
+      <Menu>
+        <Link to="/">Home</Link>
+        <Link to="/about">About</Link>
+        <Link to="/contact">Contact</Link>
+      </Menu>
       <UserProvider>
         <div className="container">
           <Routes>
