@@ -5,11 +5,20 @@ import { Link, Route, Routes } from 'react-router-dom'
 import { Login } from './login'
 import { Main } from './main'
 import { Register } from './register'
-import Logo from '../logo2.svg'
+import Logo from '../logo61.png'
+import { css } from '@emotion/css'
 export const Unauthenticated = () => {
   return (
     <div>
-      <img src={Logo} alt="safarilive" />
+      <img
+        src={Logo}
+        alt="safarilive"
+        className={css({
+          padding: '.6em',
+          maxWidth: '200px',
+          paddingBottom: 0,
+        })}
+      />
 
       <Menu>
         <Link to="/">Home</Link>

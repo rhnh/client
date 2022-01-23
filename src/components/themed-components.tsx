@@ -22,13 +22,11 @@ export const NavUL = styled('ul')<ULProps>(
   {
     display: 'flex',
     listStyle: 'none',
-    width: '100%',
     margin: 0,
     padding: 0,
     zIndex: 1000,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    background: '#1d2535',
+
+    background: '#1c1f2b',
     height: '60%',
 
     animation: `${fadeIn} .2s .2s both`,
@@ -41,25 +39,44 @@ export const NavUL = styled('ul')<ULProps>(
       textDecoration: 'none',
       width: '100%',
       display: 'block',
-      padding: '1em 0',
+      padding: '.5em 0',
       textAlign: 'center',
-      color: 'white',
+      color: '#cbd5ff',
     },
     'li > a:hover': {
-      color: 'white',
+      color: '#cbd5ff',
       background: '#aa0000',
-      animation: `${fadeIn} .2s .2s both`,
     },
   },
   ({ isMobile = false }) => {
     return !isMobile
-      ? {}
+      ? {
+          // justifyContent: 'space-between',
+          justifyContent: 'left',
+
+          li: {
+            maxWidth: '100px',
+            float: 'left',
+          },
+          'li>a': {
+            left: 0,
+          },
+          'li:last-child': {
+            marginLeft: 'auto',
+          },
+        }
       : {
           position: 'absolute',
           listStyle: 'none',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
+          // paddingTop: '6em',
+          width: '100%',
+          li: {
+            width: '100%',
+            paddingBottom: '.6em',
+          },
         }
   },
 )

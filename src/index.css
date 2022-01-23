@@ -6,6 +6,7 @@
 
 :root {
   box-sizing: inherit;
+  --secondary: #c25d0b;
 }
 
 body {
