@@ -104,6 +104,9 @@ const buttonVariant: Variants = {
 
 export const Button = styled('button')<ButtonProps>(
   {
+    // display: 'block',
+    // textAlign: 'center',
+    // textDecoration: 'none',
     border: 'none',
     padding: '.6em',
     fontSize: '1em',

@@ -1,0 +1,28 @@
+.featured {
+  display: flex;
+  flex-direction: column;
+  margin: 0.6em auto;
+}
+
+.featured-image {
+  display: block;
+  width: 100%;
+  padding-bottom: 0.5em;
+}
+
+.featured-content {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 600px) {
+  .featured {
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+  .featured p {
+    margin: 0;
+    padding: 0;
+  }
+}

@@ -1,12 +1,12 @@
-import { Menu } from 'components/Menu'
-import { Button } from 'components/themed-components'
 import { UserProvider } from 'contexts/userContext'
-import { Link, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import { Login } from './login'
-import { Main } from './main'
+import Main from './Main'
 import { Register } from './register'
 import Logo from '../logo61.png'
 import { css } from '@emotion/css'
+
+import Footer from './Footer'
 export const Unauthenticated = () => {
   return (
     <div>
@@ -19,14 +19,8 @@ export const Unauthenticated = () => {
           paddingBottom: 0,
         })}
       />
-
-      <Menu>
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-        <Link to="/contact">Contact</Link>
-      </Menu>
       <UserProvider>
-        <div className="container">
+        <div className="">
           <Routes>
             <Route path="/">
               <Route index element={<Main />} />
@@ -42,6 +36,7 @@ export const Unauthenticated = () => {
           </Routes>
         </div>
       </UserProvider>
+      <Footer />
     </div>
   )
 }
