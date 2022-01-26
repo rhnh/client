@@ -41,8 +41,6 @@ export const Unauthenticated = () => {
             </Route>
           </Routes>
         </div>
-        <Button variant="primary">My button</Button>
-        <Button variant="secondary">My button</Button>
       </UserProvider>
     </div>
   )

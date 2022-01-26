@@ -25,10 +25,8 @@ export const NavUL = styled('ul')<ULProps>(
     margin: 0,
     padding: 0,
     zIndex: 1000,
-
     background: '#1c1f2b',
     height: '60%',
-
     animation: `${fadeIn} .2s .2s both`,
     li: {
       width: '100%',
