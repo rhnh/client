@@ -4,8 +4,8 @@ import { NavMobile } from './nav-mobile'
 import { useToggle } from 'hooks/useToggle'
 import { FC } from 'react'
 
-export const Menu: FC = ({ children }) => {
-  const isMobile = useMediaQuery({ maxWidth: 767 })
+const Menu: FC = ({ children }) => {
+  const isMobile = useMediaQuery({ maxWidth: 600 })
   const { on, getTogglerProps } = useToggle()
   return isMobile ? (
     <NavMobile {...getTogglerProps({ on: on })}>{children}</NavMobile>
@@ -13,3 +13,4 @@ export const Menu: FC = ({ children }) => {
     <Nav>{children}</Nav>
   )
 }
+export default Menu

@@ -1,12 +1,7 @@
 import { FC } from 'react'
-import Featured from './featured'
 
-const Main: FC = () => {
-  return (
-    <main className="main">
-      <Featured />
-    </main>
-  )
+const Main: FC = ({ children }) => {
+  return <main className="main">{children}</main>
 }
 
 export default Main
