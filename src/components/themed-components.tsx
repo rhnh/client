@@ -79,6 +79,9 @@ export const NavUL = styled('ul')<ULProps>(
             paddingTop: 0,
             padding: '1em 0',
           },
+          'li > a': {
+            padding: '1em',
+          },
         }
   },
 )
