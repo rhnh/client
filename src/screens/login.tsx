@@ -2,15 +2,11 @@ import { css } from '@emotion/css'
 
 import { Button, Input, Label } from 'components/themed-components'
 // import { useAuth } from 'contexts/userContext'
-import { ChangeEvent, FormEvent, ReactElement, useState } from 'react'
+import { ChangeEvent, FC, FormEvent, useState } from 'react'
 import * as colors from 'utils/colors'
 import { User } from 'utils/types'
 
-interface Props {
-  ShowModel: ReactElement
-}
-
-export const Login = ({ ShowModel }: Props) => {
+export const Login: FC = () => {
   const [user, setUser] = useState<User>({ username: '', password: '' })
   // const { user: UserInfo } = useAuth()
   console.log(user)
@@ -29,6 +25,7 @@ export const Login = ({ ShowModel }: Props) => {
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: colors.textLight,
+        margin: 'auto',
         marginTop: '1.5em',
         padding: '2em',
       })}
@@ -36,7 +33,7 @@ export const Login = ({ ShowModel }: Props) => {
       <form onSubmit={handleSubmit} className="login--form">
         <h1
           className={css({
-            color: colors.secondary,
+            color: colors.primary,
             marginBottom: '.5em',
           })}
         >

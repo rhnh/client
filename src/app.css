@@ -17,11 +17,15 @@ body {
   .container {
     height: 100%;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
   .content {
     display: flex;
     justify-content: space-between;
-    margin: 2.6em;
+    margin: 0 2.6em;
+    padding: 1.6em 0;
+    flex-wrap: nowrap;
   }
   section {
     margin: 2.6em;
@@ -29,11 +33,11 @@ body {
 }
 .footer {
   border-top: 2px solid #cbd5ff;
-  /* height: 100%; */
   padding: 1em;
-  /* position: fixed; */
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 1000;
+  align-self: flex-end;
+  width: 100%;
 }

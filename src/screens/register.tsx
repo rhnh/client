@@ -1,13 +1,10 @@
 import { css } from '@emotion/css'
 import { Button, Input, Label } from 'components/themed-components'
-import { ChangeEvent, FormEvent, ReactElement, useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
 import * as colors from 'utils/colors'
 import { User } from 'utils/types'
-interface Props {
-  ShowModel: ReactElement
-}
 
-export const Register = ({ ShowModel }: Props) => {
+export const Register = () => {
   const [user, setUser] = useState<User>({
     username: '',
     password: '',
@@ -21,10 +18,6 @@ export const Register = ({ ShowModel }: Props) => {
     const { name, value } = e.target
     setUser((user: User) => ({ ...user, [name]: value }))
   }
-  // const isValidUser =
-  //   user.username === '' ||
-  //   user.password === '' ||
-  //   user.password !== user.confirmPassword
 
   return (
     <div
@@ -32,7 +25,7 @@ export const Register = ({ ShowModel }: Props) => {
         backgroundColor: colors.textLight,
         marginTop: '1em',
         padding: '2em 0',
-        textAlign: 'center',
+        margin: 'auto',
         ' label': {
           margin: '.5em 0',
         },
@@ -41,7 +34,7 @@ export const Register = ({ ShowModel }: Props) => {
       <form onSubmit={handleSubmit}>
         <h1
           className={css({
-            color: colors.secondary,
+            color: colors.primary,
             marginBottom: '.5em',
           })}
         >

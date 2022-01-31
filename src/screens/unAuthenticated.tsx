@@ -7,7 +7,7 @@ import Footer from './Footer'
 import Logo from '../logo61.png'
 import { Login } from './login'
 import { Register } from './register'
-import Featured from './featured'
+import Article from './article'
 import Facts from './Facts'
 import Join from './Join'
 const UnAuthenticated = () => {
@@ -34,8 +34,8 @@ const UnAuthenticated = () => {
             <Link to="/" onClick={() => setIsHome(true)}>
               Home
             </Link>
-            <Link onClick={() => setIsHome(false)} to="/about">
-              About
+            <Link onClick={() => setIsHome(false)} to="/articles">
+              articles
             </Link>
             <Link onClick={() => setIsHome(false)} to="/login">
               Login
@@ -43,8 +43,8 @@ const UnAuthenticated = () => {
             <Link onClick={() => setIsHome(false)} to="/register">
               Register
             </Link>
-            <Link onClick={() => setIsHome(false)} to="/contact">
-              Contact
+            <Link onClick={() => setIsHome(false)} to="/about">
+              about
             </Link>
           </Menu>
         </header>
@@ -55,36 +55,27 @@ const UnAuthenticated = () => {
                 index
                 element={
                   <div className="main">
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
+                    <Article />
+                    <Article />
+                    <Article />
+                    <Article />
+                    <Article />
+                    <Article />
+                    <Article />
+                    <Article />
+                    <Article />
+                    <Article />
+                    <Article />
+                    <Article />
+                    <Article />
+                    <Article />
+                    <Article />
+                    <Article />
                   </div>
                 }
               />
-              <Route
-                path="/register"
-                element={<Register ShowModel={<button>Register</button>} />}
-              />
-              <Route
-                path="/login"
-                element={<Login ShowModel={<button>Register</button>} />}
-              />
+              <Route path="/register" element={<Register />} />
+              <Route path="/login" element={<Login />} />
             </Route>
           </Routes>
           {isHome && (

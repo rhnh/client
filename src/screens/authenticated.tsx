@@ -29,7 +29,7 @@ const Authenticated = () => {
           <Link to="/">Home</Link>
           <Link to="/about">About</Link>
           <Link to="/lists">My BirdList</Link>
-          <Link to="/contact">Logout</Link>
+          <Link to="/about">about</Link>
         </Menu>
       </header>
       <UserProvider>
@@ -44,14 +44,8 @@ const Authenticated = () => {
                   </Main>
                 }
               />
-              <Route
-                path="/login"
-                element={<Login ShowModel={<button>login</button>} />}
-              />
-              <Route
-                path="/register"
-                element={<Register ShowModel={<button>Register</button>} />}
-              />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
             </Route>
           </Routes>
         </div>

@@ -40,6 +40,7 @@ export const NavUL = styled('ul')<ULProps>(
       padding: '.5em 0',
       textAlign: 'center',
       color: '#cbd5ff',
+      textTransform: 'capitalize',
     },
     'li > a:hover': {
       color: '#cbd5ff',
@@ -212,6 +213,12 @@ export const Input = styled('input')({
   // border: 'none',
   borderBottom: `1px solid ${colors.primary}`,
   width: '100%',
+
+  padding: '12px 20px',
+  margin: '8px 0',
+  display: 'inline-block',
+  border: '1px solid #ccc',
+  borderRadius: '4px',
 })
 
 export const Label = styled('label')({
