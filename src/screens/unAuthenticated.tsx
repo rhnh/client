@@ -6,7 +6,6 @@ import { Link, Route, Routes } from 'react-router-dom'
 import Footer from './Footer'
 import Logo from '../logo61.png'
 import { Login } from './login'
-import Main from './Main'
 import { Register } from './register'
 import Featured from './featured'
 import Facts from './Facts'
@@ -14,7 +13,7 @@ import Join from './Join'
 const UnAuthenticated = () => {
   const [isHome, setIsHome] = useState(true)
   return (
-    <>
+    <div className="container">
       <UserProvider>
         <header className="header">
           <Link to="/">
@@ -55,9 +54,27 @@ const UnAuthenticated = () => {
               <Route
                 index
                 element={
-                  <Main>
+                  <div className="main">
                     <Featured />
-                  </Main>
+                    <Featured />
+                    <Featured />
+                    <Featured />
+                    <Featured />
+                    <Featured />
+                    <Featured />
+                    <Featured />
+                    <Featured />
+                    <Featured />
+                    <Featured />
+                    <Featured />
+                    <Featured />
+                    <Featured />
+                    <Featured />
+                    <Featured />
+                    <Featured />
+                    <Featured />
+                    <Featured />
+                  </div>
                 }
               />
               <Route
@@ -79,7 +96,7 @@ const UnAuthenticated = () => {
         </div>
       </UserProvider>
       <Footer />
-    </>
+    </div>
   )
 }
 

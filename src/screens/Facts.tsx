@@ -3,7 +3,7 @@ import { FC } from 'react'
 
 const Facts: FC = () => {
   return (
-    <div
+    <section
       className={css({
         // textAlign: 'center',
 
@@ -25,7 +25,7 @@ const Facts: FC = () => {
       <div>
         <img src="/thumbs/1.jpg" alt="thumb"></img>
       </div>
-    </div>
+    </section>
   )
 }
 

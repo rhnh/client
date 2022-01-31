@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom'
 
 const Join: FC = () => {
   return (
-    <div
+    <section
       className={css({
         // textAlign: 'center',
         display: 'flex',
@@ -23,7 +23,7 @@ const Join: FC = () => {
         Login
       </LinkedButton>
       <Outlet />
-    </div>
+    </section>
   )
 }
 
