@@ -2,6 +2,19 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  --textLight: #fff;
+  --textDark: #000;
+  --primary: #c83737;
+  --secondary: #c0ad47;
+  /* /--/  secondary:#005cb2;
+/--/  secondary:#1d2535; */
+  --lightBlue: #cbd5ff;
+  --darkBlue: #1c1f2b;
+  --shadeBlue: #7481b4;
+  --blue: #005cb2;
+  --red: #ff0000;
+  --darkRed: #aa0000;
+  --orange: #e76f51;
 }
 *,
 *::after,
@@ -30,14 +43,4 @@ body {
   section {
     margin: 2.6em;
   }
-}
-.footer {
-  border-top: 2px solid #cbd5ff;
-  padding: 1em;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  align-self: flex-end;
-  width: 100%;
 }

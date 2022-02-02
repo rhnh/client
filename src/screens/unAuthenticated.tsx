@@ -13,7 +13,7 @@ import Join from './Join'
 const UnAuthenticated = () => {
   const [isHome, setIsHome] = useState(true)
   return (
-    <div className="container">
+    <>
       <UserProvider>
         <header className="header">
           <Link to="/">
@@ -55,22 +55,11 @@ const UnAuthenticated = () => {
                 index
                 element={
                   <div className="main">
-                    <Article />
-                    <Article />
-                    <Article />
-                    <Article />
-                    <Article />
-                    <Article />
-                    <Article />
-                    <Article />
-                    <Article />
-                    <Article />
-                    <Article />
-                    <Article />
-                    <Article />
-                    <Article />
-                    <Article />
-                    <Article />
+                    <Article
+                      title={'Karula'}
+                      image_url="/profiles/images/leopard.jpeg"
+                      body="Karula was a Leopard"
+                    />
                   </div>
                 }
               />
@@ -87,7 +76,7 @@ const UnAuthenticated = () => {
         </div>
       </UserProvider>
       <Footer />
-    </div>
+    </>
   )
 }
 
