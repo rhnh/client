@@ -1,5 +1,5 @@
 import { css } from '@emotion/css'
-import { LinkedButton } from 'components/themed-components'
+import { LinkedButton } from 'components/themed-button'
 import { FC } from 'react'
 import { Outlet } from 'react-router-dom'
 

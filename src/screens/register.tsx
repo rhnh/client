@@ -1,11 +1,12 @@
 import { css } from '@emotion/css'
-import { Button, Input, Label } from 'components/themed-components'
+import { Button } from 'components/themed-button'
+import { Input, Label } from 'components/themed-components'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import * as colors from 'utils/colors'
-import { User } from 'utils/types'
+import { IUser } from 'utils/types'
 
 export const Register = () => {
-  const [user, setUser] = useState<User>({
+  const [user, setUser] = useState<IUser>({
     username: '',
     password: '',
     confirmPassword: '',
@@ -16,7 +17,7 @@ export const Register = () => {
   }
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-    setUser((user: User) => ({ ...user, [name]: value }))
+    setUser((user: IUser) => ({ ...user, [name]: value }))
   }
 
   return (
@@ -34,7 +35,7 @@ export const Register = () => {
       <form onSubmit={handleSubmit}>
         <h1
           className={css({
-            color: colors.primary,
+            color: colors.orangeDark,
             marginBottom: '.5em',
           })}
         >

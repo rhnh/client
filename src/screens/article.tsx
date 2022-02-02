@@ -1,150 +1,284 @@
 import { css } from '@emotion/css'
 import { FC } from 'react'
 import { Link } from 'react-router-dom'
+import { IArticle } from 'utils/types'
 import './article.css'
-const Article: FC = () => {
+const Article: FC<IArticle> = (article: IArticle) => {
   return (
     <>
       <section className="featured">
-        <img
-          className="featured-image"
-          src="/profiles/images/leopard.jpeg"
-          alt="Leopard"
-        />
+        <img className="featured-image" src={article.image_url} alt="Leopard" />
         <div>
           <p className="featured-title">
-            Featured Animal <Link to="/id=234324">Karula</Link>
+            Featured Animal <Link to="/id=234324">{article.title}</Link>
           </p>
           <article className="featured-article">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro, ea
-            rerum itaque saepe accusantium minima dolore incidunt, corporis
-            accusamus maiores consequatur quidem hic impedit ratione labore
-            quibusdam est exercitationem! Pariatur. Lorem ipsum, dolor sit amet
-            consectetur adipisicing elit. Libero maxime mollitia provident
-            exercitationem nostrum, culpa laborum natus quisquam, quia saepe
-            aliquid nesciunt? Voluptatem, voluptates corrupti. Dolorem saepe
-            nisi itaque ullam? Lorem ipsum dolor sit, amet consectetur
-            adipisicing elit. Porro, ea rerum itaque saepe accusantium minima
-            dolore incidunt, corporis accusamus maiores consequatur quidem hic
-            impedit ratione labore quibusdam est exercitationem! Pariatur. Lorem
-            ipsum, dolor sit amet consectetur adipisicing elit. Libero maxime
-            mollitia provident exercitationem nostrum, culpa laborum natus
-            quisquam, quia saepe aliquid nesciunt? Voluptatem, voluptates
-            corrupti. Dolorem saepe nisi itaque ullam? Lorem ipsum dolor sit,
-            amet consectetur adipisicing elit. Porro, ea rerum itaque saepe
-            accusantium minima dolore incidunt, corporis accusamus maiores
-            consequatur quidem hic impedit ratione labore quibusdam est
-            exercitationem! Pariatur. Lorem ipsum, dolor sit amet consectetur
-            adipisicing elit. Libero maxime mollitia provident exercitationem
-            nostrum, culpa laborum natus quisquam, quia saepe aliquid nesciunt?
-            Voluptatem, voluptates corrupti. Dolorem saepe nisi itaque ullam?
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro, ea
-            rerum itaque saepe accusantium minima dolore incidunt, aliquid
-            nesciunt? Voluptatem, voluptates corrupti. Dolorem saepe nisi itaque
-            ullam? Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-            Porro, ea rerum itaque saepe accusantium minima dolore incidunt,
-            corporis accusamus maiores consequatur quidem hic impedit ratione
-            labore quibusdam est exercitationem! Pariatur. Lorem ipsum, dolor
-            sit amet consectetur adipisicing elit. Libero maxime mollitia
-            provident exercitationem nostrum, culpa laborum natus quisquam, quia
-            saepe aliquid nesciunt? Voluptatem, voluptates corrupti. Dolorem
-            saepe nisi itaque ullam? Lorem ipsum dolor sit, amet consectetur
-            adipisicing elit. Porro, ea rerum itaque saepe accusantium minima
-            dolore incidunt, corporis accusamus maiores consequatur quidem hic
-            impedit ratione labore quibusdam est exercitationem! Pariatur. Lorem
-            ipsum, dolor sit amet consectetur adipisicing elit. Libero maxime
-            mollitia provident exercitationem nostrum, culpa laborum natus
-            quisquam, quia saepe aliquid nesciunt? Voluptatem, voluptates
-            corrupti. Dolorem saepe nisi itaque ullam? Lorem ipsum dolor sit,
-            amet consectetur adipisicing elit. Porro, ea rerum itaque saepe
-            accusantium minima dolore incidunt, corporis accusamus maiores
-            consequatur quidem hic impedit ratione labore quibusdam est
-            exercitationem! Pariatur. Lorem ipsum, dolor sit amet consectetur
-            adipisicing elit. Libero maxime mollitia provident exercitationem
-            nostrum, culpa laborum natus quisquam, quia saepe aliquid nesciunt?
-            Voluptatem, voluptates corrupti. Dolorem saepe nisi itaque ullam?
-            nisi itaque ullam? Lorem ipsum dolor sit, amet consectetur
-            adipisicing elit. Porro, ea rerum itaque saepe accusantium minima
-            dolore incidunt, corporis accusamus maiores consequatur quidem hic
-            impedit ratione labore quibusdam est exercitationem! Pariatur. Lorem
-            ipsum, dolor sit amet consectetur adipisicing elit. Libero maxime
-            mollitia provident exercitationem nostrum, culpa laborum natus
-            quisquam, quia saepe aliquid nesciunt? Voluptatem, voluptates
-            corrupti. Dolorem saepe nisi itaque ullam? Lorem ipsum dolor sit,
-            amet consectetur adipisicing elit. Porro, ea rerum itaque saepe
-            accusantium minima dolore incidunt, corporis accusamus maiores
-            consequatur quidem hic impedit ratione labore quibusdam est
-            exercitationem! Pariatur. Lorem ipsum, dolor sit amet consectetur
-            adipisicing elit. Libero maxime mollitia provident exercitationem
-            nostrum, culpa laborum natus quisquam, quia saepe aliquid nesciunt?
-            Voluptatem, voluptates corrupti. Dolorem saepe nisi itaque ullam?
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro, ea
-            rerum itaque saepe accusantium minima dolore incidunt, aliquid
-            nesciunt? Voluptatem, voluptates corrupti. Dolorem saepe nisi itaque
-            ullam? Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-            Porro, ea rerum itaque saepe accusantium minima dolore incidunt,
-            corporis accusamus maiores consequatur quidem hic impedit ratione
-            labore quibusdam est exercitationem! Pariatur. Lorem ipsum, dolor
-            sit amet consectetur adipisicing elit. Libero maxime mollitia
-            provident exercitationem nostrum, culpa laborum natus quisquam, quia
-            saepe aliquid nesciunt? Voluptatem, voluptates corrupti. Dolorem
-            saepe nisi itaque ullam? Lorem ipsum dolor sit, amet consectetur
-            adipisicing elit. Porro, ea rerum itaque saepe accusantium minima
-            dolore incidunt, corporis accusamus maiores consequatur quidem hic
-            impedit ratione labore quibusdam est exercitationem! Pariatur. Lorem
-            ipsum, dolor sit amet consectetur adipisicing elit. Libero maxime
-            mollitia provident exercitationem nostrum, culpa laborum natus
-            quisquam, quia saepe aliquid nesciunt? Voluptatem, voluptates
-            corrupti. Dolorem saepe nisi itaque ullam? Lorem ipsum dolor sit,
-            amet consectetur adipisicing elit. Porro, ea rerum itaque saepe
-            accusantium minima dolore incidunt, corporis accusamus maiores
-            consequatur quidem hic impedit ratione labore quibusdam est
-            exercitationem! Pariatur. Lorem ipsum, dolor sit amet consectetur
-            adipisicing elit. Libero maxime mollitia provident exercitationem
-            nostrum, culpa laborum natus quisquam, quia saepe aliquid nesciunt?
-            Voluptatem, voluptates corrupti. Dolorem saepe nisi itaque ullam?
-            nisi itaque ullam? Lorem ipsum dolor sit, amet consectetur
-            adipisicing elit. Porro, ea rerum itaque saepe accusantium minima
-            dolore incidunt, corporis accusamus maiores consequatur quidem hic
-            impedit ratione labore quibusdam est exercitationem! Pariatur. Lorem
-            ipsum, dolor sit amet consectetur adipisicing elit. Libero maxime
-            mollitia provident exercitationem nostrum, culpa laborum natus
-            quisquam, quia saepe aliquid nesciunt? Voluptatem, voluptates
-            corrupti. Dolorem saepe nisi itaque ullam? Lorem ipsum dolor sit,
-            amet consectetur adipisicing elit. Porro, ea rerum itaque saepe
-            accusantium minima dolore incidunt, corporis accusamus maiores
-            consequatur quidem hic impedit ratione labore quibusdam est
-            exercitationem! Pariatur. Lorem ipsum, dolor sit amet consectetur
-            adipisicing elit. Libero maxime mollitia provident exercitationem
-            nostrum, culpa laborum natus quisquam, quia saepe aliquid nesciunt?
-            Voluptatem, voluptates corrupti. Dolorem saepe nisi itaque ullam?
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro, ea
-            rerum itaque saepe accusantium minima dolore incidunt, aliquid
-            nesciunt? Voluptatem, voluptates corrupti. Dolorem saepe nisi itaque
-            ullam? Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-            Porro, ea rerum itaque saepe accusantium minima dolore incidunt,
-            corporis accusamus maiores consequatur quidem hic impedit ratione
-            labore quibusdam est exercitationem! Pariatur. Lorem ipsum, dolor
-            sit amet consectetur adipisicing elit. Libero maxime mollitia
-            provident exercitationem nostrum, culpa laborum natus quisquam, quia
-            saepe aliquid nesciunt? Voluptatem, voluptates corrupti. Dolorem
-            saepe nisi itaque ullam? Lorem ipsum dolor sit, amet consectetur
-            adipisicing elit. Porro, ea rerum itaque saepe accusantium minima
-            dolore incidunt, corporis accusamus maiores consequatur quidem hic
-            impedit ratione labore quibusdam est exercitationem! Pariatur. Lorem
-            ipsum, dolor sit amet consectetur adipisicing elit. Libero maxime
-            mollitia provident exercitationem nostrum, culpa laborum natus
-            quisquam, quia saepe aliquid nesciunt? Voluptatem, voluptates
-            corrupti. Dolorem saepe nisi itaque ullam? Lorem ipsum dolor sit,
-            amet consectetur adipisicing elit. Porro, ea rerum itaque saepe
-            accusantium minima dolore incidunt, corporis accusamus maiores
-            consequatur quidem hic impedit ratione labore quibusdam est
-            exercitationem! Pariatur. Lorem ipsum, dolor sit amet consectetur
-            adipisicing elit. Libero maxime mollitia provident exercitationem
-            nostrum, culpa laborum natus quisquam, quia saepe aliquid nesciunt?
-            Voluptatem, voluptates corrupti. Dolorem saepe nisi itaque ullam?{' '}
+            {article.body}
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestiae
+            neque tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde. Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Molestiae neque tempore error ratione aut
+            recusandae dicta incidunt numquam repudiandae voluptatem, minima nam
+            aperiam quo, eos sequi pariatur aliquam, eius unde. Lorem ipsum
+            dolor sit, amet consectetur adipisicing elit. Molestiae neque
+            tempore error ratione aut recusandae dicta incidunt numquam
+            repudiandae voluptatem, minima nam aperiam quo, eos sequi pariatur
+            aliquam, eius unde.
           </article>
-          <Link to="some">some</Link>
+          <Link to="/some">Read more</Link>
         </div>
       </section>
       <div
@@ -155,9 +289,12 @@ const Article: FC = () => {
           height: 'auto',
           padding: '0.6em',
           display: 'block',
-          // '@media screen and (min-width:600px)': {
-          //   borderBottom: 'none',
-          // },
+          boxShadow: '0 6px 3px -5px rgba(0, 0, 0, 0.2)',
+
+          '@media screen and (min-width:600px)': {
+            borderBottom: 'none',
+            boxShadow: 'none',
+          },
         })}
       ></div>
     </>

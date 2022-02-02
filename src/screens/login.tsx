@@ -1,13 +1,14 @@
 import { css } from '@emotion/css'
+import { Button } from 'components/themed-button'
 
-import { Button, Input, Label } from 'components/themed-components'
+import { Input, Label } from 'components/themed-components'
 // import { useAuth } from 'contexts/userContext'
 import { ChangeEvent, FC, FormEvent, useState } from 'react'
 import * as colors from 'utils/colors'
-import { User } from 'utils/types'
+import { IUser } from 'utils/types'
 
 export const Login: FC = () => {
-  const [user, setUser] = useState<User>({ username: '', password: '' })
+  const [user, setUser] = useState<IUser>({ username: '', password: '' })
   // const { user: UserInfo } = useAuth()
   console.log(user)
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -15,7 +16,7 @@ export const Login: FC = () => {
   }
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-    setUser((user: User) => ({ ...user, [name]: value }))
+    setUser((user: IUser) => ({ ...user, [name]: value }))
   }
   // const isValidUser = user.username === '' || user.password === ''
   return (
@@ -33,7 +34,7 @@ export const Login: FC = () => {
       <form onSubmit={handleSubmit} className="login--form">
         <h1
           className={css({
-            color: colors.primary,
+            color: colors.orangeDark,
             marginBottom: '.5em',
           })}
         >

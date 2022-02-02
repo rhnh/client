@@ -1,8 +1,8 @@
 import { createContext, FC, useContext } from 'react'
-import { UserInfo } from 'utils/types'
+import { IUserInfo } from 'utils/types'
 
 interface Authorization {
-  user: UserInfo
+  user: IUserInfo
   login: () => void
   register: () => void
   logout: () => void

@@ -14,67 +14,69 @@ const UnAuthenticated = () => {
   const [isHome, setIsHome] = useState(true)
   return (
     <>
-      <UserProvider>
-        <header className="header">
-          <Link to="/">
-            <img
-              src={Logo}
-              alt="safarilive"
-              className={css({
-                padding: '.6em',
-                maxWidth: '200px',
-                paddingBottom: 0,
-                margin: '1em',
-              })}
-              onClick={() => setIsHome(true)}
-            />
-          </Link>
-
-          <Menu>
-            <Link to="/" onClick={() => setIsHome(true)}>
-              Home
-            </Link>
-            <Link onClick={() => setIsHome(false)} to="/articles">
-              articles
-            </Link>
-            <Link onClick={() => setIsHome(false)} to="/login">
-              Login
-            </Link>
-            <Link onClick={() => setIsHome(false)} to="/register">
-              Register
-            </Link>
-            <Link onClick={() => setIsHome(false)} to="/about">
-              about
-            </Link>
-          </Menu>
-        </header>
-        <div className="content">
-          <Routes>
-            <Route>
-              <Route
-                index
-                element={
-                  <div className="main">
-                    <Article
-                      title={'Karula'}
-                      image_url="/profiles/images/leopard.jpeg"
-                      body="Karula was a Leopard"
-                    />
-                  </div>
-                }
+      <div className="container">
+        <UserProvider>
+          <header className="header">
+            <Link to="/">
+              <img
+                src={Logo}
+                alt="safarilive"
+                className={css({
+                  padding: '.6em',
+                  maxWidth: '200px',
+                  paddingBottom: 0,
+                  margin: '1em',
+                })}
+                onClick={() => setIsHome(true)}
               />
-              <Route path="/register" element={<Register />} />
-              <Route path="/login" element={<Login />} />
-            </Route>
-          </Routes>
-          {isHome && (
-            <div className="aside">
-              <Join />
-              <Facts />
-            </div>
-          )}
-        </div>
-      </UserProvider>
+            </Link>
+
+            <Menu>
+              <Link to="/" onClick={() => setIsHome(true)}>
+                Home
+              </Link>
+              <Link onClick={() => setIsHome(false)} to="/articles">
+                articles
+              </Link>
+              <Link onClick={() => setIsHome(false)} to="/login">
+                Login
+              </Link>
+              <Link onClick={() => setIsHome(false)} to="/register">
+                Register
+              </Link>
+              <Link onClick={() => setIsHome(false)} to="/about">
+                about
+              </Link>
+            </Menu>
+          </header>
+          <div className="content">
+            <Routes>
+              <Route>
+                <Route
+                  index
+                  element={
+                    <div className="main">
+                      <Article
+                        title={'Karula'}
+                        image_url="/profiles/images/leopard.jpeg"
+                        body="Karula was a Leopard"
+                      />
+                    </div>
+                  }
+                />
+                <Route path="/register" element={<Register />} />
+                <Route path="/login" element={<Login />} />
+              </Route>
+            </Routes>
+            {isHome && (
+              <div className="aside">
+                <Join />
+                <Facts />
+              </div>
+            )}
+          </div>
+        </UserProvider>
+      </div>
       <Footer />
     </>
   )

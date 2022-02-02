@@ -12,11 +12,11 @@
   }
 
   .featured-article {
-    flex: 60%;
+    /* flex: 60%;
     width: 550px;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis; */
   }
 }
 .featured-image {
