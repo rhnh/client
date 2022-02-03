@@ -1,8 +1,7 @@
 import { CSSProperties } from '@emotion/serialize'
 import styled from '@emotion/styled'
 import { Dialog as ReachDialog } from '@reach/dialog'
-import { getObjectKeyValue } from 'utils'
-import { Link } from 'react-router-dom'
+
 import * as colors from 'utils/colors'
 import { keyframes } from '@emotion/css'
 
@@ -60,8 +59,15 @@ export const NavUL = styled('ul')<ULProps>(
           'li>a': {
             left: 0,
           },
-          'li:last-child': {
+          '.nav-right': {
             marginLeft: 'auto',
+          },
+          '.nav-right>a': {
+            backgroundColor: colors.darkRed,
+          },
+          '.nav-right>a:hover': {
+            color: 'white',
+            backgroundColor: colors.red,
           },
         }
       : {
