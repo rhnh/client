@@ -25,6 +25,7 @@
 body {
   padding: 0;
   margin: 0;
+  /* background-color: #e76f51`; */
 }
 @media screen and (min-width: 600px) {
   .container {

@@ -2,23 +2,25 @@ import { css } from '@emotion/css'
 import { Button } from 'components/themed-button'
 
 import { Input, Label } from 'components/themed-components'
+import { useAuth } from 'contexts/userContext'
 // import { useAuth } from 'contexts/userContext'
-import { ChangeEvent, FC, FormEvent, useState } from 'react'
+import { FC, FormEvent } from 'react'
+import { useNavigate } from 'react-router-dom'
 import * as colors from 'utils/colors'
-import { IUser } from 'utils/types'
+import { LoginElements } from 'utils/types'
 
 export const Login: FC = () => {
-  const [user, setUser] = useState<IUser>({ username: '', password: '' })
-  // const { user: UserInfo } = useAuth()
-  console.log(user)
+  const { login } = useAuth()
+  const navigate = useNavigate()
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    const target = e.target as typeof e.target & LoginElements
+    const { username, password } = target
+    login({ username: username.value, password: password.value })
+    navigate('/')
   }
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setUser((user: IUser) => ({ ...user, [name]: value }))
-  }
-  // const isValidUser = user.username === '' || user.password === ''
+
   return (
     <div
       className={css({
@@ -52,7 +54,6 @@ export const Login: FC = () => {
             id="username"
             name="username"
             placeholder="Enter your Username"
-            onChange={handleChange}
           />
         </div>
         <div>
@@ -62,7 +63,6 @@ export const Login: FC = () => {
             id="password"
             name="password"
             placeholder="Enter your password"
-            onChange={handleChange}
           />
         </div>
         <Button type="submit" variant={'primary'}>

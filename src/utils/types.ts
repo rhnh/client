@@ -25,3 +25,7 @@ export interface IArticle extends Base {
   image_url: string
   body: string
 }
+export interface LoginElements {
+  username: HTMLInputElement
+  password: HTMLInputElement
+}

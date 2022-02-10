@@ -1,4 +1,3 @@
-import { CSSProperties } from '@emotion/serialize'
 import styled from '@emotion/styled'
 import { Dialog as ReachDialog } from '@reach/dialog'
 

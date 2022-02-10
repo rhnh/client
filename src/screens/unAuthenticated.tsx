@@ -1,6 +1,5 @@
 import { css } from '@emotion/css'
-import Menu from 'components/Menu'
-import { UserProvider } from 'contexts/userContext'
+import MenuUL from 'components/Menu'
 import { useState } from 'react'
 import { Link, Route, Routes } from 'react-router-dom'
 import Footer from './Footer'
@@ -10,12 +9,33 @@ import { Register } from './register'
 import Article from './article'
 import Facts from './Facts'
 import Join from './Join'
+import { ErrorBoundary } from 'react-error-boundary'
+function ErrorFallback({ error, resetErrorBoundary }: any) {
+  return (
+    <div role="alert">
+      <p>Something went wrong:</p>
+      {/* <pre>{error.message}</pre>
+      <button onClick={resetErrorBoundary}>Try again</button> */}
+    </div>
+  )
+}
+
+const myErrorHandler = (error: Error, info: { componentStack: string }) => {
+  // Do something with the error
+  // // E.g. log to an error logging client here
+
+  // return <p>this happened</p>
+  console.log(info, error)
+}
 const UnAuthenticated = () => {
   const [isHome, setIsHome] = useState(true)
   return (
     <>
       <div className="container">
-        <UserProvider>
+        <ErrorBoundary
+          FallbackComponent={ErrorFallback}
+          onError={myErrorHandler}
+        >
           <header className="header">
             <Link to="/">
               <img
@@ -30,24 +50,40 @@ const UnAuthenticated = () => {
                 onClick={() => setIsHome(true)}
               />
             </Link>
-
-            <Menu>
-              <Link to="/" onClick={() => setIsHome(true)}>
-                Home
-              </Link>
-              <Link onClick={() => setIsHome(false)} to="/articles">
-                articles
-              </Link>
-              <Link onClick={() => setIsHome(false)} to="/login">
-                Login
-              </Link>
-              <Link onClick={() => setIsHome(false)} to="/register">
-                Register
-              </Link>
-              <Link onClick={() => setIsHome(false)} to="/about">
-                about
-              </Link>
-            </Menu>
+            <button
+              onClick={() => {
+                throw new Error('')
+              }}
+            >
+              opp
+            </button>
+            <MenuUL>
+              <li>
+                <Link to="/" onClick={() => setIsHome(true)}>
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link onClick={() => setIsHome(false)} to="/articles">
+                  articles
+                </Link>
+              </li>
+              <li>
+                <Link onClick={() => setIsHome(false)} to="/login">
+                  Login
+                </Link>
+              </li>
+              <li>
+                <Link onClick={() => setIsHome(false)} to="/register">
+                  Register
+                </Link>
+              </li>
+              <li>
+                <Link onClick={() => setIsHome(false)} to="/about">
+                  about
+                </Link>
+              </li>
+            </MenuUL>
           </header>
           <div className="content">
             <Routes>
@@ -75,7 +111,7 @@ const UnAuthenticated = () => {
               </div>
             )}
           </div>
-        </UserProvider>
+        </ErrorBoundary>
       </div>
       <Footer />
     </>

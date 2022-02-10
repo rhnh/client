@@ -7,7 +7,6 @@ interface Props {
 }
 
 export const TaxonomyScreen: FC<Props> = ({ taxonomies }: Props) => {
-  console.log(taxonomies, 'hahah why')
   // return <p>hello</p>
   if (taxonomies.length <= 0 || taxonomies === undefined) {
     return <p>No Taxonomy found</p>

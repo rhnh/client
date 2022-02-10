@@ -1,35 +1,34 @@
 import { css } from '@emotion/css'
 import { Button } from 'components/themed-button'
 import { Input, Label } from 'components/themed-components'
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { useAuth } from 'contexts/userContext'
+import { ChangeEvent, FormEvent } from 'react'
 import * as colors from 'utils/colors'
-import { IUser } from 'utils/types'
+import { IUser, LoginElements } from 'utils/types'
 
 export const Register = () => {
-  const [user, setUser] = useState<IUser>({
-    username: '',
-    password: '',
-    confirmPassword: '',
-  })
+  const { register } = useAuth()
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(user)
+    const target = e.target as typeof e.target & LoginElements
+    const { username, password } = target
+    register({ username: username.value, password: password.value })
   }
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-    setUser((user: IUser) => ({ ...user, [name]: value }))
   }
 
   return (
     <div
       className={css({
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor: colors.textLight,
-        marginTop: '1em',
-        padding: '2em 0',
         margin: 'auto',
-        ' label': {
-          margin: '.5em 0',
-        },
+        marginTop: '1.5em',
+        padding: '2em',
       })}
     >
       <form onSubmit={handleSubmit}>
@@ -65,8 +64,8 @@ export const Register = () => {
           <Label htmlFor="conform-password">Confirm Password</Label>
           <Input
             type="password"
-            id="conform-password"
-            name="password"
+            id="conformPassword"
+            name="conformPassword"
             placeholder="Enter your password"
             onChange={handleChange}
           />
@@ -76,7 +75,7 @@ export const Register = () => {
             marginTop: '1em',
           })}
         >
-          <Button type="submit" variant="secondary">
+          <Button type="submit" variant="primary">
             Register
           </Button>
           <p>Not yet a member? Click here to register</p>

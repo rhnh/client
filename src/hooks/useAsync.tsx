@@ -31,7 +31,7 @@ interface IUseAsyncReturn<T> {
   isError: boolean
   isSuccess: boolean
   isIdle: boolean
-  setError: (error: any) => void
+  setError: (error: Error) => void
   setData: (data: T) => void
   setState: (state: Status) => void
   run: (p: Promise<T>) => T | any | void
@@ -43,7 +43,7 @@ function useAsync<T>({
 }: IUseAsync<T>): IUseAsyncReturn<T> {
   const [state, setStateUnSafe] = useState<Status>(initialState)
   const [data, setDataUnSafe] = useState<T | null>(initialData ?? null)
-  const [error, setErrorUnSafe] = useState()
+  const [error, setErrorUnSafe] = useState<Error>()
 
   const setStateSafe = useSafeDispatch(setStateUnSafe)
   const setState = useCallback(
@@ -52,11 +52,26 @@ function useAsync<T>({
   )
 
   const setDataSafe = useSafeDispatch(setDataUnSafe)
-  const setData = useCallback((data: T) => setDataSafe(data), [setDataSafe])
+  const setData = useCallback(
+    (data: T) => {
+      setStateSafe('success')
+      setDataSafe(data)
+    },
+    [setDataSafe, setStateSafe],
+  )
 
   const setErrorSafe = useSafeDispatch(setErrorUnSafe)
-  const setError = useCallback(err => setErrorSafe(err), [setErrorSafe])
-
+  const setError = useCallback(
+    (err: Error) => {
+      setStateSafe('error')
+      setErrorSafe(err)
+    },
+    [setErrorSafe, setStateSafe],
+  )
+  // console.error(
+  //   `State: ${JSON.stringify(state)},
+  //     Data: ${JSON.stringify(data)},Error: ${JSON.stringify(error)}`,
+  // )
   const run = useCallback(
     async (params: Promise<any>): Promise<any> => {
       setStateSafe({
