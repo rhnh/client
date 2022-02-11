@@ -1,6 +1,5 @@
 import { SERVER_URL } from 'utils/configs'
 import { IUser, IUserInfo } from 'utils/types'
-const localStorageKey = '__auth_provider_token__'
 
 async function client(
   endpoint: string,
@@ -13,19 +12,39 @@ async function client(
     body: JSON.stringify({ username, password }),
     headers: { 'Content-Type': 'application/json' },
   }
-
+  let status, statusText
   try {
     const response = await fetch(`${SERVER_URL}/${endpoint}`, config)
+    status = response.status
+    statusText = response.statusText
     if (response.ok) {
-      const data = await response.json()
-      console.log(`${client.name} error has ${JSON.stringify(response)}`)
-      return data as IUserInfo
+      try {
+        const data = await response.json()
+        return data as IUserInfo
+      } catch (error) {
+        const err: Error = error as Error
+        console.log(
+          `${client.name},  ${JSON.stringify(response)} response was ok`,
+        )
+        err.status = status
+        err.statusMessage = statusText
+
+        throw err
+      }
     } else {
-      console.log(`${client.name}  has ${JSON.stringify(data)}`)
-      return new Error()
+      console.log(`Error catch ${client.name}  has ${JSON.stringify(data)}`)
+      const err: Error = new Error('Something went wrong')
+      err.status = status
+      err.statusMessage = statusText
+      console.log(err.status, err.statusMessage)
+      throw err
     }
   } catch (error) {
-    return error as Error
+    const err: Error = error as Error
+    err.status = status
+    err.statusMessage = statusText
+
+    throw err
   }
 
   // return window

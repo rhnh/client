@@ -6,5 +6,6 @@ declare global {
   }
   interface Error {
     status?: number
+    statusMessage?: string
   }
 }

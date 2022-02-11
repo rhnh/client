@@ -31,7 +31,7 @@ export const UserProvider: FC = ({ children }) => {
     setError,
     error,
   } = useAsync<IUserInfo>({ data: { username: '', token: '' }, state: 'idle' })
-
+  const err = error as Error
   const login = (user: IUser) => {
     userLogin(user).then(u => {
       const user: IUserInfo = u as IUserInfo
@@ -42,20 +42,21 @@ export const UserProvider: FC = ({ children }) => {
   }
 
   const register = (user: IUser) => {
-    throw new Error('test error')
-    // userRegister(user).then(
-    //   u => {
-    //     const user: IUserInfo = u as IUserInfo
-    //     const { username, token } = user
-    //     setUser({ username, token })
-    //     localStorage.setItem('username', username)
-    //   },
-    //   err => {
-    //     const error: Error = err as Error
-    //     console.log('here')
-    //     setError(error)
-    //   },
-    // )
+    userRegister(user).then(
+      u => {
+        const user: IUserInfo = u as IUserInfo
+        const { username, token } = user
+        setUser({ username, token })
+        console.log('here')
+        localStorage.setItem('username', username)
+      },
+      err => {
+        const error: Error = err as Error
+        console.log('there')
+        console.log(err)
+        setError(error)
+      },
+    )
   }
   const logout = () => {
     localStorage.removeItem('username')
@@ -68,7 +69,7 @@ export const UserProvider: FC = ({ children }) => {
     return <p>loading...</p>
   }
   if (isError) {
-    return <p>Something went error {`${JSON.stringify(error)}`}</p>
+    return <p>Something went error {`${JSON.stringify(err?.status)}`}</p>
   }
   /**
    * @todo password recovery
