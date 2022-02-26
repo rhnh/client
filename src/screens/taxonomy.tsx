@@ -1,13 +1,12 @@
 import { css } from '@emotion/css'
 import { FC } from 'react'
 import { Link } from 'react-router-dom'
-import { Taxonomy } from 'utils/types'
+import { ITaxonomy } from 'utils/types'
 interface Props {
-  taxonomies: Taxonomy[]
+  taxonomies: ITaxonomy[]
 }
 
 export const TaxonomyScreen: FC<Props> = ({ taxonomies }: Props) => {
-  console.log(taxonomies, 'hahah why')
   // return <p>hello</p>
   if (taxonomies.length <= 0 || taxonomies === undefined) {
     return <p>No Taxonomy found</p>

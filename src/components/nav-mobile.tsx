@@ -1,4 +1,4 @@
-import React, { Children, cloneElement, FC, isValidElement } from 'react'
+import { Children, cloneElement, FC, isValidElement } from 'react'
 
 import { NavUL } from './themed-components'
 import menu from '../menu.svg'

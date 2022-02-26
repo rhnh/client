@@ -1,27 +1,29 @@
 import { css } from '@emotion/css'
+import { Button } from 'components/themed-button'
 
-import { Button, Input, Label } from 'components/themed-components'
+import { Input, Label } from 'components/themed-components'
+import { useAuth } from 'contexts/userContext'
 // import { useAuth } from 'contexts/userContext'
-import { ChangeEvent, FormEvent, ReactElement, useState } from 'react'
+import { FC, FormEvent, useEffect } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import * as colors from 'utils/colors'
-import { User } from 'utils/types'
+import { LoginElements } from 'utils/types'
 
-interface Props {
-  ShowModel: ReactElement
-}
-
-export const Login = ({ ShowModel }: Props) => {
-  const [user, setUser] = useState<User>({ username: '', password: '' })
-  // const { user: UserInfo } = useAuth()
-  console.log(user)
+export const Login: FC = () => {
+  const { login, isError, error, userInfo } = useAuth()
+  const { pathname } = useLocation()
+  const navigate = useNavigate()
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    const target = e.target as typeof e.target & LoginElements
+    const { username, password } = target
+    login({ username: username.value, password: password.value })
   }
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setUser((user: User) => ({ ...user, [name]: value }))
-  }
-  // const isValidUser = user.username === '' || user.password === ''
+  useEffect(() => {
+    if (userInfo?.username && pathname === '/login') {
+      navigate('/')
+    }
+  }, [navigate, pathname, userInfo?.username])
   return (
     <div
       className={css({
@@ -29,6 +31,7 @@ export const Login = ({ ShowModel }: Props) => {
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: colors.textLight,
+        margin: 'auto',
         marginTop: '1.5em',
         padding: '2em',
       })}
@@ -36,7 +39,7 @@ export const Login = ({ ShowModel }: Props) => {
       <form onSubmit={handleSubmit} className="login--form">
         <h1
           className={css({
-            color: colors.secondary,
+            color: colors.orangeDark,
             marginBottom: '.5em',
           })}
         >
@@ -54,7 +57,6 @@ export const Login = ({ ShowModel }: Props) => {
             id="username"
             name="username"
             placeholder="Enter your Username"
-            onChange={handleChange}
           />
         </div>
         <div>
@@ -64,12 +66,12 @@ export const Login = ({ ShowModel }: Props) => {
             id="password"
             name="password"
             placeholder="Enter your password"
-            onChange={handleChange}
           />
         </div>
         <Button type="submit" variant={'primary'}>
           Login
         </Button>
+        {isError ? <span> {error.message} </span> : null}
       </form>
     </div>
   )

@@ -1,15 +1,30 @@
-import { css } from '@emotion/css'
 import useTaxonomies from 'hooks/useTaxonomies'
-import { Taxonomy } from 'utils/types'
+import { ITaxonomy } from 'utils/types'
 import { TaxonomyScreen } from './taxonomy'
-import * as colors from 'utils/colors'
-export const Taxonomies = () => {
-  const { data } = useTaxonomies()
-  const taxonomies: Taxonomy[] = (data as Taxonomy[]) || []
 
+import { ChangeEvent } from 'react'
+import { Hintput } from 'components/hintput'
+export const Taxonomies = () => {
+  // const { data } = useTaxonomies()
+  // const taxonomies: ITaxonomy[] = (data as ITaxonomy[]) || []
+
+  const handleChange = (e: ChangeEvent) => {
+    console.log('hahhs')
+  }
+  // console.log(taxonomies)
   return (
     <div>
-      <TaxonomyScreen taxonomies={taxonomies} />
+      <Hintput
+        placeholder="search" //optional
+        name="search"
+        items={['fish eagle', 'something', 'nothing', 'others', 'theres']}
+        handleChange={handleChange}
+        handleBlur={handleChange}
+        numberOfSuggestions={3} //optional
+        //optional { It has  1px default border }
+        className="my-custom-css" //optional   { It has  1px default border }
+      />
+      {/* <TaxonomyScreen taxonomies={taxonomies} /> */}
     </div>
   )
 }

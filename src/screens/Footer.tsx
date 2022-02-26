@@ -1,9 +1,43 @@
+import { css } from '@emotion/css'
 import { FC } from 'react'
-import { Link } from 'react-router-dom'
-
+import Logo from '../logo61.png'
+import * as colors from '../utils/colors'
 const Footer: FC = () => {
   return (
-    <footer className="footer">
+    <footer
+      className={css({
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderTop: '2px solid #cbd5ff',
+        paddingTop: '1em',
+        // position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        zIndex: 1000,
+        alignSelf: 'flex-end',
+        width: '100%',
+        textAlign: 'center',
+        background: '#000',
+        // position: 'fixed',
+        marginBottom: 'auto',
+        ul: {
+          listStyle: 'none',
+          margin: '1em 0',
+        },
+        'ul > li': {
+          padding: '.4em 0',
+        },
+        'ul > li > a ': {
+          color: colors.shadeBlue,
+        },
+        'ul > li > a:hover': {
+          color: colors.blue,
+        },
+      })}
+    >
       <ul className="social-list">
         <li className="social-list__item">
           <a className="social-list__link" href="http://dribbble.com">
@@ -18,6 +52,17 @@ const Footer: FC = () => {
         <li className="social-list__item">
           <a className="social-list__link" href="https://github.com">
             <i className="fab fa-github"></i>
+          </a>
+        </li>
+        <li>
+          <a href="/">
+            <img
+              src={Logo}
+              alt="safarilive"
+              className={css({
+                maxWidth: '100px',
+              })}
+            />
           </a>
         </li>
       </ul>

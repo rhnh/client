@@ -1,20 +1,24 @@
 import { css } from '@emotion/css'
-import Menu from 'components/Menu'
-import { UserProvider } from 'contexts/userContext'
-import { useState } from 'react'
-import { Link, Route, Routes } from 'react-router-dom'
+import MenuUL from 'components/Menu'
+import { Link, Route, Routes, useLocation } from 'react-router-dom'
 import Footer from './Footer'
 import Logo from '../logo61.png'
 import { Login } from './login'
 import { Register } from './register'
-import Featured from './featured'
+import { FeaturedPost } from './post'
 import Facts from './Facts'
 import Join from './Join'
+import Posts from './posts'
+import AddPost from './add-post'
+import { Lists } from './lists'
+import { Taxonomies } from './taxonomies'
+
 const UnAuthenticated = () => {
-  const [isHome, setIsHome] = useState(true)
+  const location = useLocation()
+  const isHome = location.pathname === '/'
   return (
-    <div className="container">
-      <UserProvider>
+    <>
+      <div className="container">
         <header className="header">
           <Link to="/">
             <img
@@ -26,27 +30,29 @@ const UnAuthenticated = () => {
                 paddingBottom: 0,
                 margin: '1em',
               })}
-              onClick={() => setIsHome(true)}
             />
           </Link>
 
-          <Menu>
-            <Link to="/" onClick={() => setIsHome(true)}>
-              Home
-            </Link>
-            <Link onClick={() => setIsHome(false)} to="/about">
-              About
-            </Link>
-            <Link onClick={() => setIsHome(false)} to="/login">
-              Login
-            </Link>
-            <Link onClick={() => setIsHome(false)} to="/register">
-              Register
-            </Link>
-            <Link onClick={() => setIsHome(false)} to="/contact">
-              Contact
-            </Link>
-          </Menu>
+          <MenuUL>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/posts">articles</Link>
+            </li>
+            <li>
+              <Link to="/birds">Birds</Link>
+            </li>
+            <li>
+              <Link to="/register">Register</Link>
+            </li>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+            <li>
+              <Link to="/about">about</Link>
+            </li>
+          </MenuUL>
         </header>
         <div className="content">
           <Routes>
@@ -55,36 +61,19 @@ const UnAuthenticated = () => {
                 index
                 element={
                   <div className="main">
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
-                    <Featured />
+                    <FeaturedPost
+                      title={'Karula'}
+                      image_url="/profiles/images/leopard.jpeg"
+                      body="Karula was a Leopard"
+                    />
                   </div>
                 }
               />
-              <Route
-                path="/register"
-                element={<Register ShowModel={<button>Register</button>} />}
-              />
-              <Route
-                path="/login"
-                element={<Login ShowModel={<button>Register</button>} />}
-              />
+              <Route path="/register" element={<Register />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/posts/post" element={<AddPost />} />
+              <Route path="/birds" element={<Taxonomies />} />
+              <Route path="/posts" element={<Posts />}></Route>
             </Route>
           </Routes>
           {isHome && (
@@ -94,9 +83,9 @@ const UnAuthenticated = () => {
             </div>
           )}
         </div>
-      </UserProvider>
+      </div>
       <Footer />
-    </div>
+    </>
   )
 }
 

@@ -1,10 +1,9 @@
-import { CSSProperties } from '@emotion/serialize'
 import styled from '@emotion/styled'
 import { Dialog as ReachDialog } from '@reach/dialog'
-import { getObjectKeyValue } from 'utils'
-import { Link } from 'react-router-dom'
+
 import * as colors from 'utils/colors'
 import { keyframes } from '@emotion/css'
+import { Link } from 'react-router-dom'
 
 type ULProps = {
   isMobile: boolean
@@ -25,7 +24,7 @@ export const NavUL = styled('ul')<ULProps>(
     margin: 0,
     padding: 0,
     zIndex: 1000,
-    background: '#1c1f2b',
+    background: colors.darkBlue,
     height: '60%',
     animation: `${fadeIn} .2s .2s both`,
     li: {
@@ -39,11 +38,12 @@ export const NavUL = styled('ul')<ULProps>(
       display: 'block',
       padding: '.5em 0',
       textAlign: 'center',
-      color: '#cbd5ff',
+      color: colors.lightBlue,
+      textTransform: 'capitalize',
     },
     'li > a:hover': {
-      color: '#cbd5ff',
-      background: '#aa0000',
+      color: colors.lightBlue,
+      background: colors.darkRed,
     },
   },
   ({ isMobile = false }) => {
@@ -59,8 +59,15 @@ export const NavUL = styled('ul')<ULProps>(
           'li>a': {
             left: 0,
           },
-          'li:last-child': {
+          '.nav-right': {
             marginLeft: 'auto',
+          },
+          '.nav-right>a': {
+            backgroundColor: colors.darkRed,
+          },
+          '.nav-right>a:hover': {
+            color: 'white',
+            backgroundColor: colors.red,
           },
         }
       : {
@@ -86,132 +93,19 @@ export const NavUL = styled('ul')<ULProps>(
   },
 )
 
-type ButtonProps = {
-  variant: 'primary' | 'secondary'
-  disabled?: boolean
-}
-
-interface Variants {
-  primary: CSSProperties
-  secondary: CSSProperties
-}
-
-const buttonVariant: Variants = {
-  primary: {
-    background: '#005cb2',
-    color: '#cbd5ff',
-  },
-  secondary: {
-    // border: `1px solid ${colors.secondary_dark}`,
-    border: `1px solid ${colors.textDark}`,
-    backgroundColor: colors.textLight,
-    color: colors.textDark,
-  },
-}
-
-export const Button = styled('button')<ButtonProps>(
-  {
-    border: 'none',
-    padding: '.6em',
-    fontSize: '1em',
-    borderRadius: '2em',
-    width: '100%',
-    margin: '.5em .2em',
-    textTransform: 'uppercase',
-    background: '#ff0000',
-    transitionDuration: '0.2s',
-    cursor: 'pointer',
-
-    '@media only screen and (min-width: 600px)': {
-      maxWidth: '210px',
-    },
-  },
-  ({ variant: variants = 'primary', disabled = false }) => {
-    return disabled
-      ? {
-          cursor: 'auto',
-          // color: 'black',
-          backgroundColor: '#e76f51',
-          color: 'gray',
-          // border: `1px solid ${colors.primary}`,
-        }
-      : variants !== 'primary'
-      ? {
-          ...getObjectKeyValue<any, string>(variants)(buttonVariant),
-          ':hover': {
-            opacity: '.8',
-            background: colors.textLight,
-            border: `1px solid ${colors.primary}`,
-            color: colors.primary,
-          },
-        }
-      : {
-          ...getObjectKeyValue<any, string>(variants)(buttonVariant),
-          ':hover': {
-            opacity: '.8',
-          },
-        }
-  },
-)
-
-interface LinkedButtonProps extends ButtonProps {
-  to: string
-}
-export const LinkedButton = styled(Link)<LinkedButtonProps>(
-  {
-    display: 'block',
-    textAlign: 'center',
-    textDecoration: 'none',
-    border: 'none',
-    padding: '.6em',
-    fontSize: '1em',
-    borderRadius: '2em',
-    width: '100%',
-    margin: '.5em .2em',
-    textTransform: 'uppercase',
-    background: '#ff0000',
-    transitionDuration: '0.2s',
-    cursor: 'pointer',
-
-    '@media only screen and (min-width: 600px)': {
-      maxWidth: '210px',
-    },
-  },
-  ({ variant: variants = 'primary', disabled = false }) => {
-    return disabled
-      ? {
-          cursor: 'auto',
-          // color: 'black',
-          backgroundColor: '#e76f51',
-          color: 'gray',
-          // border: `1px solid ${colors.primary}`,
-        }
-      : variants !== 'primary'
-      ? {
-          ...getObjectKeyValue<any, string>(variants)(buttonVariant),
-          ':hover': {
-            opacity: '.8',
-            background: colors.textLight,
-            border: `1px solid ${colors.primary}`,
-            color: colors.primary,
-          },
-        }
-      : {
-          ...getObjectKeyValue<any, string>(variants)(buttonVariant),
-          ':hover': {
-            opacity: '.8',
-          },
-        }
-  },
-)
-
 export const Input = styled('input')({
-  fontSize: '1.2erem',
+  fontSize: '1em',
   // padding: '10px 10px 10px -40px',
   // display: 'block',
   // border: 'none',
-  borderBottom: `1px solid ${colors.primary}`,
+  borderBottom: `1px solid ${colors.orangeDark}`,
   width: '100%',
+
+  padding: '12px 20px',
+  margin: '8px 0',
+  display: 'inline-block',
+  border: '1px solid #ccc',
+  borderRadius: '4px',
 })
 
 export const Label = styled('label')({
@@ -261,3 +155,7 @@ export const Dialog = styled(ReachDialog)({
 //     color: colors.textLight,
 //   },
 // })
+
+export const StyledLink = styled(Link)({
+  color: 'red',
+})
