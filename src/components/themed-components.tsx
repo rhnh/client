@@ -3,6 +3,7 @@ import { Dialog as ReachDialog } from '@reach/dialog'
 
 import * as colors from 'utils/colors'
 import { keyframes } from '@emotion/css'
+import { Link } from 'react-router-dom'
 
 type ULProps = {
   isMobile: boolean
@@ -154,3 +155,7 @@ export const Dialog = styled(ReachDialog)({
 //     color: colors.textLight,
 //   },
 // })
+
+export const StyledLink = styled(Link)({
+  color: 'red',
+})

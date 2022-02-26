@@ -46,6 +46,7 @@ function useAsync<T>({
   const [error, setErrorUnSafe] = useState<Error>()
 
   const setStateSafe = useSafeDispatch(setStateUnSafe)
+
   const setState = useCallback(
     (state: Status) => setStateSafe(state),
     [setStateSafe],
@@ -54,8 +55,8 @@ function useAsync<T>({
   const setDataSafe = useSafeDispatch(setDataUnSafe)
   const setData = useCallback(
     (data: T) => {
-      setStateSafe('success')
       setDataSafe(data)
+      setStateSafe('success')
     },
     [setDataSafe, setStateSafe],
   )
@@ -63,15 +64,12 @@ function useAsync<T>({
   const setErrorSafe = useSafeDispatch(setErrorUnSafe)
   const setError = useCallback(
     (err: Error) => {
-      setStateSafe('error')
       setErrorSafe(err)
+      setStateSafe('error')
     },
     [setErrorSafe, setStateSafe],
   )
-  // console.error(
-  //   `State: ${JSON.stringify(state)},
-  //     Data: ${JSON.stringify(data)},Error: ${JSON.stringify(error)}`,
-  // )
+
   const run = useCallback(
     async (params: Promise<any>): Promise<any> => {
       setStateSafe({

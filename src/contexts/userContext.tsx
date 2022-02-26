@@ -10,17 +10,21 @@ interface Authorization {
   logout: () => void
   passRecovery: () => void
   usernameRecovery: () => void
+  isError: boolean
+  error: Error
 }
-const user: Authorization = {
+const placeHolderAuth: Authorization = {
   userInfo: null,
   login: (user: IUser) => {},
   register: () => {},
   logout: () => {},
   passRecovery: () => {},
   usernameRecovery: () => {},
+  isError: false,
+  error: new Error(''),
 }
 
-const userContext = createContext<Authorization>(user)
+const userContext = createContext<Authorization>(placeHolderAuth)
 
 export const UserProvider: FC = ({ children }) => {
   const {
@@ -31,33 +35,25 @@ export const UserProvider: FC = ({ children }) => {
     setError,
     error,
   } = useAsync<IUserInfo>({ data: { username: '', token: '' }, state: 'idle' })
-  const err = error as Error
+
   const login = (user: IUser) => {
-    userLogin(user).then(u => {
-      const user: IUserInfo = u as IUserInfo
-      const { username, token } = user
-      setUser({ username, token })
-      localStorage.setItem('username', username)
-    })
+    userLogin(user).then(
+      res => setUser({ username: 'john', token: '' }),
+      err => {
+        setError(err)
+      },
+    )
   }
 
   const register = (user: IUser) => {
     userRegister(user).then(
-      u => {
-        const user: IUserInfo = u as IUserInfo
-        const { username, token } = user
-        setUser({ username, token })
-        console.log('here')
-        localStorage.setItem('username', username)
-      },
+      res => setUser({ username: 'john', token: '' }),
       err => {
-        const error: Error = err as Error
-        console.log('there')
-        console.log(err)
-        setError(error)
+        setError(err)
       },
     )
   }
+
   const logout = () => {
     localStorage.removeItem('username')
     setUser({
@@ -66,11 +62,9 @@ export const UserProvider: FC = ({ children }) => {
     })
   }
   if (isLoading) {
-    return <p>loading...</p>
+    return <p> loading...</p>
   }
-  if (isError) {
-    return <p>Something went error {`${JSON.stringify(err?.status)}`}</p>
-  }
+
   /**
    * @todo password recovery
    */
@@ -88,6 +82,8 @@ export const UserProvider: FC = ({ children }) => {
     passRecovery,
     usernameRecovery,
     userInfo,
+    isError,
+    error,
   }
 
   if (isLoading) {

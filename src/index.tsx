@@ -4,8 +4,9 @@ import 'index.css'
 import App from 'App'
 import reportWebVitals from './reportWebVitals'
 import { BrowserRouter as Router } from 'react-router-dom'
-import { localServer } from 'mocks'
+// import { localServer } from 'mocks'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
 import { UserProvider } from 'contexts/userContext'
 // localServer()
 const queryClient = new QueryClient()
@@ -17,6 +18,7 @@ ReactDOM.render(
           <App />
         </Router>
       </UserProvider>
+      <ReactQueryDevtools initialIsOpen={true} />
     </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById('root'),

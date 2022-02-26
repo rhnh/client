@@ -1,17 +1,21 @@
 import { css } from '@emotion/css'
 import MenuUL from 'components/Menu'
-import { useState } from 'react'
-import { Link, Route, Routes } from 'react-router-dom'
+import { Link, Route, Routes, useLocation } from 'react-router-dom'
 import Footer from './Footer'
 import Logo from '../logo61.png'
 import { Login } from './login'
 import { Register } from './register'
-import Article from './article'
+import { FeaturedPost } from './post'
 import Facts from './Facts'
 import Join from './Join'
+import Posts from './posts'
+import AddPost from './add-post'
+import { Lists } from './lists'
+import { Taxonomies } from './taxonomies'
 
 const UnAuthenticated = () => {
-  const [isHome, setIsHome] = useState(true)
+  const location = useLocation()
+  const isHome = location.pathname === '/'
   return (
     <>
       <div className="container">
@@ -26,35 +30,27 @@ const UnAuthenticated = () => {
                 paddingBottom: 0,
                 margin: '1em',
               })}
-              onClick={() => setIsHome(true)}
             />
           </Link>
 
           <MenuUL>
             <li>
-              <Link to="/" onClick={() => setIsHome(true)}>
-                Home
-              </Link>
+              <Link to="/">Home</Link>
             </li>
             <li>
-              <Link onClick={() => setIsHome(false)} to="/articles">
-                articles
-              </Link>
+              <Link to="/posts">articles</Link>
             </li>
             <li>
-              <Link onClick={() => setIsHome(false)} to="/login">
-                Login
-              </Link>
+              <Link to="/birds">Birds</Link>
             </li>
             <li>
-              <Link onClick={() => setIsHome(false)} to="/register">
-                Register
-              </Link>
+              <Link to="/register">Register</Link>
             </li>
             <li>
-              <Link onClick={() => setIsHome(false)} to="/about">
-                about
-              </Link>
+              <Link to="/login">Login</Link>
+            </li>
+            <li>
+              <Link to="/about">about</Link>
             </li>
           </MenuUL>
         </header>
@@ -65,7 +61,7 @@ const UnAuthenticated = () => {
                 index
                 element={
                   <div className="main">
-                    <Article
+                    <FeaturedPost
                       title={'Karula'}
                       image_url="/profiles/images/leopard.jpeg"
                       body="Karula was a Leopard"
@@ -75,6 +71,9 @@ const UnAuthenticated = () => {
               />
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/posts/post" element={<AddPost />} />
+              <Route path="/birds" element={<Taxonomies />} />
+              <Route path="/posts" element={<Posts />}></Route>
             </Route>
           </Routes>
           {isHome && (
