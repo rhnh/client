@@ -3,14 +3,13 @@ import { Button } from 'components/themed-button'
 
 import { Input, Label } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
-// import { useAuth } from 'contexts/userContext'
 import { FC, FormEvent, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import * as colors from 'utils/colors'
 import { LoginElements } from 'utils/types'
 
 export const Login: FC = () => {
-  const { login, isError, error, userInfo } = useAuth()
+  const { login, isError, error, isLogin } = useAuth()
   const { pathname } = useLocation()
   const navigate = useNavigate()
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -20,10 +19,10 @@ export const Login: FC = () => {
     login({ username: username.value, password: password.value })
   }
   useEffect(() => {
-    if (userInfo?.username && pathname === '/login') {
+    if (isLogin && pathname === '/login') {
       navigate('/')
     }
-  }, [navigate, pathname, userInfo?.username])
+  }, [isLogin, navigate, pathname])
   return (
     <div
       className={css({

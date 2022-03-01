@@ -1,6 +1,17 @@
 import { SERVER_URL } from 'utils/configs'
 import { IUser, IUserInfo } from 'utils/types'
 
+function httpError(n: number) {
+  switch (n) {
+    case 401:
+      throw new Error('Username/Password Wrong!')
+    case 409:
+      throw new Error('Username already taken')
+    case 429:
+      throw new Error(' Please try later. Too many requests')
+  }
+}
+
 export async function userClient(
   endpoint: string,
   data: IUser,
@@ -19,9 +30,7 @@ export async function userClient(
       .then(async response => {
         status = response.status
         statusText = response.statusText
-        if (status === 401) {
-          throw new Error('Username/Password Wrong!')
-        }
+        httpError(status)
 
         if (response.ok) {
           const data = await response.json()

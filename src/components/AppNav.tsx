@@ -6,10 +6,9 @@ import { css } from '@emotion/css'
 import { FC } from 'react'
 
 export const AppNav: FC = () => {
-  const { logout, userInfo } = useAuth()
-  const username = userInfo?.username
-  const token = userInfo?.token
-  return username === '' && token === '' ? (
+  const { logout, isLogin } = useAuth()
+  console.log(isLogin)
+  return !isLogin ? (
     <header className="header">
       <Link to="/">
         <img

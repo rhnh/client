@@ -2,14 +2,41 @@ import { css } from '@emotion/css'
 import { Button } from 'components/themed-button'
 import { Input, Label } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
-import { ChangeEvent, FormEvent } from 'react'
+import { FormEvent, useReducer } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
+import { Link } from 'react-router-dom'
 import * as colors from 'utils/colors'
 import { ErrorFallback } from 'utils/error'
-import { IUser, LoginElements } from 'utils/types'
+import { LoginElements } from 'utils/types'
+
+export type Action = {
+  type: 'input'
+  name: string
+  value: string
+}
+
+export interface State {
+  username: string
+  password: string
+  confirmPassword: string
+}
+
+const initialState: State = {
+  username: '',
+  password: '',
+  confirmPassword: '',
+}
+
+function stateReducer(state: State, action: Action): State {
+  if (action.type === 'input') {
+    return { ...state, [action.name]: action.value }
+  }
+  return state
+}
 
 export const Register = () => {
   const { register, isError, error } = useAuth()
+  const [state, dispatch] = useReducer(stateReducer, initialState)
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -17,11 +44,14 @@ export const Register = () => {
     const { username, password } = target
     register({ username: username.value, password: password.value })
   }
-  console.log('register', error)
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
+    dispatch({ name, value, type: 'input' })
   }
-
+  const isSubmitDisabled =
+    !state.password ||
+    !state.confirmPassword ||
+    state.password !== state.confirmPassword
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <div
@@ -68,8 +98,8 @@ export const Register = () => {
             <Label htmlFor="conform-password">Confirm Password</Label>
             <Input
               type="password"
-              id="conformPassword"
-              name="conformPassword"
+              id="confirmPassword"
+              name="confirmPassword"
               placeholder="Enter your password"
               onChange={handleChange}
             />
@@ -79,19 +109,31 @@ export const Register = () => {
               marginTop: '1em',
             })}
           >
-            <Button type="submit" variant="primary">
+            <Button type="submit" variant="primary" disabled={isSubmitDisabled}>
               Register
             </Button>
-            <p>Not yet a member? Click here to register</p>
-            {isError ? (
-              <span
-                className={css({
-                  color: 'red',
-                })}
-              >
-                Oops {error.message}
-              </span>
-            ) : null}
+            <p>
+              {isError ? (
+                <span
+                  className={css({
+                    color: 'red',
+                  })}
+                >
+                  Oops {error.message}
+                </span>
+              ) : null}
+            </p>
+            <p
+              className={css({
+                padding: '1em 0',
+              })}
+            >
+              Already a member ? Click{' '}
+              <span>
+                <Link to="/login">here</Link>
+              </span>{' '}
+              to login
+            </p>
           </div>
         </form>
       </div>

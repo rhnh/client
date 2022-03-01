@@ -71,7 +71,7 @@ const UnAuthenticated = () => {
               />
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/posts/post" element={<AddPost />} />
+
               <Route path="/birds" element={<Taxonomies />} />
               <Route path="/posts" element={<Posts />}></Route>
             </Route>

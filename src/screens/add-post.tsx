@@ -1,5 +1,7 @@
 import { css } from '@emotion/css'
-import React, { FC, FormEvent } from 'react'
+import { useAuth } from 'contexts/userContext'
+
+import { FC, FormEvent } from 'react'
 import { SERVER_URL } from 'utils/configs'
 import { IPost } from 'utils/types'
 
@@ -10,6 +12,11 @@ interface PostInputElements {
 }
 
 const AddPost: FC = () => {
+  const { isLogin } = useAuth()
+  if (!isLogin) {
+    return <p>You are not login</p>
+  }
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const target = e.target as typeof e.target & PostInputElements

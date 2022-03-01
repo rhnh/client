@@ -18,7 +18,7 @@ ReactDOM.render(
           <App />
         </Router>
       </UserProvider>
-      <ReactQueryDevtools initialIsOpen={true} />
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById('root'),
