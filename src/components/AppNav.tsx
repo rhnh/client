@@ -31,6 +31,9 @@ export const AppNav: FC = () => {
           <Link to="/articles">articles</Link>
         </li>
         <li>
+          <Link to="/Taxonomies">Birds</Link>
+        </li>
+        <li>
           <Link to="/login">Login</Link>
         </li>
         <li>
@@ -65,6 +68,7 @@ export const AppNav: FC = () => {
         <li>
           <Link to="/lists">My BirdList</Link>
         </li>
+
         <li className="nav-right">
           <Link to="/" onClick={() => logout()}>
             logout

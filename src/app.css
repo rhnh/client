@@ -27,6 +27,11 @@ body {
   margin: 0;
   /* background-color: #e76f51`; */
 }
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 @media screen and (min-width: 600px) {
   .container {
     height: 100%;

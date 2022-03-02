@@ -12,17 +12,17 @@ const Footer: FC = () => {
         alignItems: 'center',
         borderTop: '2px solid #cbd5ff',
         paddingTop: '1em',
-        // position: 'absolute',
-        bottom: 0,
+
         left: 0,
         right: 0,
-        zIndex: 1000,
+
         alignSelf: 'flex-end',
         width: '100%',
         textAlign: 'center',
         background: '#000',
-        // position: 'fixed',
+
         marginBottom: 'auto',
+
         ul: {
           listStyle: 'none',
           margin: '1em 0',

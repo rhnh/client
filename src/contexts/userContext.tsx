@@ -5,7 +5,7 @@ import { SERVER_URL } from 'utils/configs'
 import { IUser, IUserInfo } from 'utils/types'
 
 async function isVerified(): Promise<boolean> {
-  const token = window.localStorage.getItem('token')
+  const token = getLocalToken()
   if (token) {
     return window
       .fetch(`${SERVER_URL}/users/verify-user`, {
@@ -15,7 +15,6 @@ async function isVerified(): Promise<boolean> {
         }),
       })
       .then(res => {
-        console.log(res.body, res.ok, res.status)
         return res.ok ? true : false
       })
   }
@@ -25,6 +24,10 @@ function setLocalToken(token: string) {
   console.log(token)
   window.localStorage.setItem('token', token)
 }
+function getLocalToken() {
+  return window.localStorage.getItem('token')
+}
+
 function deleteLocalToken() {
   window.localStorage.removeItem('token')
 }
@@ -35,6 +38,7 @@ interface Authorization {
   logout: () => void
   passRecovery: () => void
   usernameRecovery: () => void
+  getLocalToken: () => string | null
   isError: boolean
   isLogin: boolean
   error: Error
@@ -49,6 +53,7 @@ const placeHolderAuth: Authorization = {
   isError: false,
   isLogin: false,
   error: new Error(''),
+  getLocalToken: () => '',
 }
 
 const userContext = createContext<Authorization>(placeHolderAuth)
@@ -143,6 +148,7 @@ export const UserProvider: FC = ({ children }) => {
     isError,
     error,
     isLogin,
+    getLocalToken,
   }
 
   if (isLoading) {

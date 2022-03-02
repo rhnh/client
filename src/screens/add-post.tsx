@@ -2,6 +2,7 @@ import { css } from '@emotion/css'
 import { useAuth } from 'contexts/userContext'
 
 import { FC, FormEvent } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { SERVER_URL } from 'utils/configs'
 import { IPost } from 'utils/types'
 
@@ -13,8 +14,11 @@ interface PostInputElements {
 
 const AddPost: FC = () => {
   const { isLogin } = useAuth()
+  const navigate = useNavigate()
+  console.log(isLogin)
   if (!isLogin) {
-    return <p>You are not login</p>
+    console.log('isLogin')
+    navigate('/')
   }
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {

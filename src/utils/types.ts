@@ -62,3 +62,8 @@ export interface IHintput {
   handleBlur?: (e: React.ChangeEvent<HTMLInputElement>) => void
   handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
+export interface IList extends Base {
+  username: string
+  listName: string
+  birdIds?: string[]
+}
