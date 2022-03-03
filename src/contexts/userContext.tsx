@@ -21,8 +21,7 @@ async function isVerified(): Promise<boolean> {
   return false
 }
 function setLocalToken(token: string) {
-  console.log(token)
-  window.localStorage.setItem('token', token)
+  if (token) window.localStorage.setItem('token', token)
 }
 function getLocalToken() {
   return window.localStorage.getItem('token')
@@ -74,37 +73,29 @@ export const UserProvider: FC = ({ children }) => {
   const [isLogin, setIsLogin] = useState(false)
 
   useEffect(() => {
-    console.log('refreshing')
     isVerified().then(t => {
-      console.log(t)
       setIsLogin(t)
     })
   }, [])
 
   const login = (user: IUser) => {
-    userLogin(user)
-      .then(
-        res => {
-          const user = res as typeof res & IUserInfo
-          if (user.token && user.username) {
-            setIsLogin(true)
-            setUser(user)
-            return user
-          } else {
-            setUser(null)
-            return ''
-          }
-        },
-        err => {
-          console.log('so it is here')
-          setError(err)
-          return err
-        },
-      )
-      .then(user => {
-        setLocalToken(user.token)
+    userLogin(user).then(
+      res => {
         setIsLogin(true)
-      })
+        if (res) {
+          const user: IUserInfo = res as IUserInfo
+          if (user.username && user.token) {
+            setUser(user)
+            setLocalToken(user.token)
+            setIsLogin(true)
+          }
+        }
+      },
+      err => {
+        setError(err)
+        setIsLogin(false)
+      },
+    )
   }
 
   const register = (user: IUser) => {
