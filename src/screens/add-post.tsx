@@ -15,9 +15,8 @@ interface PostInputElements {
 const AddPost: FC = () => {
   const { isLogin } = useAuth()
   const navigate = useNavigate()
-  console.log(isLogin)
+
   if (!isLogin) {
-    console.log('isLogin')
     navigate('/')
   }
 

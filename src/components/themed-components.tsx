@@ -61,11 +61,15 @@ export const NavUL = styled('ul')<ULProps>(
           },
           '.nav-right': {
             marginLeft: 'auto',
+            display: 'flex',
           },
-          '.nav-right>a': {
+          '.nav-right--logged>li:last-child': {
             backgroundColor: colors.darkRed,
           },
-          '.nav-right>a:hover': {
+          '.nav-right>li a': {
+            padding: '.5em 2em',
+          },
+          '.nav-right--logged>li:last-child:hover': {
             color: 'white',
             backgroundColor: colors.red,
           },

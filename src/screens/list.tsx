@@ -1,7 +1,9 @@
-import React from 'react'
+import { useParams } from 'react-router-dom'
 
 interface Props {}
 
-export const List = (props: Props) => {
-  return <div></div>
+export const List = () => {
+  const { listId } = useParams()
+
+  return <div>{listId}</div>
 }

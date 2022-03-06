@@ -31,6 +31,11 @@ export interface LoginElements {
   username: HTMLInputElement
   password: HTMLInputElement
 }
+export interface IList extends Base {
+  username: string
+  listName: string
+  birdIds?: string[]
+}
 
 export interface IHintDisplay {
   inputName: string
@@ -43,8 +48,8 @@ export interface IHintDisplay {
     [x: string]: string
   }
   suggestions: string[]
-  handleChange: (e: ChangeEvent<HTMLInputElement>) => void
-  handleBlur: (e: ChangeEvent<HTMLInputElement>) => void
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void
+  onBlur?: (e: ChangeEvent<HTMLInputElement>) => void
   handleKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void
   setSuggestions: Dispatch<SetStateAction<string[]>>
   setText: Dispatch<SetStateAction<string>>
@@ -59,11 +64,6 @@ export interface IHintput {
   style?: {
     [x: string]: string
   }
-  handleBlur?: (e: React.ChangeEvent<HTMLInputElement>) => void
-  handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
-}
-export interface IList extends Base {
-  username: string
-  listName: string
-  birdIds?: string[]
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onBlur?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }

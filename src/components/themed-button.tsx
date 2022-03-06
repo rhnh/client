@@ -49,8 +49,8 @@ export const Button = styled('button')<ButtonProps>(
       ? {
           cursor: 'auto',
           // color: 'black',
-          backgroundColor: colors.orange,
-          color: 'gray',
+          backgroundColor: '#b3daff',
+          color: '#e6f3ff',
           // border: `1px solid ${colors.orangeDark}`,
         }
       : variants !== 'primary'

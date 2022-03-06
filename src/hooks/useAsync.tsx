@@ -55,8 +55,10 @@ function useAsync<T>({
   const setDataSafe = useSafeDispatch(setDataUnSafe)
   const setData = useCallback(
     (data: T) => {
-      setDataSafe(data)
-      setStateSafe('success')
+      if (data !== null) {
+        setDataSafe(data)
+        setStateSafe('success')
+      }
     },
     [setDataSafe, setStateSafe],
   )
@@ -78,16 +80,20 @@ function useAsync<T>({
       return params.then(
         data => {
           setData(data)
+          setState('success')
           return params as Promise<any>
         },
         err => {
           setError(err)
+          setState('error')
           return Promise.reject(err)
         },
       ) as Promise<any>
     },
-    [setData, setError, setStateSafe],
+    [setData, setError, setState, setStateSafe],
   )
+  console.log('is State changing', state)
+
   return {
     run,
     state,

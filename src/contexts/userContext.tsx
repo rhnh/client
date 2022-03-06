@@ -41,6 +41,8 @@ interface Authorization {
   isError: boolean
   isLogin: boolean
   error: Error
+  isSuccess: boolean
+  state: 'success' | 'error' | 'loading' | 'idle'
 }
 const placeHolderAuth: Authorization = {
   userInfo: null,
@@ -53,6 +55,8 @@ const placeHolderAuth: Authorization = {
   isLogin: false,
   error: new Error(''),
   getLocalToken: () => '',
+  state: 'idle',
+  isSuccess: false,
 }
 
 const userContext = createContext<Authorization>(placeHolderAuth)
@@ -65,6 +69,9 @@ export const UserProvider: FC = ({ children }) => {
     isError,
     setError,
     error,
+    isIdle,
+    isSuccess,
+    state,
   } = useAsync<IUserInfo | null>({
     data: { username: '', token: '' },
     state: 'idle',
@@ -74,6 +81,7 @@ export const UserProvider: FC = ({ children }) => {
 
   useEffect(() => {
     isVerified().then(t => {
+      console.log(t)
       setIsLogin(t)
     })
   }, [])
@@ -81,13 +89,15 @@ export const UserProvider: FC = ({ children }) => {
   const login = (user: IUser) => {
     userLogin(user).then(
       res => {
-        setIsLogin(true)
         if (res) {
           const user: IUserInfo = res as IUserInfo
           if (user.username && user.token) {
+            console.log('here is the user')
             setUser(user)
             setLocalToken(user.token)
             setIsLogin(true)
+          } else {
+            setIsLogin(false)
           }
         }
       },
@@ -109,10 +119,7 @@ export const UserProvider: FC = ({ children }) => {
 
   const logout = () => {
     deleteLocalToken()
-    setUser({
-      username: '',
-      token: '',
-    })
+    setUser(null)
     setIsLogin(false)
   }
   if (isLoading) {
@@ -140,6 +147,9 @@ export const UserProvider: FC = ({ children }) => {
     error,
     isLogin,
     getLocalToken,
+    isIdle,
+    state,
+    isSuccess,
   }
 
   if (isLoading) {

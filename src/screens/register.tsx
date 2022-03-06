@@ -35,7 +35,7 @@ function stateReducer(state: State, action: Action): State {
 }
 
 export const Register = () => {
-  const { register, isError, error } = useAuth()
+  const { register, isError, error, isSuccess } = useAuth()
   const [state, dispatch] = useReducer(stateReducer, initialState)
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -47,6 +47,9 @@ export const Register = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     dispatch({ name, value, type: 'input' })
+  }
+  if (isSuccess) {
+    return <div>well done</div>
   }
   const isSubmitDisabled =
     !state.password ||

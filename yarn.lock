@@ -1038,8 +1038,6 @@
   version "7.17.2"
   resolved "https://registry.yarnpkg.com/@babel/runtime-corejs3/-/runtime-corejs3-7.17.2.tgz#fdca2cd05fba63388babe85d349b6801b008fd13"
   integrity sha512-NcKtr2epxfIrNM4VOmPKO46TvDMCBhgi2CrSHaEarrz+Plk2K5r9QemmOFTGpZaoKnWoGH5MO+CzeRsih/Fcgg==
-<<<<<<< HEAD
-=======
   dependencies:
     core-js-pure "^3.20.2"
     regenerator-runtime "^0.13.4"
@@ -1048,21 +1046,9 @@
   version "7.17.2"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.17.2.tgz#66f68591605e59da47523c631416b18508779941"
   integrity sha512-hzeyJyMA1YGdJTuWU0e/j4wKXrU4OMFvY2MSlaI9B7VQb0r5cxTE3EAIS2Q7Tn2RIcDkRvTA/v2JsAEhxe99uw==
->>>>>>> auth
-  dependencies:
-    core-js-pure "^3.20.2"
-    regenerator-runtime "^0.13.4"
-
-<<<<<<< HEAD
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.10.2", "@babel/runtime@^7.12.13", "@babel/runtime@^7.12.5", "@babel/runtime@^7.13.10", "@babel/runtime@^7.16.3", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.2", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2":
-  version "7.17.2"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.17.2.tgz#66f68591605e59da47523c631416b18508779941"
-  integrity sha512-hzeyJyMA1YGdJTuWU0e/j4wKXrU4OMFvY2MSlaI9B7VQb0r5cxTE3EAIS2Q7Tn2RIcDkRvTA/v2JsAEhxe99uw==
   dependencies:
     regenerator-runtime "^0.13.4"
 
-=======
->>>>>>> auth
 "@babel/template@^7.10.4", "@babel/template@^7.16.7", "@babel/template@^7.3.3":
   version "7.16.7"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.16.7.tgz#8d126c8701fde4d66b264b3eba3d96f07666d155"
@@ -1618,10 +1604,10 @@
     prop-types "^15.7.2"
     tslib "^2.3.0"
 
-"@ribrary/hintput@^2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@ribrary/hintput/-/hintput-2.1.1.tgz#15a657c85752684714f7f51d07cdbe3805021385"
-  integrity sha512-oZH4IsB2wQQ7LGLhW26CQmjKWYVJNvlZskVLj9Gr4GWdoFKTETdXswXrlR50YJ3KU4qzm3pupMj/E/yIvRYVuQ==
+"@ribrary/hintput@^2.4.2":
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/@ribrary/hintput/-/hintput-2.4.2.tgz#5d2198c379834b034fd8eccd93e20af3dcf1a108"
+  integrity sha512-qjRVlvb1CDlbUx++rQNpdGqPLOyrZnIAS6m1pALLV00nXaen6RkQeLOymmLaEOLUUIKanfDo7uYkvjpZ8+FwiA==
   dependencies:
     react "^17.0.2"
     react-dom "^17.0.2"

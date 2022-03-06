@@ -7,7 +7,7 @@ import { FC } from 'react'
 
 export const AppNav: FC = () => {
   const { logout, isLogin } = useAuth()
-  console.log(isLogin)
+
   return !isLogin ? (
     <header className="header">
       <Link to="/">
@@ -28,10 +28,10 @@ export const AppNav: FC = () => {
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/articles">articles</Link>
+          <Link to="/posts">articles</Link>
         </li>
         <li>
-          <Link to="/Taxonomies">Birds</Link>
+          <Link to="/taxonomies">Birds</Link>
         </li>
         <li>
           <Link to="/login">Login</Link>
@@ -39,9 +39,11 @@ export const AppNav: FC = () => {
         <li>
           <Link to="/register">Register</Link>
         </li>
-        <li>
-          <Link to="/about">about</Link>
-        </li>
+        <div className="nav-right">
+          <li>
+            <Link to="/about">about</Link>
+          </li>
+        </div>
       </MenuUL>
     </header>
   ) : (
@@ -62,18 +64,24 @@ export const AppNav: FC = () => {
         <li>
           <Link to="/">Home</Link>
         </li>
-        <li>
-          <Link to="/about">About</Link>
-        </li>
+
         <li>
           <Link to="/lists">My BirdList</Link>
         </li>
 
-        <li className="nav-right">
-          <Link to="/" onClick={() => logout()}>
-            logout
-          </Link>
-        </li>
+        <div className="nav-right nav-right--logged">
+          <li>
+            <Link to="/about">About</Link>
+          </li>
+          <li>
+            <Link to="/profile">Profile</Link>
+          </li>
+          <li>
+            <Link to="/" onClick={() => logout()}>
+              logout
+            </Link>
+          </li>
+        </div>
       </MenuUL>
     </header>
   )

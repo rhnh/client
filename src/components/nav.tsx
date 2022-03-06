@@ -15,7 +15,7 @@ export const Nav: FC = props => {
   const { children } = props
   return (
     <div>
-      <NavUL isMobile={false}>{liWrapper(children)}</NavUL>
+      <NavUL isMobile={false}>{children}</NavUL>
     </div>
   )
 }

@@ -3,26 +3,46 @@ import { Button } from 'components/themed-button'
 
 import { Input, Label } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
-import { FC, FormEvent, useEffect } from 'react'
+import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import * as colors from 'utils/colors'
 import { LoginElements } from 'utils/types'
 
 export const Login: FC = () => {
-  const { login, isError, error, isLogin } = useAuth()
+  const { login, isError, error, isLogin, isSuccess, state } = useAuth()
   const { pathname } = useLocation()
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   const navigate = useNavigate()
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const target = e.target as typeof e.target & LoginElements
     const { username, password } = target
+
     login({ username: username.value, password: password.value })
   }
   useEffect(() => {
+    console.log('isLogin', isLogin, pathname, 'pathname')
     if (isLogin && pathname === '/login') {
       navigate('/')
     }
   }, [isLogin, navigate, pathname])
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.name === 'username') {
+      setUsername(e.target.value)
+    } else if (e.target.name === 'password') {
+      setPassword(e.target.value)
+    }
+  }
+
+  if (isSuccess) {
+    navigate('/')
+  }
+
+  const isDisabled = password === '' || username === ''
+  console.log(state)
   return (
     <div
       className={css({
@@ -56,6 +76,7 @@ export const Login: FC = () => {
             id="username"
             name="username"
             placeholder="Enter your Username"
+            onChange={handleChange}
           />
         </div>
         <div>
@@ -65,9 +86,10 @@ export const Login: FC = () => {
             id="password"
             name="password"
             placeholder="Enter your password"
+            onChange={handleChange}
           />
         </div>
-        <Button type="submit" variant={'primary'}>
+        <Button type="submit" variant={'primary'} disabled={isDisabled}>
           Login
         </Button>
         {isError ? <span> {error.message} </span> : null}
