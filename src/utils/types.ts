@@ -13,13 +13,21 @@ export interface IUserInfo {
   username: string
   token: string
 }
+export type ICategories = 'species' | 'genus' | 'family' | 'order'
+export type IGender = 'female' | 'male' | 'unknown'
 
 export interface ITaxonomy extends Base {
-  binomial: string
-  englishName: string
-  taxonomy: string[]
-  parent: string
+  englishName?: string // only species can have it.
+  taxonomy: string // It is a must for species: It should container binomial name
+  category: ICategories
   image: string
+  parent?: string
+  approved: boolean
+  username: string
+  slug?: string
+  info?: string
+  sex?: IGender | undefined
+  ancestors?: string[]
 }
 
 export interface IPost extends Base {

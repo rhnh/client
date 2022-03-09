@@ -1,8 +1,8 @@
 import { css } from '@emotion/css'
 import { FC } from 'react'
-import Logo from '../logo61.png'
-import * as colors from '../utils/colors'
-const Footer: FC = () => {
+import Logo from 'logo61.png'
+import * as colors from 'utils/colors'
+export const Footer: FC = () => {
   return (
     <footer
       className={css({
@@ -69,5 +69,3 @@ const Footer: FC = () => {
     </footer>
   )
 }
-
-export default Footer

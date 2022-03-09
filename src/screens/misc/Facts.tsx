@@ -1,7 +1,7 @@
 import { css } from '@emotion/css'
 import { FC } from 'react'
 
-const Facts: FC = () => {
+export const Facts: FC = () => {
   return (
     <section
       className={css({
@@ -28,5 +28,3 @@ const Facts: FC = () => {
     </section>
   )
 }
-
-export default Facts

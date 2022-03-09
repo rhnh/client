@@ -5,7 +5,7 @@ import { SERVER_URL } from 'utils/configs'
 import { IPost } from 'utils/types'
 import { FeaturedPost } from './post'
 
-const Posts: FC = () => {
+export const Posts: FC = () => {
   const { isLoading, data: posts } = useQuery('posts', () => {
     return fetch(`${SERVER_URL}/posts`).then(res => res.json())
   })
@@ -36,5 +36,3 @@ const Posts: FC = () => {
     </div>
   )
 }
-
-export default Posts

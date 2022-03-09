@@ -3,7 +3,7 @@ import { LinkedButton } from 'components/themed-button'
 import { FC } from 'react'
 import { Outlet } from 'react-router-dom'
 
-const Join: FC = () => {
+export const Join: FC = () => {
   return (
     <section
       className={css({
@@ -26,5 +26,3 @@ const Join: FC = () => {
     </section>
   )
 }
-
-export default Join

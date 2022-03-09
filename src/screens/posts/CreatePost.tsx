@@ -12,7 +12,7 @@ interface PostInputElements {
   imageUrl: HTMLInputElement
 }
 
-const AddPost: FC = () => {
+export const CreatePost: FC = () => {
   const { isLogin } = useAuth()
   const navigate = useNavigate()
 
@@ -58,4 +58,3 @@ const AddPost: FC = () => {
     </div>
   )
 }
-export default AddPost

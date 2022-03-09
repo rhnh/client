@@ -1,11 +1,10 @@
 import { ErrorBoundary } from 'react-error-boundary'
-import Footer from './Footer'
 import { ErrorFallback } from 'utils/error'
 import { AppRoutes } from 'components/AppRoutes'
 import { AppNav } from 'components/AppNav'
-import Join from './Join'
-import Facts from './Facts'
 import { useLocation } from 'react-router-dom'
+import { Facts } from 'screens/misc'
+import { Footer } from 'screens/main'
 
 const Authenticated = () => {
   const location = useLocation()

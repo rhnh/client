@@ -7,7 +7,7 @@ import { useMutation } from 'react-query'
 import { Link } from 'react-router-dom'
 import { SERVER_URL } from 'utils/configs'
 
-const AddList: FC = () => {
+export const CreateList: FC = () => {
   const [listName, setListName] = useState('')
   const { isLogin, getLocalToken } = useAuth()
   const { mutate, isError, error, isSuccess } = useMutation(
@@ -98,5 +98,3 @@ const AddList: FC = () => {
     <p>You need to be authorized</p>
   )
 }
-
-export default AddList

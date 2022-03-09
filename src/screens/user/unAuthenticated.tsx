@@ -1,9 +1,8 @@
-import Footer from './Footer'
-import Facts from './Facts'
-import Join from './Join'
 import { AppNav } from 'components/AppNav'
 import { AppRoutes } from 'components/AppRoutes'
 import { useLocation } from 'react-router-dom'
+import { Footer } from 'screens/main'
+import { Facts, Join } from 'screens/misc'
 
 const UnAuthenticated = () => {
   const location = useLocation()

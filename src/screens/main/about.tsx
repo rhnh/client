@@ -1,8 +1,6 @@
-import React from 'react'
+import { FC } from 'react'
 
-type Props = {}
-
-const About = (props: Props) => {
+export const About: FC = () => {
   return (
     <div>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio quidem
@@ -14,5 +12,3 @@ const About = (props: Props) => {
     </div>
   )
 }
-
-export default About

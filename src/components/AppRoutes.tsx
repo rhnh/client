@@ -1,21 +1,14 @@
-import { useAuth } from 'contexts/userContext'
-
 import { Route, Routes } from 'react-router-dom'
-import About from 'screens/about'
-import AddPost from 'screens/add-post'
-import AddList from 'screens/AddList'
-import { Lists } from 'screens/lists'
-import { Login } from 'screens/login'
-import Main from 'screens/Main'
-import { FeaturedPost } from 'screens/post'
-import Posts from 'screens/posts'
-import { Register } from 'screens/register'
-import { Taxonomies } from 'screens/taxonomies'
-import Profile from 'screens/Profile'
-import { List } from 'screens/list'
-type Props = {}
+import { FC } from 'react'
+import { useAuth } from 'contexts/userContext'
+import { Login, Register, Profile } from 'screens/user'
+import { CreateUserTaxonomy } from 'screens/taxonomies/CreateUserTaxonomy'
+import { CreatePost, FeaturedPost, Posts } from 'screens/posts'
+import { List, Lists, CreateList } from 'screens/lists/'
+import { About, Main } from 'screens/main'
+import { TaxonomyScreen } from 'screens/taxonomies'
 
-export const AppRoutes = (props: Props) => {
+export const AppRoutes: FC = () => {
   const { isLogin } = useAuth()
   return isLogin ? (
     <div className="">
@@ -30,12 +23,17 @@ export const AppRoutes = (props: Props) => {
             }
           />
           <Route path="/posts" element={<Posts />} />
-          <Route path="/posts/post" element={<AddPost />} />
-          <Route path="/lists/list" element={<AddList />} />
+          <Route path="/posts/post" element={<CreatePost />} />
+          <Route path="/lists/list" element={<CreateList />} />
           <Route path="/lists" element={<Lists />} />
-          <Route path="/lists/:listId" element={<List />} />
+          <Route path="/lists/:listName" element={<List />} />
           <Route path="/about" element={<About />} />
-          <Route path="/birds" element={<Taxonomies />} />
+          <Route path="/taxonomies" element={<TaxonomyScreen />} />
+          {/* <Route path="/taxonomies/:id" element={<Taxonomy />} /> */}
+          <Route
+            path="/taxonomies/:listName"
+            element={<CreateUserTaxonomy />}
+          />
           <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<p>No Router found</p>} />
         </Route>
@@ -66,7 +64,7 @@ export const AppRoutes = (props: Props) => {
         />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/taxonomies" element={<Taxonomies />} />
+        <Route path="/taxonomies" element={<TaxonomyScreen />} />
         <Route path="/posts" element={<Posts />} />
         <Route path="*" element={<p>No Router found</p>} />
       </Route>
