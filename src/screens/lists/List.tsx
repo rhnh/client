@@ -5,15 +5,14 @@ import { ITaxonomy } from 'utils/types'
 export const List = () => {
   const { listName } = useParams()
 
-  const { isLoading, isError, isFetched, isSuccess, data } = useGetUserList(
-    listName || '',
-  )
+  const { isLoading, isError, data } = useGetUserList(listName || '')
   const birds: ITaxonomy[] = data as ITaxonomy[]
-  if (isLoading) {
-    return <p>loading...</p>
-  }
-  console.log(data)
-  return (
+
+  return isLoading ? (
+    <p>Loading</p>
+  ) : isError ? (
+    <p>Error</p>
+  ) : (
     <div>
       <section>
         <h3>{listName}</h3>

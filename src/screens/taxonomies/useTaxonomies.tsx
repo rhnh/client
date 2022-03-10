@@ -1,6 +1,7 @@
 import { useAuth } from 'contexts/userContext'
 import { useMutation, useQuery } from 'react-query'
 import { SERVER_URL } from 'utils/configs'
+
 import { ITaxonomy } from 'utils/types'
 
 const getTaxonomies = async (): Promise<ITaxonomy[]> => {
@@ -14,6 +15,26 @@ const getTaxonomies = async (): Promise<ITaxonomy[]> => {
 
 export function useTaxonomies() {
   return useQuery('taxonomies', getTaxonomies)
+}
+
+export function useTaxonomy(_id: string) {
+  return useQuery<ITaxonomy, Error>(
+    ['taxonomy', _id],
+    () =>
+      fetch(`${SERVER_URL}/taxonomies/taxonomy/${_id}`).then(
+        res => {
+          if (res.ok) return res.json()
+          throw new Error('something went wrong')
+        },
+        err => {
+          console.log('hello')
+          return err
+        },
+      ),
+    {
+      retry: 1,
+    },
+  )
 }
 
 export function useAddListItem() {

@@ -62,7 +62,7 @@ export const CreateUserTaxonomy: FC = () => {
     return <p>Something happened</p>
   }
   if (isSuccess) {
-    return <a href="/lists/mara">Home</a>
+    return <a href={`/lists/${listName}`}>Home</a>
   }
   return (
     <form onSubmit={handleSubmit}>

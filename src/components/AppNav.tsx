@@ -64,7 +64,9 @@ export const AppNav: FC = () => {
         <li>
           <Link to="/">Home</Link>
         </li>
-
+        <li>
+          <Link to="/taxonomies">Birds</Link>
+        </li>
         <li>
           <Link to="/lists">My BirdList</Link>
         </li>

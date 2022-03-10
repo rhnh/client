@@ -1,22 +1,6 @@
 import { SERVER_URL } from 'utils/configs'
+import { httpError } from 'utils/error'
 import { IUser, IUserInfo } from 'utils/types'
-
-function createError(s: string) {
-  throw new Error(s)
-}
-
-export function httpError(n: number) {
-  switch (n) {
-    case 400:
-      return createError('Missing Username/Password')
-    case 401:
-      return createError('Username/Password Wrong!')
-    case 409:
-      return createError('Username already taken')
-    case 429:
-      return createError('Please try later. Too many requests')
-  }
-}
 
 export async function userClient(
   endpoint: string,
