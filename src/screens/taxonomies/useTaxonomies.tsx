@@ -18,16 +18,23 @@ export function useTaxonomies() {
 }
 
 export function useTaxonomy(_id: string) {
+  const { getLocalToken } = useAuth()
+  const token = getLocalToken()
   return useQuery<ITaxonomy, Error>(
     ['taxonomy', _id],
     () =>
-      fetch(`${SERVER_URL}/taxonomies/taxonomy/${_id}`).then(
+      fetch(`${SERVER_URL}/taxonomies/taxonomy/${_id}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }).then(
         res => {
           if (res.ok) return res.json()
           throw new Error('something went wrong')
         },
         err => {
-          console.log('hello')
           return err
         },
       ),

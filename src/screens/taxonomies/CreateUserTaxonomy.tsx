@@ -43,6 +43,7 @@ export const CreateUserTaxonomy: FC = () => {
     e.preventDefault()
     const englishName = inputFieldsState?.englishName
     const taxonomy = inputFieldsState?.taxonomy
+
     if (
       englishName !== '' &&
       taxonomy !== '' &&
@@ -52,7 +53,7 @@ export const CreateUserTaxonomy: FC = () => {
     ) {
       mutate({ listName, englishName, taxonomy })
     } else {
-      console.log(inputFieldsState, 'states')
+      // console.log(inputFieldsState, 'states')
     }
   }
   if (isLoading) {

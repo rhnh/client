@@ -23,7 +23,6 @@ export const Login: FC = () => {
     login({ username: username.value, password: password.value })
   }
   useEffect(() => {
-    console.log('isLogin', isLogin, pathname, 'pathname')
     if (isLogin && pathname === '/login') {
       navigate('/')
     }
@@ -42,7 +41,7 @@ export const Login: FC = () => {
   }
 
   const isDisabled = password === '' || username === ''
-  console.log(state)
+
   return (
     <div
       className={css({

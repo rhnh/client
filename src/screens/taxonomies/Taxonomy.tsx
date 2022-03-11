@@ -1,9 +1,10 @@
 import { css } from '@emotion/css'
 import { FC } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
+import { ITaxonomy } from 'utils/types'
 import { useTaxonomy } from './useTaxonomies'
 
-export const Taxonomy: FC = () => {
+export const TaxonomyById: FC = () => {
   const { taxonomyId } = useParams()
   const { isLoading, data, isError } = useTaxonomy(taxonomyId || '')
   if (data === undefined || isError) {
@@ -15,7 +16,17 @@ export const Taxonomy: FC = () => {
   if (isError) {
     return <p>Oops</p>
   }
-  const { _id, englishName, image, taxonomy, info } = data
+
+  return <Taxonomy {...data} />
+}
+
+export const Taxonomy: FC<ITaxonomy> = ({
+  _id,
+  englishName,
+  image,
+  taxonomy,
+  info,
+}) => {
   return (
     <div
       key={_id}
@@ -28,32 +39,22 @@ export const Taxonomy: FC = () => {
       })}
     >
       <div>
-        {image !== undefined ? (
-          <img src={`/assets/${image}`} width="200px" alt={englishName} />
-        ) : (
-          <img
-            src={`/assets/bird-placeholder.jpg`}
-            width="200px"
-            alt={englishName}
-          />
-        )}
+        <Link to={`/taxonomy/${_id?.toLowerCase().replace(/[^a-z0-9]+/, '-')}`}>
+          {image !== undefined ? (
+            <img src={`/assets/${image}`} width="200px" alt={englishName}></img>
+          ) : (
+            <img
+              src={`/assets/bird-placeholder.jpg`}
+              width="200px"
+              alt={englishName}
+            />
+          )}
+        </Link>
       </div>
       <div className="desc">
         <div className="taxonomyName">Name: {englishName}</div>
         <div className="taxonomy">Species: {taxonomy}</div>
-        <div className="taxonomy">Species: {taxonomy}</div>
-        <div className="taxonomy">
-          info:{' '}
-          {info ?? (
-            <span
-              className={css({
-                color: 'red',
-              })}
-            >
-              No details available
-            </span>
-          )}
-        </div>
+        <div className="taxonomy">{info ? <p>Info: {info}</p> : null}</div>
       </div>
     </div>
   )

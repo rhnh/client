@@ -7,9 +7,10 @@ import { CreatePost, FeaturedPost, Posts } from 'screens/posts'
 import { List, Lists, CreateList } from 'screens/lists/'
 import { About, Main } from 'screens/main'
 import { Taxonomy, TaxonomyScreen } from 'screens/taxonomies'
+import { TaxonomyById } from 'screens/taxonomies/Taxonomy'
 
 export const AppRoutes: FC = () => {
-  const { isLogin } = useAuth()
+  const { isLogin, username } = useAuth()
   return isLogin ? (
     <div className="">
       <Routes>
@@ -25,15 +26,15 @@ export const AppRoutes: FC = () => {
           <Route path="/posts" element={<Posts />} />
           <Route path="/posts/post" element={<CreatePost />} />
           <Route path="/lists/list" element={<CreateList />} />
-          <Route path="/lists" element={<Lists />} />
-          <Route path="/lists/:listName" element={<List />} />
+          <Route path={`/${username}/lists`} element={<Lists />} />
+          <Route path={`/${username}/list/:listName`} element={<List />} />
           <Route path="/about" element={<About />} />
           <Route path="/taxonomies" element={<TaxonomyScreen />} />
           <Route
             path="/taxonomies/:listName"
             element={<CreateUserTaxonomy />}
           />
-          <Route path="/taxonomy/:taxonomyId" element={<Taxonomy />} />
+          <Route path="/taxonomy/:taxonomyId" element={<TaxonomyById />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<p>No Router found</p>} />
         </Route>
@@ -66,7 +67,7 @@ export const AppRoutes: FC = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/taxonomies" element={<TaxonomyScreen />} />
         <Route path="/posts" element={<Posts />} />
-        <Route path="/taxonomy/:taxonomyId" element={<Taxonomy />} />
+        <Route path="/taxonomy/:taxonomyId" element={<TaxonomyById />} />
 
         <Route path="*" element={<p>No Router found</p>} />
       </Route>

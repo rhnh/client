@@ -21,6 +21,7 @@ export const CreateList: FC = () => {
         },
       }).then(
         res => {
+          console.log(res.body)
           if (res.status === 400) {
             throw new Error(`The list name  ${listName} already exists.`)
           }
@@ -44,6 +45,7 @@ export const CreateList: FC = () => {
     e.preventDefault()
     const target = e.target as typeof e.target & { listName: HTMLInputElement }
     const listName = target.listName.value
+    alert('hello')
     mutate(listName)
   }
   const err = error as Error

@@ -92,7 +92,6 @@ function useAsync<T>({
     },
     [setData, setError, setState, setStateSafe],
   )
-  console.log('is State changing', state)
 
   return {
     run,

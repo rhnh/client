@@ -4,8 +4,9 @@ import { createContext, FC, useContext, useEffect, useState } from 'react'
 import { SERVER_URL } from 'utils/configs'
 import { IUser, IUserInfo } from 'utils/types'
 
-async function isVerified(): Promise<boolean> {
+async function isVerified(): Promise<IUserInfo | null> {
   const token = getLocalToken()
+
   if (token) {
     return window
       .fetch(`${SERVER_URL}/users/verify-user`, {
@@ -14,15 +15,23 @@ async function isVerified(): Promise<boolean> {
           Authorization: `Bearer ${token}`,
         }),
       })
-      .then(res => {
-        return res.ok ? true : false
+      .then(async res => {
+        const data = await res.json()
+        if (data && res.ok) {
+          return data
+        } else {
+          return null
+        }
       })
   }
-  return false
+  return null
 }
 function setLocalToken(token: string) {
-  if (token) window.localStorage.setItem('token', token)
+  if (token) {
+    window.localStorage.setItem('token', token)
+  }
 }
+
 function getLocalToken() {
   return window.localStorage.getItem('token')
 }
@@ -31,7 +40,9 @@ function deleteLocalToken() {
   window.localStorage.removeItem('token')
 }
 interface Authorization {
-  userInfo: IUserInfo | undefined | null
+  token: string
+  userInfo: IUserInfo | null | undefined
+  username: string
   login: (user: IUser) => void
   register: (user: IUser) => void
   logout: () => void
@@ -45,7 +56,9 @@ interface Authorization {
   state: 'success' | 'error' | 'loading' | 'idle'
 }
 const placeHolderAuth: Authorization = {
-  userInfo: null,
+  username: '',
+  token: '',
+
   login: (user: IUser) => {},
   register: () => {},
   logout: () => {},
@@ -57,6 +70,10 @@ const placeHolderAuth: Authorization = {
   getLocalToken: () => '',
   state: 'idle',
   isSuccess: false,
+  userInfo: {
+    username: '',
+    token: '',
+  },
 }
 
 const userContext = createContext<Authorization>(placeHolderAuth)
@@ -81,10 +98,13 @@ export const UserProvider: FC = ({ children }) => {
 
   useEffect(() => {
     isVerified().then(t => {
-      console.log(t)
-      setIsLogin(t)
+      if (t) {
+        setUser(t)
+        setIsLogin(t?.isValidToken ?? false)
+        setLocalToken(t?.token)
+      }
     })
-  }, [])
+  }, [setUser])
 
   const login = (user: IUser) => {
     userLogin(user).then(
@@ -92,7 +112,6 @@ export const UserProvider: FC = ({ children }) => {
         if (res) {
           const user: IUserInfo = res as IUserInfo
           if (user.username && user.token) {
-            console.log('here is the user')
             setUser(user)
             setLocalToken(user.token)
             setIsLogin(true)
@@ -137,6 +156,8 @@ export const UserProvider: FC = ({ children }) => {
   const usernameRecovery = () => {}
 
   const LoginInfo = {
+    username: userInfo?.username || '',
+    token: userInfo?.token || '',
     login,
     register,
     logout,

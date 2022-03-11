@@ -6,8 +6,7 @@ import { css } from '@emotion/css'
 import { FC } from 'react'
 
 export const AppNav: FC = () => {
-  const { logout, isLogin } = useAuth()
-
+  const { logout, isLogin, username } = useAuth()
   return !isLogin ? (
     <header className="header">
       <Link to="/">
@@ -68,7 +67,7 @@ export const AppNav: FC = () => {
           <Link to="/taxonomies">Birds</Link>
         </li>
         <li>
-          <Link to="/lists">My BirdList</Link>
+          <Link to={`/${username}/lists`}>My BirdList</Link>
         </li>
 
         <div className="nav-right nav-right--logged">

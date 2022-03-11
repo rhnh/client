@@ -9,9 +9,11 @@ export interface IUser extends Base {
   password: string
   confirmPassword?: string
 }
-export interface IUserInfo {
+export interface IUserInfo extends Base {
   username: string
   token: string
+  isValidToken?: boolean
+  role?: 'mod' | 'admin' | 'user'
 }
 export type ICategories = 'species' | 'genus' | 'family' | 'order'
 export type IGender = 'female' | 'male' | 'unknown'
@@ -43,6 +45,7 @@ export interface IList extends Base {
   username: string
   listName: string
   birdIds?: string[]
+  slug?: string
 }
 
 export interface IHintDisplay {

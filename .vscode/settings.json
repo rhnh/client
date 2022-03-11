@@ -11,5 +11,13 @@
   "cSpell.words": ["Djuma", "Hintput"],
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "search.exclude": {
+    "**/.git": true,
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/tmp": true,
+    "**/.gitignore": true,
+    "**/yarn.lock": true
   }
 }

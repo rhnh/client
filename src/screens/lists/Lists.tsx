@@ -7,8 +7,7 @@ import { IList } from 'utils/types'
 import { useLists } from './listHooks'
 
 export const Lists: FC = () => {
-  const { isLogin } = useAuth()
-
+  const { isLogin, username } = useAuth()
   const { data } = useLists()
 
   if (!isLogin) {
@@ -25,7 +24,9 @@ export const Lists: FC = () => {
         <div>
           {lists.map(list => (
             <div key={list._id}>
-              <Link to={`/lists/${list.listName}`}>{list.listName}</Link>
+              <Link to={`/${username}/list/${list?.slug}`}>
+                {list.listName}
+              </Link>
             </div>
           ))}
         </div>
