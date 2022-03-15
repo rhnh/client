@@ -1,7 +1,7 @@
 import { ErrorBoundary } from 'react-error-boundary'
 import { ErrorFallback } from 'utils/error'
-import { AppRoutes } from 'components/AppRoutes'
-import { AppNav } from 'components/AppNav'
+import { AppRoutes } from 'components/Routes'
+import { Nav } from 'components/Nav'
 import { useLocation } from 'react-router-dom'
 import { Facts } from 'screens/misc'
 import { Footer } from 'screens/main'
@@ -13,7 +13,7 @@ const Authenticated = () => {
     <>
       <div className="container">
         <ErrorBoundary FallbackComponent={ErrorFallback}>
-          <AppNav />
+          <Nav />
           <div className="content">
             <AppRoutes />
             {isHome && (

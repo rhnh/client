@@ -1,6 +1,5 @@
-import { css } from '@emotion/css'
 import { FC } from 'react'
-import { Link } from 'react-router-dom'
+
 import { ITaxonomy } from 'utils/types'
 import { Taxonomy } from './Taxonomy'
 

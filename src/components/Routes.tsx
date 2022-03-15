@@ -6,8 +6,9 @@ import { CreateUserTaxonomy } from 'screens/taxonomies/CreateUserTaxonomy'
 import { CreatePost, FeaturedPost, Posts } from 'screens/posts'
 import { List, Lists, CreateList } from 'screens/lists/'
 import { About, Main } from 'screens/main'
-import { Taxonomy, TaxonomyScreen } from 'screens/taxonomies'
+import { TaxonomyScreen } from 'screens/taxonomies'
 import { TaxonomyById } from 'screens/taxonomies/Taxonomy'
+import FeaturedArticle from 'screens/posts/featured'
 
 export const AppRoutes: FC = () => {
   const { isLogin, username } = useAuth()
@@ -19,7 +20,7 @@ export const AppRoutes: FC = () => {
             index
             element={
               <Main>
-                <p>Welcome home</p>
+                <FeaturedArticle />
               </Main>
             }
           />
@@ -66,9 +67,9 @@ export const AppRoutes: FC = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/taxonomies" element={<TaxonomyScreen />} />
-        <Route path="/posts" element={<Posts />} />
+        <Route path="/posts" element={<Posts />} />{' '}
+        <Route path="/about" element={<About />} />
         <Route path="/taxonomy/:taxonomyId" element={<TaxonomyById />} />
-
         <Route path="*" element={<p>No Router found</p>} />
       </Route>
     </Routes>

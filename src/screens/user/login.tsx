@@ -9,7 +9,7 @@ import * as colors from 'utils/colors'
 import { LoginElements } from 'utils/types'
 
 export const Login: FC = () => {
-  const { login, isError, error, isLogin, isSuccess, state } = useAuth()
+  const { login, isError, error, isLogin, isSuccess } = useAuth()
   const { pathname } = useLocation()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')

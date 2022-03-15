@@ -1,5 +1,5 @@
 import { useAuth } from 'contexts/userContext'
-import { useMutation, useQuery } from 'react-query'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { SERVER_URL } from 'utils/configs'
 
 import { ITaxonomy } from 'utils/types'
@@ -44,9 +44,10 @@ export function useTaxonomy(_id: string) {
   )
 }
 
-export function useAddListItem() {
+export function useAddListItem(listName: string) {
   const { getLocalToken } = useAuth()
   const token = getLocalToken()
+  const queryClient = useQueryClient()
 
   return useMutation(
     ({
@@ -66,6 +67,9 @@ export function useAddListItem() {
           'Content-Type': 'application/json',
         },
       })
+    },
+    {
+      onSuccess: () => queryClient.invalidateQueries(['lists', listName]),
     },
   )
 }

@@ -35,9 +35,9 @@ function stateReducer(state: State, action: Action): State {
 }
 
 export const Register = () => {
-  const { register, isError, error, isSuccess } = useAuth()
+  const { register, isError, error, isSuccess, state: AuthState } = useAuth()
   const [state, dispatch] = useReducer(stateReducer, initialState)
-
+  console.log(state, AuthState)
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const target = e.target as typeof e.target & LoginElements
@@ -49,8 +49,13 @@ export const Register = () => {
     dispatch({ name, value, type: 'input' })
   }
   if (isSuccess) {
-    return <div>well done</div>
+    return (
+      <div>
+        Click <Link to="/"> here</Link> to return to the main page
+      </div>
+    )
   }
+  console.log('registering state', state)
   const isSubmitDisabled =
     !state.password ||
     !state.confirmPassword ||

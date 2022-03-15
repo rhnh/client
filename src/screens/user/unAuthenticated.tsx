@@ -1,5 +1,5 @@
-import { AppNav } from 'components/AppNav'
-import { AppRoutes } from 'components/AppRoutes'
+import { Nav } from 'components/Nav'
+import { AppRoutes } from 'components/Routes'
 import { useLocation } from 'react-router-dom'
 import { Footer } from 'screens/main'
 import { Facts, Join } from 'screens/misc'
@@ -10,7 +10,7 @@ const UnAuthenticated = () => {
   return (
     <>
       <div className="container">
-        <AppNav />
+        <Nav />
 
         <div className="content">
           <AppRoutes />

@@ -1,12 +1,15 @@
 import { Hintput } from '@ribrary/hintput'
 import { Button } from 'components/themed-button'
+
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react'
 
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { ITaxonomy } from 'utils/types'
-import { useAddListItem, useTaxonomies } from './useTaxonomies'
+import { useAddListItem, useTaxonomies } from './taxonomies-api'
 
 export const CreateUserTaxonomy: FC = () => {
+  const navigate = useNavigate()
+
   const [inputFieldsState, setInputFieldsState] = useState<ITaxonomy>({
     username: 'mon',
     taxonomy: '',
@@ -17,8 +20,10 @@ export const CreateUserTaxonomy: FC = () => {
   })
   const { listName } = useParams()
   const { data } = useTaxonomies()
-  const [found, setFound] = useState('Hello')
-  const { mutate, isError, isLoading, isSuccess } = useAddListItem()
+  const [found, setFound] = useState('')
+  const { mutate, isError, isLoading, isSuccess } = useAddListItem(
+    listName || '',
+  )
   const englishNames: string[] = data?.map(bird => bird.englishName) as
     | string[]
     | []
@@ -62,8 +67,13 @@ export const CreateUserTaxonomy: FC = () => {
   if (isError) {
     return <p>Something happened</p>
   }
+
   if (isSuccess) {
-    return <a href={`/lists/${listName}`}>Home</a>
+    return (
+      <Button variant="secondary" onClick={() => navigate(-1)}>
+        Back
+      </Button>
+    )
   }
   return (
     <form onSubmit={handleSubmit}>

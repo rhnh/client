@@ -24,7 +24,7 @@ export const NavUL = styled('ul')<ULProps>(
     margin: 0,
     padding: 0,
     zIndex: 1000,
-    background: colors.darkBlue,
+    background: colors.primary,
     height: '60%',
     animation: `${fadeIn} .2s .2s both`,
     li: {
@@ -38,11 +38,11 @@ export const NavUL = styled('ul')<ULProps>(
       display: 'block',
       padding: '.5em 0',
       textAlign: 'center',
-      color: colors.lightBlue,
+      color: colors.primaryText,
       textTransform: 'capitalize',
     },
     'li > a:hover': {
-      color: colors.lightBlue,
+      color: colors.primaryText,
       background: colors.darkRed,
     },
   },
@@ -125,6 +125,8 @@ export const CircleButton = styled.button({
   cursor: 'pointer',
   border: 'none',
   background: 'none',
+  color: colors.darkRed,
+  padding: '1em',
 })
 
 export const Dialog = styled(ReachDialog)({

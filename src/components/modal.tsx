@@ -1,8 +1,7 @@
 import VisuallyHidden from '@reach/visually-hidden'
 import * as React from 'react'
 import { callAll } from 'utils'
-import * as colors from 'utils/colors'
-import { css } from '@emotion/css'
+
 import '@reach/dialog/styles.css'
 import { CircleButton, Dialog } from './themed-components'
 

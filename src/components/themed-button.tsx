@@ -5,25 +5,32 @@ import { getObjectKeyValue } from 'utils'
 import { Link } from 'react-router-dom'
 
 type ButtonProps = {
-  variant: 'primary' | 'secondary'
+  variant: 'primary' | 'secondary' | 'danger'
   disabled?: boolean
 }
 
 interface Variants {
   primary: CSSProperties
   secondary: CSSProperties
+  danger: CSSProperties
 }
 
 const buttonVariant: Variants = {
   primary: {
-    background: colors.blue,
-    color: colors.lightBlue,
+    background: colors.PrimaryLight,
+    color: colors.primaryText,
   },
   secondary: {
     // border: `1px solid ${colors.secondary_dark}`,
     border: `2px solid ${colors.textDark}`,
     backgroundColor: colors.textLight,
     color: colors.textDark,
+  },
+  danger: {
+    // border: `1px solid ${colors.secondary_dark}`,
+    border: `2px solid ${colors.textLight}`,
+    backgroundColor: colors.red,
+    color: colors.textLight,
   },
 }
 
@@ -34,9 +41,9 @@ export const Button = styled('button')<ButtonProps>(
     fontSize: '1em',
     borderRadius: '2em',
     width: '100%',
-    margin: '.5em .2em',
+    // margin: '.5em .2em',
     textTransform: 'uppercase',
-    background: colors.red,
+    background: colors.primary,
     transitionDuration: '0.2s',
     cursor: 'pointer',
 
@@ -49,7 +56,7 @@ export const Button = styled('button')<ButtonProps>(
       ? {
           cursor: 'auto',
           // color: 'black',
-          backgroundColor: '#b3daff',
+          backgroundColor: colors.primary,
           color: '#e6f3ff',
           // border: `1px solid ${colors.orangeDark}`,
         }

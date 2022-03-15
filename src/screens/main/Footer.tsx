@@ -19,7 +19,7 @@ export const Footer: FC = () => {
         alignSelf: 'flex-end',
         width: '100%',
         textAlign: 'center',
-        background: '#000',
+        background: colors.secondary,
 
         marginBottom: 'auto',
 
@@ -31,21 +31,19 @@ export const Footer: FC = () => {
           padding: '.4em 0',
         },
         'ul > li > a ': {
-          color: colors.shadeBlue,
+          color: colors.primaryDark,
         },
         'ul > li > a:hover': {
-          color: colors.blue,
+          color: colors.PrimaryLight,
         },
       })}
     >
       <ul className="social-list">
         <li className="social-list__item">
-          <a className="social-list__link" href="http://dribbble.com">
-            <i className="fab fa-dribbble"></i>
-          </a>
-        </li>
-        <li className="social-list__item">
-          <a className="social-list__link" href="https://twitter.com">
+          <a
+            className="social-list__link"
+            href="https://twitter.com/safariliveorg"
+          >
             <i className="fab fa-twitter"></i>
           </a>
         </li>

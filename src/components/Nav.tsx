@@ -1,27 +1,14 @@
 import { useAuth } from 'contexts/userContext'
 import { Link } from 'react-router-dom'
 import MenuUL from './Menu'
-import Logo from '../logo61.png'
-import { css } from '@emotion/css'
-import { FC } from 'react'
 
-export const AppNav: FC = () => {
+import { FC } from 'react'
+import { Header } from './Header'
+
+export const Nav: FC = () => {
   const { logout, isLogin, username } = useAuth()
   return !isLogin ? (
-    <header className="header">
-      <Link to="/">
-        <img
-          src={Logo}
-          alt="safarilive"
-          className={css({
-            padding: '.6em',
-            maxWidth: '200px',
-            paddingBottom: 0,
-            margin: '1em',
-          })}
-        />
-      </Link>
-
+    <Header>
       <MenuUL>
         <li>
           <Link to="/">Home</Link>
@@ -44,27 +31,18 @@ export const AppNav: FC = () => {
           </li>
         </div>
       </MenuUL>
-    </header>
+    </Header>
   ) : (
-    <header className="header">
-      <Link to="/">
-        <img
-          src={Logo}
-          alt="safarilive"
-          className={css({
-            padding: '.6em',
-            maxWidth: '200px',
-            paddingBottom: 0,
-            margin: '1em',
-          })}
-        />
-      </Link>
+    <Header>
       <MenuUL>
         <li>
           <Link to="/">Home</Link>
         </li>
         <li>
           <Link to="/taxonomies">Birds</Link>
+        </li>
+        <li>
+          <Link to="/posts">articles</Link>
         </li>
         <li>
           <Link to={`/${username}/lists`}>My BirdList</Link>
@@ -84,6 +62,6 @@ export const AppNav: FC = () => {
           </li>
         </div>
       </MenuUL>
-    </header>
+    </Header>
   )
 }

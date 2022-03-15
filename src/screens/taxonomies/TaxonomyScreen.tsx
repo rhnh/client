@@ -1,9 +1,9 @@
-import { useTaxonomies } from 'screens/taxonomies/useTaxonomies'
 import { ITaxonomy } from 'utils/types'
 import { Taxonomies } from './Taxonomies'
 import { useState } from 'react'
 
 import { SearchBar } from 'components/SearchBar'
+import { useTaxonomies } from './taxonomies-api'
 
 export const TaxonomyScreen = () => {
   const { isLoading, data } = useTaxonomies()

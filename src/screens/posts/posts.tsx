@@ -1,4 +1,3 @@
-import { LinkedButton } from 'components/themed-button'
 import { FC } from 'react'
 import { useQuery } from 'react-query'
 import { SERVER_URL } from 'utils/configs'
@@ -6,14 +5,21 @@ import { IPost } from 'utils/types'
 import { FeaturedPost } from './post'
 
 export const Posts: FC = () => {
-  const { isLoading, data: posts } = useQuery('posts', () => {
-    return fetch(`${SERVER_URL}/posts`).then(res => res.json())
-  })
+  const { isLoading, data: posts } = useQuery(
+    'posts',
+    () => {
+      return fetch(`${SERVER_URL}/posts`).then(res => res.json())
+    },
+    {
+      retry: 1,
+    },
+  )
+
   return isLoading ? (
     <p>loading</p>
   ) : (
     <div>
-      {posts.length <= 0 ? (
+      {posts?.length <= 0 ? (
         <p>No Posts found</p>
       ) : (
         <div>
@@ -30,9 +36,6 @@ export const Posts: FC = () => {
           })}
         </div>
       )}
-      <LinkedButton to="/posts/post" variant="primary">
-        Create New Post
-      </LinkedButton>
     </div>
   )
 }

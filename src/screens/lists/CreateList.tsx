@@ -45,7 +45,6 @@ export const CreateList: FC = () => {
     e.preventDefault()
     const target = e.target as typeof e.target & { listName: HTMLInputElement }
     const listName = target.listName.value
-    alert('hello')
     mutate(listName)
   }
   const err = error as Error

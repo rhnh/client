@@ -4,7 +4,7 @@ import { FC } from 'react'
 
 import { Link } from 'react-router-dom'
 import { IList } from 'utils/types'
-import { useLists } from './listHooks'
+import { useLists } from './list-api'
 
 export const Lists: FC = () => {
   const { isLogin, username } = useAuth()

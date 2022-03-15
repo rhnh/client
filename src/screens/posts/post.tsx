@@ -1,9 +1,12 @@
 import { css } from '@emotion/css'
+import { useAuth } from 'contexts/userContext'
 import { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { IPost } from 'utils/types'
 // import './css'
 export const FeaturedPost: FC<IPost> = ({ title, image_url, body }) => {
+  const { userInfo } = useAuth()
+  const role = userInfo?.role
   return (
     <>
       <section className="featured">
@@ -32,6 +35,7 @@ export const FeaturedPost: FC<IPost> = ({ title, image_url, body }) => {
           },
         })}
       ></div>
+      <section>{role}</section>
     </>
   )
 }

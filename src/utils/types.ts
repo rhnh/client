@@ -78,3 +78,10 @@ export interface IHintput {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   onBlur?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
+
+export interface IProfile {
+  username: string
+  createAt: string
+  totalLists: number
+  _id: string
+}

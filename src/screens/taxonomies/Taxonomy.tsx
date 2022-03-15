@@ -2,7 +2,7 @@ import { css } from '@emotion/css'
 import { FC } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { ITaxonomy } from 'utils/types'
-import { useTaxonomy } from './useTaxonomies'
+import { useTaxonomy } from './taxonomies-api'
 
 export const TaxonomyById: FC = () => {
   const { taxonomyId } = useParams()
