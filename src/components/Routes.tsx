@@ -9,6 +9,7 @@ import { About, Main } from 'screens/main'
 import { TaxonomyScreen } from 'screens/taxonomies'
 import { TaxonomyById } from 'screens/taxonomies/Taxonomy'
 import FeaturedArticle from 'screens/posts/featured'
+import { Members } from 'screens/user/Members'
 
 export const AppRoutes: FC = () => {
   const { isLogin, username } = useAuth()
@@ -37,6 +38,7 @@ export const AppRoutes: FC = () => {
           />
           <Route path="/taxonomy/:taxonomyId" element={<TaxonomyById />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/members" element={<Members />} />
           <Route path="*" element={<p>No Router found</p>} />
         </Route>
       </Routes>

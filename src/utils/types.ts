@@ -4,16 +4,19 @@ export interface Base {
   _id?: string
   createdAt?: string
 }
+export type IRole = 'mod' | 'admin' | 'user'
 export interface IUser extends Base {
   username: string
   password: string
   confirmPassword?: string
+  role?: IRole
 }
+
 export interface IUserInfo extends Base {
   username: string
   token: string
   isValidToken?: boolean
-  role?: 'mod' | 'admin' | 'user'
+  role?: IRole
 }
 export type ICategories = 'species' | 'genus' | 'family' | 'order'
 export type IGender = 'female' | 'male' | 'unknown'
@@ -84,4 +87,28 @@ export interface IProfile {
   createAt: string
   totalLists: number
   _id: string
+}
+export interface Authorization {
+  token: string
+  userInfo: IUserInfo | null | undefined
+  username: string
+  login: (user: IUser) => void
+  register: (user: IUser) => void
+  logout: () => void
+  passRecovery: () => void
+  usernameRecovery: () => void
+  getLocalToken: () => string | null
+  isError: boolean
+  isLogin: boolean
+  error: Error
+  isLoading: boolean
+  isSuccess: boolean
+  state: 'success' | 'error' | 'loading' | 'idle'
+}
+
+export const isAuthorized = (role = 'user'): boolean => {
+  if (role === 'mod' || role === 'admin') {
+    return true
+  }
+  return false
 }

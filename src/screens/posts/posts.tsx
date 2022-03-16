@@ -1,10 +1,14 @@
+import { LinkedButton } from 'components/themed-button'
+import { useAuth } from 'contexts/userContext'
 import { FC } from 'react'
 import { useQuery } from 'react-query'
 import { SERVER_URL } from 'utils/configs'
 import { IPost } from 'utils/types'
-import { FeaturedPost } from './post'
+import { Post } from './post'
 
 export const Posts: FC = () => {
+  const { userInfo } = useAuth()
+  const role = userInfo?.role
   const { isLoading, data: posts } = useQuery(
     'posts',
     () => {
@@ -26,7 +30,7 @@ export const Posts: FC = () => {
           {posts.map((post: IPost) => {
             return (
               <div key={post._id}>
-                <FeaturedPost
+                <Post
                   title={post.title}
                   body={post.body}
                   image_url={post.image_url}
@@ -35,6 +39,11 @@ export const Posts: FC = () => {
             )
           })}
         </div>
+      )}
+      {role === 'admin' && (
+        <LinkedButton variant="primary" to="/posts/post">
+          Create New
+        </LinkedButton>
       )}
     </div>
   )

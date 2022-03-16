@@ -2,7 +2,7 @@ import { userLogin, userRegister } from 'api/user'
 import { useAsync } from 'hooks/useAsync'
 import { createContext, FC, useContext, useEffect, useState } from 'react'
 import { SERVER_URL } from 'utils/configs'
-import { IUser, IUserInfo } from 'utils/types'
+import { Authorization, IUser, IUserInfo } from 'utils/types'
 
 async function isVerified(): Promise<IUserInfo | null> {
   const token = getLocalToken()
@@ -39,22 +39,7 @@ function getLocalToken() {
 function deleteLocalToken() {
   window.localStorage.removeItem('token')
 }
-interface Authorization {
-  token: string
-  userInfo: IUserInfo | null | undefined
-  username: string
-  login: (user: IUser) => void
-  register: (user: IUser) => void
-  logout: () => void
-  passRecovery: () => void
-  usernameRecovery: () => void
-  getLocalToken: () => string | null
-  isError: boolean
-  isLogin: boolean
-  error: Error
-  isSuccess: boolean
-  state: 'success' | 'error' | 'loading' | 'idle'
-}
+
 const placeHolderAuth: Authorization = {
   username: '',
   token: '',
@@ -70,6 +55,7 @@ const placeHolderAuth: Authorization = {
   getLocalToken: () => '',
   state: 'idle',
   isSuccess: false,
+  isLoading: false,
   userInfo: {
     username: '',
     token: '',
@@ -98,6 +84,7 @@ export const UserProvider: FC = ({ children }) => {
 
   useEffect(() => {
     isVerified().then(t => {
+      console.log(t, 'hahaha')
       if (t) {
         setUser(t)
         setIsLogin(t?.isValidToken ?? false)
@@ -123,6 +110,7 @@ export const UserProvider: FC = ({ children }) => {
       err => {
         setError(err)
         setIsLogin(false)
+        deleteLocalToken()
       },
     )
   }
@@ -140,6 +128,7 @@ export const UserProvider: FC = ({ children }) => {
     deleteLocalToken()
     setUser(null)
     setIsLogin(false)
+    window.location.reload()
   }
   if (isLoading) {
     return <p> loading...</p>
@@ -171,6 +160,7 @@ export const UserProvider: FC = ({ children }) => {
     isIdle,
     state,
     isSuccess,
+    isLoading,
   }
 
   if (isLoading) {

@@ -1,4 +1,5 @@
 import { css } from '@emotion/css'
+
 import { useAuth } from 'contexts/userContext'
 
 import { FC, FormEvent } from 'react'
@@ -13,13 +14,36 @@ interface PostInputElements {
 }
 
 export const CreatePost: FC = () => {
-  const { isLogin } = useAuth()
+  const { isLogin, userInfo } = useAuth()
+  const role = userInfo?.role
   const navigate = useNavigate()
 
   if (!isLogin) {
-    navigate('/')
+    navigate(-1)
   }
-
+  if (isLogin && role !== 'mod' && role !== 'admin') {
+    return (
+      <div>
+        <span>You are not authorized to write an article.</span>
+        Click{' '}
+        <a
+          href="/"
+          className={css({
+            fontFace: 'bold',
+            textDecoration: 'none',
+            color: 'green',
+            ':hover': {
+              color: 'lightgreen',
+              textDecoration: 'underline',
+            },
+          })}
+        >
+          here
+        </a>{' '}
+        to go back to home page.
+      </div>
+    )
+  }
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const target = e.target as typeof e.target & PostInputElements

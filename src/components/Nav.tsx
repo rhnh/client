@@ -53,7 +53,7 @@ export const Nav: FC = () => {
             <Link to="/about">About</Link>
           </li>
           <li>
-            <Link to="/profile">Profile</Link>
+            <Link to="/profile">{username}</Link>
           </li>
           <li>
             <Link to="/" onClick={() => logout()}>

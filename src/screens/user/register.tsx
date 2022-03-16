@@ -35,19 +35,21 @@ function stateReducer(state: State, action: Action): State {
 }
 
 export const Register = () => {
-  const { register, isError, error, isSuccess, state: AuthState } = useAuth()
+  const { register, isError, error, isSuccess, isLoading } = useAuth()
   const [state, dispatch] = useReducer(stateReducer, initialState)
-  console.log(state, AuthState)
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const target = e.target as typeof e.target & LoginElements
     const { username, password } = target
     register({ username: username.value, password: password.value })
   }
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     dispatch({ name, value, type: 'input' })
   }
+
   if (isSuccess) {
     return (
       <div>
@@ -55,12 +57,16 @@ export const Register = () => {
       </div>
     )
   }
-  console.log('registering state', state)
+
   const isSubmitDisabled =
     !state.password ||
     !state.confirmPassword ||
     state.password !== state.confirmPassword
-  return (
+  return isLoading ? (
+    <p>loading</p>
+  ) : isSuccess ? (
+    <p>Success</p>
+  ) : (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <div
         className={css({
