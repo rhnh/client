@@ -35,7 +35,6 @@ export const FeaturedPost: FC<IPost> = ({ title, image_url, body }) => {
           },
         })}
       ></div>
-      <section>{role}</section>
     </>
   )
 }

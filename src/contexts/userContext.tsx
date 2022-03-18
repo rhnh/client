@@ -84,7 +84,6 @@ export const UserProvider: FC = ({ children }) => {
 
   useEffect(() => {
     isVerified().then(t => {
-      console.log(t, 'hahaha')
       if (t) {
         setUser(t)
         setIsLogin(t?.isValidToken ?? false)

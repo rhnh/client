@@ -56,7 +56,7 @@ export const Button = styled('button')<ButtonProps>(
       ? {
           cursor: 'auto',
           // color: 'black',
-          backgroundColor: colors.primary,
+          backgroundColor: colors.primaryText,
           color: '#e6f3ff',
           // border: `1px solid ${colors.orangeDark}`,
         }

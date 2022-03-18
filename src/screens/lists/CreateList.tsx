@@ -9,7 +9,7 @@ import { SERVER_URL } from 'utils/configs'
 
 export const CreateList: FC = () => {
   const [listName, setListName] = useState('')
-  const { isLogin, getLocalToken } = useAuth()
+  const { isLogin, getLocalToken, username } = useAuth()
   const { mutate, isError, error, isSuccess } = useMutation(
     (listName: string) => {
       return fetch(`${SERVER_URL}/lists/${listName}`, {
@@ -62,9 +62,10 @@ export const CreateList: FC = () => {
   if (isSuccess) {
     return (
       <div>
-        Well Done
+        You have successfully created {listName}
         <section>
-          Click <Link to="/lists"> here </Link>to see all your lists.
+          Click <Link to={`/${username}/lists`}> here </Link>to see all your
+          lists.
         </section>
       </div>
     )

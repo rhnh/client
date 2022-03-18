@@ -20,11 +20,7 @@ const Authenticated = () => {
           <Nav />
           <div className="content">
             <AppRoutes />
-            {isHome && (
-              <div className="aside">
-                <Facts />
-              </div>
-            )}
+            {isHome && <div className="aside">{/* <Facts /> */}</div>}
           </div>
         </ErrorBoundary>
       </div>

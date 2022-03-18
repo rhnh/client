@@ -2,7 +2,7 @@ import { Nav } from 'components/Nav'
 import { AppRoutes } from 'components/Routes'
 import { useLocation } from 'react-router-dom'
 import { Footer } from 'screens/main'
-import { Facts, Join } from 'screens/misc'
+import { Join } from 'screens/misc'
 
 const UnAuthenticated = () => {
   const location = useLocation()
@@ -17,7 +17,7 @@ const UnAuthenticated = () => {
           {isHome && (
             <div className="aside">
               <Join />
-              <Facts />
+              {/* <Facts />2 */}
             </div>
           )}
         </div>
