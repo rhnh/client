@@ -5,10 +5,18 @@ import { SERVER_URL } from 'utils/configs'
 import { ITaxonomy } from 'utils/types'
 
 const getTaxonomies = async (): Promise<ITaxonomy[]> => {
-  const response = await fetch(`${SERVER_URL}/taxonomies`)
-  if (response.ok) {
-    return response.json() as unknown as ITaxonomy[] | []
-  } else {
+  const url = `${SERVER_URL}/taxonomies`
+
+  try {
+    const response = await fetch(url)
+
+    if (response.ok) {
+      return response.json() as unknown as ITaxonomy[] | []
+    } else {
+      return []
+    }
+  } catch (error) {
+    console.error(error, url)
     return []
   }
 }

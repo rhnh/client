@@ -4,11 +4,14 @@ import { Button } from 'components/themed-button'
 import { Input, Label } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation, useParams } from 'react-router-dom'
 import * as colors from 'utils/colors'
 import { LoginElements } from 'utils/types'
 
 export const Login: FC = () => {
+  const location = useLocation()
+  const param = useParams()
+
   const { login, isError, error, isLogin, isSuccess } = useAuth()
   const { pathname } = useLocation()
   const [username, setUsername] = useState('')
@@ -19,7 +22,6 @@ export const Login: FC = () => {
     e.preventDefault()
     const target = e.target as typeof e.target & LoginElements
     const { username, password } = target
-
     login({ username: username.value, password: password.value })
   }
   useEffect(() => {

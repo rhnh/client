@@ -13,7 +13,6 @@ export const useProfile = () => {
         'Content-Type': 'application/json',
       },
     }).then(res => {
-      console.log(res.body, res.ok)
       return res.json()
     })
   })
