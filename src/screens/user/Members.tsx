@@ -1,7 +1,6 @@
 import { useAuth } from 'contexts/userContext'
 import { FC } from 'react'
 import { useQuery } from 'react-query'
-import { SERVER_URL } from 'utils/configs'
 import { IUser } from 'utils/types'
 import { Member } from './Member'
 
@@ -13,7 +12,7 @@ export const Members: FC = () => {
     isLoading,
     data: users,
   } = useQuery<IUser[]>('members', () => {
-    return fetch(`${SERVER_URL}/users/members`, {
+    return fetch(`api/users/members`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,

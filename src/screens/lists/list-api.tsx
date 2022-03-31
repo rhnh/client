@@ -1,13 +1,12 @@
 import { useAuth } from 'contexts/userContext'
 import { useMutation, useQuery } from 'react-query'
-import { SERVER_URL } from 'utils/configs'
 
 export const useGetUserList = (listName: string) => {
   const { getLocalToken } = useAuth()
   const token = getLocalToken()
 
   return useQuery(['list', listName], () => {
-    return fetch(`${SERVER_URL}/lists/list/${listName}`, {
+    return fetch(`api/lists/list/${listName}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -23,7 +22,7 @@ export const useLists = () => {
   return useQuery(
     'lists',
     () => {
-      return fetch(`${SERVER_URL}/lists`, {
+      return fetch(`api/lists`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -41,7 +40,7 @@ export const useDeleteList = () => {
   const { getLocalToken } = useAuth()
   const token = getLocalToken()
   return useMutation((listName: string) => {
-    return fetch(`${SERVER_URL}/lists/${listName}`, {
+    return fetch(`api/lists/${listName}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`,

@@ -1,7 +1,7 @@
 import { userLogin, userRegister } from 'api/user'
 import { useAsync } from 'hooks/useAsync'
 import { createContext, FC, useContext, useEffect, useState } from 'react'
-import { SERVER_URL } from 'utils/configs'
+
 import { Authorization, IUser, IUserInfo } from 'utils/types'
 
 async function isVerified(): Promise<IUserInfo | null> {
@@ -9,7 +9,7 @@ async function isVerified(): Promise<IUserInfo | null> {
 
   if (token) {
     return window
-      .fetch(`${SERVER_URL}/users/verify-user`, {
+      .fetch(`api/users/verify-user`, {
         method: 'post',
         headers: new Headers({
           Authorization: `Bearer ${token}`,

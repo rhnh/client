@@ -8,7 +8,7 @@ export const TaxonomyById: FC = () => {
   const { taxonomyId } = useParams()
   const { isLoading, data, isError } = useTaxonomy(taxonomyId || '')
   if (data === undefined || isError) {
-    return <p>Something Went wrong!</p>
+    return <p>Something Went wrong! Please re-login</p>
   }
   if (isLoading) {
     return <p>loading...</p>

@@ -4,7 +4,6 @@ import { useAuth } from 'contexts/userContext'
 
 import { FC, FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { SERVER_URL } from 'utils/configs'
 import { IPost } from 'utils/types'
 
 interface PostInputElements {
@@ -54,7 +53,7 @@ export const CreatePost: FC = () => {
       image_url: imageUrl.value,
     }
 
-    fetch(`${SERVER_URL}/posts`, {
+    fetch(`api/posts`, {
       method: 'POST',
       body: JSON.stringify(post),
       headers: {

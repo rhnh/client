@@ -2,7 +2,6 @@
  * globals
  */
 
-import { SERVER_URL } from 'utils/configs'
 import { IUser, IUserInfo } from 'utils/types'
 
 const usersKey = '__safarilive_users__'

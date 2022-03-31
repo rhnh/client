@@ -2,7 +2,7 @@ import { LinkedButton } from 'components/themed-button'
 import { useAuth } from 'contexts/userContext'
 import { FC } from 'react'
 import { useQuery } from 'react-query'
-import { SERVER_URL } from 'utils/configs'
+
 import { IPost } from 'utils/types'
 import { Post } from './post'
 
@@ -12,7 +12,7 @@ export const Posts: FC = () => {
   const { isLoading, data: posts } = useQuery(
     'posts',
     () => {
-      return fetch(`${SERVER_URL}/posts`).then(res => res.json())
+      return fetch(`api/posts`).then(res => res.json())
     },
     {
       retry: 1,

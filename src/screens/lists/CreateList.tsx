@@ -5,14 +5,13 @@ import { useAuth } from 'contexts/userContext'
 import { ChangeEvent, FC, FormEvent, useState } from 'react'
 import { useMutation } from 'react-query'
 import { Link } from 'react-router-dom'
-import { SERVER_URL } from 'utils/configs'
 
 export const CreateList: FC = () => {
   const [listName, setListName] = useState('')
   const { isLogin, getLocalToken, username } = useAuth()
   const { mutate, isError, error, isSuccess } = useMutation(
     (listName: string) => {
-      return fetch(`${SERVER_URL}/lists/${listName}`, {
+      return fetch(`api/lists/${listName}`, {
         body: JSON.stringify({ listName }),
         method: 'POST',
         headers: {

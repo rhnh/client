@@ -1,1 +1,1 @@
-import { SERVER_URL } from 'utils/configs'
+export const bar = ''

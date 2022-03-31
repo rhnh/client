@@ -1,4 +1,3 @@
-import { SERVER_URL } from 'utils/configs'
 import { httpError } from 'utils/error'
 import { IUser, IUserInfo } from 'utils/types'
 
@@ -15,20 +14,18 @@ export async function userClient(
   }
   let status, statusText
   try {
-    return window
-      .fetch(`${SERVER_URL}/${endpoint}`, config)
-      .then(async response => {
-        status = response.status
-        statusText = response.statusText
-        httpError(status)
+    return window.fetch(`api/${endpoint}`, config).then(async response => {
+      status = response.status
+      statusText = response.statusText
+      httpError(status)
 
-        if (response.ok) {
-          const data = await response.json()
-          return data
-        } else {
-          return Promise.reject(data)
-        }
-      })
+      if (response.ok) {
+        const data = await response.json()
+        return data
+      } else {
+        return Promise.reject(data)
+      }
+    })
   } catch (error) {
     const err: Error = error as Error
     err.status = status

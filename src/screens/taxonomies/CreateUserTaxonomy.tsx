@@ -65,7 +65,7 @@ export const CreateUserTaxonomy: FC = () => {
     return <p>wait !</p>
   }
   if (isError) {
-    return <p>Something happened</p>
+    return <p>Something went wrong.</p>
   }
 
   if (isSuccess) {

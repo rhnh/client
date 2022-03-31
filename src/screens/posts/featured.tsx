@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { useQuery } from 'react-query'
-import { SERVER_URL } from 'utils/configs'
+
 import { IPost } from 'utils/types'
 import { FeaturedPost } from './post'
 
@@ -10,7 +10,7 @@ const FeaturedArticle: FC = () => {
     isLoading,
     isError,
   } = useQuery<IPost>('featured', () => {
-    return fetch(`${SERVER_URL}/posts/featured`).then(res => res.json())
+    return fetch(`api/posts/featured`).then(res => res.json())
   })
   return isLoading ? (
     <p>Loading...</p>

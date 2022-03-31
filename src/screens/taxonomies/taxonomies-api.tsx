@@ -1,11 +1,10 @@
 import { useAuth } from 'contexts/userContext'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { SERVER_URL } from 'utils/configs'
 
 import { ITaxonomy } from 'utils/types'
 
 const getTaxonomies = async (): Promise<ITaxonomy[]> => {
-  const url = `${SERVER_URL}/taxonomies`
+  const url = `api/taxonomies`
 
   try {
     const response = await fetch(url)
@@ -31,7 +30,7 @@ export function useTaxonomy(_id: string) {
   return useQuery<ITaxonomy, Error>(
     ['taxonomy', _id],
     () =>
-      fetch(`${SERVER_URL}/taxonomies/taxonomy/${_id}`, {
+      fetch(`api/taxonomies/taxonomy/${_id}`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -67,7 +66,7 @@ export function useAddListItem(listName: string) {
       englishName: string
       taxonomy: string
     }) => {
-      return fetch(`${SERVER_URL}/lists/list/${listName}`, {
+      return fetch(`api/lists/list/${listName}`, {
         method: 'POST',
         body: JSON.stringify({ englishName, taxonomy }),
         headers: {
