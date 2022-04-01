@@ -83,7 +83,7 @@ export function httpError(n: number) {
     case 400:
       return createError('Missing Username/Password')
     case 401:
-      return createError('Username/Password Wrong!')
+      return createError('Invalid username or password!')
     case 409:
       return createError('Username already taken')
     case 429:

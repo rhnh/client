@@ -6,7 +6,7 @@ export const useGetUserList = (listName: string) => {
   const token = getLocalToken()
 
   return useQuery(['list', listName], () => {
-    return fetch(`api/lists/list/${listName}`, {
+    return fetch(`/api/lists/list/${listName}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -19,15 +19,19 @@ export const useGetUserList = (listName: string) => {
 export const useLists = () => {
   const { getLocalToken } = useAuth()
   const token = getLocalToken()
+  const url = '/api/lists'
   return useQuery(
     'lists',
     () => {
-      return fetch(`api/lists`, {
+      return fetch(url, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }).then(res => res.json())
+      }).then(res => {
+        console.log(res.ok, res.status, 'it is here')
+        return res.json()
+      })
     },
     {
       retry: 0,
@@ -40,7 +44,7 @@ export const useDeleteList = () => {
   const { getLocalToken } = useAuth()
   const token = getLocalToken()
   return useMutation((listName: string) => {
-    return fetch(`api/lists/${listName}`, {
+    return fetch(`/api/lists/${listName}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`,

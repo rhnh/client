@@ -30,7 +30,7 @@ export function useTaxonomy(_id: string) {
   return useQuery<ITaxonomy, Error>(
     ['taxonomy', _id],
     () =>
-      fetch(`api/taxonomies/taxonomy/${_id}`, {
+      fetch(`/api/taxonomies/taxonomy/${_id}`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -66,7 +66,7 @@ export function useAddListItem(listName: string) {
       englishName: string
       taxonomy: string
     }) => {
-      return fetch(`api/lists/list/${listName}`, {
+      return fetch(`/api/lists/list/${listName}`, {
         method: 'POST',
         body: JSON.stringify({ englishName, taxonomy }),
         headers: {

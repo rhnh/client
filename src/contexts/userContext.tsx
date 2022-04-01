@@ -6,16 +6,16 @@ import { Authorization, IUser, IUserInfo } from 'utils/types'
 
 async function isVerified(): Promise<IUserInfo | null> {
   const token = getLocalToken()
-
   if (token) {
     return window
-      .fetch(`api/users/verify-user`, {
+      .fetch(`/api/users/verify-user`, {
         method: 'post',
         headers: new Headers({
           Authorization: `Bearer ${token}`,
         }),
       })
       .then(async res => {
+        console.log(res.ok, res.status)
         const data = await res.json()
         if (data && res.ok) {
           return data

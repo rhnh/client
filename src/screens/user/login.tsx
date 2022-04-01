@@ -9,9 +9,6 @@ import * as colors from 'utils/colors'
 import { LoginElements } from 'utils/types'
 
 export const Login: FC = () => {
-  const location = useLocation()
-  const param = useParams()
-
   const { login, isError, error, isLogin, isSuccess } = useAuth()
   const { pathname } = useLocation()
   const [username, setUsername] = useState('')
@@ -24,6 +21,7 @@ export const Login: FC = () => {
     const { username, password } = target
     login({ username: username.value, password: password.value })
   }
+
   useEffect(() => {
     if (isLogin && pathname === '/login') {
       navigate('/')
@@ -65,7 +63,15 @@ export const Login: FC = () => {
         >
           Login
         </h1>
-
+        {isError ? (
+          <ul
+            className={css({
+              color: 'red',
+            })}
+          >
+            <li>{error.message}</li>
+          </ul>
+        ) : null}
         <div
           className={css({
             overflow: 'clear',
@@ -93,7 +99,6 @@ export const Login: FC = () => {
         <Button type="submit" variant={'primary'} disabled={isDisabled}>
           Login
         </Button>
-        {isError ? <span> {error.message} </span> : null}
       </form>
     </div>
   )

@@ -13,6 +13,7 @@ import { Members } from 'screens/user/Members'
 
 export const AppRoutes: FC = () => {
   const { isLogin, username } = useAuth()
+
   return isLogin ? (
     <div className="">
       <Routes>
@@ -39,7 +40,7 @@ export const AppRoutes: FC = () => {
           <Route path="/taxonomy/:taxonomyId" element={<TaxonomyById />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/members" element={<Members />} />
-          <Route path="*" element={<p>No Router found</p>} />
+          <Route path="*" element={<Main />} />
         </Route>
       </Routes>
     </div>
@@ -72,7 +73,7 @@ export const AppRoutes: FC = () => {
         <Route path="/posts" element={<Posts />} />{' '}
         <Route path="/about" element={<About />} />
         <Route path="/taxonomy/:taxonomyId" element={<TaxonomyById />} />
-        <Route path="*" element={<p>No Router found</p>} />
+        <Route path="*" element={<Main />} />
       </Route>
     </Routes>
   )
