@@ -1,6 +1,6 @@
 async function client(endpoint: string, data: any) {
   return window
-    .fetch(`api/${endpoint}`, {
+    .fetch(`/api/${endpoint}`, {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {

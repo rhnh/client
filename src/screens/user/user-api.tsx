@@ -5,7 +5,7 @@ export const useProfile = () => {
   const { username, getLocalToken } = useAuth()
   const token = getLocalToken()
   return useQuery('profile', () => {
-    return fetch(`api/users/user/profile/${username}`, {
+    return fetch(`/api/users/user/profile/${username}`, {
       method: 'post',
       headers: {
         Authorization: `Bearer ${token}`,

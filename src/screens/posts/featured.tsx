@@ -10,7 +10,7 @@ const FeaturedArticle: FC = () => {
     isLoading,
     isError,
   } = useQuery<IPost>('featured', () => {
-    return fetch(`api/posts/featured`).then(res => res.json())
+    return fetch(`/api/posts/featured`).then(res => res.json())
   })
   return isLoading ? (
     <p>Loading...</p>

@@ -39,9 +39,17 @@ export const Lists: FC = () => {
               </Link>
             </div>
           ))}
+          <LinkedButton variant="primary" to="/lists/list">
+            Create New List
+          </LinkedButton>
         </div>
       ) : (
-        <div>No list found</div>
+        <div>
+          <p>No list found</p>
+          <LinkedButton variant="primary" to="/lists/list">
+            Create New List
+          </LinkedButton>
+        </div>
       )}
     </div>
   )

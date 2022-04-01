@@ -12,7 +12,7 @@ export const Posts: FC = () => {
   const { isLoading, data: posts } = useQuery(
     'posts',
     () => {
-      return fetch(`api/posts`).then(res => res.json())
+      return fetch(`/api/posts`).then(res => res.json())
     },
     {
       retry: 1,

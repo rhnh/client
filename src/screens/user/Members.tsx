@@ -12,7 +12,7 @@ export const Members: FC = () => {
     isLoading,
     data: users,
   } = useQuery<IUser[]>('members', () => {
-    return fetch(`api/users/members`, {
+    return fetch(`/api/users/members`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,

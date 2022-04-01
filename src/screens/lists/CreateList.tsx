@@ -11,7 +11,7 @@ export const CreateList: FC = () => {
   const { isLogin, getLocalToken, username } = useAuth()
   const { mutate, isError, error, isSuccess } = useMutation(
     (listName: string) => {
-      return fetch(`api/lists/${listName}`, {
+      return fetch(`/api/lists/${listName}`, {
         body: JSON.stringify({ listName }),
         method: 'POST',
         headers: {

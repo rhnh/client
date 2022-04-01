@@ -14,7 +14,7 @@ export async function userClient(
   }
   let status, statusText
   try {
-    return window.fetch(`api/${endpoint}`, config).then(async response => {
+    return window.fetch(`/api/${endpoint}`, config).then(async response => {
       status = response.status
       statusText = response.statusText
       httpError(status)

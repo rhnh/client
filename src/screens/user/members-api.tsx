@@ -14,7 +14,7 @@ const client = ({
   pathname: string
   body?: any
 }) => {
-  return fetch(`api/${pathname}`, {
+  return fetch(`/api/${pathname}`, {
     method,
     body: body ? JSON.stringify(body) : undefined,
     headers: {
