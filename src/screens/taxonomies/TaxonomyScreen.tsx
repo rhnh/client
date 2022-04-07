@@ -4,6 +4,7 @@ import { useState } from 'react'
 
 import { SearchBar } from 'components/SearchBar'
 import { useTaxonomies } from './taxonomies-api'
+import { css } from '@emotion/css'
 
 export const TaxonomyScreen = () => {
   const { isLoading, data } = useTaxonomies()
@@ -27,7 +28,13 @@ export const TaxonomyScreen = () => {
   return isLoading ? (
     <p>Loading</p>
   ) : (
-    <div>
+    <div
+      className={css({
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      })}
+    >
       <SearchBar search={search} setSearch={setSearch} data={data} />
       <Taxonomies taxonomies={birds} />
     </div>

@@ -15,12 +15,15 @@ export const SearchBar: FC<Props> = ({ data, setSearch, search }) => {
   const birdNames: string[] = data?.map(bird => bird.englishName) as
     | string[]
     | ['']
+  if (birdNames.length <= 0) {
+    return null
+  }
   return (
     <section
       className={css({
-        width: '100%',
-        position: 'relative',
+        flexDirection: 'row',
         display: 'flex',
+        margin: 'auto',
       })}
     >
       <Hintput
@@ -30,7 +33,6 @@ export const SearchBar: FC<Props> = ({ data, setSearch, search }) => {
         name="search"
         placeholder="Search"
         style={{
-          width: '100%',
           border: '3px solid #00B4CC',
           borderRight: 'none',
           padding: '15px',
@@ -38,6 +40,8 @@ export const SearchBar: FC<Props> = ({ data, setSearch, search }) => {
           outline: '1px solid #00B4CC',
           borderRadius: '5px 0 0 5px',
           color: '#9DBFAF',
+          margin: 'auto',
+          width: '100%',
         }}
         value={search}
         items={birdNames}

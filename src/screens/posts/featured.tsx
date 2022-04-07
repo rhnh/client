@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { useQuery } from 'react-query'
 
 import { IPost } from 'utils/types'
-import { FeaturedPost } from './post'
+import { FeaturedPost } from './FeaturedPost'
 
 const FeaturedArticle: FC = () => {
   const {

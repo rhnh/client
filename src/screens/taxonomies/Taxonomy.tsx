@@ -1,24 +1,9 @@
 import { css } from '@emotion/css'
+import { CircleButton } from 'components/themed-components'
+
 import { FC } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { ITaxonomy } from 'utils/types'
-import { useTaxonomy } from './taxonomies-api'
-
-export const TaxonomyById: FC = () => {
-  const { taxonomyId } = useParams()
-  const { isLoading, data, isError } = useTaxonomy(taxonomyId || '')
-  if (data === undefined || isError) {
-    return <p>Something Went wrong! Please re-login</p>
-  }
-  if (isLoading) {
-    return <p>loading...</p>
-  }
-  if (isError) {
-    return <p>Oops</p>
-  }
-
-  return <Taxonomy {...data} />
-}
 
 export const Taxonomy: FC<ITaxonomy> = ({
   _id,
@@ -32,16 +17,29 @@ export const Taxonomy: FC<ITaxonomy> = ({
       key={_id}
       className={css({
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'row',
+        border: '2px solid #ffeae2',
+        padding: '2em',
         gap: '2em',
-        borderBottom: '2px solid green',
-        padding: '1em',
+        margin: '1.5em',
+        maxWidth: '60%',
+        minWidth: '200px',
       })}
     >
       <div>
         <Link to={`/taxonomy/${_id?.toLowerCase().replace(/[^a-z0-9]+/, '-')}`}>
           {image !== undefined ? (
-            <img src={`/assets/${image}`} width="200px" alt={englishName}></img>
+            <div
+              className={css({
+                position: 'relative',
+              })}
+            >
+              <img
+                src={`/assets/${image}`}
+                width="200px"
+                alt={englishName}
+              ></img>
+            </div>
           ) : (
             <img
               src={`/assets/bird-placeholder.jpg`}
@@ -55,6 +53,23 @@ export const Taxonomy: FC<ITaxonomy> = ({
         <div className="taxonomyName">Name: {englishName}</div>
         <div className="taxonomy">Species: {taxonomy}</div>
         <div className="taxonomy">{info ? <p>Info: {info}</p> : null}</div>
+      </div>
+      <div
+        className={css({
+          marginLeft: 'auto',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+        })}
+      >
+        <CircleButton>+</CircleButton>
+        <CircleButton
+          className={css({
+            marginLeft: 'auto',
+          })}
+        >
+          +
+        </CircleButton>
       </div>
     </div>
   )

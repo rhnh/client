@@ -17,20 +17,16 @@ interface Variants {
 
 const buttonVariant: Variants = {
   primary: {
-    background: colors.PrimaryLight,
-    color: colors.primaryText,
+    background: colors.primary,
+    color: colors.baseText,
   },
   secondary: {
-    // border: `1px solid ${colors.secondary_dark}`,
-    border: `2px solid ${colors.textDark}`,
-    backgroundColor: colors.textLight,
-    color: colors.textDark,
+    backgroundColor: colors.secondary,
+    color: colors.secondaryText,
   },
   danger: {
-    // border: `1px solid ${colors.secondary_dark}`,
-    border: `2px solid ${colors.textLight}`,
-    backgroundColor: colors.red,
-    color: colors.textLight,
+    background: colors.primary,
+    color: colors.primaryText,
   },
 }
 
@@ -43,10 +39,9 @@ export const Button = styled('button')<ButtonProps>(
     width: '100%',
     // margin: '.5em .2em',
     textTransform: 'uppercase',
-    background: colors.primary,
     transitionDuration: '0.2s',
     cursor: 'pointer',
-
+    color: colors.primaryText,
     '@media only screen and (min-width: 600px)': {
       maxWidth: '210px',
     },
@@ -56,18 +51,18 @@ export const Button = styled('button')<ButtonProps>(
       ? {
           cursor: 'auto',
           // color: 'black',
-          backgroundColor: colors.primaryText,
-          color: '#e6f3ff',
-          // border: `1px solid ${colors.orangeDark}`,
+          backgroundColor: colors.neutral,
+          color: colors.baseText,
+          border: `1px solid ${colors.baseText}`,
         }
       : variants !== 'primary'
       ? {
           ...getObjectKeyValue<any, string>(variants)(buttonVariant),
           ':hover': {
             opacity: '.8',
-            background: colors.textLight,
-            border: `2px solid ${colors.orangeDark}`,
-            color: colors.orangeDark,
+            background: colors.secondary,
+            border: `2px solid ${colors.secondaryText}`,
+            color: colors.secondaryText,
           },
         }
       : {
@@ -94,7 +89,7 @@ export const LinkedButton = styled(Link)<LinkedButtonProps>(
     width: '100%',
     margin: '.5em .2em',
     textTransform: 'uppercase',
-    background: colors.red,
+    background: colors.primary,
     transitionDuration: '0.2s',
     cursor: 'pointer',
 
@@ -107,7 +102,7 @@ export const LinkedButton = styled(Link)<LinkedButtonProps>(
       ? {
           cursor: 'auto',
           // color: 'black',
-          backgroundColor: colors.orange,
+          backgroundColor: colors.neutral,
           color: 'gray',
           // border: `1px solid ${colors.orangeDark}`,
         }
@@ -116,9 +111,9 @@ export const LinkedButton = styled(Link)<LinkedButtonProps>(
           ...getObjectKeyValue<any, string>(variants)(buttonVariant),
           ':hover': {
             opacity: '.8',
-            background: colors.textLight,
-            border: `2px solid ${colors.orangeDark}`,
-            color: colors.orangeDark,
+            background: colors.secondary,
+            border: `2px solid ${colors.secondaryText}`,
+            color: colors.secondaryText,
           },
         }
       : {

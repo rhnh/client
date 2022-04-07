@@ -1,10 +1,10 @@
 import { css } from '@emotion/css'
 import { Button } from 'components/themed-button'
 
-import { Input, Label } from 'components/themed-components'
+import { Input, Label, WarnSpan } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react'
-import { useNavigate, useLocation, useParams } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import * as colors from 'utils/colors'
 import { LoginElements } from 'utils/types'
 
@@ -48,7 +48,7 @@ export const Login: FC = () => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: colors.textLight,
+        backgroundColor: colors.plate,
         margin: 'auto',
         marginTop: '1.5em',
         padding: '2em',
@@ -57,21 +57,13 @@ export const Login: FC = () => {
       <form onSubmit={handleSubmit} className="login--form">
         <h1
           className={css({
-            color: colors.orangeDark,
+            color: colors.plateText,
             marginBottom: '.5em',
           })}
         >
           Login
         </h1>
-        {isError ? (
-          <ul
-            className={css({
-              color: 'red',
-            })}
-          >
-            <li>{error.message}</li>
-          </ul>
-        ) : null}
+        {isError ? <WarnSpan>{error.message}</WarnSpan> : null}
         <div
           className={css({
             overflow: 'clear',

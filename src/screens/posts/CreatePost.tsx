@@ -52,7 +52,7 @@ export const CreatePost: FC = () => {
       body: body.value,
       image_url: imageUrl.value,
     }
-
+    console.log(post)
     fetch(`/api/posts`, {
       method: 'POST',
       body: JSON.stringify(post),

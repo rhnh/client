@@ -1,44 +1,14 @@
 import { userLogin, userRegister } from 'api/user'
 import { useAsync } from 'hooks/useAsync'
 import { createContext, FC, useContext, useEffect, useState } from 'react'
+import {
+  deleteLocalToken,
+  getLocalToken,
+  isVerified,
+  setLocalToken,
+} from 'screens/user/user-api'
 
 import { Authorization, IUser, IUserInfo } from 'utils/types'
-
-async function isVerified(): Promise<IUserInfo | null> {
-  const token = getLocalToken()
-  if (token) {
-    return window
-      .fetch(`/api/users/verify-user`, {
-        method: 'post',
-        headers: new Headers({
-          Authorization: `Bearer ${token}`,
-        }),
-      })
-      .then(async res => {
-        console.log(res.ok, res.status)
-        const data = await res.json()
-        if (data && res.ok) {
-          return data
-        } else {
-          return null
-        }
-      })
-  }
-  return null
-}
-function setLocalToken(token: string) {
-  if (token) {
-    window.localStorage.setItem('token', token)
-  }
-}
-
-function getLocalToken() {
-  return window.localStorage.getItem('token')
-}
-
-function deleteLocalToken() {
-  window.localStorage.removeItem('token')
-}
 
 const placeHolderAuth: Authorization = {
   username: '',
@@ -107,6 +77,7 @@ export const UserProvider: FC = ({ children }) => {
         }
       },
       err => {
+        console.log(err)
         setError(err)
         setIsLogin(false)
         deleteLocalToken()

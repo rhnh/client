@@ -1,26 +1,25 @@
 import { LinkedButton } from 'components/themed-button'
+import { InfoSpan } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
 import { FC } from 'react'
 import { useQuery } from 'react-query'
 
 import { IPost } from 'utils/types'
-import { Post } from './post'
+import { Post } from './Post'
+import { usePosts } from './post-api'
 
 export const Posts: FC = () => {
   const { userInfo } = useAuth()
   const role = userInfo?.role
-  const { isLoading, data: posts } = useQuery(
-    'posts',
-    () => {
-      return fetch(`/api/posts`).then(res => res.json())
-    },
-    {
-      retry: 1,
-    },
-  )
-
+  const { isLoading, isError, error, data: posts } = usePosts()
+  const err: Error = error as Error
   return isLoading ? (
     <p>loading</p>
+  ) : isError ? (
+    <InfoSpan>
+      {console.log(error)}
+      {err?.message}
+    </InfoSpan>
   ) : (
     <div>
       {posts?.length <= 0 ? (
@@ -32,6 +31,7 @@ export const Posts: FC = () => {
               <div key={post._id}>
                 <Post
                   title={post.title}
+                  _id={post._id}
                   body={post.body}
                   image_url={post.image_url}
                 />

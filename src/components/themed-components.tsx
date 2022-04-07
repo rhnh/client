@@ -24,7 +24,7 @@ export const NavUL = styled('ul')<ULProps>(
     margin: 0,
     padding: 0,
     zIndex: 1000,
-    background: colors.primary,
+    background: colors.neutral,
     height: '60%',
     animation: `${fadeIn} .2s .2s both`,
     li: {
@@ -38,12 +38,14 @@ export const NavUL = styled('ul')<ULProps>(
       display: 'block',
       padding: '.5em 0',
       textAlign: 'center',
-      color: colors.primaryText,
+      color: colors.redText,
       textTransform: 'capitalize',
+      borderBottom: `2px solid ${colors.neutral}`,
     },
     'li > a:hover': {
-      color: colors.primaryText,
-      background: colors.darkRed,
+      background: colors.neutral,
+      color: colors.red,
+      borderBottom: `2px solid ${colors.red}`,
     },
   },
   ({ isMobile = false }) => {
@@ -64,14 +66,15 @@ export const NavUL = styled('ul')<ULProps>(
             display: 'flex',
           },
           '.nav-right--logged>li:last-child': {
-            backgroundColor: colors.darkRed,
+            backgroundColor: colors.base,
           },
           '.nav-right>li a': {
             padding: '.5em 2em',
           },
-          '.nav-right--logged>li:last-child:hover': {
+          '.nav-right--logged > li:last-child:hover': {
             color: 'white',
-            backgroundColor: colors.red,
+            backgroundColor: colors.secondary,
+            textDecoration: 'underline',
           },
         }
       : {
@@ -102,7 +105,7 @@ export const Input = styled('input')({
   // padding: '10px 10px 10px -40px',
   // display: 'block',
   // border: 'none',
-  borderBottom: `1px solid ${colors.orangeDark}`,
+  borderBottom: `1px solid ${colors.redText}`,
   width: '100%',
 
   padding: '12px 20px',
@@ -125,7 +128,7 @@ export const CircleButton = styled.button({
   cursor: 'pointer',
   border: 'none',
   background: 'none',
-  color: colors.darkRed,
+  color: colors.redText,
   padding: '1em',
 })
 
@@ -164,4 +167,30 @@ export const Dialog = styled(ReachDialog)({
 
 export const StyledLink = styled(Link)({
   color: 'red',
+})
+
+export const WarnSpan = styled('div')({
+  background: colors.danger,
+  padding: '2.5em',
+  borderRadius: '10px',
+  margin: 0,
+  backgroundImage: 'url(assets/warn-svgrepo-com.svg)',
+  backgroundSize: '30px',
+  backgroundPosition: '6px 30px',
+  height: '10px',
+  backgroundRepeat: 'no-repeat',
+  textAlign: 'left',
+})
+
+export const InfoSpan = styled('div')({
+  background: colors.info,
+  padding: '2.5em',
+  borderRadius: '10px',
+  margin: 0,
+  backgroundImage: 'url(assets/info.svg)',
+  backgroundSize: '30px',
+  backgroundPosition: '10px 30px',
+  height: '10px',
+  backgroundRepeat: 'no-repeat',
+  textAlign: 'left',
 })

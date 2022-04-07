@@ -1,6 +1,6 @@
 import { css } from '@emotion/css'
 import { Button } from 'components/themed-button'
-import { Input, Label } from 'components/themed-components'
+import { Input, Label, WarnSpan } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
 import { FormEvent, useReducer } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
@@ -73,7 +73,7 @@ export const Register = () => {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: colors.textLight,
+          backgroundColor: colors.plate,
           margin: 'auto',
           marginTop: '1.5em',
           padding: '2em',
@@ -82,12 +82,23 @@ export const Register = () => {
         <form onSubmit={handleSubmit}>
           <h1
             className={css({
-              color: colors.orangeDark,
+              color: colors.baseText,
               marginBottom: '.5em',
             })}
           >
             Register
           </h1>
+          {isError ? (
+            <WarnSpan>
+              <span
+                className={css({
+                  color: 'red',
+                })}
+              >
+                Oops {error.message}
+              </span>
+            </WarnSpan>
+          ) : null}
           <div className="register">
             <Label htmlFor="username">Username</Label>
             <Input
@@ -126,17 +137,7 @@ export const Register = () => {
             <Button type="submit" variant="primary" disabled={isSubmitDisabled}>
               Register
             </Button>
-            <p>
-              {isError ? (
-                <span
-                  className={css({
-                    color: 'red',
-                  })}
-                >
-                  Oops {error.message}
-                </span>
-              ) : null}
-            </p>
+
             <p
               className={css({
                 padding: '1em 0',

@@ -7,43 +7,39 @@ import { CreatePost, FeaturedPost, Posts } from 'screens/posts'
 import { List, Lists, CreateList } from 'screens/lists/'
 import { About, Main } from 'screens/main'
 import { TaxonomyScreen } from 'screens/taxonomies'
-import { TaxonomyById } from 'screens/taxonomies/Taxonomy'
+import { TaxonomyById } from 'screens/taxonomies/TaxonomyById'
 import FeaturedArticle from 'screens/posts/featured'
 import { Members } from 'screens/user/Members'
+import { ShowPost } from 'screens/lists/ShowPost'
 
 export const AppRoutes: FC = () => {
   const { isLogin, username } = useAuth()
-
   return isLogin ? (
-    <div className="">
-      <Routes>
-        <Route path="/">
-          <Route
-            index
-            element={
-              <Main>
-                <FeaturedArticle />
-              </Main>
-            }
-          />
-          <Route path="/posts" element={<Posts />} />
-          <Route path="/posts/post" element={<CreatePost />} />
-          <Route path="/lists/list" element={<CreateList />} />
-          <Route path={`/${username}/lists`} element={<Lists />} />
-          <Route path={`/${username}/list/:listName`} element={<List />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/taxonomies" element={<TaxonomyScreen />} />
-          <Route
-            path="/taxonomies/:listName"
-            element={<CreateUserTaxonomy />}
-          />
-          <Route path="/taxonomy/:taxonomyId" element={<TaxonomyById />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/members" element={<Members />} />
-          <Route path="*" element={<Main />} />
-        </Route>
-      </Routes>
-    </div>
+    <Routes>
+      <Route path="/">
+        <Route
+          index
+          element={
+            <Main>
+              <FeaturedArticle />
+            </Main>
+          }
+        />
+        <Route path="/posts" element={<Posts />} />
+        <Route path={`/posts/post/:id`} element={<ShowPost />} />
+        <Route path="/posts/post" element={<CreatePost />} />
+        <Route path="/lists/list" element={<CreateList />} />
+        <Route path={`/${username}/lists`} element={<Lists />} />
+        <Route path={`/${username}/list/:listName`} element={<List />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/taxonomies" element={<TaxonomyScreen />} />
+        <Route path="/taxonomies/:listName" element={<CreateUserTaxonomy />} />
+        <Route path="/taxonomy/:taxonomyId" element={<TaxonomyById />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/members" element={<Members />} />
+        <Route path="*" element={<Main />} />
+      </Route>
+    </Routes>
   ) : (
     <Routes>
       <Route path="/">

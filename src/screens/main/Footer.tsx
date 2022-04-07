@@ -19,7 +19,7 @@ export const Footer: FC = () => {
         alignSelf: 'flex-end',
         width: '100%',
         textAlign: 'center',
-        background: colors.secondary,
+        background: colors.neutral,
 
         marginBottom: 'auto',
 
@@ -31,10 +31,10 @@ export const Footer: FC = () => {
           padding: '.4em 0',
         },
         'ul > li > a ': {
-          color: colors.primaryDark,
+          color: colors.baseText,
         },
         'ul > li > a:hover': {
-          color: colors.PrimaryLight,
+          color: colors.hover,
         },
       })}
     >

@@ -88,5 +88,7 @@ export function httpError(n: number) {
       return createError('Username already taken')
     case 429:
       return createError('Please try later. Too many requests')
+    case 500:
+      return createError('Server down please try later! or Refresh')
   }
 }

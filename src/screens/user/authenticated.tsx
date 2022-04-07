@@ -3,7 +3,7 @@ import { ErrorFallback } from 'utils/error'
 import { AppRoutes } from 'components/Routes'
 import { Nav } from 'components/Nav'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Facts } from 'screens/misc'
+
 import { Footer } from 'screens/main'
 
 const Authenticated = () => {

@@ -5,6 +5,7 @@ import { useAuth } from 'contexts/userContext'
 import { ChangeEvent, FC, FormEvent, useState } from 'react'
 import { useMutation } from 'react-query'
 import { Link } from 'react-router-dom'
+import * as colors from 'utils/colors'
 
 export const CreateList: FC = () => {
   const [listName, setListName] = useState('')
@@ -20,6 +21,7 @@ export const CreateList: FC = () => {
         },
       }).then(
         res => {
+          console.log('ooo', res.status, res.body)
           if (res.status === 400) {
             throw new Error(`The list name  ${listName} already exists.`)
           }
@@ -74,23 +76,45 @@ export const CreateList: FC = () => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: '2em',
+        backgroundColor: colors.plate,
+        margin: 'auto',
+        marginTop: '1.5em',
+        borderRadius: '5px',
       })}
     >
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="list-name">List Name</label>
-          <Input
-            type="text"
-            id="listName"
-            placeholder="Djuma or Mara"
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <Button variant="primary" disabled={isEmpty}>
-            Create
-          </Button>
+          <h2
+            className={css({
+              background: colors.primaryText,
+              top: 0,
+              marginTop: 0,
+              borderRadius: '5px 5px 0 0',
+
+              padding: '1em',
+              color: colors.primaryText,
+            })}
+          >
+            Create New List
+          </h2>
+          <section
+            className={css({
+              padding: '1em',
+            })}
+          >
+            <label htmlFor="list-name">Enter List Name</label>
+            <Input
+              type="text"
+              id="listName"
+              placeholder="Djuma or Mara"
+              onChange={handleChange}
+            />
+            <div>
+              <Button variant="primary" disabled={isEmpty}>
+                Create
+              </Button>
+            </div>
+          </section>
         </div>
       </form>
     </div>

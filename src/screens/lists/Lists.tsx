@@ -1,4 +1,6 @@
+import { css } from '@emotion/css'
 import { LinkedButton } from 'components/themed-button'
+import { WarnSpan } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
 import { FC } from 'react'
 
@@ -14,7 +16,7 @@ export const Lists: FC = () => {
   }
 
   if (isError) {
-    return <p>Error: while loading lists</p>
+    return <WarnSpan>Error: while loading lists</WarnSpan>
   }
   const lists: IList[] = data as IList[]
 
@@ -33,7 +35,26 @@ export const Lists: FC = () => {
       {lists && lists?.length > 0 ? (
         <div>
           {lists.map(list => (
-            <div key={list._id}>
+            <div
+              key={list._id}
+              className={css({
+                a: {
+                  textDecoration: 'none',
+                  textTransform: 'capitalize',
+                  display: 'block',
+                  color: 'red',
+                  padding: '1em',
+                  border: '2px solid gray',
+                  textAlign: 'center',
+                  margin: '.6em',
+                  fontSize: '22px',
+                },
+                'a:hover': {
+                  color: 'green',
+                  background: 'lightGreen',
+                },
+              })}
+            >
               <Link to={`/${username}/list/${list?.slug}`}>
                 {list.listName}
               </Link>
