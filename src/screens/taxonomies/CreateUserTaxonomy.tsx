@@ -25,9 +25,9 @@ export const CreateUserTaxonomy: FC = () => {
   const { mutate, isError, isLoading, isSuccess } = useAddListItem(
     listName || '',
   )
-  const englishNames: string[] = data?.map(bird => bird.englishName) as
-    | string[]
-    | []
+  const englishNames: string[] = data?.map(
+    (bird: ITaxonomy) => bird.englishName,
+  ) as string[] | []
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target
 
@@ -38,7 +38,8 @@ export const CreateUserTaxonomy: FC = () => {
   }
   useEffect(() => {
     const i = data?.find(
-      bird => bird.englishName?.toLowerCase() === found.toLowerCase(),
+      (bird: ITaxonomy) =>
+        bird.englishName?.toLowerCase() === found.toLowerCase(),
     )
     if (i) {
       setInputFieldsState(i)
@@ -107,8 +108,8 @@ export const CreateUserTaxonomy: FC = () => {
         <Button
           variant="primary"
           disabled={
-            inputFieldsState?.englishName === '' ||
-            inputFieldsState?.taxonomy === ''
+            inputFieldsState?.englishName === ''
+            // || inputFieldsState?.taxonomy === ''
           }
         >
           Add

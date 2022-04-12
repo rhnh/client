@@ -53,9 +53,14 @@ export const List = () => {
           className={css({
             display: 'flex',
             justifyContent: 'space-between',
+            flexDirection: 'column',
           })}
         >
-          <h3>{listName}</h3>{' '}
+          <div>
+            <span>
+              You have {birds.length} birds in your List <h2>{listName}</h2>
+            </span>
+          </div>
           <div>
             <button onClick={() => setDialog('delete')}>delete</button>
             <button onClick={() => setDialog('edit')}>edit</button>
@@ -63,7 +68,13 @@ export const List = () => {
         </div>
         <hr />
         {birds.map(bird => (
-          <div key={bird._id}>
+          <div
+            key={bird._id}
+            className={css({
+              padding: '1em',
+              border: '1px solid gray',
+            })}
+          >
             <Link
               to={`/taxonomy/${bird._id
                 ?.toLowerCase()
@@ -156,7 +167,7 @@ export const List = () => {
       </Dialog>
       <section>
         <LinkedButton variant="secondary" to={`/taxonomies/${listName}`}>
-          add recently seen bird to your list
+          add new Bird
         </LinkedButton>
       </section>
     </div>

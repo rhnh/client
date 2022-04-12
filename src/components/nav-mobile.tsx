@@ -1,8 +1,8 @@
 import { Children, cloneElement, FC, isValidElement } from 'react'
 
 import { NavUL } from './themed-components'
-import menu from '../menu.svg'
-import closeSVG from '../close.svg'
+import menu from 'assets/menu.svg'
+import closeSVG from 'assets/close.svg'
 import { css } from '@emotion/css'
 interface Props {
   on?: boolean

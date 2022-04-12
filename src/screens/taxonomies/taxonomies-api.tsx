@@ -1,16 +1,21 @@
 import { useAuth } from 'contexts/userContext'
-import { useMutation, useQuery, useQueryClient } from 'react-query'
-
+import { useCallback } from 'react'
+import {
+  InfiniteData,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from 'react-query'
+import { useInfiniteQuery } from 'react-query'
 import { ITaxonomy } from 'utils/types'
 
-const getTaxonomies = async (): Promise<ITaxonomy[]> => {
+const getTaxonomies = async () => {
   const url = `api/taxonomies`
-
   try {
     const response = await fetch(url)
-
     if (response.ok) {
-      return response.json() as unknown as ITaxonomy[] | []
+      const result = await response.json()
+      return result
     } else {
       return []
     }
@@ -20,10 +25,19 @@ const getTaxonomies = async (): Promise<ITaxonomy[]> => {
   }
 }
 
-export function useTaxonomies() {
-  return useQuery('taxonomies', getTaxonomies)
+export function useTaxonomiesInfinite() {
+  return useInfiniteQuery<ITaxonomy[], unknown, ITaxonomy[]>(
+    ['taxonomies', 'infinite'],
+    getTaxonomies,
+    {
+      getPreviousPageParam: firstPage => firstPage ?? undefined,
+      getNextPageParam: lastPage => lastPage ?? undefined,
+    },
+  )
 }
-
+export function useTaxonomies() {
+  return useQuery<ITaxonomy[]>('taxonomies', getTaxonomies)
+}
 export function useTaxonomy(_id: string) {
   const { getLocalToken } = useAuth()
   const token = getLocalToken()

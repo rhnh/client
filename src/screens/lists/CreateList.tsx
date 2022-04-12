@@ -21,7 +21,6 @@ export const CreateList: FC = () => {
         },
       }).then(
         res => {
-          console.log('ooo', res.status, res.body)
           if (res.status === 400) {
             throw new Error(`The list name  ${listName} already exists.`)
           }

@@ -1,9 +1,16 @@
 import { css } from '@emotion/css'
 import { CircleButton } from 'components/themed-components'
+import '@reach/dialog/styles.css'
+import '@reach/tooltip/styles.css'
 
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ITaxonomy } from 'utils/types'
+import { useLists } from 'screens/lists/list-api'
+
+import Tooltip from '@reach/tooltip'
+
+import { AddTaxonomy } from './AddTaxonomy'
 
 export const Taxonomy: FC<ITaxonomy> = ({
   _id,
@@ -12,6 +19,8 @@ export const Taxonomy: FC<ITaxonomy> = ({
   taxonomy,
   info,
 }) => {
+  const { data: lists } = useLists()
+  const [isOpen, setIsOpen] = useState(false)
   return (
     <div
       key={_id}
@@ -21,7 +30,7 @@ export const Taxonomy: FC<ITaxonomy> = ({
         border: '2px solid #ffeae2',
         padding: '2em',
         gap: '2em',
-        margin: '1.5em',
+        margin: '.2em',
         maxWidth: '60%',
         minWidth: '200px',
       })}
@@ -62,14 +71,23 @@ export const Taxonomy: FC<ITaxonomy> = ({
           justifyContent: 'center',
         })}
       >
-        <CircleButton>+</CircleButton>
-        <CircleButton
-          className={css({
-            marginLeft: 'auto',
-          })}
-        >
-          +
-        </CircleButton>
+        <Tooltip label="Add to you watch lists.">
+          <CircleButton
+            className={css({
+              marginLeft: 'auto',
+            })}
+            onClick={() => setIsOpen(true)}
+          >
+            +
+          </CircleButton>
+        </Tooltip>
+        <AddTaxonomy
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          lists={lists}
+          englishName={englishName}
+          taxonomy={taxonomy}
+        />
       </div>
     </div>
   )

@@ -17,11 +17,11 @@ export const Post: FC<IPost> = ({ title, image_url, body, _id }) => {
           </Link>
         </div>
         <div>
-          <p className="featured-title">
+          <p>
             <Link to="/posts/234324">{title}</Link>
           </p>
-          <article className="featured-article">{body}</article>
-          <Link to="/some">Read more</Link>
+          <article>{body}</article>
+          <Link to={`/posts/post/${_id}`}>Read more</Link>
         </div>
       </section>
       <div

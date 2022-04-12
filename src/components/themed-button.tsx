@@ -106,13 +106,12 @@ export const LinkedButton = styled(Link)<LinkedButtonProps>(
           color: 'gray',
           // border: `1px solid ${colors.orangeDark}`,
         }
-      : variants !== 'primary'
+      : variants === 'secondary'
       ? {
           ...getObjectKeyValue<any, string>(variants)(buttonVariant),
           ':hover': {
             opacity: '.8',
             background: colors.secondary,
-            border: `2px solid ${colors.secondaryText}`,
             color: colors.secondaryText,
           },
         }

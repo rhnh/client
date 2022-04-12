@@ -5,10 +5,13 @@ import { ITaxonomy } from 'utils/types'
 import { Taxonomy } from './Taxonomy'
 
 interface Props {
-  taxonomies: ITaxonomy[]
+  taxonomies?: ITaxonomy[]
 }
 
 export const Taxonomies: FC<Props> = ({ taxonomies }: Props) => {
+  if (taxonomies === undefined) {
+    return <p>No bird found</p>
+  }
   if (taxonomies.length <= 0 || taxonomies === undefined) {
     return <InfoSpan>No Bird found</InfoSpan>
   }

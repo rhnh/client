@@ -1,5 +1,6 @@
 import { useAuth } from 'contexts/userContext'
 import { useMutation, useQuery } from 'react-query'
+import { IList } from 'utils/types'
 
 export const useGetUserList = (listName: string) => {
   const { getLocalToken } = useAuth()
@@ -20,24 +21,16 @@ export const useLists = () => {
   const { getLocalToken } = useAuth()
   const token = getLocalToken()
   const url = '/api/lists'
-  return useQuery(
-    'lists',
-    () => {
-      return fetch(url, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }).then(res => {
-        console.log(res.ok, res.status, 'it is here')
-        return res.json()
-      })
-    },
-    {
-      retry: 0,
-      refetchOnWindowFocus: false,
-    },
-  )
+  return useQuery('lists', async () => {
+    const data = await fetch(url, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    const response = await data.json()
+    return response as IList[]
+  })
 }
 
 export const useDeleteList = () => {

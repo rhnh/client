@@ -1,30 +1,30 @@
+import { WarnSpan } from 'components/themed-components'
 import { FC } from 'react'
-import { useQuery } from 'react-query'
-
-import { IPost } from 'utils/types'
 import { FeaturedPost } from './FeaturedPost'
+import { useFeaturedPost } from './post-api'
 
 const FeaturedArticle: FC = () => {
-  const {
-    data: post,
-    isLoading,
-    isError,
-  } = useQuery<IPost>('featured', () => {
-    return fetch(`/api/posts/featured`).then(res => res.json())
-  })
+  const { data: posts, isLoading, isError } = useFeaturedPost()
+
   return isLoading ? (
     <p>Loading...</p>
   ) : isError ? (
-    <p>Error</p>
+    <WarnSpan>Server down</WarnSpan>
   ) : (
     <div>
-      {post ? (
-        <FeaturedPost
-          title={post.title}
-          body={post?.body}
-          image_url={post?.image_url}
-        />
-      ) : null}
+      {posts && posts?.length > 0
+        ? posts.map(post => {
+            return (
+              <FeaturedPost
+                key={post._id}
+                title={post.title}
+                body={post?.body}
+                image_url={post?.image_url}
+                _id={post?._id}
+              />
+            )
+          })
+        : null}
     </div>
   )
 }

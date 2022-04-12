@@ -1,15 +1,14 @@
-import { ITaxonomy } from 'utils/types'
 import { Taxonomies } from './Taxonomies'
 import { useState } from 'react'
 
 import { SearchBar } from 'components/SearchBar'
-import { useTaxonomies } from './taxonomies-api'
+import { useTaxonomiesInfinite } from './taxonomies-api'
 import { css } from '@emotion/css'
 
 export const TaxonomyScreen = () => {
-  const { isLoading, data } = useTaxonomies()
+  const { isLoading, data } = useTaxonomiesInfinite()
   const [search, setSearch] = useState('')
-  const birds: ITaxonomy[] = data?.filter((bird: any) => {
+  const birds = data?.pages?.flat().filter((bird: any) => {
     if (search === '') {
       return bird
     } else {
@@ -22,8 +21,7 @@ export const TaxonomyScreen = () => {
         return ['']
       }
     }
-  }) as ITaxonomy[]
-  // const names: string[] = data?.map(bird => bird.englishName)
+  })
 
   return isLoading ? (
     <p>Loading</p>
@@ -35,7 +33,7 @@ export const TaxonomyScreen = () => {
         alignItems: 'center',
       })}
     >
-      <SearchBar search={search} setSearch={setSearch} data={data} />
+      <SearchBar search={search} setSearch={setSearch} data={birds} />
       <Taxonomies taxonomies={birds} />
     </div>
   )

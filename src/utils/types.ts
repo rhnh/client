@@ -39,6 +39,7 @@ export interface IPost extends Base {
   title: string
   image_url: string
   body: string
+  featured?: boolean
 }
 export interface LoginElements {
   username: HTMLInputElement

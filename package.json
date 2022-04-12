@@ -8,6 +8,7 @@
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
     "@reach/dialog": "^0.16.2",
+    "@reach/tooltip": "^0.16.2",
     "@reach/visually-hidden": "^0.16.0",
     "@ribrary/hintput": "^2.4.2",
     "@testing-library/jest-dom": "^5.11.4",

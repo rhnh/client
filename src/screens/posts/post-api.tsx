@@ -1,4 +1,5 @@
-import { useQuery } from 'react-query'
+import { useAuth } from 'contexts/userContext'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { IPost } from 'utils/types'
 
 export const getPostById = (_id: string) => {
@@ -37,5 +38,53 @@ export function usePosts() {
     {
       retry: 1,
     },
+  )
+}
+export function useFeaturedPost() {
+  return useQuery<IPost[]>('featured', () => {
+    return fetch(`/api/posts/featured`).then(res => {
+      return res.json()
+    })
+  })
+}
+
+export function useSetFeatured() {
+  const { token } = useAuth()
+  const queryClient = useQueryClient()
+  return useMutation(
+    (id: string) => {
+      return fetch(`/api/posts/featured/${id}`, {
+        method: 'put',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }).then(res => {
+        console.log(res.ok, res.status)
+        res.json()
+      })
+    },
+    { onSuccess: () => queryClient.invalidateQueries('posts') },
+  )
+}
+export function useUnSetFeatured() {
+  const { token } = useAuth()
+  const queryClient = useQueryClient()
+
+  return useMutation(
+    (id: string) => {
+      return fetch(`/api/posts/unfeatured/${id}`, {
+        method: 'put',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }).then(res => {
+        console.log(res.ok, res.status)
+        res.json()
+      })
+    },
+
+    { onSuccess: () => queryClient.invalidateQueries('posts') },
   )
 }

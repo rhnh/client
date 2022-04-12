@@ -2,7 +2,6 @@ import { LinkedButton } from 'components/themed-button'
 import { InfoSpan } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
 import { FC } from 'react'
-import { useQuery } from 'react-query'
 
 import { IPost } from 'utils/types'
 import { Post } from './Post'
@@ -13,6 +12,7 @@ export const Posts: FC = () => {
   const role = userInfo?.role
   const { isLoading, isError, error, data: posts } = usePosts()
   const err: Error = error as Error
+
   return isLoading ? (
     <p>loading</p>
   ) : isError ? (

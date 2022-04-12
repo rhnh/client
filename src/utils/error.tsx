@@ -1,4 +1,5 @@
 import { css } from '@emotion/css'
+import { ReLoginButton } from 'components/themed-components'
 import { FC } from 'react'
 import { FallbackProps } from 'react-error-boundary'
 import { getObjectKeyValue } from 'utils'
@@ -67,7 +68,7 @@ export function FullPageErrorFallback({ error }: { error: Error }) {
 export function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
   return (
     <div role="alert">
-      <p>Something went wrong: Please re-login</p>
+      <ReLoginButton />
       <pre>{error.message}</pre>
       <button onClick={resetErrorBoundary}>Try again</button>
     </div>

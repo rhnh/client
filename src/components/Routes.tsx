@@ -37,7 +37,7 @@ export const AppRoutes: FC = () => {
         <Route path="/taxonomy/:taxonomyId" element={<TaxonomyById />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/members" element={<Members />} />
-        <Route path="*" element={<Main />} />
+        <Route path="*" element={<p>URL NOT found</p>} />
       </Route>
     </Routes>
   ) : (
@@ -63,6 +63,7 @@ export const AppRoutes: FC = () => {
             </div>
           }
         />
+        <Route path={`/posts/post/:id`} element={<ShowPost />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/taxonomies" element={<TaxonomyScreen />} />

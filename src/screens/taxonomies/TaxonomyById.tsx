@@ -1,4 +1,4 @@
-import { WarnSpan } from 'components/themed-components'
+import { ReLoginButton } from 'components/themed-components'
 import { FC } from 'react'
 import { useParams } from 'react-router-dom'
 import { useTaxonomy } from './taxonomies-api'
@@ -8,7 +8,7 @@ export const TaxonomyById: FC = () => {
   const { taxonomyId } = useParams()
   const { isLoading, data, isError } = useTaxonomy(taxonomyId || '')
   if (data === undefined || isError) {
-    return <WarnSpan>Something Went wrong! Please re-login</WarnSpan>
+    return <ReLoginButton />
   }
   if (isLoading) {
     return <p>loading...</p>

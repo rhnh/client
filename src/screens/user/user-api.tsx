@@ -29,11 +29,11 @@ export async function isVerified(): Promise<IUserInfo | null> {
         }),
       })
       .then(async res => {
-        console.log(res.ok, res.status)
         const data = await res.json()
         if (data && res.ok) {
           return data
         } else {
+          window.location.reload()
           return null
         }
       })

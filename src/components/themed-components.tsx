@@ -4,6 +4,7 @@ import { Dialog as ReachDialog } from '@reach/dialog'
 import * as colors from 'utils/colors'
 import { keyframes } from '@emotion/css'
 import { Link } from 'react-router-dom'
+import { LinkedButton } from './themed-button'
 
 type ULProps = {
   isMobile: boolean
@@ -173,11 +174,12 @@ export const WarnSpan = styled('div')({
   background: colors.danger,
   padding: '2.5em',
   borderRadius: '10px',
+
   margin: 0,
   backgroundImage: 'url(assets/warn-svgrepo-com.svg)',
   backgroundSize: '30px',
   backgroundPosition: '6px 30px',
-  height: '10px',
+  minHeight: '10px',
   backgroundRepeat: 'no-repeat',
   textAlign: 'left',
 })
@@ -194,3 +196,13 @@ export const InfoSpan = styled('div')({
   backgroundRepeat: 'no-repeat',
   textAlign: 'left',
 })
+export const ReLoginButton = () => {
+  return (
+    <WarnSpan>
+      Something Went wrong! Please{' '}
+      <LinkedButton to="/login" variant="primary">
+        Login
+      </LinkedButton>
+    </WarnSpan>
+  )
+}
