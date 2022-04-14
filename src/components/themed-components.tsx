@@ -122,17 +122,6 @@ export const Label = styled('label')({
   display: 'block',
 })
 
-export const CircleButton = styled.button({
-  fontsize: '1.5rem',
-  alignItems: 'center',
-  justifyContent: 'center',
-  cursor: 'pointer',
-  border: 'none',
-  background: 'none',
-  color: colors.redText,
-  padding: '1em',
-})
-
 export const Dialog = styled(ReachDialog)({
   display: 'block',
   borderRadius: '.6em',

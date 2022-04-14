@@ -51,7 +51,11 @@ export interface IList extends Base {
   birdIds?: string[]
   slug?: string
 }
-
+export interface IListBirds extends Base {
+  taxonomy: string
+  seen: string
+  englishName: string
+}
 export interface IHintDisplay {
   inputName: string
   placeholder: string
@@ -94,7 +98,7 @@ export interface Authorization {
   userInfo: IUserInfo | null | undefined
   username: string
   login: (user: IUser) => void
-  register: (user: IUser) => void
+  register: (user: IUser) => Promise<boolean>
   logout: () => void
   passRecovery: () => void
   usernameRecovery: () => void
@@ -104,6 +108,7 @@ export interface Authorization {
   error: Error
   isLoading: boolean
   isSuccess: boolean
+  setState: Dispatch<'success' | 'error' | 'loading' | 'idle'>
   state: 'success' | 'error' | 'loading' | 'idle'
 }
 

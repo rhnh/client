@@ -3,7 +3,8 @@ import * as React from 'react'
 import { callAll } from 'utils'
 
 import '@reach/dialog/styles.css'
-import { CircleButton, Dialog } from './themed-components'
+import { Dialog } from './themed-components'
+import { CircleButton } from './themed-button'
 
 const ModalContext = React.createContext<
   [isOpen: boolean, setIsOpen: React.Dispatch<React.SetStateAction<boolean>>]

@@ -10,17 +10,21 @@ import {
 
 import { Authorization, IUser, IUserInfo } from 'utils/types'
 
-const placeHolderAuth: Authorization = {
+export const placeHolderAuth: Authorization = {
   username: '',
   token: '',
-
   login: (user: IUser) => {},
-  register: () => {},
+  register: () => {
+    return new Promise((resolve, reject) => {
+      resolve(false)
+    })
+  },
   logout: () => {},
   passRecovery: () => {},
   usernameRecovery: () => {},
   isError: false,
   isLogin: false,
+  setState: () => {},
   error: new Error(''),
   getLocalToken: () => '',
   state: 'idle',
@@ -41,6 +45,7 @@ export const UserProvider: FC = ({ children }) => {
     isLoading,
     isError,
     setError,
+    setState,
     error,
     isIdle,
     isSuccess,
@@ -77,19 +82,39 @@ export const UserProvider: FC = ({ children }) => {
         }
       },
       err => {
-        console.log(err)
         setError(err)
         setIsLogin(false)
         deleteLocalToken()
       },
     )
   }
-
+  interface Status {
+    message: string
+    done: boolean
+    status: number
+    data: {
+      username: string
+    }
+  }
   const register = (user: IUser) => {
-    userRegister(user).then(
-      res => {},
+    return userRegister(user).then(
+      res => {
+        const result: Status = res as unknown as Status
+
+        if (result.done) {
+          if (result.data.username && result.data) {
+            setState('success')
+          } else {
+            setIsLogin(false)
+          }
+        }
+        return true
+      },
       err => {
         setError(err)
+        setIsLogin(false)
+        deleteLocalToken()
+        return false
       },
     )
   }
@@ -124,11 +149,13 @@ export const UserProvider: FC = ({ children }) => {
     usernameRecovery,
     userInfo,
     isError,
+
     error,
     isLogin,
     getLocalToken,
     isIdle,
     state,
+    setState,
     isSuccess,
     isLoading,
   }

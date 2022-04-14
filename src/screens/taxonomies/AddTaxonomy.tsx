@@ -2,8 +2,8 @@ import { css } from '@emotion/css'
 import { DialogContent, DialogOverlay } from '@reach/dialog'
 
 import VisuallyHidden from '@reach/visually-hidden'
-import { Button, LinkedButton } from 'components/themed-button'
-import { CircleButton, WarnSpan } from 'components/themed-components'
+import { Button, CircleButton, LinkedButton } from 'components/themed-button'
+import { WarnSpan } from 'components/themed-components'
 import React, { FC, Dispatch, Fragment, useState, FormEvent } from 'react'
 
 import { IList } from 'utils/types'
@@ -47,6 +47,7 @@ export const AddTaxonomy: FC<Props> = ({
       >
         <DialogContent>
           <div>
+            <h1>No list</h1>
             You don't have any list.
             <LinkedButton to="/lists/list" variant="primary">
               Create

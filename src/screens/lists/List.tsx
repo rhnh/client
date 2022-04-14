@@ -1,14 +1,21 @@
-import { Button, LinkedButton } from 'components/themed-button'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import {
+  Button,
+  CircleButton,
+  CrudButton,
+  LinkedButton,
+} from 'components/themed-button'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useDeleteList, useGetUserList } from './list-api'
-import { ITaxonomy } from 'utils/types'
+import { IListBirds, ITaxonomy } from 'utils/types'
 import { SearchBar } from 'components/SearchBar'
 import { useState } from 'react'
 import '@reach/dialog/styles.css'
-import { CircleButton } from 'components/themed-components'
-
-import Dialog from '@reach/dialog'
+import delBtn from 'assets/del.svg'
+import editBtn from 'assets/edit.svg'
 import { css } from '@emotion/css'
+import { CrudDialog } from '../../components/CrudDialog'
+import { ListItem } from './ListItem'
+
 export const List = () => {
   const { listName } = useParams()
   const navigate = useNavigate()
@@ -20,16 +27,15 @@ export const List = () => {
     isSuccess,
     isLoading: isLoadingMutate,
   } = useDeleteList()
-  const birds: ITaxonomy[] = data as ITaxonomy[]
+  const birds: IListBirds[] = data as IListBirds[]
+  const t: ITaxonomy[] = data as ITaxonomy[]
   const [search, setSearch] = useState('')
-
   const handleDelete = () => {
     if (listName) deleteList(listName)
   }
   const handleEdit = () => {
     if (listName) deleteList(listName)
   }
-
   if (isSuccess) {
     return (
       <Button variant="secondary" onClick={() => navigate(-1)}>
@@ -37,7 +43,6 @@ export const List = () => {
       </Button>
     )
   }
-
   return isLoading || isLoadingMutate ? (
     <p>Loading</p>
   ) : isError || isErrorMutate ? (
@@ -45,7 +50,7 @@ export const List = () => {
   ) : (
     <div>
       <section>
-        <SearchBar search={search} setSearch={setSearch} data={birds} />
+        <SearchBar search={search} setSearch={setSearch} data={t} />
       </section>
       <section>{search}</section>
       <section>
@@ -57,114 +62,36 @@ export const List = () => {
           })}
         >
           <div>
-            <span>
+            <div>
               You have {birds.length} birds in your List <h2>{listName}</h2>
-            </span>
-          </div>
-          <div>
-            <button onClick={() => setDialog('delete')}>delete</button>
-            <button onClick={() => setDialog('edit')}>edit</button>
+              <CrudButton handle={() => setDialog('delete')} bgImage={delBtn} />
+              <CrudButton handle={() => setDialog('edit')} bgImage={editBtn} />
+            </div>
           </div>
         </div>
         <hr />
         {birds.map(bird => (
-          <div
-            key={bird._id}
-            className={css({
-              padding: '1em',
-              border: '1px solid gray',
-            })}
-          >
-            <Link
-              to={`/taxonomy/${bird._id
-                ?.toLowerCase()
-                .replace(/[^a-z0-9]+/, '-')}`}
-            >
-              {bird.englishName}
-            </Link>
-          </div>
+          <ListItem key={bird._id} {...bird} />
         ))}
       </section>
-      <Dialog
-        isOpen={dialog === 'delete'}
-        aria-label="delete"
-        onDismiss={() => setDialog('hide')}
-        className={css({
-          position: 'relative',
-        })}
-      >
-        <CircleButton
-          className={css({
-            position: 'absolute',
-            top: 0,
-            right: 0,
-          })}
-          onClick={() => setDialog('hide')}
-        >
-          x
-        </CircleButton>
-        <h3>
-          Are you show ? You want to
-          <span>
-            <strong
-              className={css({
-                color: 'red',
-              })}
-            >
-              delete
-            </strong>
-          </span>{' '}
-          {listName}
-        </h3>
-        <div>
-          <Button variant="danger" onClick={handleDelete}>
-            Yes
-          </Button>
-          <Button variant="secondary" onClick={() => setDialog('hide')}>
-            No
-          </Button>
-        </div>
-      </Dialog>
-      <Dialog
+      <CrudDialog
         isOpen={dialog === 'edit'}
-        aria-label="form edit"
-        onDismiss={() => setDialog('hide')}
-        className={css({
-          position: 'relative',
-        })}
-      >
-        <CircleButton
-          className={css({
-            position: 'absolute',
-            top: 0,
-            right: 0,
-          })}
-          onClick={() => setDialog('hide')}
-        >
-          x
-        </CircleButton>
-        <h3>
-          Are you show ? You want to
-          <span>
-            <strong
-              className={css({
-                color: 'red',
-              })}
-            >
-              delete
-            </strong>
-          </span>{' '}
-          {listName}
-        </h3>
-        <div>
-          <Button variant="primary" onClick={handleEdit}>
-            Yes
-          </Button>
-          <Button variant="secondary" onClick={() => setDialog('hide')}>
-            No
-          </Button>
-        </div>
-      </Dialog>
+        showDialog={setDialog}
+        label={listName}
+        handleSubmit={handleEdit}
+        actionLabel="edit"
+        aria="edit"
+        title="Editing"
+      />
+      <CrudDialog
+        isOpen={dialog === 'delete'}
+        showDialog={setDialog}
+        label={listName}
+        title="Deleting"
+        handleSubmit={handleDelete}
+        actionLabel="delete"
+        aria="delete"
+      />
       <section>
         <LinkedButton variant="secondary" to={`/taxonomies/${listName}`}>
           add new Bird

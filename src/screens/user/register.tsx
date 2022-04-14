@@ -2,7 +2,7 @@ import { css } from '@emotion/css'
 import { Button } from 'components/themed-button'
 import { Input, Label, WarnSpan } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
-import { FormEvent, useReducer } from 'react'
+import { FormEvent, useEffect, useReducer } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { Link } from 'react-router-dom'
 import * as colors from 'utils/colors'
@@ -35,9 +35,12 @@ function stateReducer(state: State, action: Action): State {
 }
 
 export const Register = () => {
-  const { register, isError, error, isSuccess, isLoading } = useAuth()
+  const { register, isError, error, isSuccess, isLoading, setState } = useAuth()
   const [state, dispatch] = useReducer(stateReducer, initialState)
 
+  useEffect(() => {
+    setState('idle')
+  }, [setState])
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const target = e.target as typeof e.target & LoginElements
@@ -53,7 +56,8 @@ export const Register = () => {
   if (isSuccess) {
     return (
       <div>
-        Click <Link to="/"> here</Link> to return to the main page
+        <strong>Congratulation!</strong> Click <Link to="/login"> here </Link>{' '}
+        to the Login to your new account
       </div>
     )
   }
@@ -95,7 +99,7 @@ export const Register = () => {
                   color: 'red',
                 })}
               >
-                Oops {error.message}
+                Oops {error?.message}
               </span>
             </WarnSpan>
           ) : null}

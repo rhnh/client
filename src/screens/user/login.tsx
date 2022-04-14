@@ -63,7 +63,7 @@ export const Login: FC = () => {
         >
           Login
         </h1>
-        {isError ? <WarnSpan>{error.message}</WarnSpan> : null}
+        {isError ? <WarnSpan>{error?.message}</WarnSpan> : null}
         <div
           className={css({
             overflow: 'clear',

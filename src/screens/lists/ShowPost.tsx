@@ -1,4 +1,4 @@
-import { CircleButton, WarnSpan } from 'components/themed-components'
+import { WarnSpan } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
 import { FC } from 'react'
 import { useParams } from 'react-router-dom'
@@ -10,8 +10,9 @@ import {
 import { IPost } from 'utils/types'
 import pin from 'assets/pin.svg'
 import unpin from 'assets/unpin.svg'
-import del from 'assets/del.svg'
+import delBtn from 'assets/del.svg'
 import { css } from '@emotion/css'
+import { CircleButton } from 'components/themed-button'
 
 export const ShowPost: FC = () => {
   const { id } = useParams()
@@ -80,8 +81,8 @@ export const ShowPost: FC = () => {
           )}
           <CircleButton onClick={handleSetFeatured}>
             <img
-              src={del}
-              alt="+"
+              src={delBtn}
+              alt="x"
               className={css({
                 minHeight: '50px',
                 minWeight: '50px',

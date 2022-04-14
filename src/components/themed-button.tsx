@@ -3,6 +3,8 @@ import * as colors from 'utils/colors'
 import styled from '@emotion/styled'
 import { getObjectKeyValue } from 'utils'
 import { Link } from 'react-router-dom'
+import { FC } from 'react'
+import { css } from '@emotion/css'
 
 type ButtonProps = {
   variant: 'primary' | 'secondary' | 'danger'
@@ -122,4 +124,36 @@ export const LinkedButton = styled(Link)<LinkedButtonProps>(
           },
         }
   },
+)
+
+export const CircleButton = styled.button({
+  fontsize: '1.5rem',
+  alignItems: 'center',
+  justifyContent: 'center',
+  cursor: 'pointer',
+  border: 'none',
+  background: 'none',
+  color: colors.redText,
+  padding: '1em',
+})
+
+interface Prop {
+  handle: () => void
+  bgImage: string
+}
+
+export const CrudButton: FC<Prop> = ({ handle, bgImage }) => (
+  <CircleButton onClick={handle}>
+    <img
+      src={bgImage}
+      alt="x"
+      className={css({
+        minHeight: '20px',
+        minWeight: '20px',
+        ':hover': {
+          opacity: 0.5,
+        },
+      })}
+    ></img>
+  </CircleButton>
 )

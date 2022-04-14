@@ -1,11 +1,6 @@
 import { useAuth } from 'contexts/userContext'
-import { useCallback } from 'react'
-import {
-  InfiniteData,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from 'react-query'
+
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { useInfiniteQuery } from 'react-query'
 import { ITaxonomy } from 'utils/types'
 
@@ -13,8 +8,10 @@ const getTaxonomies = async () => {
   const url = `api/taxonomies`
   try {
     const response = await fetch(url)
+    console.log(response.ok)
     if (response.ok) {
       const result = await response.json()
+      console.log(result)
       return result
     } else {
       return []
@@ -27,7 +24,7 @@ const getTaxonomies = async () => {
 
 export function useTaxonomiesInfinite() {
   return useInfiniteQuery<ITaxonomy[], unknown, ITaxonomy[]>(
-    ['taxonomies', 'infinite'],
+    'taxonomies',
     getTaxonomies,
     {
       getPreviousPageParam: firstPage => firstPage ?? undefined,
@@ -90,7 +87,44 @@ export function useAddListItem(listName: string) {
       })
     },
     {
-      onSuccess: () => queryClient.invalidateQueries(['lists', listName]),
+      onSuccess: () => {
+        queryClient.invalidateQueries(['lists', listName])
+        queryClient.invalidateQueries('taxonomies')
+        queryClient.invalidateQueries('birdIds')
+      },
+    },
+  )
+}
+export function useRemoveListItem(listName: string) {
+  const { getLocalToken } = useAuth()
+  const token = getLocalToken()
+  const queryClient = useQueryClient()
+
+  return useMutation(
+    ({
+      listName,
+      taxonomy,
+      englishName,
+    }: {
+      listName: string
+      englishName: string
+      taxonomy: string
+    }) => {
+      return fetch(`/api/lists/list/${listName}`, {
+        method: 'DELETE',
+        body: JSON.stringify({ englishName, taxonomy }),
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      })
+    },
+    {
+      onSuccess: () =>
+        queryClient.invalidateQueries([
+          ['lists', listName],
+          ['taxonomies', 'infinite'],
+        ]),
     },
   )
 }

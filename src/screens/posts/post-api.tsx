@@ -60,7 +60,6 @@ export function useSetFeatured() {
           Authorization: `Bearer ${token}`,
         },
       }).then(res => {
-        console.log(res.ok, res.status)
         res.json()
       })
     },
@@ -80,7 +79,6 @@ export function useUnSetFeatured() {
           Authorization: `Bearer ${token}`,
         },
       }).then(res => {
-        console.log(res.ok, res.status)
         res.json()
       })
     },

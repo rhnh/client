@@ -1,16 +1,17 @@
 import { css } from '@emotion/css'
-import { CircleButton } from 'components/themed-components'
+
 import '@reach/dialog/styles.css'
 import '@reach/tooltip/styles.css'
-
+import addSvg from 'assets/add.svg'
 import { FC, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ITaxonomy } from 'utils/types'
-import { useLists } from 'screens/lists/list-api'
+import { useGetBirdIds, useLists } from 'screens/lists/list-api'
 
 import Tooltip from '@reach/tooltip'
 
 import { AddTaxonomy } from './AddTaxonomy'
+import { CircleButton } from 'components/themed-button'
 
 export const Taxonomy: FC<ITaxonomy> = ({
   _id,
@@ -21,73 +22,99 @@ export const Taxonomy: FC<ITaxonomy> = ({
 }) => {
   const { data: lists } = useLists()
   const [isOpen, setIsOpen] = useState(false)
+  const { data } = useGetBirdIds()
+  const birdIds = data ?? []
+  const ids: string[] = (birdIds as string[]) || []
+  const alreadyInList = Array.isArray(ids) ? ids.includes(_id || '') : false
+  // const alreadyInList = true
+  if (!_id) {
+    return null
+  }
   return (
     <div
       key={_id}
       className={css({
         display: 'flex',
-        flexDirection: 'row',
         border: '2px solid #ffeae2',
-        padding: '2em',
-        gap: '2em',
-        margin: '.2em',
-        maxWidth: '60%',
-        minWidth: '200px',
+        padding: '1em',
+        gap: '1em',
+
+        maxWidth: '100%',
       })}
     >
-      <div>
-        <Link to={`/taxonomy/${_id?.toLowerCase().replace(/[^a-z0-9]+/, '-')}`}>
-          {image !== undefined ? (
-            <div
-              className={css({
-                position: 'relative',
-              })}
-            >
-              <img
-                src={`/assets/${image}`}
-                width="200px"
-                alt={englishName}
-              ></img>
-            </div>
-          ) : (
-            <img
-              src={`/assets/bird-placeholder.jpg`}
-              width="200px"
-              alt={englishName}
-            />
-          )}
-        </Link>
-      </div>
-      <div className="desc">
-        <div className="taxonomyName">Name: {englishName}</div>
-        <div className="taxonomy">Species: {taxonomy}</div>
-        <div className="taxonomy">{info ? <p>Info: {info}</p> : null}</div>
-      </div>
+      <Link
+        to={`/taxonomy/${_id
+          ?.toString()
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/, '-')}`}
+      >
+        {image !== undefined ? (
+          <div
+            className={css({
+              position: 'relative',
+            })}
+          >
+            <img src={`/assets/${image}`} width="200px" alt={englishName}></img>
+          </div>
+        ) : (
+          <img
+            src={`/assets/bird-placeholder.jpg`}
+            width="200px"
+            alt={englishName}
+          />
+        )}
+      </Link>
+
+      <div className="taxonomyName">Name: {englishName}</div>
+      <div className="taxonomy">Species: {taxonomy}</div>
+      {info ? <div className="taxonomy">Info: {info}</div> : null}
       <div
         className={css({
           marginLeft: 'auto',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'center',
         })}
       >
-        <Tooltip label="Add to you watch lists.">
-          <CircleButton
-            className={css({
-              marginLeft: 'auto',
-            })}
-            onClick={() => setIsOpen(true)}
-          >
-            +
-          </CircleButton>
-        </Tooltip>
-        <AddTaxonomy
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-          lists={lists}
-          englishName={englishName}
-          taxonomy={taxonomy}
-        />
+        {alreadyInList ? (
+          <Tooltip label="You have this already in your list">
+            <CircleButton
+              className={css({
+                marginLeft: 'auto',
+              })}
+              onClick={() => setIsOpen(true)}
+            ></CircleButton>
+          </Tooltip>
+        ) : (
+          <section>
+            <Tooltip label="Add to you watch lists.">
+              <CircleButton
+                className={css({
+                  marginLeft: 'auto',
+                })}
+                onClick={() => setIsOpen(true)}
+              >
+                <img
+                  src={addSvg}
+                  alt="+"
+                  className={css({
+                    minHeight: '20px',
+                    minWeight: '20px',
+                    ':hover': {
+                      opacity: 0.5,
+                    },
+                  })}
+                />
+              </CircleButton>
+            </Tooltip>
+            <AddTaxonomy
+              isOpen={isOpen}
+              setIsOpen={setIsOpen}
+              lists={lists}
+              englishName={englishName}
+              taxonomy={taxonomy}
+            />
+          </section>
+        )}
       </div>
     </div>
   )

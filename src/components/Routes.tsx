@@ -6,7 +6,7 @@ import { CreateUserTaxonomy } from 'screens/taxonomies/CreateUserTaxonomy'
 import { CreatePost, FeaturedPost, Posts } from 'screens/posts'
 import { List, Lists, CreateList } from 'screens/lists/'
 import { About, Main } from 'screens/main'
-import { TaxonomyScreen } from 'screens/taxonomies'
+import { Taxonomies } from 'screens/taxonomies'
 import { TaxonomyById } from 'screens/taxonomies/TaxonomyById'
 import FeaturedArticle from 'screens/posts/featured'
 import { Members } from 'screens/user/Members'
@@ -32,7 +32,7 @@ export const AppRoutes: FC = () => {
         <Route path={`/${username}/lists`} element={<Lists />} />
         <Route path={`/${username}/list/:listName`} element={<List />} />
         <Route path="/about" element={<About />} />
-        <Route path="/taxonomies" element={<TaxonomyScreen />} />
+        <Route path="/taxonomies" element={<Taxonomies />} />
         <Route path="/taxonomies/:listName" element={<CreateUserTaxonomy />} />
         <Route path="/taxonomy/:taxonomyId" element={<TaxonomyById />} />
         <Route path="/profile" element={<Profile />} />
@@ -66,7 +66,7 @@ export const AppRoutes: FC = () => {
         <Route path={`/posts/post/:id`} element={<ShowPost />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/taxonomies" element={<TaxonomyScreen />} />
+        <Route path="/taxonomies" element={<Taxonomies />} />
         <Route path="/posts" element={<Posts />} />{' '}
         <Route path="/about" element={<About />} />
         <Route path="/taxonomy/:taxonomyId" element={<TaxonomyById />} />

@@ -3,8 +3,7 @@ import { useMutation, useQuery } from 'react-query'
 import { IList } from 'utils/types'
 
 export const useGetUserList = (listName: string) => {
-  const { getLocalToken } = useAuth()
-  const token = getLocalToken()
+  const { token } = useAuth()
 
   return useQuery(['list', listName], () => {
     return fetch(`/api/lists/list/${listName}`, {
@@ -15,6 +14,28 @@ export const useGetUserList = (listName: string) => {
       },
     }).then(res => res.json())
   })
+}
+
+export const useGetBirdIds = () => {
+  const { token, username } = useAuth()
+  return useQuery(
+    'birdIds',
+    async () => {
+      return fetch(`/api/lists/birds/${username}`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }).then(res => {
+        return res.json()
+      })
+    },
+    {
+      enabled: !!username,
+      refetchOnWindowFocus: false,
+    },
+  )
 }
 
 export const useLists = () => {
@@ -34,8 +55,7 @@ export const useLists = () => {
 }
 
 export const useDeleteList = () => {
-  const { getLocalToken } = useAuth()
-  const token = getLocalToken()
+  const { token } = useAuth()
   return useMutation((listName: string) => {
     return fetch(`/api/lists/${listName}`, {
       method: 'DELETE',
