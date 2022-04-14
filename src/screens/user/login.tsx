@@ -9,7 +9,7 @@ import * as colors from 'utils/colors'
 import { LoginElements } from 'utils/types'
 
 export const Login: FC = () => {
-  const { login, isError, error, isLogin, isSuccess } = useAuth()
+  const { login, isError, error, isLogin, isSuccess, setState } = useAuth()
   const { pathname } = useLocation()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -23,10 +23,11 @@ export const Login: FC = () => {
   }
 
   useEffect(() => {
+    setState('idle')
     if (isLogin && pathname === '/login') {
       navigate('/')
     }
-  }, [isLogin, navigate, pathname])
+  }, [isLogin, navigate, pathname, setState])
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === 'username') {

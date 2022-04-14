@@ -97,6 +97,7 @@ export const UserProvider: FC = ({ children }) => {
     }
   }
   const register = (user: IUser) => {
+    setState('idle')
     return userRegister(user).then(
       res => {
         const result: Status = res as unknown as Status

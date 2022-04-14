@@ -46,7 +46,6 @@ export const Taxonomies = () => {
         if (taxonomy._id === undefined) {
           return <p>Not found</p>
         }
-        console.log(taxonomy)
         return (
           <Taxonomy
             key={taxonomy._id}
