@@ -47,7 +47,7 @@ export const AppRoutes: FC = () => {
           index
           element={
             <Main>
-              <p>Welcome home</p>
+              <FeaturedArticle />
             </Main>
           }
         />
@@ -70,7 +70,7 @@ export const AppRoutes: FC = () => {
         <Route path="/posts" element={<Posts />} />{' '}
         <Route path="/about" element={<About />} />
         <Route path="/taxonomy/:taxonomyId" element={<TaxonomyById />} />
-        <Route path="*" element={<Main />} />
+        <Route path="*" element={<p>Page not found</p>} />
       </Route>
     </Routes>
   )
