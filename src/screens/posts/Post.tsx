@@ -3,7 +3,8 @@ import { css } from '@emotion/css'
 import { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { IPost } from 'utils/types'
-export const Post: FC<IPost> = ({ title, image_url, body, _id }) => {
+export const Post: FC<IPost> = ({ title, image_url, body, _id, createdAt }) => {
+  console.log(createdAt)
   return (
     <>
       <section>
@@ -13,12 +14,19 @@ export const Post: FC<IPost> = ({ title, image_url, body, _id }) => {
           })}
         >
           <Link to={`/posts/post/${_id}`}>
-            <img src={image_url} alt="Leopard" />
+            <img
+              src={image_url}
+              alt={title}
+              className={css({
+                maxWidth: '160px',
+              })}
+            />
           </Link>
         </div>
         <div>
           <p>
-            <Link to="/posts/234324">{title}</Link>
+            <Link to={`/posts/post/${_id}`}>{title}</Link>
+            <span> posted on: {createdAt}</span>
           </p>
           <article>{body}</article>
           <Link to={`/posts/post/${_id}`}>Read more</Link>
