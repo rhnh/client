@@ -3,7 +3,11 @@ import { FC } from 'react'
 
 export const About: FC = () => {
   return (
-    <div>
+    <div
+      className={css({
+        padding: '1em',
+      })}
+    >
       <h2>About</h2>
       Safarilive.org is an open source, non-commercial tiny website for
       WildEarth.tv viewers.

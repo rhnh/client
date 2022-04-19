@@ -67,8 +67,15 @@ export const Footer: FC = () => {
           </a>
         </li>
         <li className="social-list__item">
-          <a className="social-list__link" href="https://github.com/rhhn/">
-            <img src={github} width="20px" alt="https://github.com/rhnh/" />
+          <a
+            className="social-list__link"
+            href="https://github.com/rhnh/client"
+          >
+            <img
+              src={github}
+              width="20px"
+              alt="https://github.com/rhnh/client/"
+            />
           </a>
         </li>
       </ul>
