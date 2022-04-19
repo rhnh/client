@@ -64,7 +64,7 @@ export const NavMobile: FC = ({ children }) => {
       <section
         className={css({
           width: '100vw',
-
+          minHeight: '100vh',
           background: colors.plate,
           listStyle: 'none',
           position: 'absolute',
