@@ -1,6 +1,6 @@
 import { css } from '@emotion/css'
 import { Button } from 'components/themed-button'
-import { Input, Label, WarnSpan } from 'components/themed-components'
+import { InfoSpan, Input, Label, WarnSpan } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
 import { FormEvent, useEffect, useReducer } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
@@ -55,10 +55,10 @@ export const Register = () => {
 
   if (isSuccess) {
     return (
-      <div>
+      <InfoSpan>
         <strong>Congratulation!</strong> Click <Link to="/login"> here </Link>{' '}
         to the Login to your new account
-      </div>
+      </InfoSpan>
     )
   }
 

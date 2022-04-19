@@ -14,7 +14,23 @@ export const About: FC = () => {
       >
         <li>Some are images are from https://wikipedia.org.</li>
 
-        <li>SVGs are from https://freesvg.org/.</li>
+        <li>
+          SVGs are from{' '}
+          <a
+            href="
+
+          https://freesvg.org/"
+          >
+            FreeSVG
+          </a>{' '}
+          and{' '}
+          <a
+            href="
+          https://svgrepo.com/"
+          >
+            svgrepo
+          </a>
+        </li>
         <li>
           Background image is by <span>Damian Patkowski</span>
           link to{' '}

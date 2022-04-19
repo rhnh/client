@@ -3,7 +3,7 @@ import * as colors from 'utils/colors'
 import styled from '@emotion/styled'
 import { getObjectKeyValue } from 'utils'
 import { Link } from 'react-router-dom'
-import { FC } from 'react'
+import { FC, HtmlHTMLAttributes } from 'react'
 import { css } from '@emotion/css'
 
 type ButtonProps = {
@@ -138,18 +138,24 @@ export const CircleButton = styled.button({
 })
 
 interface Prop {
-  handle: () => void
   bgImage: string
+  cStyle?: CSSProperties
 }
 
-export const CrudButton: FC<Prop> = ({ handle, bgImage }) => (
-  <CircleButton onClick={handle}>
+export const CrudButton: FC<Prop & HtmlHTMLAttributes<HTMLButtonElement>> = ({
+  bgImage,
+  onClick,
+  cStyle,
+}) => (
+  <CircleButton onClick={onClick}>
     <img
       src={bgImage}
       alt="x"
       className={css({
+        display: 'block',
         minHeight: '20px',
         minWeight: '20px',
+
         ':hover': {
           opacity: 0.5,
         },

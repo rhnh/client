@@ -1,9 +1,4 @@
-import {
-  Button,
-  CircleButton,
-  CrudButton,
-  LinkedButton,
-} from 'components/themed-button'
+import { Button, CrudButton, LinkedButton } from 'components/themed-button'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDeleteList, useGetUserList } from './list-api'
 import { IListBirds, ITaxonomy } from 'utils/types'
@@ -28,7 +23,7 @@ export const List = () => {
     isLoading: isLoadingMutate,
   } = useDeleteList()
   const birds: IListBirds[] = data as IListBirds[]
-  const t: ITaxonomy[] = data as ITaxonomy[]
+
   const [search, setSearch] = useState('')
   const handleDelete = () => {
     if (listName) deleteList(listName)
@@ -50,9 +45,12 @@ export const List = () => {
   ) : (
     <div>
       <section>
-        <SearchBar search={search} setSearch={setSearch} data={t} />
+        <SearchBar
+          search={search}
+          setSearch={setSearch}
+          data={['a', 'b', 'c', 'd', 'e', 'f', 'g', 'j']}
+        />
       </section>
-      <section>{search}</section>
       <section>
         <div
           className={css({
@@ -64,8 +62,11 @@ export const List = () => {
           <div>
             <div>
               You have {birds.length} birds in your List <h2>{listName}</h2>
-              <CrudButton handle={() => setDialog('delete')} bgImage={delBtn} />
-              <CrudButton handle={() => setDialog('edit')} bgImage={editBtn} />
+              <CrudButton
+                onClick={() => setDialog('delete')}
+                bgImage={delBtn}
+              />
+              <CrudButton onClick={() => setDialog('edit')} bgImage={editBtn} />
             </div>
           </div>
         </div>

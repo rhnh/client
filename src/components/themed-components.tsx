@@ -2,9 +2,17 @@ import styled from '@emotion/styled'
 import { Dialog as ReachDialog } from '@reach/dialog'
 
 import * as colors from 'utils/colors'
-import { keyframes } from '@emotion/css'
-import { Link } from 'react-router-dom'
+import { css, keyframes } from '@emotion/css'
+import { Link, useMatch, useResolvedPath } from 'react-router-dom'
 import { LinkedButton } from './themed-button'
+import {
+  Children,
+  cloneElement,
+  FC,
+  InputHTMLAttributes,
+  ReactElement,
+  ReactNode,
+} from 'react'
 
 type ULProps = {
   isMobile: boolean
@@ -155,9 +163,28 @@ export const Dialog = styled(ReachDialog)({
 //   },
 // })
 
-export const StyledLink = styled(Link)({
-  color: 'red',
-})
+interface NavProps {
+  to: string
+}
+export const NavLink: FC<NavProps & InputHTMLAttributes<HTMLAnchorElement>> = ({
+  children,
+  to,
+  ...props
+}) => {
+  let resolved = useResolvedPath(to)
+  let match = useMatch({ path: resolved.pathname, end: true })
+  return (
+    <Link
+      className={css({
+        color: match ? 'red' : 'black',
+      })}
+      to={to}
+      {...props}
+    >
+      {typeof children === 'string' ? children?.toUpperCase() : children}
+    </Link>
+  )
+}
 
 export const WarnSpan = styled('div')({
   background: colors.danger,
@@ -195,3 +222,26 @@ export const ReLoginButton = () => {
     </WarnSpan>
   )
 }
+
+interface PropsUL {
+  isMobile: boolean
+}
+
+export const UL = styled('ul')<PropsUL>(({ isMobile = false }) => {
+  return !isMobile
+    ? {
+        listStyle: 'none',
+      }
+    : {
+        listStyle: 'none',
+      }
+})
+export const LI = styled('li')<PropsUL>(({ isMobile = false }) => {
+  return !isMobile
+    ? {
+        listStyle: 'none',
+      }
+    : {
+        listStyle: 'none',
+      }
+})

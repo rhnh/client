@@ -12,7 +12,7 @@ export const Taxonomies = () => {
   const err = error as Error
   const [search, setSearch] = useState('')
 
-  const birdsNames = data?.pages?.flat().filter((bird: any) => {
+  const birds = data?.pages?.flat().filter((bird: any) => {
     if (search === '') {
       return bird
     } else {
@@ -22,10 +22,13 @@ export const Taxonomies = () => {
           .trim()
           .includes(search.toLocaleLowerCase().trim())
       } else {
-        return ['']
+        return bird
       }
     }
   })
+  const birdNames: string[] = (data?.pages
+    .flat()
+    .map(bird => bird.englishName) as string[]) || ['']
 
   return isLoading ? (
     <p>Loading</p>
@@ -36,13 +39,15 @@ export const Taxonomies = () => {
       className={css({
         display: 'flex',
         flexDirection: 'column',
-
-        textAlign: 'left',
+        '@media screen and (min-width:700px)': {
+          maxWidth: '1024px',
+          margin: '1em auto',
+        },
       })}
     >
-      <SearchBar data={birdsNames} search={search} setSearch={setSearch} />
+      <SearchBar data={birdNames} search={search} setSearch={setSearch} />
 
-      {birdsNames?.map(taxonomy => {
+      {birds?.map(taxonomy => {
         if (taxonomy._id === undefined) {
           return <p>Not found</p>
         }

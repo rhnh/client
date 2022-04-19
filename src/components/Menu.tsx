@@ -1,17 +1,25 @@
+import { useToggle } from 'hooks/useToggle'
+import React, { FC, useEffect, useState } from 'react'
 import { useMediaQuery } from 'react-responsive'
 
-import { NavMobile } from './nav-mobile'
-import { useToggle } from 'hooks/useToggle'
-import { FC } from 'react'
-import { NavUL } from './themed-components'
+type Props = {}
 
-const MenuUL: FC = ({ children }) => {
-  const isMobile = useMediaQuery({ maxWidth: 600 })
+export const Menu: FC<Props> = (props: Props) => {
+  const isMax = useMediaQuery({ maxWidth: 600 })
+
+  const [size, setSize] = useState(window.screen.width)
+  const isMobile = size < 600
+
+  useEffect(() => {
+    const changeWidth = () => {
+      setSize(window.screen.width)
+    }
+    window.addEventListener('resize', changeWidth)
+    return () => {
+      window.removeEventListener('resize', changeWidth)
+    }
+  }, [])
+
   const { on, getTogglerProps } = useToggle()
-  return isMobile ? (
-    <NavMobile {...getTogglerProps({ on: on })}>{children}</NavMobile>
-  ) : (
-    <NavUL isMobile={false}>{children}</NavUL>
-  )
+  return <div>Menu</div>
 }
-export default MenuUL

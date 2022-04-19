@@ -45,7 +45,7 @@ export const AddTaxonomy: FC<Props> = ({
           zIndex: '50000',
         })}
       >
-        <DialogContent>
+        <DialogContent aria-label="form new taxonomy">
           <div>
             <h1>No list</h1>
             You don't have any list.
@@ -80,7 +80,7 @@ export const AddTaxonomy: FC<Props> = ({
         zIndex: '50000',
       })}
     >
-      <DialogContent>
+      <DialogContent aria-label="form new taxonomy">
         <CircleButton onClick={() => setIsOpen(false)}>
           <VisuallyHidden>Close</VisuallyHidden>
           <span aria-hidden>×</span>

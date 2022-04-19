@@ -8,42 +8,36 @@ import { IPost } from 'utils/types'
 export const FeaturedPost: FC<IPost> = ({ _id, title, image_url, body }) => {
   if (_id && title && image_url && body) {
     return (
-      <>
-        <section>
-          <div
-            className={css({
-              position: 'relative',
-            })}
-          >
-            <Link to={`/posts/post/${_id}`}>
-              <img src={image_url} alt={title} />
-            </Link>
-          </div>
-          <div>
-            <p className="featured-title">
-              <Link to="/posts/234324">{title}</Link>
-            </p>
-            <article className="featured-article">{body}</article>
-            <Link to={`/posts/post/${_id}`}>Read more</Link>
-          </div>
-        </section>
-        <div
-          className={css({
-            borderBottom: '1px solid #cbd5ff',
-            width: '100%',
-            margin: '1em auto',
-            height: 'auto',
-            padding: '0.6em',
-            display: 'block',
-            boxShadow: '0 6px 3px -5px rgba(0, 0, 0, 0.2)',
-
-            '@media screen and (min-width:600px)': {
-              borderBottom: 'none',
-              boxShadow: 'none',
-            },
-          })}
-        ></div>
-      </>
+      <section
+        className={css({
+          margin: '2em',
+          '@media screen and (min-width:700px)': {
+            paddingLeft: '1em',
+          },
+        })}
+      >
+        <div>
+          <Link to={`/posts/post/${_id}`}>
+            <img
+              src={image_url}
+              alt={title}
+              className={css({
+                width: '100%',
+                '@media screen and (min-width:700px)': {
+                  maxWidth: '200px',
+                },
+              })}
+            />
+          </Link>
+        </div>
+        <div>
+          <p className="featured-title">
+            <Link to={`/posts/${_id}`}>{title}</Link>
+          </p>
+          <article className="featured-article">{body}</article>
+          <Link to={`/posts/post/${_id}`}>Read more</Link>
+        </div>
+      </section>
     )
   } else {
     return <InfoSpan>No Article found</InfoSpan>

@@ -52,7 +52,7 @@ export function FullPageErrorFallback({ error }: { error: Error }) {
       role="alert"
       className={css({
         color: 'red',
-        height: '100vh',
+        // height: '100vh',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',

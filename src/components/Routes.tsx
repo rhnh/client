@@ -11,6 +11,7 @@ import { TaxonomyById } from 'screens/taxonomies/TaxonomyById'
 import FeaturedArticle from 'screens/posts/featured'
 import { Members } from 'screens/user/Members'
 import { ShowPost } from 'screens/lists/ShowPost'
+import { ReLoginButton, WarnSpan } from './themed-components'
 
 export const AppRoutes: FC = () => {
   const { isLogin, username } = useAuth()
@@ -70,7 +71,15 @@ export const AppRoutes: FC = () => {
         <Route path="/posts" element={<Posts />} />{' '}
         <Route path="/about" element={<About />} />
         <Route path="/taxonomy/:taxonomyId" element={<TaxonomyById />} />
-        <Route path="*" element={<p>Page not found</p>} />
+        <Route
+          path="*"
+          element={
+            <WarnSpan>
+              Page not found! Please Login or refresh!
+              <ReLoginButton />
+            </WarnSpan>
+          }
+        />
       </Route>
     </Routes>
   )

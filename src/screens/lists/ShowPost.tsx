@@ -13,6 +13,7 @@ import unpin from 'assets/unpin.svg'
 import delBtn from 'assets/del.svg'
 import { css } from '@emotion/css'
 import { CircleButton } from 'components/themed-button'
+import { numberToDate } from 'utils/tools'
 
 export const ShowPost: FC = () => {
   const { id } = useParams()
@@ -34,9 +35,27 @@ export const ShowPost: FC = () => {
   ) : isError ? (
     <WarnSpan>Something went wrong</WarnSpan>
   ) : (
-    <div className="post">
+    <div
+      className={css({
+        '@media screen and (min-width:700px)': {
+          maxWidth: '1024px',
+          margin: '2em auto',
+        },
+      })}
+    >
       <section>
+        <img
+          src={post.image_url}
+          className={css({
+            width: '100%',
+            '@media screen and (min-width:700px)': {
+              width: '40%',
+            },
+          })}
+          alt={post.title}
+        />
         <h2>{post.title}</h2>
+        <span> {numberToDate(post.createdAt)}</span>
       </section>
       <section>
         <p>{post.body}</p>

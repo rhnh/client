@@ -60,7 +60,6 @@ export const CreateUserTaxonomy: FC = () => {
     ) {
       mutate({ listName, englishName, taxonomy })
     } else {
-      // console.log(inputFieldsState, 'states')
     }
   }
   if (isLoading) {

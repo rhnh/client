@@ -2,6 +2,8 @@ import { css } from '@emotion/css'
 import { FC } from 'react'
 import Logo from 'logo61.png'
 import * as colors from 'utils/colors'
+import github from 'assets/github.svg'
+import twitter from 'assets/twitter.svg'
 export const Footer: FC = () => {
   return (
     <footer
@@ -15,8 +17,9 @@ export const Footer: FC = () => {
 
         left: 0,
         right: 0,
-
-        alignSelf: 'flex-end',
+        bottom: 0,
+        overflow: 'hidden',
+        backgroundColor: 'red',
         width: '100%',
         textAlign: 'center',
         background: colors.neutral,
@@ -27,31 +30,19 @@ export const Footer: FC = () => {
           listStyle: 'none',
           margin: '1em 0',
         },
-        'ul > li': {
+        li: {
           padding: '.4em 0',
-        },
-        'ul > li > a ': {
-          color: colors.baseText,
-        },
-        'ul > li > a:hover': {
-          color: colors.hover,
         },
       })}
     >
-      <ul className="social-list">
-        <li className="social-list__item">
-          <a
-            className="social-list__link"
-            href="https://twitter.com/safariliveorg"
-          >
-            <i className="fab fa-twitter"></i>
-          </a>
-        </li>
-        <li className="social-list__item">
-          <a className="social-list__link" href="https://github.com">
-            <i className="fab fa-github"></i>
-          </a>
-        </li>
+      <ul
+        className={css({
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
+        })}
+      >
         <li>
           <a href="/">
             <img
@@ -61,6 +52,23 @@ export const Footer: FC = () => {
                 maxWidth: '100px',
               })}
             />
+          </a>
+        </li>
+        <li className="social-list__item">
+          <a
+            className="social-list__link"
+            href="https://twitter.com/safariliveorg"
+          >
+            <img
+              src={twitter}
+              width="20px"
+              alt="https://twitter.com/safariliveorg"
+            />
+          </a>
+        </li>
+        <li className="social-list__item">
+          <a className="social-list__link" href="https://github.com/rhhn/">
+            <img src={github} width="20px" alt="https://github.com/rhnh/" />
           </a>
         </li>
       </ul>

@@ -1,8 +1,9 @@
+import { css } from '@emotion/css'
 import { LinkedButton } from 'components/themed-button'
 import { InfoSpan } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
 import { FC } from 'react'
-
+import * as colors from 'utils/colors'
 import { IPost } from 'utils/types'
 import { Post } from './Post'
 import { usePosts } from './post-api'
@@ -17,11 +18,15 @@ export const Posts: FC = () => {
     <p>loading</p>
   ) : isError ? (
     <InfoSpan>
-      {console.log(error)}
+      {console.error(error)}
       {err?.message}
     </InfoSpan>
   ) : (
-    <div>
+    <div
+      className={css({
+        // height: '100vh',
+      })}
+    >
       {posts?.length <= 0 ? (
         <p>No Posts found</p>
       ) : (

@@ -7,7 +7,7 @@ import { FC, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ITaxonomy } from 'utils/types'
 import { useGetBirdIds, useLists } from 'screens/lists/list-api'
-
+import * as colors from 'utils/colors'
 import Tooltip from '@reach/tooltip'
 
 import { AddTaxonomy } from './AddTaxonomy'
@@ -36,10 +36,18 @@ export const Taxonomy: FC<ITaxonomy> = ({
       className={css({
         display: 'flex',
         border: '2px solid #ffeae2',
-        padding: '1em',
-        gap: '1em',
-
         maxWidth: '100%',
+        gap: '1em',
+        margin: '1em',
+        overflow: 'hidden',
+        background: colors.plate,
+        flexDirection: 'column',
+        '@media screen and (min-width:700px)': {
+          flexDirection: 'row',
+        },
+        img: {
+          width: '100%',
+        },
       })}
     >
       <Link
@@ -54,7 +62,16 @@ export const Taxonomy: FC<ITaxonomy> = ({
               position: 'relative',
             })}
           >
-            <img src={`/assets/${image}`} width="200px" alt={englishName}></img>
+            <img
+              src={`/assets/${image}`}
+              className={css({
+                width: '200px',
+                '@media screen and (min-width:700px)': {
+                  maxWidth: '200px',
+                },
+              })}
+              alt={englishName}
+            ></img>
           </div>
         ) : (
           <img
@@ -79,17 +96,24 @@ export const Taxonomy: FC<ITaxonomy> = ({
           <Tooltip label="You have this already in your list">
             <CircleButton
               className={css({
-                marginLeft: 'auto',
+                '@media screen and (min-width:700px)': {
+                  marginLeft: 'auto',
+                },
               })}
               onClick={() => setIsOpen(true)}
             ></CircleButton>
           </Tooltip>
         ) : (
-          <section>
+          <section
+            className={css({
+              maxWidth: '120px',
+            })}
+          >
             <Tooltip label="Add to you watch lists.">
               <CircleButton
                 className={css({
                   marginLeft: 'auto',
+                  maxWidth: '120px',
                 })}
                 onClick={() => setIsOpen(true)}
               >
@@ -97,8 +121,8 @@ export const Taxonomy: FC<ITaxonomy> = ({
                   src={addSvg}
                   alt="+"
                   className={css({
-                    minHeight: '20px',
-                    minWeight: '20px',
+                    height: '20px',
+                    weight: '20px',
                     ':hover': {
                       opacity: 0.5,
                     },
