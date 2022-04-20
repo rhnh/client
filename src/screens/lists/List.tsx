@@ -25,6 +25,7 @@ export const List = () => {
   const birds: IListBirds[] = data as IListBirds[]
 
   const [search, setSearch] = useState('')
+
   const handleDelete = () => {
     if (listName) deleteList(listName)
   }
@@ -43,14 +44,15 @@ export const List = () => {
   ) : isError || isErrorMutate ? (
     <p>Error</p>
   ) : (
-    <div>
-      <section>
-        <SearchBar
-          search={search}
-          setSearch={setSearch}
-          data={['a', 'b', 'c', 'd', 'e', 'f', 'g', 'j']}
-        />
-      </section>
+    <div
+      className={css({
+        minHeight: '100vh',
+        '@media screen and (min-width:700px)': {
+          maxWidth: '1024px',
+          margin: '1em auto',
+        },
+      })}
+    >
       <section>
         <div
           className={css({
@@ -61,19 +63,33 @@ export const List = () => {
         >
           <div>
             <div>
-              You have {birds.length} birds in your List <h2>{listName}</h2>
+              {' '}
+              <h1>{listName}</h1>
               <CrudButton
                 onClick={() => setDialog('delete')}
                 bgImage={delBtn}
               />
               <CrudButton onClick={() => setDialog('edit')} bgImage={editBtn} />
             </div>
+            <span>You have {birds.length} birds in your List</span>
           </div>
         </div>
-        <hr />
-        {birds.map(bird => (
-          <ListItem key={bird._id} {...bird} />
-        ))}
+        <section>
+          <SearchBar
+            search={search}
+            setSearch={setSearch}
+            data={['a', 'b', 'c', 'd', 'e', 'f', 'g', 'j']}
+          />
+        </section>
+        <div
+          className={css({
+            marginTop: '2em',
+          })}
+        >
+          {birds.map(bird => (
+            <ListItem key={bird._id} {...bird} />
+          ))}
+        </div>
       </section>
       <CrudDialog
         isOpen={dialog === 'edit'}

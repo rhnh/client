@@ -33,6 +33,7 @@ export const NavMobile: FC = ({ children }) => {
         left: 0,
         right: 0,
         clear: 'both',
+        marginBottom: '1em',
       })}
     >
       <Link to="/">

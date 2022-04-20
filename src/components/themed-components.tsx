@@ -1,18 +1,11 @@
 import styled from '@emotion/styled'
 import { Dialog as ReachDialog } from '@reach/dialog'
-
+import warnIcon from 'assets/warn.svg'
 import * as colors from 'utils/colors'
 import { css, keyframes } from '@emotion/css'
 import { Link, useMatch, useResolvedPath } from 'react-router-dom'
 import { LinkedButton } from './themed-button'
-import {
-  Children,
-  cloneElement,
-  FC,
-  InputHTMLAttributes,
-  ReactElement,
-  ReactNode,
-} from 'react'
+import { FC, InputHTMLAttributes } from 'react'
 
 type ULProps = {
   isMobile: boolean
@@ -192,7 +185,7 @@ export const WarnSpan = styled('div')({
   borderRadius: '10px',
 
   margin: 0,
-  backgroundImage: 'url(assets/warn-svgrepo-com.svg)',
+  backgroundImage: `url(${warnIcon})`,
   backgroundSize: '30px',
   backgroundPosition: '6px 30px',
   minHeight: '10px',

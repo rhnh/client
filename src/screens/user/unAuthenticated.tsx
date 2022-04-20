@@ -19,7 +19,7 @@ const UnAuthenticated = () => {
         })}
       >
         <Header />
-        <div className="container">
+        <div className="content">
           <div
             className={css({
               // height: '100vh',

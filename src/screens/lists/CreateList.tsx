@@ -60,7 +60,11 @@ export const CreateList: FC = () => {
   }
   if (isSuccess) {
     return (
-      <div>
+      <div
+        className={css({
+          minHeight: '100vh',
+        })}
+      >
         You have successfully created {listName}
         <section>
           Click <Link to={`/${username}/lists`}> here </Link>to see all your
@@ -79,6 +83,7 @@ export const CreateList: FC = () => {
         margin: 'auto',
         marginTop: '1.5em',
         borderRadius: '5px',
+        minHeight: '100vh',
       })}
     >
       <form onSubmit={handleSubmit}>

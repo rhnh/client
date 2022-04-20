@@ -3,11 +3,11 @@ import { LinkedButton } from 'components/themed-button'
 import { WarnSpan } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
 import { FC } from 'react'
-
+import listIcon from 'assets/list.svg'
 import { Link } from 'react-router-dom'
 import { IList } from 'utils/types'
 import { useLists } from './list-api'
-
+import * as colors from 'utils/colors'
 export const Lists: FC = () => {
   const { isLogin, username } = useAuth()
   const { data, isError } = useLists()
@@ -31,32 +31,48 @@ export const Lists: FC = () => {
     )
   }
   return (
-    <div>
+    <div
+      className={css({
+        minHeight: '100vh',
+        '@media screen and (min-width:700px)': {
+          maxWidth: '1024px',
+          margin: '1em auto',
+        },
+      })}
+    >
       {lists && lists?.length > 0 ? (
-        <div>
+        <div
+          className={css({
+            '@media screen and (min-width:700px)': {
+              maxWidth: '230px',
+            },
+          })}
+        >
           {lists.map(list => (
-            <div
-              key={list._id}
-              className={css({
-                a: {
+            <div key={list._id} className={css({})}>
+              <Link
+                to={`/${username}/list/${list?.slug}`}
+                className={css({
+                  display: 'flex',
+                  flexDirection: 'column',
+
                   textDecoration: 'none',
                   textTransform: 'capitalize',
-                  display: 'block',
-                  color: 'red',
-                  padding: '1em',
-                  border: '2px solid gray',
-                  textAlign: 'center',
-                  margin: '.6em',
-                  fontSize: '22px',
-                },
-                'a:hover': {
-                  color: 'green',
-                  background: 'lightGreen',
-                },
-              })}
-            >
-              <Link to={`/${username}/list/${list?.slug}`}>
-                {list.listName}
+                  color: colors.red,
+
+                  ':hover': {
+                    color: 'green',
+                    // background: 'lightGreen',
+                    opacity: '0.6',
+                  },
+                })}
+              >
+                {/* <img
+                  src={listIcon}
+                  alt=""
+                  className={css({ width: '50px', height: 'auto' })}
+                /> */}
+                <span>{list.listName}</span>
               </Link>
             </div>
           ))}

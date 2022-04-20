@@ -102,7 +102,7 @@ export interface Authorization {
   logout: () => void
   passRecovery: () => void
   usernameRecovery: () => void
-  getLocalToken: () => string | null
+  getLocalToken: () => string | undefined | null
   isError: boolean
   isLogin: boolean
   error: Error

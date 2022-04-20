@@ -20,7 +20,9 @@ export const ListItem: FC<IListBirds> = ({ _id, englishName, seen }) => {
           {englishName}
         </Link>
       </p>
-      <p>Seen: {new Date(seen).toDateString()}</p>
+      <p>
+        Added to your list on: <strong> {new Date(seen).toDateString()}</strong>
+      </p>
     </div>
   )
 }

@@ -71,16 +71,16 @@ export const AppRoutes: FC = () => {
         <Route path="/posts" element={<Posts />} />{' '}
         <Route path="/about" element={<About />} />
         <Route path="/taxonomy/:taxonomyId" element={<TaxonomyById />} />
-        <Route
-          path="*"
-          element={
-            <WarnSpan>
-              Page not found! Please Login or refresh!
-              <ReLoginButton />
-            </WarnSpan>
-          }
-        />
       </Route>
+      {/* <Route
+        path="*"
+        element={
+          <WarnSpan>
+            Page not found! Please Login or refresh!
+            <ReLoginButton />
+          </WarnSpan>
+        }
+      /> */}
     </Routes>
   )
 }
