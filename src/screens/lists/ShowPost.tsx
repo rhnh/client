@@ -1,4 +1,4 @@
-import { WarnSpan } from 'components/themed-components'
+import { FullPageSpinner, WarnSpan } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
 import { FC } from 'react'
 import { useParams } from 'react-router-dom'
@@ -31,7 +31,7 @@ export const ShowPost: FC = () => {
   const isAuthorized = userInfo?.role === 'mod'
 
   return isLoading ? (
-    <p>Loading</p>
+    <FullPageSpinner />
   ) : isError ? (
     <WarnSpan>Something went wrong</WarnSpan>
   ) : (

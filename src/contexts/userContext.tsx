@@ -1,6 +1,14 @@
 import { userLogin, userRegister } from 'api/user'
+import { FullPageSpinner } from 'components/themed-components'
 import { useAsync } from 'hooks/useAsync'
-import { createContext, FC, useContext, useEffect, useState } from 'react'
+import {
+  createContext,
+  FC,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 import {
   deleteLocalToken,
   getLocalToken,
@@ -55,13 +63,10 @@ export const UserProvider: FC = ({ children }) => {
     state: 'idle',
   })
 
-  const [isLogin, setIsLogin] = useState(false)
-
   useEffect(() => {
     isVerified().then(t => {
       if (t) {
         setUser(t)
-        setIsLogin(t?.isValidToken ?? false)
         setLocalToken(t?.token)
       }
     })
@@ -75,15 +80,13 @@ export const UserProvider: FC = ({ children }) => {
           if (user.username && user.token) {
             setUser(user)
             setLocalToken(user.token)
-            setIsLogin(true)
           } else {
-            setIsLogin(false)
+            setUser(null)
           }
         }
       },
       err => {
         setError(err)
-        setIsLogin(false)
         deleteLocalToken()
       },
     )
@@ -106,14 +109,13 @@ export const UserProvider: FC = ({ children }) => {
           if (result.data.username && result.data) {
             setState('success')
           } else {
-            setIsLogin(false)
+            setUser(null)
           }
         }
         return true
       },
       err => {
         setError(err)
-        setIsLogin(false)
         deleteLocalToken()
         return false
       },
@@ -123,11 +125,11 @@ export const UserProvider: FC = ({ children }) => {
   const logout = () => {
     deleteLocalToken()
     setUser(null)
-    setIsLogin(false)
+
     window.location.reload()
   }
   if (isLoading) {
-    return <p> loading...</p>
+    return <FullPageSpinner />
   }
 
   /**
@@ -150,9 +152,8 @@ export const UserProvider: FC = ({ children }) => {
     usernameRecovery,
     userInfo,
     isError,
-
     error,
-    isLogin,
+    isLogin: isSuccess && userInfo?.username !== undefined,
     getLocalToken,
     isIdle,
     state,
@@ -162,7 +163,7 @@ export const UserProvider: FC = ({ children }) => {
   }
 
   if (isLoading) {
-    return <span>loading...</span>
+    return <FullPageSpinner />
   }
 
   return (

@@ -12,6 +12,7 @@ import Tooltip from '@reach/tooltip'
 
 import { AddTaxonomy } from './AddTaxonomy'
 import { CircleButton } from 'components/themed-button'
+import { FullPageSpinner } from 'components/themed-components'
 
 export const Taxonomy: FC<ITaxonomy> = ({
   _id,
@@ -20,9 +21,20 @@ export const Taxonomy: FC<ITaxonomy> = ({
   taxonomy,
   info,
 }) => {
-  const { data: lists } = useLists()
+  const { data: lists, isLoading } = useLists()
   const [isOpen, setIsOpen] = useState(false)
-  const { data } = useGetBirdIds()
+  const { data, isLoading: isLoadingBirdIds, isError } = useGetBirdIds()
+
+  if (!data && isLoadingBirdIds && !isError) {
+    return <FullPageSpinner />
+  }
+
+  if (!lists && !isLoading) {
+    return <FullPageSpinner />
+  }
+  if (isLoading || isLoadingBirdIds) {
+    return <FullPageSpinner />
+  }
   const birdIds = data ?? []
   const ids: string[] = (birdIds as string[]) || []
   const alreadyInList = Array.isArray(ids) ? ids.includes(_id || '') : false
@@ -30,6 +42,7 @@ export const Taxonomy: FC<ITaxonomy> = ({
   if (!_id) {
     return null
   }
+
   return (
     <div
       key={_id}
@@ -44,6 +57,9 @@ export const Taxonomy: FC<ITaxonomy> = ({
         flexDirection: 'column',
         '@media screen and (min-width:700px)': {
           flexDirection: 'row',
+          margin: '1em auto',
+
+          maxWidth: '1024px',
         },
         img: {
           width: '100%',
@@ -66,6 +82,8 @@ export const Taxonomy: FC<ITaxonomy> = ({
               src={`/assets/${image}`}
               className={css({
                 width: '200px',
+                height: 'auto',
+                minWidth: '200px',
                 '@media screen and (min-width:700px)': {
                   maxWidth: '200px',
                 },
@@ -76,15 +94,26 @@ export const Taxonomy: FC<ITaxonomy> = ({
         ) : (
           <img
             src={`/assets/bird-placeholder.jpg`}
-            width="200px"
+            className={css({
+              height: 'auto',
+              '@media screen and (min-width:700px)': {
+                maxWidth: '200px',
+              },
+            })}
             alt={englishName}
           />
         )}
       </Link>
-
-      <div className="taxonomyName">Name: {englishName}</div>
-      <div className="taxonomy">Species: {taxonomy}</div>
-      {info ? <div className="taxonomy">Info: {info}</div> : null}
+      <div
+        className={css({
+          display: 'flex',
+          flexDirection: 'column',
+        })}
+      >
+        <div className="taxonomyName">Name: {englishName}</div>
+        <div className="taxonomy">Species: {taxonomy}</div>
+        {info ? <div className="taxonomy">Info: {info}</div> : null}
+      </div>
       <div
         className={css({
           marginLeft: 'auto',

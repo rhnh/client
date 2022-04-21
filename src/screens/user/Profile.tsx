@@ -1,3 +1,4 @@
+import { FullPageSpinner } from 'components/themed-components'
 import { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { IProfile } from 'utils/types'
@@ -7,7 +8,7 @@ export const Profile: FC = () => {
   const { data, isError, isLoading } = useProfile()
   const user: IProfile | null = data as unknown as IProfile
   if (isLoading) {
-    return <p>loading</p>
+    return <FullPageSpinner />
   }
   if (isError) {
     return <p>Error: Something went wrong went retrieving your profile</p>

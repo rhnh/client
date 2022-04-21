@@ -1,6 +1,12 @@
 import { css } from '@emotion/css'
 import { Button } from 'components/themed-button'
-import { InfoSpan, Input, Label, WarnSpan } from 'components/themed-components'
+import {
+  FullPageSpinner,
+  InfoSpan,
+  Input,
+  Label,
+  WarnSpan,
+} from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
 import { FormEvent, useEffect, useReducer } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
@@ -67,7 +73,7 @@ export const Register = () => {
     !state.confirmPassword ||
     state.password !== state.confirmPassword
   return isLoading ? (
-    <p>loading</p>
+    <FullPageSpinner />
   ) : isSuccess ? (
     <p>Success</p>
   ) : (

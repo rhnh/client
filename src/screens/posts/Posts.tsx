@@ -1,6 +1,6 @@
 import { css } from '@emotion/css'
 import { LinkedButton } from 'components/themed-button'
-import { InfoSpan } from 'components/themed-components'
+import { FullPageSpinner, InfoSpan } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
 import { FC } from 'react'
 import * as colors from 'utils/colors'
@@ -15,7 +15,7 @@ export const Posts: FC = () => {
   const err: Error = error as Error
 
   return isLoading ? (
-    <p>loading</p>
+    <FullPageSpinner />
   ) : isError ? (
     <InfoSpan>
       {console.error(error)}

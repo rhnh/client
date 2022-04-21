@@ -6,7 +6,7 @@ import { css, keyframes } from '@emotion/css'
 import { Link, useMatch, useResolvedPath } from 'react-router-dom'
 import { LinkedButton } from './themed-button'
 import { FC, InputHTMLAttributes } from 'react'
-
+import spinnerIcon from 'assets/spinner.svg'
 type ULProps = {
   isMobile: boolean
 }
@@ -207,12 +207,19 @@ export const InfoSpan = styled('div')({
 })
 export const ReLoginButton = () => {
   return (
-    <WarnSpan>
-      Something Went wrong! Please{' '}
-      <LinkedButton to="/login" variant="primary">
-        Login
-      </LinkedButton>
-    </WarnSpan>
+    <div
+      className={css({
+        maxWidth: '60%',
+        margin: '2em auto',
+      })}
+    >
+      <WarnSpan>
+        You are not logged in! or Something went wrong
+        <LinkedButton to="/login" variant="primary">
+          Login
+        </LinkedButton>
+      </WarnSpan>
+    </div>
   )
 }
 
@@ -238,3 +245,31 @@ export const LI = styled('li')<PropsUL>(({ isMobile = false }) => {
         listStyle: 'none',
       }
 })
+
+const spin = keyframes({
+  '0%': { transform: 'rotate(0deg)' },
+  '100%': { transform: 'rotate(360deg)' },
+})
+
+export const FullPageSpinner: FC = () => {
+  return (
+    <div
+      className={css({
+        fontSize: '4em',
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+      })}
+    >
+      <img
+        src={spinnerIcon}
+        className={css({
+          animation: `${spin} 1s linear infinite`,
+        })}
+        alt="Loading..."
+      />
+    </div>
+  )
+}

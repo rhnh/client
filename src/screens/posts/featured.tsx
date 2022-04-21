@@ -1,4 +1,4 @@
-import { WarnSpan } from 'components/themed-components'
+import { FullPageSpinner, WarnSpan } from 'components/themed-components'
 import { FC } from 'react'
 import { FeaturedPost } from './FeaturedPost'
 import { useFeaturedPost } from './post-api'
@@ -7,11 +7,11 @@ const FeaturedArticle: FC = () => {
   const { data: posts, isLoading, isError } = useFeaturedPost()
 
   return isLoading ? (
-    <p>Loading...</p>
+    <FullPageSpinner />
   ) : isError ? (
     <WarnSpan>Server down</WarnSpan>
   ) : (
-    <div>
+    <div className="center">
       {posts && posts?.length > 0
         ? posts.map(post => {
             return (

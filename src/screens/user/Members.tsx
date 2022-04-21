@@ -1,3 +1,4 @@
+import { FullPageSpinner } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
 import { FC } from 'react'
 import { useQuery } from 'react-query'
@@ -24,7 +25,7 @@ export const Members: FC = () => {
     return <p>You are not authorized</p>
   }
   if (isLoading) {
-    return <p>loading...</p>
+    return <FullPageSpinner />
   }
   if (isError) {
     return <p>Error</p>

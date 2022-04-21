@@ -1,17 +1,15 @@
 import { useState } from 'react'
-
 import { SearchBar } from 'components/SearchBar'
-
 import { css } from '@emotion/css'
 import { Taxonomy } from './Taxonomy'
-
 import { useTaxonomiesInfinite } from './taxonomies-api'
+import { FullPageSpinner } from 'components/themed-components'
 
 export const Taxonomies = () => {
   const { isLoading, data, isError, error } = useTaxonomiesInfinite()
   const err = error as Error
   const [search, setSearch] = useState('')
-
+  console.log(isLoading, data, isError)
   const birds = data?.pages?.flat().filter((bird: any) => {
     if (search === '') {
       return bird
@@ -31,7 +29,7 @@ export const Taxonomies = () => {
     .map(bird => bird.englishName) as string[]) || ['']
 
   return isLoading ? (
-    <p>Loading</p>
+    <FullPageSpinner />
   ) : isError ? (
     <p>{err.message} </p>
   ) : (
@@ -39,13 +37,11 @@ export const Taxonomies = () => {
       className={css({
         display: 'flex',
         flexDirection: 'column',
-        '@media screen and (min-width:700px)': {
-          maxWidth: '1024px',
-          margin: '1em auto',
-        },
       })}
     >
-      <SearchBar data={birdNames} search={search} setSearch={setSearch} />
+      <div className="center">
+        <SearchBar data={birdNames} search={search} setSearch={setSearch} />
+      </div>
 
       {birds?.map(taxonomy => {
         if (taxonomy._id === undefined) {
@@ -59,7 +55,6 @@ export const Taxonomies = () => {
             englishName={taxonomy.englishName}
             image={taxonomy.image}
             approved={false}
-            info={taxonomy.info}
             username={''}
             _id={taxonomy._id}
           ></Taxonomy>

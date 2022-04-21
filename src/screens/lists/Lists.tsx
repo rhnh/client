@@ -3,7 +3,7 @@ import { LinkedButton } from 'components/themed-button'
 import { WarnSpan } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
 import { FC } from 'react'
-import listIcon from 'assets/list.svg'
+
 import { Link } from 'react-router-dom'
 import { IList } from 'utils/types'
 import { useLists } from './list-api'
@@ -14,7 +14,10 @@ export const Lists: FC = () => {
   if (!isLogin) {
     return <p>You are not login</p>
   }
-
+  if (!data) {
+    return null
+  }
+  console.log(data, isError, username)
   if (isError) {
     return <WarnSpan>Error: while loading lists</WarnSpan>
   }
@@ -49,7 +52,7 @@ export const Lists: FC = () => {
           })}
         >
           {lists.map(list => (
-            <div key={list._id} className={css({})}>
+            <div key={list._id}>
               <Link
                 to={`/${username}/list/${list?.slug}`}
                 className={css({

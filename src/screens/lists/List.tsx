@@ -1,7 +1,7 @@
 import { Button, CrudButton, LinkedButton } from 'components/themed-button'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDeleteList, useGetUserList } from './list-api'
-import { IListBirds, ITaxonomy } from 'utils/types'
+import { IListBirds } from 'utils/types'
 import { SearchBar } from 'components/SearchBar'
 import { useState } from 'react'
 import '@reach/dialog/styles.css'
@@ -10,21 +10,31 @@ import editBtn from 'assets/edit.svg'
 import { css } from '@emotion/css'
 import { CrudDialog } from '../../components/CrudDialog'
 import { ListItem } from './ListItem'
+import { FullPageSpinner, ReLoginButton } from 'components/themed-components'
+import { useAuth } from 'contexts/userContext'
 
 export const List = () => {
   const { listName } = useParams()
+  const [search, setSearch] = useState('')
+  const { isLogin } = useAuth()
   const navigate = useNavigate()
   const [dialog, setDialog] = useState<'delete' | 'hide' | 'edit'>('hide')
   const { isLoading, isError, data } = useGetUserList(listName || '')
+
   const {
     mutate: deleteList,
-    isError: isErrorMutate,
+    isError: isErrorDelete,
     isSuccess,
-    isLoading: isLoadingMutate,
+    isLoading: isLoadingDelete,
   } = useDeleteList()
-  const birds: IListBirds[] = data as IListBirds[]
 
-  const [search, setSearch] = useState('')
+  if (!isLogin) {
+    return <ReLoginButton />
+  }
+  if (!data && isLoading) {
+    return <FullPageSpinner />
+  }
+  const birds: IListBirds[] = data as IListBirds[]
 
   const handleDelete = () => {
     if (listName) deleteList(listName)
@@ -39,9 +49,9 @@ export const List = () => {
       </Button>
     )
   }
-  return isLoading || isLoadingMutate ? (
-    <p>Loading</p>
-  ) : isError || isErrorMutate ? (
+  return isLoading || isLoadingDelete ? (
+    <FullPageSpinner />
+  ) : isError || isErrorDelete ? (
     <p>Error</p>
   ) : (
     <div
