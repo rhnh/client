@@ -26,11 +26,10 @@ export const CreateUserTaxonomy: FC = () => {
   const { mutate, isError, isLoading, isSuccess } = useAddListItem(
     listName || '',
   )
+  console.log(data)
   const englishNames: string[] = data?.map(
     (bird: ITaxonomy) => bird.englishName,
   ) as string[] | []
-
-  console.log(data)
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target

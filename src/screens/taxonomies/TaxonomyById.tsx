@@ -12,15 +12,15 @@ import { Taxonomy } from './Taxonomy'
 export const TaxonomyById: FC = () => {
   const { isLogin } = useAuth()
   const { taxonomyId } = useParams()
-  const { isLoading, data, isError, error } = useTaxonomy(taxonomyId || '')
-  console.log(isLogin, 'logged')
+  const { isLoading, data, isError } = useTaxonomy(taxonomyId || '')
+
   if (!isLogin) {
     return <ReLoginButton />
   }
   if (!data && isLoading) {
     return <FullPageSpinner />
   }
-  console.log(error)
+
   return isLoading ? (
     <FullPageSpinner />
   ) : isError ? (

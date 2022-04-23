@@ -3,13 +3,17 @@ import { SearchBar } from 'components/SearchBar'
 import { css } from '@emotion/css'
 import { Taxonomy } from './Taxonomy'
 import { useTaxonomiesInfinite } from './taxonomies-api'
-import { FullPageSpinner } from 'components/themed-components'
+import { FullPageSpinner, ReLoginButton } from 'components/themed-components'
+import { useAuth } from 'contexts/userContext'
 
 export const Taxonomies = () => {
   const { isLoading, data, isError, error } = useTaxonomiesInfinite()
   const err = error as Error
   const [search, setSearch] = useState('')
-  console.log(isLoading, data, isError)
+  const { isLogin } = useAuth()
+  if (!isLogin) {
+    return <ReLoginButton />
+  }
   const birds = data?.pages?.flat().filter((bird: any) => {
     if (search === '') {
       return bird
@@ -24,6 +28,7 @@ export const Taxonomies = () => {
       }
     }
   })
+
   const birdNames: string[] = (data?.pages
     .flat()
     .map(bird => bird.englishName) as string[]) || ['']

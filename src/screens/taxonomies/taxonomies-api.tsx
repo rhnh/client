@@ -5,10 +5,9 @@ import { useInfiniteQuery } from 'react-query'
 import { ITaxonomy } from 'utils/types'
 
 const getTaxonomies = async () => {
-  const url = `api/taxonomies`
+  const url = `/api/taxonomies`
   try {
     const response = await fetch(url)
-
     if (response.ok) {
       const result = await response.json()
       return result
@@ -56,7 +55,7 @@ export function useTaxonomy(_id: string) {
         },
       ),
     {
-      retry: 1,
+      enabled: token ? true : false,
     },
   )
 }
@@ -88,6 +87,7 @@ export function useAddListItem(listName: string) {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(['lists', listName])
+        queryClient.invalidateQueries(['list', listName])
         queryClient.invalidateQueries('taxonomies')
         queryClient.invalidateQueries('birdIds')
       },
