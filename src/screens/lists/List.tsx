@@ -50,7 +50,6 @@ export const List = () => {
       return bird.englishName.toLowerCase().includes(search)
     }
   }) as IListBirds[]
-  console.log(birdToShow, search, birds)
 
   const birdNames = birds.map(bird => bird.englishName)
   const handleDelete = () => {
@@ -61,9 +60,8 @@ export const List = () => {
     e.preventDefault()
     const target = e.target as typeof e.target & UpdateList
     const newName = target.newName.value
-    console.log(newName, listName)
+
     if (newName !== '' && listName) {
-      console.log('here')
       updateList({ newListName: newName, listId: listName })
     }
   }

@@ -26,7 +26,7 @@ export const CreateUserTaxonomy: FC = () => {
   const { mutate, isError, isLoading, isSuccess } = useAddListItem(
     listName || '',
   )
-  console.log(data)
+
   const englishNames: string[] = data?.map(
     (bird: ITaxonomy) => bird.englishName,
   ) as string[] | []
