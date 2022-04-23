@@ -1,9 +1,9 @@
 import { Button, CrudButton, LinkedButton } from 'components/themed-button'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useDeleteList, useGetUserList } from './list-api'
+import { useDeleteList, useGetUserList, useUpdateList } from './list-api'
 import { IListBirds } from 'utils/types'
 import { SearchBar } from 'components/SearchBar'
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import '@reach/dialog/styles.css'
 import delBtn from 'assets/del.svg'
 import editBtn from 'assets/edit.svg'
@@ -12,6 +12,9 @@ import { CrudDialog } from '../../components/CrudDialog'
 import { ListItem } from './ListItem'
 import { FullPageSpinner, ReLoginButton } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
+import Dialog from '@reach/dialog'
+import { UpdateList } from './List.interface'
+import { useTaxonomies } from 'screens/taxonomies/taxonomies-api'
 
 export const List = () => {
   const { listName } = useParams()
@@ -27,7 +30,12 @@ export const List = () => {
     isSuccess,
     isLoading: isLoadingDelete,
   } = useDeleteList()
-
+  const {
+    mutate: updateList,
+    isError: isErrorEdit,
+    isLoading: isLoadingEdit,
+    isSuccess: isSuccessEdit,
+  } = useUpdateList(listName ?? '')
   if (!isLogin) {
     return <ReLoginButton />
   }
@@ -35,14 +43,32 @@ export const List = () => {
     return <FullPageSpinner />
   }
   const birds: IListBirds[] = data as IListBirds[]
+  const birdToShow: IListBirds[] = birds.filter(bird => {
+    if (search === '') {
+      return bird
+    } else {
+      return bird.englishName.toLowerCase().includes(search)
+    }
+  }) as IListBirds[]
+  console.log(birdToShow, search, birds)
 
+  const birdNames = birds.map(bird => bird.englishName)
   const handleDelete = () => {
     if (listName) deleteList(listName)
   }
-  const handleEdit = () => {
-    if (listName) deleteList(listName)
+
+  const handleEdit = (e: ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const target = e.target as typeof e.target & UpdateList
+    const newName = target.newName.value
+    console.log(newName, listName)
+    if (newName !== '' && listName) {
+      console.log('here')
+      updateList({ newListName: newName, listId: listName })
+    }
   }
-  if (isSuccess) {
+
+  if (isSuccess || isSuccessEdit) {
     return (
       <Button variant="secondary" onClick={() => navigate(-1)}>
         Back to your lists
@@ -85,31 +111,33 @@ export const List = () => {
           </div>
         </div>
         <section>
-          <SearchBar
-            search={search}
-            setSearch={setSearch}
-            data={['a', 'b', 'c', 'd', 'e', 'f', 'g', 'j']}
-          />
+          <SearchBar search={search} setSearch={setSearch} data={birdNames} />
         </section>
         <div
           className={css({
             marginTop: '2em',
           })}
         >
-          {birds.map(bird => (
-            <ListItem key={bird._id} {...bird} />
-          ))}
+          {birdToShow.length > 0 &&
+            birdToShow?.map(bird => {
+              if (bird) {
+                return <ListItem key={bird._id} {...bird} />
+              } else {
+                return null
+              }
+            })}
         </div>
       </section>
-      <CrudDialog
-        isOpen={dialog === 'edit'}
-        showDialog={setDialog}
-        label={listName}
-        handleSubmit={handleEdit}
-        actionLabel="edit"
-        aria="edit"
-        title="Editing"
-      />
+
+      <Dialog onDismiss={() => setDialog('hide')} isOpen={dialog === 'edit'}>
+        <form onSubmit={handleEdit}>
+          <h1>Rename your list "{listName}"</h1>
+          <label htmlFor="newName"></label>
+          <input type="text" id="newName" />
+          <Button variant="secondary">Save</Button>
+        </form>
+      </Dialog>
+
       <CrudDialog
         isOpen={dialog === 'delete'}
         showDialog={setDialog}

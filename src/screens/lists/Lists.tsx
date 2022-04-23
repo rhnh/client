@@ -17,7 +17,7 @@ export const Lists: FC = () => {
   if (!data) {
     return null
   }
-  console.log(data, isError, username)
+
   if (isError) {
     return <WarnSpan>Error: while loading lists</WarnSpan>
   }
@@ -43,6 +43,13 @@ export const Lists: FC = () => {
         },
       })}
     >
+      <section
+        className={css({
+          marginBottom: '1em',
+        })}
+      >
+        <span>You have {lists.length} lists</span>
+      </section>
       {lists && lists?.length > 0 ? (
         <div
           className={css({
@@ -79,9 +86,15 @@ export const Lists: FC = () => {
               </Link>
             </div>
           ))}
-          <LinkedButton variant="primary" to="/lists/list">
-            Create New List
-          </LinkedButton>
+          <section
+            className={css({
+              marginTop: '1em',
+            })}
+          >
+            <LinkedButton variant="primary" to="/lists/list">
+              Create New List
+            </LinkedButton>
+          </section>
         </div>
       ) : (
         <div>

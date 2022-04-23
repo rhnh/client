@@ -1,5 +1,5 @@
 import { useAuth } from 'contexts/userContext'
-import { useMutation, useQuery } from 'react-query'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { IList } from 'utils/types'
 
 export const useGetUserList = (listName: string) => {
@@ -64,4 +64,28 @@ export const useDeleteList = () => {
       },
     })
   })
+}
+export const useUpdateList = (listName: string) => {
+  const queryClient = useQueryClient()
+
+  const { token } = useAuth()
+  return useMutation(
+    ({ listId, newListName }: { listId: string; newListName: string }) => {
+      return fetch(`/api/lists/list/${listId}`, {
+        method: 'PUT',
+        body: JSON.stringify({ newListName }),
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      })
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['list', listName])
+        queryClient.invalidateQueries(['lists', listName])
+        queryClient.invalidateQueries(['lists'])
+      },
+    },
+  )
 }
