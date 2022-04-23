@@ -1,5 +1,6 @@
+import { css } from '@emotion/css'
 import { useAuth } from 'contexts/userContext'
-
+import * as colors from 'utils/colors'
 import { FC } from 'react'
 import { Nav } from './Nav'
 
@@ -41,7 +42,7 @@ export const Header: FC = () => {
         <NavLink to="/posts">articles</NavLink>
       </li>
       <li>
-        <NavLink to={`/${username}/lists`}>My BirdList</NavLink>
+        <NavLink to={`/${username}/lists`}>BirdLists</NavLink>
       </li>
       <li>
         <NavLink to="/about">About</NavLink>
@@ -50,7 +51,13 @@ export const Header: FC = () => {
         <NavLink to="/profile">{username}</NavLink>
       </li>
       <li>
-        <NavLink to="/logout" onClick={() => logout()}>
+        <NavLink
+          className={css({
+            color: colors.secondary,
+          })}
+          to="/logout"
+          onClick={() => logout()}
+        >
           logout
         </NavLink>
       </li>
