@@ -5,7 +5,6 @@ import { useFeaturedPost } from './post-api'
 
 const FeaturedArticle: FC = () => {
   const { data: posts, isLoading, isError } = useFeaturedPost()
-
   return isLoading ? (
     <FullPageSpinner />
   ) : isError ? (
