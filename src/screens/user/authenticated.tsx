@@ -21,8 +21,10 @@ const Authenticated = () => {
         >
           <Header />
           {/* <Hero /> */}
-          <AppRoutes />
-          {isHome && <div className="aside">{/* <Facts /> */}</div>}
+          <div className="center">
+            <AppRoutes />
+            {isHome && <div className="aside">{/* <Facts /> */}</div>}
+          </div>
         </ErrorBoundary>
       </div>
       <Footer />

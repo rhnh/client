@@ -1,19 +1,12 @@
-import { userLogin, userRegister } from 'api/user'
 import { FullPageSpinner } from 'components/themed-components'
 import { useAsync } from 'hooks/useAsync'
-import {
-  createContext,
-  FC,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react'
+import { createContext, FC, useContext, useEffect, useState } from 'react'
 import {
   deleteLocalToken,
   getLocalToken,
-  isVerified,
   setLocalToken,
+  userLogin,
+  userRegister,
 } from 'screens/user/user-api'
 
 import { Authorization, IUser, IUserInfo } from 'utils/types'
@@ -47,6 +40,10 @@ export const placeHolderAuth: Authorization = {
 const userContext = createContext<Authorization>(placeHolderAuth)
 
 export const UserProvider: FC = ({ children }) => {
+  const [isLogin, setIsLogin] = useState<boolean>(
+    getLocalToken() ? true : false,
+  )
+
   const {
     setData: setUser,
     data: userInfo,
@@ -62,15 +59,27 @@ export const UserProvider: FC = ({ children }) => {
     data: { username: '', token: '' },
     state: 'idle',
   })
-
+  const token = getLocalToken()
   useEffect(() => {
-    isVerified().then(t => {
-      if (t) {
-        setUser(t)
-        setLocalToken(t?.token)
-      }
-    })
-  }, [setUser])
+    if (token)
+      fetch(`/api/users/verify-user`, {
+        method: 'post',
+        headers: new Headers({
+          Authorization: `Bearer ${token}`,
+        }),
+      }).then(async res => {
+        if (res.status !== 200) {
+          setIsLogin(false)
+          deleteLocalToken()
+          setUser(null)
+        } else {
+          setIsLogin(true)
+          const result = (await res.json()) as IUserInfo
+          setUser(result)
+          setLocalToken(result?.token)
+        }
+      })
+  }, [setUser, token])
 
   const login = (user: IUser) => {
     userLogin(user).then(
@@ -80,6 +89,7 @@ export const UserProvider: FC = ({ children }) => {
           if (user.username && user.token) {
             setUser(user)
             setLocalToken(user.token)
+            setIsLogin(true)
           } else {
             setUser(null)
           }
@@ -87,6 +97,7 @@ export const UserProvider: FC = ({ children }) => {
       },
       err => {
         setError(err)
+        setIsLogin(false)
         deleteLocalToken()
       },
     )
@@ -125,7 +136,7 @@ export const UserProvider: FC = ({ children }) => {
   const logout = () => {
     deleteLocalToken()
     setUser(null)
-
+    setIsLogin(false)
     window.location.reload()
   }
   if (isLoading) {
@@ -153,7 +164,7 @@ export const UserProvider: FC = ({ children }) => {
     userInfo,
     isError,
     error,
-    isLogin: isSuccess && userInfo?.username !== undefined,
+    isLogin,
     getLocalToken,
     isIdle,
     state,

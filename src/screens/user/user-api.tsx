@@ -1,6 +1,7 @@
 import { useAuth } from 'contexts/userContext'
 import { useQuery } from 'react-query'
-import { IUserInfo } from 'utils/types'
+import { httpError } from 'utils/error'
+import { IUser, IUserInfo } from 'utils/types'
 
 export const useProfile = () => {
   const { username, getLocalToken } = useAuth()
@@ -18,7 +19,7 @@ export const useProfile = () => {
   })
 }
 
-export async function isVerified(): Promise<IUserInfo | null> {
+export async function verifiedToken(): Promise<IUserInfo | null> {
   const token = getLocalToken()
   if (token) {
     return window
@@ -33,13 +34,17 @@ export async function isVerified(): Promise<IUserInfo | null> {
         if (data && res.ok) {
           return data
         } else {
+          deleteLocalToken()
           window.location.reload()
           return null
         }
       })
+  } else {
+    deleteLocalToken()
   }
   return null
 }
+
 export function setLocalToken(token: string) {
   if (token) {
     window.localStorage.setItem('token', token)
@@ -53,3 +58,44 @@ export function getLocalToken() {
 export function deleteLocalToken() {
   window.localStorage.removeItem('token')
 }
+
+export async function userClient(
+  endpoint: string,
+  data: IUser,
+): Promise<IUserInfo | Error> {
+  const { username, password } = data
+
+  const config = {
+    method: 'POST',
+    body: JSON.stringify({ username, password }),
+    headers: { 'Content-Type': 'application/json' },
+  }
+  let status, statusText
+  try {
+    return window.fetch(`/api/${endpoint}`, config).then(async response => {
+      status = response.status
+      statusText = response.statusText
+      httpError(status)
+
+      if (response.ok) {
+        const data = await response.json()
+        return data
+      } else {
+        return Promise.reject(data)
+      }
+    })
+  } catch (error) {
+    const err: Error = error as Error
+    err.status = status
+    err.statusMessage = statusText
+
+    throw err
+  }
+}
+
+export const userLogin = (user: IUser): Promise<IUserInfo | Error> => {
+  return userClient('users/user', user)
+}
+
+export const userRegister = (user: IUser): Promise<IUserInfo | Error> =>
+  userClient('users', user)
