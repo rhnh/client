@@ -14,8 +14,8 @@ import { ShowPost } from 'screens/lists/ShowPost'
 import { ReLoginButton, WarnSpan } from './themed-components'
 
 export const AppRoutes: FC = () => {
-  const { isLogin, username } = useAuth()
-  return isLogin ? (
+  const { username } = useAuth()
+  return (
     <Routes>
       <Route path="/">
         <Route
@@ -30,8 +30,10 @@ export const AppRoutes: FC = () => {
         <Route path={`/posts/post/:id`} element={<ShowPost />} />
         <Route path="/posts/post" element={<CreatePost />} />
         <Route path="/lists/list" element={<CreateList />} />
-        <Route path={`/${username}/lists`} element={<Lists />} />
-        <Route path={`/${username}/list/:listName`} element={<List />} />
+        {username && <Route path={`/${username}/lists`} element={<Lists />} />}
+        {username && (
+          <Route path={`/${username}/list/:listName`} element={<List />} />
+        )}
         <Route path="/about" element={<About />} />
         <Route path="/taxonomies" element={<Taxonomies />} />
         <Route path="/taxonomies/:listName" element={<CreateUserTaxonomy />} />
@@ -39,31 +41,6 @@ export const AppRoutes: FC = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/members" element={<Members />} />
         <Route path="*" element={<p>URL NOT found</p>} />
-      </Route>
-    </Routes>
-  ) : (
-    <Routes>
-      <Route path="/">
-        <Route
-          index
-          element={
-            <Main>
-              <FeaturedArticle />
-            </Main>
-          }
-        />
-        <Route
-          index
-          element={
-            <div className="main">
-              <FeaturedPost
-                title={'Karula'}
-                image_url="/profiles/images/leopard.jpeg"
-                body="Karula was a Leopard"
-              />
-            </div>
-          }
-        />
         <Route path={`/posts/post/:id`} element={<ShowPost />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
@@ -71,16 +48,16 @@ export const AppRoutes: FC = () => {
         <Route path="/posts" element={<Posts />} />{' '}
         <Route path="/about" element={<About />} />
         <Route path="/taxonomy/:taxonomyId" element={<TaxonomyById />} />
+        <Route
+          path="*"
+          element={
+            <WarnSpan>
+              Page not found! Please Login or refresh!
+              <ReLoginButton />
+            </WarnSpan>
+          }
+        />
       </Route>
-      {/* <Route
-        path="*"
-        element={
-          <WarnSpan>
-            Page not found! Please Login or refresh!
-            <ReLoginButton />
-          </WarnSpan>
-        }
-      /> */}
     </Routes>
   )
 }
