@@ -12,15 +12,19 @@ export const Members: FC = () => {
     isError,
     isLoading,
     data: users,
-  } = useQuery<IUser[]>('members', () => {
-    return fetch(`/api/users/members`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    }).then(res => res.json())
-  })
+  } = useQuery<IUser[]>(
+    'members',
+    () => {
+      return fetch(`/api/users/members`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }).then(res => res.json())
+    },
+    { enabled: role === 'admin' },
+  )
   if (role !== 'admin') {
     return <p>You are not authorized</p>
   }
