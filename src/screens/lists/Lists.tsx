@@ -1,6 +1,6 @@
 import { css } from '@emotion/css'
 import { LinkedButton } from 'components/themed-button'
-import { WarnSpan } from 'components/themed-components'
+import { WarnBox } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
 import { FC } from 'react'
 
@@ -19,7 +19,7 @@ export const Lists: FC = () => {
   }
 
   if (isError) {
-    return <WarnSpan>Error: while loading lists</WarnSpan>
+    return <WarnBox>Error: while loading lists</WarnBox>
   }
   const lists: IList[] = data as IList[]
 

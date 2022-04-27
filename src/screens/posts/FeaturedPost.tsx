@@ -1,5 +1,5 @@
 import { css } from '@emotion/css'
-import { InfoSpan } from 'components/themed-components'
+import { InfoBox } from 'components/themed-components'
 import { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { IPost } from 'utils/types'
@@ -40,6 +40,6 @@ export const FeaturedPost: FC<IPost> = ({ _id, title, image_url, body }) => {
       </section>
     )
   } else {
-    return <InfoSpan>No Article found</InfoSpan>
+    return <InfoBox>No Article found</InfoBox>
   }
 }

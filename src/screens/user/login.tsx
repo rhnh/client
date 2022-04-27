@@ -1,7 +1,7 @@
 import { css } from '@emotion/css'
 import { Button } from 'components/themed-button'
 
-import { Input, Label, WarnSpan } from 'components/themed-components'
+import { Input, Label, WarnBox } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
@@ -64,7 +64,7 @@ export const Login: FC = () => {
         >
           Login
         </h1>
-        {isError ? <WarnSpan>{error?.message}</WarnSpan> : null}
+        {isError ? <WarnBox>{error?.message}</WarnBox> : null}
         <div
           className={css({
             overflow: 'clear',

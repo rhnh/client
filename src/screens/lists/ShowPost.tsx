@@ -1,4 +1,4 @@
-import { FullPageSpinner, WarnSpan } from 'components/themed-components'
+import { FullPageSpinner, WarnBox } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
 import { FC } from 'react'
 import { useParams } from 'react-router-dom'
@@ -33,7 +33,7 @@ export const ShowPost: FC = () => {
   return isLoading ? (
     <FullPageSpinner />
   ) : isError ? (
-    <WarnSpan>Something went wrong</WarnSpan>
+    <WarnBox>Something went wrong</WarnBox>
   ) : (
     <div
       className={css({

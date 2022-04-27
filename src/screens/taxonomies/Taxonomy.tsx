@@ -51,6 +51,8 @@ export const Taxonomy: FC<ITaxonomy> = ({
         border: '2px solid #ffeae2',
         maxWidth: '100%',
         gap: '1em',
+        padding: '1em',
+
         margin: '1em',
         overflow: 'hidden',
         background: colors.plate,
@@ -108,6 +110,7 @@ export const Taxonomy: FC<ITaxonomy> = ({
         className={css({
           display: 'flex',
           flexDirection: 'column',
+          gap: '1em',
         })}
       >
         <div className="taxonomyName">Name: {englishName}</div>

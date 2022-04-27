@@ -3,7 +3,7 @@ import { DialogContent, DialogOverlay } from '@reach/dialog'
 
 import VisuallyHidden from '@reach/visually-hidden'
 import { Button, CircleButton, LinkedButton } from 'components/themed-button'
-import { FullPageSpinner, WarnSpan } from 'components/themed-components'
+import { FullPageSpinner, WarnBox } from 'components/themed-components'
 import React, { FC, Dispatch, Fragment, useState, FormEvent } from 'react'
 
 import { IList } from 'utils/types'
@@ -71,7 +71,7 @@ export const AddTaxonomy: FC<Props> = ({
   return isLoading ? (
     <FullPageSpinner />
   ) : isError ? (
-    <WarnSpan>Something went wrong</WarnSpan>
+    <WarnBox>Something went wrong</WarnBox>
   ) : (
     <DialogOverlay
       isOpen={isOpen}

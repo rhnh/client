@@ -1,6 +1,6 @@
 import { css } from '@emotion/css'
 import { LinkedButton } from 'components/themed-button'
-import { FullPageSpinner, InfoSpan } from 'components/themed-components'
+import { FullPageSpinner, InfoBox } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
 import { FC } from 'react'
 import * as colors from 'utils/colors'
@@ -17,10 +17,10 @@ export const Posts: FC = () => {
   return isLoading ? (
     <FullPageSpinner />
   ) : isError ? (
-    <InfoSpan>
+    <InfoBox>
       {console.error(error)}
       {err?.message}
-    </InfoSpan>
+    </InfoBox>
   ) : (
     <div
       className={css({

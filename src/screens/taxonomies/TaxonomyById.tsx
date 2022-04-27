@@ -1,7 +1,7 @@
 import {
   FullPageSpinner,
   ReLoginButton,
-  WarnSpan,
+  WarnBox,
 } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
 import { FC } from 'react'
@@ -24,7 +24,7 @@ export const TaxonomyById: FC = () => {
   return isLoading ? (
     <FullPageSpinner />
   ) : isError ? (
-    <WarnSpan>error</WarnSpan>
+    <WarnBox>error</WarnBox>
   ) : data ? (
     <Taxonomy {...data} />
   ) : null

@@ -1,7 +1,7 @@
 import { css } from '@emotion/css'
 import { Hintput } from '@ribrary/hintput'
 import { Button } from 'components/themed-button'
-import { WarnSpan } from 'components/themed-components'
+import { WarnBox } from 'components/themed-components'
 
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react'
 
@@ -69,7 +69,7 @@ export const CreateUserTaxonomy: FC = () => {
     return <p>wait !</p>
   }
   if (isError) {
-    return <WarnSpan>Something went wrong.</WarnSpan>
+    return <WarnBox>Something went wrong.</WarnBox>
   }
 
   if (isSuccess) {

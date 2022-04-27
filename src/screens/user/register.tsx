@@ -2,10 +2,10 @@ import { css } from '@emotion/css'
 import { Button } from 'components/themed-button'
 import {
   FullPageSpinner,
-  InfoSpan,
+  InfoBox,
   Input,
   Label,
-  WarnSpan,
+  WarnBox,
 } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
 import { FormEvent, useEffect, useReducer } from 'react'
@@ -61,10 +61,10 @@ export const Register = () => {
 
   if (isSuccess) {
     return (
-      <InfoSpan>
+      <InfoBox>
         <strong>Congratulation!</strong> Click <Link to="/login"> here </Link>{' '}
         to the Login to your new account
-      </InfoSpan>
+      </InfoBox>
     )
   }
 
@@ -99,15 +99,15 @@ export const Register = () => {
             Register
           </h1>
           {isError ? (
-            <WarnSpan>
+            <WarnBox>
               <span
                 className={css({
-                  color: 'red',
+                  color: colors.red,
                 })}
               >
                 Oops {error?.message}
               </span>
-            </WarnSpan>
+            </WarnBox>
           ) : null}
           <div className="register">
             <Label htmlFor="username">Username</Label>

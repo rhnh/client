@@ -3,7 +3,7 @@ import { ReLoginButton } from 'components/themed-components'
 import { FC } from 'react'
 import { FallbackProps } from 'react-error-boundary'
 import { getObjectKeyValue } from 'utils'
-
+import * as colors from 'utils/colors'
 const errorMessageVariants = {
   stacked: { display: 'block' },
   inline: { display: 'inline-block' },
@@ -26,7 +26,7 @@ export const ErrorMessage: FC<ErrorMessageProps> = ({
     <div
       role="alert"
       className={css(
-        { color: 'red' },
+        { color: colors.red },
         ...getObjectKeyValue<any, string>(variant)(errorMessageVariants),
       )}
       {...props}
