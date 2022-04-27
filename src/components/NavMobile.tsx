@@ -116,12 +116,6 @@ export const NavMobile: FC = ({ children }) => {
             li: {
               margin: '2em',
             },
-            'li > a ': {
-              // padding: '1em',
-            },
-            'li> a:hover': {
-              color: 'red',
-            },
           })}
         >
           {Children.map(children as ReactElement, lists => {

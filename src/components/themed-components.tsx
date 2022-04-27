@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 import { Dialog as ReachDialog } from '@reach/dialog'
 import warnIcon from 'assets/warn.svg'
+import infoIcon from 'assets/info.svg'
 import * as colors from 'utils/colors'
 import { css, keyframes } from '@emotion/css'
 import { Link, useMatch, useResolvedPath } from 'react-router-dom'
@@ -20,36 +21,6 @@ const fadeIn = keyframes`
   }
 `
 export const NavUL = styled('ul')<ULProps>(
-  {
-    display: 'flex',
-    listStyle: 'none',
-    margin: 0,
-    padding: 0,
-    zIndex: 1000,
-    background: colors.neutral,
-    height: '60%',
-    animation: `${fadeIn} .2s .2s both`,
-    li: {
-      width: '100%',
-      padding: 0,
-      margin: 0,
-    },
-    'li> a': {
-      textDecoration: 'none',
-      width: '100%',
-      display: 'block',
-      padding: '.5em 0',
-      textAlign: 'center',
-      color: colors.redText,
-      textTransform: 'capitalize',
-      borderBottom: `2px solid ${colors.neutral}`,
-    },
-    'li > a:hover': {
-      background: colors.neutral,
-      color: colors.red,
-      borderBottom: `2px solid ${colors.red}`,
-    },
-  },
   ({ isMobile = false }) => {
     return !isMobile
       ? {
@@ -99,6 +70,36 @@ export const NavUL = styled('ul')<ULProps>(
             padding: '1em',
           },
         }
+  },
+  {
+    display: 'flex',
+    listStyle: 'none',
+    margin: 0,
+    padding: 0,
+    zIndex: 1000,
+    background: colors.neutral,
+    height: '60%',
+    animation: `${fadeIn} .2s .2s both`,
+    li: {
+      width: '100%',
+      padding: 0,
+      margin: 0,
+    },
+    'li> a': {
+      textDecoration: 'none',
+      width: '100%',
+      display: 'block',
+      padding: '.5em 0',
+      textAlign: 'center',
+      color: colors.redText,
+      textTransform: 'capitalize',
+      borderBottom: `2px solid ${colors.neutral}`,
+    },
+    'li > a:hover': {
+      background: colors.neutral,
+      color: colors.red,
+      borderBottom: `2px solid ${colors.red}`,
+    },
   },
 )
 
@@ -169,7 +170,7 @@ export const NavLink: FC<NavProps & InputHTMLAttributes<HTMLAnchorElement>> = ({
   return (
     <Link
       className={css({
-        color: match ? 'red' : 'black',
+        color: match ? colors.red : 'black',
       })}
       to={to}
       {...props}
@@ -179,32 +180,38 @@ export const NavLink: FC<NavProps & InputHTMLAttributes<HTMLAnchorElement>> = ({
   )
 }
 
-export const WarnSpan = styled('div')({
-  background: colors.danger,
-  padding: '2.5em',
-  borderRadius: '10px',
+interface IPlate {
+  type: 'info' | 'warn'
+}
 
-  margin: 0,
-  backgroundImage: `url(${warnIcon})`,
-  backgroundSize: '30px',
-  backgroundPosition: '6px 30px',
-  minHeight: '10px',
-  backgroundRepeat: 'no-repeat',
-  textAlign: 'left',
-})
+const Box = styled('div')(
+  ({ type }: IPlate) => {
+    return type === 'warn'
+      ? {
+          background: colors.danger,
+          backgroundImage: `url(${warnIcon})`,
+        }
+      : {
+          background: colors.info,
+          backgroundImage: `url(${infoIcon})`,
+        }
+  },
+  {
+    padding: '2.5em',
+    borderRadius: '10px',
+    margin: 0,
+    backgroundSize: '30px',
+    backgroundPosition: '6px 30px',
+    minHeight: '10px',
+    backgroundRepeat: 'no-repeat',
+    textAlign: 'left',
+  },
+)
 
-export const InfoSpan = styled('div')({
-  background: colors.info,
-  padding: '2.5em',
-  borderRadius: '10px',
-  margin: 0,
-  backgroundImage: 'url(assets/info.svg)',
-  backgroundSize: '30px',
-  backgroundPosition: '10px 30px',
-  height: '10px',
-  backgroundRepeat: 'no-repeat',
-  textAlign: 'left',
-})
+export const WarnBox: FC = ({ children }) => <Box type="warn">{children}</Box>
+
+export const InfoBox: FC = ({ children }) => <Box type="info">{children}</Box>
+
 export const ReLoginButton = () => {
   return (
     <div
@@ -213,12 +220,12 @@ export const ReLoginButton = () => {
         margin: '2em auto',
       })}
     >
-      <WarnSpan>
+      <Box type="info">
         You are not logged in! or Something went wrong
         <LinkedButton to="/login" variant="primary">
           Login
         </LinkedButton>
-      </WarnSpan>
+      </Box>
     </div>
   )
 }
