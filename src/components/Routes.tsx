@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { useAuth } from 'contexts/userContext'
 import { Login, Register, Profile } from 'screens/user'
 import { CreateUserTaxonomy } from 'screens/taxonomies/CreateUserTaxonomy'
-import { CreatePost, FeaturedPost, Posts } from 'screens/posts'
+import { CreatePost, Posts } from 'screens/posts'
 import { List, Lists, CreateList } from 'screens/lists/'
 import { About, Main } from 'screens/main'
 import { Taxonomies } from 'screens/taxonomies'
@@ -11,7 +11,7 @@ import { TaxonomyById } from 'screens/taxonomies/TaxonomyById'
 import FeaturedArticle from 'screens/posts/featured'
 import { Members } from 'screens/user/Members'
 import { ShowPost } from 'screens/lists/ShowPost'
-import { ReLoginButton, WarnSpan } from './themed-components'
+import { ReLoginButton, InfoBox } from './themed-components'
 
 export const AppRoutes: FC = () => {
   const { username } = useAuth()
@@ -51,10 +51,10 @@ export const AppRoutes: FC = () => {
         <Route
           path="*"
           element={
-            <WarnSpan>
+            <InfoBox>
               Page not found! Please Login or refresh!
               <ReLoginButton />
-            </WarnSpan>
+            </InfoBox>
           }
         />
       </Route>
