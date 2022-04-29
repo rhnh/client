@@ -1,20 +1,30 @@
 import { useState } from 'react'
 import { SearchBar } from 'components/SearchBar'
 import { css } from '@emotion/css'
-import { Taxonomy } from './Taxonomy'
+import { Species } from './Species'
 import { useTaxonomiesInfinite } from './taxonomies-api'
 import { FullPageSpinner, ReLoginButton } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
 
 export const Taxonomies = () => {
-  const { isLoading, data, isError, error } = useTaxonomiesInfinite()
+  const {
+    isLoading,
+    data: taxonomies,
+    isError,
+    error,
+  } = useTaxonomiesInfinite()
+
   const err = error as Error
   const [search, setSearch] = useState('')
   const { isLogin } = useAuth()
+
   if (!isLogin) {
     return <ReLoginButton />
   }
-  const birds = data?.pages?.flat().filter((bird: any) => {
+  if (!taxonomies || taxonomies?.pages.flat().length <= 0) {
+    return null
+  }
+  const birds = taxonomies?.pages?.flat().filter((bird: any) => {
     if (search === '') {
       return bird
     } else {
@@ -29,7 +39,7 @@ export const Taxonomies = () => {
     }
   })
 
-  const birdNames: string[] = (data?.pages
+  const birdNames: string[] = (taxonomies?.pages
     .flat()
     .map(bird => bird.englishName) as string[]) || ['']
 
@@ -49,20 +59,22 @@ export const Taxonomies = () => {
       </div>
 
       {birds?.map(taxonomy => {
-        if (taxonomy._id === undefined) {
+        if (taxonomy._id === undefined && !taxonomy) {
           return <p>Not found</p>
         }
         return (
-          <Taxonomy
+          <Species
             key={taxonomy._id}
-            taxonomy={taxonomy.taxonomy}
-            category={taxonomy.category}
+            taxonomyName={taxonomy.taxonomyName}
+            rank={taxonomy.rank}
             englishName={taxonomy.englishName}
             image={taxonomy.image}
             approved={false}
             username={''}
             _id={taxonomy._id}
-          ></Taxonomy>
+            parent={taxonomy.parent}
+            ancestors={taxonomy.ancestors}
+          />
         )
       })}
     </div>

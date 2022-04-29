@@ -14,7 +14,6 @@ import { FullPageSpinner, ReLoginButton } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
 import Dialog from '@reach/dialog'
 import { UpdateList } from './List.interface'
-import { useTaxonomies } from 'screens/taxonomies/taxonomies-api'
 
 export const List = () => {
   const { listName } = useParams()

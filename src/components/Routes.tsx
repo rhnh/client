@@ -7,11 +7,12 @@ import { CreatePost, Posts } from 'screens/posts'
 import { List, Lists, CreateList } from 'screens/lists/'
 import { About, Main } from 'screens/main'
 import { Taxonomies } from 'screens/taxonomies'
-import { TaxonomyById } from 'screens/taxonomies/TaxonomyById'
+import { SpeciesById } from 'screens/taxonomies/SpeciesById'
 import FeaturedArticle from 'screens/posts/featured'
 import { Members } from 'screens/user/Members'
 import { ShowPost } from 'screens/lists/ShowPost'
 import { ReLoginButton, InfoBox } from './themed-components'
+import { Taxonomy } from 'screens/taxonomies/Taxonomy'
 
 export const AppRoutes: FC = () => {
   const { username } = useAuth()
@@ -26,28 +27,28 @@ export const AppRoutes: FC = () => {
             </Main>
           }
         />
+        <Route path="/lists/list" element={<CreateList />} />
         <Route path="/posts" element={<Posts />} />
         <Route path={`/posts/post/:id`} element={<ShowPost />} />
         <Route path="/posts/post" element={<CreatePost />} />
-        <Route path="/lists/list" element={<CreateList />} />
         {username && <Route path={`/${username}/lists`} element={<Lists />} />}
         {username && (
           <Route path={`/${username}/list/:listName`} element={<List />} />
         )}
-        <Route path="/about" element={<About />} />
+        <Route path={`/posts/post/:id`} element={<ShowPost />} />
         <Route path="/taxonomies" element={<Taxonomies />} />
         <Route path="/taxonomies/:listName" element={<CreateUserTaxonomy />} />
-        <Route path="/taxonomy/:taxonomyId" element={<TaxonomyById />} />
+        <Route
+          path={`/taxonomy/taxonomyName/:taxonomyName`}
+          element={<Taxonomy />}
+        ></Route>
+        <Route path="/taxonomy/id/:id" element={<SpeciesById />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/members" element={<Members />} />
-        <Route path="*" element={<p>URL NOT found</p>} />
-        <Route path={`/posts/post/:id`} element={<ShowPost />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/taxonomies" element={<Taxonomies />} />
         <Route path="/posts" element={<Posts />} />{' '}
         <Route path="/about" element={<About />} />
-        <Route path="/taxonomy/:taxonomyId" element={<TaxonomyById />} />
         <Route
           path="*"
           element={

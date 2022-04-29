@@ -12,7 +12,7 @@ import { useAddListItem } from './taxonomies-api'
 type Props = {
   lists?: IList[]
   englishName?: string
-  taxonomy?: string
+  taxonomyName?: string
   isOpen: boolean
   setIsOpen: Dispatch<boolean>
 }
@@ -20,7 +20,7 @@ type Props = {
 export const AddTaxonomy: FC<Props> = ({
   lists,
   englishName,
-  taxonomy,
+  taxonomyName,
   isOpen,
   setIsOpen,
 }) => {
@@ -36,7 +36,7 @@ export const AddTaxonomy: FC<Props> = ({
     setIsOpen(false)
   }
 
-  if (!lists || !englishName || !taxonomy) {
+  if (!lists || !englishName || !taxonomyName) {
     return (
       <DialogOverlay
         isOpen={isOpen}
@@ -64,8 +64,8 @@ export const AddTaxonomy: FC<Props> = ({
     setListName(e.currentTarget.value)
   }
   const handleSave = () => {
-    if (listName && englishName && taxonomy)
-      save({ listName, englishName, taxonomy })
+    if (listName && englishName && taxonomyName)
+      save({ listName, englishName, taxonomyName })
   }
 
   return isLoading ? (

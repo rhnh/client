@@ -5,7 +5,7 @@ import { useInfiniteQuery } from 'react-query'
 import { ITaxonomy } from 'utils/types'
 
 const getTaxonomies = async () => {
-  const url = `/api/taxonomies`
+  const url = `/api/taxonomies/species`
   try {
     const response = await fetch(url)
     if (response.ok) {
@@ -33,13 +33,18 @@ export function useTaxonomiesInfinite() {
 export function useTaxonomies() {
   return useQuery<ITaxonomy[]>('taxonomies', getTaxonomies)
 }
-export function useTaxonomy(_id: string) {
+/**
+ *
+ * @param id of a taxonomy{bird}
+ * @returns
+ */
+export function useTaxonomyById({ _id }: { _id: string }) {
   const { getLocalToken } = useAuth()
   const token = getLocalToken()
   return useQuery<ITaxonomy, Error>(
     ['taxonomy', _id],
     () =>
-      fetch(`/api/taxonomies/taxonomy/${_id}`, {
+      fetch(`/api/taxonomies/id/${_id}`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -59,6 +64,37 @@ export function useTaxonomy(_id: string) {
     },
   )
 }
+export function useTaxonomyByName({
+  taxonomyName = '',
+}: {
+  taxonomyName: string
+}) {
+  const { getLocalToken } = useAuth()
+  const token = getLocalToken()
+  return useQuery<ITaxonomy, Error>(
+    ['taxonomy', taxonomyName],
+    () => {
+      return fetch(`/api/taxonomies/taxonomyName/${taxonomyName}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }).then(
+        res => {
+          if (res.ok) return res.json()
+          throw new Error('something went wrong')
+        },
+        err => {
+          return err
+        },
+      )
+    },
+    {
+      enabled: token ? true : false,
+    },
+  )
+}
 
 export function useAddListItem(listName: string) {
   const { getLocalToken } = useAuth()
@@ -68,16 +104,16 @@ export function useAddListItem(listName: string) {
   return useMutation(
     ({
       listName,
-      taxonomy,
+      taxonomyName,
       englishName,
     }: {
       listName: string
       englishName: string
-      taxonomy: string
+      taxonomyName: string
     }) => {
       return fetch(`/api/lists/list/${listName}`, {
         method: 'POST',
-        body: JSON.stringify({ englishName, taxonomy }),
+        body: JSON.stringify({ englishName, taxonomyName }),
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',

@@ -14,8 +14,8 @@ export const CreateUserTaxonomy: FC = () => {
 
   const [inputFieldsState, setInputFieldsState] = useState<ITaxonomy>({
     username: 'mon',
-    taxonomy: '',
-    category: 'species',
+    taxonomyName: '',
+    rank: 'species',
     englishName: '',
     image: '',
     approved: false,
@@ -52,16 +52,16 @@ export const CreateUserTaxonomy: FC = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const englishName = inputFieldsState?.englishName
-    const taxonomy = inputFieldsState?.taxonomy
+    const taxonomyName = inputFieldsState?.taxonomyName
 
     if (
       englishName !== '' &&
-      taxonomy !== '' &&
+      taxonomyName !== '' &&
       englishName !== undefined &&
       listName !== undefined &&
-      taxonomy !== undefined
+      taxonomyName !== undefined
     ) {
-      mutate({ listName, englishName, taxonomy })
+      mutate({ listName, englishName, taxonomyName })
     } else {
     }
   }
@@ -120,7 +120,7 @@ export const CreateUserTaxonomy: FC = () => {
             id="taxonomy"
             name="taxonomy"
             type="text"
-            value={inputFieldsState?.taxonomy}
+            value={inputFieldsState?.taxonomyName}
           />
         </div>
         <div>

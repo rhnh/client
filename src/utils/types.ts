@@ -18,13 +18,13 @@ export interface IUserInfo extends Base {
   isValidToken?: boolean
   role?: IRole
 }
-export type ICategories = 'species' | 'genus' | 'family' | 'order'
+export type IRank = 'species' | 'genus' | 'family' | 'order'
 export type IGender = 'female' | 'male' | 'unknown'
 
 export interface ITaxonomy extends Base {
   englishName?: string // only species can have it.
-  taxonomy: string // It is a must for species: It should container binomial name
-  category: ICategories
+  taxonomyName: string
+  rank: IRank
   image: string
   parent?: string
   approved: boolean
