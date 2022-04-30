@@ -23,6 +23,7 @@ export const CreateUserTaxonomy: FC = () => {
   const { listName } = useParams()
   const { data } = useTaxonomies()
   const [found, setFound] = useState('')
+
   const { mutate, isError, isLoading, isSuccess } = useAddListItem(
     listName || '',
   )
@@ -114,11 +115,11 @@ export const CreateUserTaxonomy: FC = () => {
           />
         </div>
         <div>
-          <label htmlFor="taxonomy">Species: </label>
+          <label htmlFor="taxonomyName">Species: </label>
           <input
             onChange={handleChange}
-            id="taxonomy"
-            name="taxonomy"
+            id="taxonomyName"
+            name="taxonomyName"
             type="text"
             value={inputFieldsState?.taxonomyName}
           />

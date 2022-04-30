@@ -21,28 +21,34 @@ export const List = () => {
   const { isLogin } = useAuth()
   const navigate = useNavigate()
   const [dialog, setDialog] = useState<'delete' | 'hide' | 'edit'>('hide')
+
   const { isLoading, isError, data } = useGetUserList(listName || '')
 
+  console.log(data)
   const {
     mutate: deleteList,
     isError: isErrorDelete,
     isSuccess,
     isLoading: isLoadingDelete,
   } = useDeleteList()
+
   const {
     mutate: updateList,
     isError: isErrorEdit,
     isLoading: isLoadingEdit,
     isSuccess: isSuccessEdit,
   } = useUpdateList(listName ?? '')
+
   if (!isLogin) {
     return <ReLoginButton />
   }
   if (!data && isLoading) {
     return <FullPageSpinner />
   }
-  const birds: IListBirds[] = data as IListBirds[]
-  const birdToShow: IListBirds[] = birds.filter(bird => {
+
+  const birds: IListBirds[] = (data as IListBirds[]) || []
+
+  const birdToShow: IListBirds[] = birds?.filter(bird => {
     if (search === '') {
       return bird
     } else {
@@ -50,7 +56,8 @@ export const List = () => {
     }
   }) as IListBirds[]
 
-  const birdNames = birds.map(bird => bird.englishName)
+  const birdNames = birds?.map(bird => bird.englishName)
+
   const handleDelete = () => {
     if (listName) deleteList(listName)
   }

@@ -78,6 +78,18 @@ export const Footer: FC = () => {
             />
           </a>
         </li>
+        <li className="social-list__item">
+          <a
+            className="social-list__link"
+            href="https://github.com/rhnh/salio-server"
+          >
+            <img
+              src={github}
+              width="20px"
+              alt="https://github.com/rhnh/salio-server/"
+            />
+          </a>
+        </li>
       </ul>
     </footer>
   )

@@ -46,7 +46,7 @@ export const About: FC = () => {
         safarilive.org doesn't collect user data.Neither send to 3rd party
       </div>
       <h2>Contribute</h2>
-      Tweet @twitter.com/safariliveorg
+      github.com/rhnh/
       <h3>Contact</h3>
       Tweet @ twitter.com/safariliveorg
     </div>
