@@ -6,7 +6,7 @@ import { useTaxonomyByName } from './taxonomies-api'
 
 export const Taxonomy: FC = () => {
   const { taxonomyName } = useParams()
-  const { isLoading, data, isError } = useTaxonomyByName({
+  const { isLoading, data } = useTaxonomyByName({
     taxonomyName: taxonomyName || '',
   })
   if (isLoading) {

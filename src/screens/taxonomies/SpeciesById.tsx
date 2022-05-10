@@ -15,14 +15,14 @@ export const SpeciesById: FC = () => {
   const { isLoading, data, isError } = useTaxonomyById({
     _id: id || '',
   })
-  console.log(data)
+
   if (!isLogin) {
     return <ReLoginButton />
   }
   if (!data && isLoading) {
     return <FullPageSpinner />
   }
-  console.log(data)
+
   return isLoading ? (
     <FullPageSpinner />
   ) : isError ? (

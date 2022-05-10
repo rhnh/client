@@ -32,7 +32,7 @@ export const FeaturedPost: FC<IPost> = ({ _id, title, image_url, body }) => {
         </div>
         <div>
           <p className="featured-title">
-            <Link to={`/posts/${_id}`}>{title}</Link>
+            <Link to={`/posts/post/${_id}`}>{title}</Link>
           </p>
           <article className="featured-article">{body}</article>
           <Link to={`/posts/post/${_id}`}>Read more</Link>

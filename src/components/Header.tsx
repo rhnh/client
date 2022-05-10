@@ -42,18 +42,18 @@ export const Header: FC = () => {
         <NavLink to="/posts">articles</NavLink>
       </li>
       <li>
-        <NavLink to={`/${username}/lists`}>BirdLists</NavLink>
+        <NavLink to={`/lists/${username}`}>BirdLists</NavLink>
       </li>
       <li>
         <NavLink to="/about">About</NavLink>
       </li>
       <li>
-        <NavLink to="/profile">{username}</NavLink>
+        <NavLink to={`/profile/${username}`}>{username}</NavLink>
       </li>
       <li>
         <NavLink
           className={css({
-            color: colors.secondary,
+            color: colors.darkSecondary,
           })}
           to="/logout"
           onClick={() => logout()}

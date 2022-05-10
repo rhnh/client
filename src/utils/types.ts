@@ -10,6 +10,7 @@ export interface IUser extends Base {
   password: string
   confirmPassword?: string
   role?: IRole
+  avatar?: string
 }
 
 export interface IUserInfo extends Base {
@@ -51,9 +52,9 @@ export interface IList extends Base {
   birdIds?: string[]
   slug?: string
 }
-export interface IListBirds extends Base {
-  taxonomy: string
-  seen: string
+export interface IListBird extends Base {
+  taxonomyName: string
+  createdAt: string
   englishName: string
 }
 export interface IHintDisplay {
@@ -89,7 +90,7 @@ export interface IHintput {
 
 export interface IProfile {
   username: string
-  createAt: string
+  createdAt: string
   totalLists: number
   _id: string
 }
@@ -117,4 +118,25 @@ export const isAuthorized = (role = 'user'): boolean => {
     return true
   }
   return false
+}
+/**
+ * - a type for notification's message
+ */
+export type IMessageType =
+  | 'announcement'
+  | 'info'
+  | 'warning'
+  | 'suggestion'
+  | 'none'
+/**
+ *
+ */
+export type IAudience = 'mod' | 'user' | 'all' | 'unregistered'
+
+export interface INotification extends Base {
+  message: string
+  audience: IAudience
+  isActive: boolean
+  time: number
+  messageType: IMessageType
 }

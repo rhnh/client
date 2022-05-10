@@ -1,43 +1,26 @@
-import { Button, CrudButton, LinkedButton } from 'components/themed-button'
-import { useNavigate, useParams } from 'react-router-dom'
-import { useDeleteList, useGetUserList, useUpdateList } from './list-api'
-import { IListBirds } from 'utils/types'
-import { SearchBar } from 'components/SearchBar'
-import { ChangeEvent, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import '@reach/dialog/styles.css'
-import delBtn from 'assets/del.svg'
-import editBtn from 'assets/edit.svg'
-import { css } from '@emotion/css'
-import { CrudDialog } from '../../components/CrudDialog'
-import { ListItem } from './ListItem'
 import { FullPageSpinner, ReLoginButton } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
-import Dialog from '@reach/dialog'
-import { UpdateList } from './List.interface'
+import { Hintput } from '@ribrary/hintput'
+import { ChangeEvent, useState } from 'react'
+import { useGetUserList } from './list-api'
+import { css } from '@emotion/css'
+import { ListItems } from './ListItems'
+import { IListBird } from 'utils/types'
+import { CreateUserTaxonomy } from 'screens/taxonomies/CreateUserTaxonomy'
+import { Button } from 'components/themed-button'
 
 export const List = () => {
   const { listName } = useParams()
-  const [search, setSearch] = useState('')
   const { isLogin } = useAuth()
-  const navigate = useNavigate()
-  const [dialog, setDialog] = useState<'delete' | 'hide' | 'edit'>('hide')
+  const [search, setSearch] = useState('')
 
   const { isLoading, isError, data } = useGetUserList(listName || '')
+  const [birds, setBirds] = useState<IListBird[]>(data ?? [])
 
-  console.log(data)
-  const {
-    mutate: deleteList,
-    isError: isErrorDelete,
-    isSuccess,
-    isLoading: isLoadingDelete,
-  } = useDeleteList()
-
-  const {
-    mutate: updateList,
-    isError: isErrorEdit,
-    isLoading: isLoadingEdit,
-    isSuccess: isSuccessEdit,
-  } = useUpdateList(listName ?? '')
+  const names: string[] =
+    (data?.map(bird => bird.englishName) as string[]) || []
 
   if (!isLogin) {
     return <ReLoginButton />
@@ -45,116 +28,69 @@ export const List = () => {
   if (!data && isLoading) {
     return <FullPageSpinner />
   }
-
-  const birds: IListBirds[] = (data as IListBirds[]) || []
-
-  const birdToShow: IListBirds[] = birds?.filter(bird => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (search === '') {
-      return bird
+      setBirds(data ?? [])
     } else {
-      return bird.englishName.toLowerCase().includes(search)
+      const b: IListBird[] =
+        data?.filter(bird =>
+          bird.englishName
+            .trim()
+            .toLowerCase()
+            .includes(search.trim().toLowerCase()),
+        ) || []
+      setBirds(b)
     }
-  }) as IListBirds[]
-
-  const birdNames = birds?.map(bird => bird.englishName)
-
-  const handleDelete = () => {
-    if (listName) deleteList(listName)
+    setSearch(e.target.value)
   }
 
-  const handleEdit = (e: ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const target = e.target as typeof e.target & UpdateList
-    const newName = target.newName.value
-
-    if (newName !== '' && listName) {
-      updateList({ newListName: newName, listId: listName })
-    }
-  }
-
-  if (isSuccess || isSuccessEdit) {
-    return (
-      <Button variant="secondary" onClick={() => navigate(-1)}>
-        Back to your lists
-      </Button>
-    )
-  }
-  return isLoading || isLoadingDelete ? (
+  return isLoading ? (
     <FullPageSpinner />
-  ) : isError || isErrorDelete ? (
+  ) : isError ? (
     <p>Error</p>
   ) : (
-    <div
-      className={css({
-        minHeight: '100vh',
-        '@media screen and (min-width:700px)': {
-          maxWidth: '1024px',
-          margin: '1em auto',
-        },
-      })}
-    >
-      <section>
+    <div>
+      <section
+        className={css({
+          display: 'flex',
+          justifyContent: 'space-between',
+          gap: '.6em',
+          flexDirection: 'column',
+        })}
+      >
         <div
           className={css({
             display: 'flex',
-            justifyContent: 'space-between',
-            flexDirection: 'column',
+            flexDirection: 'row',
           })}
         >
-          <div>
-            <div>
-              {' '}
-              <h1>{listName}</h1>
-              <CrudButton
-                onClick={() => setDialog('delete')}
-                bgImage={delBtn}
-              />
-              <CrudButton onClick={() => setDialog('edit')} bgImage={editBtn} />
-            </div>
-            <span>You have {birds.length} birds in your List</span>
-          </div>
-        </div>
-        <section>
-          <SearchBar search={search} setSearch={setSearch} data={birdNames} />
-        </section>
-        <div
-          className={css({
-            marginTop: '2em',
-          })}
-        >
-          {birdToShow.length > 0 &&
-            birdToShow?.map(bird => {
-              if (bird) {
-                return <ListItem key={bird._id} {...bird} />
-              } else {
-                return null
-              }
+          <Hintput
+            numberOfSuggestions={2}
+            items={names}
+            onChange={handleChange}
+            onBlur={handleChange}
+            value={search}
+            placeholder="Enter names of Birds"
+            className={css({
+              padding: '10px',
+              fontSize: '17px',
+              border: '1px solid grey',
+              float: 'left',
+              width: '95%',
+              borderRadius: '25px',
             })}
+          />
+          <Button variant="secondary">Advance Search</Button>
         </div>
+        <CreateUserTaxonomy />
       </section>
 
-      <Dialog onDismiss={() => setDialog('hide')} isOpen={dialog === 'edit'}>
-        <form onSubmit={handleEdit}>
-          <h1>Rename your list "{listName}"</h1>
-          <label htmlFor="newName"></label>
-          <input type="text" id="newName" />
-          <Button variant="secondary">Save</Button>
-        </form>
-      </Dialog>
-
-      <CrudDialog
-        isOpen={dialog === 'delete'}
-        showDialog={setDialog}
-        label={listName}
-        title="Deleting"
-        handleSubmit={handleDelete}
-        actionLabel="delete"
-        aria="delete"
-      />
-      <section>
-        <LinkedButton variant="secondary" to={`/taxonomies/${listName}`}>
-          add new Bird
-        </LinkedButton>
+      <section
+        className={css({
+          padding: '1em',
+        })}
+      >
+        <ListItems birds={birds} />
       </section>
     </div>
   )

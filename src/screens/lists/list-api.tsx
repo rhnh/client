@@ -1,23 +1,29 @@
 import { useAuth } from 'contexts/userContext'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { IList } from 'utils/types'
+import { IListBird } from 'utils/types'
 
 export const useGetUserList = (listName: string) => {
-  const { token } = useAuth()
+  const { token, isLogin } = useAuth()
 
-  return useQuery(['list', listName], () => {
-    return fetch(`/api/lists/list/${listName}`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    }).then(res => res.json())
-  })
+  return useQuery<IListBird[]>(
+    ['list', listName],
+    () => {
+      return fetch(`/api/lists/list/${listName}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }).then(res => res.json())
+    },
+    {
+      enabled: isLogin && token ? true : false,
+    },
+  )
 }
 
 export const useGetBirdIds = () => {
-  const { token, username } = useAuth()
+  const { token, username, isLogin } = useAuth()
   return useQuery(
     'birdIds',
     async () => {
@@ -32,26 +38,27 @@ export const useGetBirdIds = () => {
       })
     },
     {
-      enabled: !!username,
+      enabled: isLogin,
       refetchOnWindowFocus: false,
     },
   )
 }
 
 export const useLists = () => {
-  const { getLocalToken } = useAuth()
-  const token = getLocalToken()
+  const { token, isLogin } = useAuth()
+
   const url = '/api/lists'
-  return useQuery('lists', async () => {
-    const data = await fetch(url, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    const response = await data.json()
-    return response as IList[]
-  })
+  return useQuery(
+    'lists',
+    () =>
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then(res => res.json()),
+    { enabled: isLogin && token ? true : false },
+  )
 }
 
 export const useDeleteList = () => {
@@ -63,7 +70,7 @@ export const useDeleteList = () => {
         Authorization: `Bearer ${token}`,
       },
     })
-  })
+  }, {})
 }
 export const useUpdateList = (listName: string) => {
   const queryClient = useQueryClient()

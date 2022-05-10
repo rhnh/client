@@ -6,6 +6,8 @@ import '@reach/dialog/styles.css'
 import { Dialog } from './themed-components'
 import { CircleButton } from './themed-button'
 
+import { css } from '@emotion/css'
+
 const ModalContext = React.createContext<
   [isOpen: boolean, setIsOpen: React.Dispatch<React.SetStateAction<boolean>>]
 >([false, () => {}])
@@ -47,7 +49,12 @@ function ModalOpenButton({
 const ModalContentsBase: React.FC = props => {
   const [isOpen, setIsOpen] = React.useContext(ModalContext)
   return (
-    <Dialog isOpen={isOpen} onDismiss={() => setIsOpen(false)} {...props} />
+    <Dialog
+      aria-label="dialog"
+      isOpen={isOpen}
+      onDismiss={() => setIsOpen(false)}
+      {...props}
+    />
   )
 }
 
@@ -63,7 +70,11 @@ const ModalContents: React.FC<PropsContent> = ({
 }: PropsContent) => {
   return (
     <ModalContentsBase {...props}>
-      <div>
+      <div
+        className={css({
+          marginLeft: 'auto',
+        })}
+      >
         <ModalDismissButton>
           <CircleButton>
             <VisuallyHidden>Close</VisuallyHidden>

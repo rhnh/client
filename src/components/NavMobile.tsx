@@ -1,7 +1,7 @@
 import { css } from '@emotion/css'
 import { useToggle } from 'hooks/useToggle'
 import { Children, cloneElement, FC, ReactElement, useEffect } from 'react'
-import { CrudButton } from './themed-button'
+import { IconButtons } from './themed-button'
 import menu from 'assets/menu.svg'
 import closeBtn from 'assets/close.svg'
 import logo from 'logo6.png'
@@ -50,7 +50,7 @@ export const NavMobile: FC = ({ children }) => {
           })}
         />
       </Link>
-      <CrudButton bgImage={menu} onClick={toggle} />
+      <IconButtons toolTip="menu" bgImage={menu} onClick={toggle} />
     </header>
   ) : (
     <header

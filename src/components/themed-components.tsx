@@ -125,9 +125,12 @@ export const Label = styled('label')({
 })
 
 export const Dialog = styled(ReachDialog)({
-  display: 'block',
+  display: 'flex',
+  flexDirection: 'column',
   borderRadius: '.6em',
-
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '90%',
   '@media only screen and (min-width: 600px)': {
     maxWidth: '450px',
     borderRadius: '.6em',

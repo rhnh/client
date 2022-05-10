@@ -21,18 +21,26 @@ const getTaxonomies = async () => {
 }
 
 export function useTaxonomiesInfinite() {
+  const { isLogin, token } = useAuth()
   return useInfiniteQuery<ITaxonomy[], unknown, ITaxonomy[]>(
     'taxonomies',
     getTaxonomies,
     {
       getPreviousPageParam: firstPage => firstPage ?? undefined,
       getNextPageParam: lastPage => lastPage ?? undefined,
+      enabled: isLogin && token ? true : false,
     },
   )
 }
+
 export function useTaxonomies() {
-  return useQuery<ITaxonomy[]>('taxonomies', getTaxonomies)
+  const { isLogin, token } = useAuth()
+
+  return useQuery<ITaxonomy[]>('taxonomies', getTaxonomies, {
+    enabled: isLogin && token ? true : false,
+  })
 }
+
 /**
  *
  * @param id of a taxonomy{bird}
@@ -64,6 +72,7 @@ export function useTaxonomyById({ _id }: { _id: string }) {
     },
   )
 }
+
 export function useTaxonomyByName({
   taxonomyName = '',
 }: {
@@ -109,7 +118,7 @@ export function useAddListItem(listName: string) {
     }: {
       listName: string
       englishName: string
-      taxonomyName: string
+      taxonomyName?: string
     }) => {
       return fetch(`/api/lists/list/${listName}`, {
         method: 'POST',
@@ -130,6 +139,7 @@ export function useAddListItem(listName: string) {
     },
   )
 }
+
 export function useRemoveListItem(listName: string) {
   const { getLocalToken } = useAuth()
   const token = getLocalToken()
@@ -162,4 +172,20 @@ export function useRemoveListItem(listName: string) {
         ]),
     },
   )
+}
+
+/**
+ * useSpeciesNameOnly
+ */
+export function useSpeciesName() {
+  const { token } = useAuth()
+  return useQuery(['taxonomy', 'names'], () => {
+    return fetch('/api/taxonomies/names', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    }).then(res => res.json())
+  })
 }

@@ -1,5 +1,6 @@
 import { css } from '@emotion/css'
 import { Hintput } from '@ribrary/hintput'
+
 import { ChangeEvent, Dispatch, FC, SetStateAction } from 'react'
 
 interface Props {
@@ -19,13 +20,20 @@ export const SearchBar: FC<Props> = ({ data, setSearch, search }) => {
       name="search"
       placeholder="Search"
       className={css({
-        padding: '15px',
-        height: '20px',
-        outline: '1px solid #00B4CC',
-        borderRadius: '5px 5px',
-        color: '#9DBFAF',
-        margin: 'auto',
+        background: '#fff',
+        color: 'gray',
+        boxShadow: '0 6px 10px 0 rgba(0, 0, 0 , .1)',
+        fontSize: '1rem',
+        letterSpacing: '5px',
+
+        border: '0',
+        outline: '0',
+        padding: '22px 18px;',
         width: '100%',
+        borderRadius: '25px',
+        '::placeholder': {
+          textAlign: 'center',
+        },
       })}
       value={search}
       items={data}

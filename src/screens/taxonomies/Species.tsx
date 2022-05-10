@@ -24,7 +24,7 @@ export const Species: FC<ITaxonomy> = ({
   ancestors,
   parent,
 }) => {
-  const { data: lists, isLoading } = useLists()
+  const { data: lists, isLoading, isFetching } = useLists()
   const [isOpen, setIsOpen] = useState(false)
   const { data, isLoading: isLoadingBirdIds, isError } = useGetBirdIds()
 
@@ -34,7 +34,7 @@ export const Species: FC<ITaxonomy> = ({
   if (!lists && !isLoading) {
     return <FullPageSpinner />
   }
-  if (isLoading || isLoadingBirdIds) {
+  if (isLoading || isLoadingBirdIds || isFetching) {
     return <FullPageSpinner />
   }
   const birdIds = data ?? []

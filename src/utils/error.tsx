@@ -66,7 +66,7 @@ export function FullPageErrorFallback({ error }: { error: Error }) {
 }
 
 export function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
-  console.log(error)
+  console.error(error)
   return (
     <div role="alert">
       <ReLoginButton />

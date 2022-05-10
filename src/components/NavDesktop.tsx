@@ -3,6 +3,7 @@ import { FC } from 'react'
 import * as colors from 'utils/colors'
 import logo from 'logo6.png'
 import { Link } from 'react-router-dom'
+
 export const NavDesktop: FC = ({ children }) => {
   return (
     <header
@@ -12,7 +13,6 @@ export const NavDesktop: FC = ({ children }) => {
         boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
         justifyContent: 'space-between',
         padding: '.6em',
-
         alignContent: 'center',
         '@media screen and (max-width:850px)': {
           justifyContent: 'center',

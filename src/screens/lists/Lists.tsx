@@ -1,21 +1,20 @@
 import { css } from '@emotion/css'
 import { LinkedButton } from 'components/themed-button'
-import { WarnBox } from 'components/themed-components'
-import { useAuth } from 'contexts/userContext'
+import { FullPageSpinner, WarnBox } from 'components/themed-components'
+
 import { FC } from 'react'
 
 import { Link } from 'react-router-dom'
 import { IList } from 'utils/types'
 import { useLists } from './list-api'
 import * as colors from 'utils/colors'
+import { useAuth } from 'contexts/userContext'
+
 export const Lists: FC = () => {
-  const { isLogin, username } = useAuth()
-  const { data, isError } = useLists()
-  if (!isLogin) {
-    return <p>You are not login</p>
-  }
-  if (!data) {
-    return null
+  const { data, isError, isLoading } = useLists()
+  const { username } = useAuth()
+  if (isLoading) {
+    return <FullPageSpinner />
   }
 
   if (isError) {
@@ -23,16 +22,17 @@ export const Lists: FC = () => {
   }
   const lists: IList[] = data as IList[]
 
-  if (!lists) {
+  if (!lists || lists.length <= 0) {
     return (
       <div>
         No list found
-        <LinkedButton variant="primary" to="/lists/list">
-          Create New List
+        <LinkedButton variant="primary" to={`/lists/${username}/list`}>
+          What is going ?
         </LinkedButton>
       </div>
     )
   }
+
   return (
     <div
       className={css({
@@ -58,10 +58,10 @@ export const Lists: FC = () => {
             },
           })}
         >
-          {lists.map(list => (
+          {lists?.map(list => (
             <div key={list._id}>
               <Link
-                to={`/${username}/list/${list?.slug}`}
+                to={`/lists/${username}/list/${list?.slug}`}
                 className={css({
                   display: 'flex',
                   flexDirection: 'column',
@@ -91,7 +91,7 @@ export const Lists: FC = () => {
               marginTop: '1em',
             })}
           >
-            <LinkedButton variant="primary" to="/lists/list">
+            <LinkedButton variant="primary" to={`/lists/${username}/list`}>
               Create New List
             </LinkedButton>
           </section>
@@ -99,7 +99,7 @@ export const Lists: FC = () => {
       ) : (
         <div>
           <p>No list found</p>
-          <LinkedButton variant="primary" to="/lists/list">
+          <LinkedButton variant="primary" to={`/lists/${username}/list`}>
             Create New List
           </LinkedButton>
         </div>

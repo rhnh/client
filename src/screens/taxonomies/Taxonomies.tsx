@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { SearchBar } from 'components/SearchBar'
 import { css } from '@emotion/css'
 import { Species } from './Species'
-import { useTaxonomiesInfinite } from './taxonomies-api'
-import { FullPageSpinner, ReLoginButton } from 'components/themed-components'
+import { useTaxonomies } from './taxonomies-api'
+import { FullPageSpinner } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
 
 export const Taxonomies = () => {
@@ -12,19 +12,17 @@ export const Taxonomies = () => {
     data: taxonomies,
     isError,
     error,
-  } = useTaxonomiesInfinite()
+    isFetching,
+  } = useTaxonomies()
+  const { isLogin, isLoading: isLoadingAuth } = useAuth()
 
   const err = error as Error
   const [search, setSearch] = useState('')
-  const { isLogin } = useAuth()
 
   if (!isLogin) {
-    return <ReLoginButton />
+    return <p>Not logged in</p>
   }
-  if (!taxonomies || taxonomies?.pages.flat().length <= 0) {
-    return null
-  }
-  const birds = taxonomies?.pages?.flat().filter((bird: any) => {
+  const birds = taxonomies?.filter((bird: any) => {
     if (search === '') {
       return bird
     } else {
@@ -39,44 +37,47 @@ export const Taxonomies = () => {
     }
   })
 
-  const birdNames: string[] = (taxonomies?.pages
-    .flat()
-    .map(bird => bird.englishName) as string[]) || ['']
+  const birdNames: string[] = (taxonomies?.map(
+    bird => bird.englishName,
+  ) as string[]) || ['']
 
-  return isLoading ? (
+  return isLoading || isLoadingAuth ? (
     <FullPageSpinner />
   ) : isError ? (
     <p>{err.message} </p>
   ) : (
-    <div
-      className={css({
-        display: 'flex',
-        flexDirection: 'column',
-      })}
-    >
-      <div className="center">
-        <SearchBar data={birdNames} search={search} setSearch={setSearch} />
-      </div>
+    <>
+      <SearchBar data={birdNames} search={search} setSearch={setSearch} />
 
-      {birds?.map(taxonomy => {
-        if (taxonomy._id === undefined && !taxonomy) {
-          return <p>Not found</p>
-        }
-        return (
-          <Species
-            key={taxonomy._id}
-            taxonomyName={taxonomy.taxonomyName}
-            rank={taxonomy.rank}
-            englishName={taxonomy.englishName}
-            image={taxonomy.image}
-            approved={false}
-            username={''}
-            _id={taxonomy._id}
-            parent={taxonomy.parent}
-            ancestors={taxonomy.ancestors}
-          />
-        )
-      })}
-    </div>
+      <div
+        className={css({
+          display: 'flex',
+          flexDirection: 'column',
+          width: '100%',
+        })}
+      >
+        {' '}
+        {isFetching ? <p>...loading</p> : null}
+        {birds?.map(taxonomy => {
+          if (taxonomy._id === undefined && !taxonomy) {
+            return <p>Not found</p>
+          }
+          return (
+            <Species
+              key={taxonomy._id}
+              taxonomyName={taxonomy.taxonomyName}
+              rank={taxonomy.rank}
+              englishName={taxonomy.englishName}
+              image={taxonomy.image}
+              approved={false}
+              username={''}
+              _id={taxonomy._id}
+              parent={taxonomy.parent}
+              ancestors={taxonomy.ancestors}
+            />
+          )
+        })}
+      </div>
+    </>
   )
 }

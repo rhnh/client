@@ -8,7 +8,6 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { UserProvider } from 'contexts/userContext'
-import { InfoBanner } from 'screens/misc/info'
 
 // localServer()
 const queryClient = new QueryClient()
@@ -17,7 +16,6 @@ ReactDOM.render(
     <QueryClientProvider client={queryClient}>
       <UserProvider>
         <Router>
-          <InfoBanner text="Safarilive.org had a some minor issues with Web hosting. Which will be fixed sooner. Thank for you patiences." />
           <App />
         </Router>
       </UserProvider>

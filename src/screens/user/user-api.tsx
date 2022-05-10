@@ -1,18 +1,11 @@
-import { useAuth } from 'contexts/userContext'
 import { useQuery } from 'react-query'
 import { httpError } from 'utils/error'
 import { IUser, IUserInfo } from 'utils/types'
 
-export const useProfile = () => {
-  const { username, getLocalToken } = useAuth()
-  const token = getLocalToken()
+export const useProfile = (username: string) => {
   return useQuery('profile', () => {
     return fetch(`/api/users/user/profile/${username}`, {
-      method: 'post',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
+      method: 'get',
     }).then(res => {
       return res.json()
     })

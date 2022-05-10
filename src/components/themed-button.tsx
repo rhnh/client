@@ -2,9 +2,10 @@ import { CSSProperties } from '@emotion/serialize'
 import * as colors from 'utils/colors'
 import styled from '@emotion/styled'
 import { getObjectKeyValue } from 'utils'
-import { Link } from 'react-router-dom'
-import { FC, HtmlHTMLAttributes } from 'react'
+import { Link, LinkProps } from 'react-router-dom'
+import { ButtonHTMLAttributes, FC } from 'react'
 import { css } from '@emotion/css'
+import Tooltip from '@reach/tooltip'
 
 type ButtonProps = {
   variant: 'primary' | 'secondary' | 'danger'
@@ -63,7 +64,6 @@ export const Button = styled('button')<ButtonProps>(
           ':hover': {
             opacity: '.8',
             background: colors.secondary,
-            border: `2px solid ${colors.secondaryText}`,
             color: colors.secondaryText,
           },
         }
@@ -135,31 +135,74 @@ export const CircleButton = styled.button({
   background: 'none',
   color: colors.redText,
   padding: '1em',
+  marginLeft: 'auto',
 })
 
 interface Prop {
   bgImage: string
-  cStyle?: CSSProperties
+  toolTip: string
 }
 
-export const CrudButton: FC<Prop & HtmlHTMLAttributes<HTMLButtonElement>> = ({
+export const IconButtons: FC<
+  Prop & ButtonHTMLAttributes<HTMLButtonElement>
+> = ({ bgImage, onClick, style, toolTip }) => (
+  <Tooltip label={toolTip}>
+    <button
+      onClick={onClick}
+      className={css({
+        border: 'none',
+        padding: 'none',
+        margin: 0,
+        background: 'transparent',
+        ...style,
+      })}
+    >
+      <img
+        src={bgImage}
+        alt="x"
+        className={css({
+          display: 'block',
+          minHeight: '20px',
+          minWeight: '20px',
+          ':hover': {
+            opacity: 0.5,
+          },
+        })}
+      ></img>
+    </button>
+  </Tooltip>
+)
+export const IconLinks: FC<Prop & LinkProps> = ({
   bgImage,
   onClick,
-  cStyle,
+  style,
+  toolTip,
+  onTouchCancel,
+  ...props
 }) => (
-  <CircleButton onClick={onClick}>
-    <img
-      src={bgImage}
-      alt="x"
+  <Tooltip label={toolTip}>
+    <Link
+      {...props}
       className={css({
-        display: 'block',
-        minHeight: '20px',
-        minWeight: '20px',
-
-        ':hover': {
-          opacity: 0.5,
-        },
+        border: 'none',
+        padding: 'none',
+        margin: 0,
+        background: 'transparent',
+        ...style,
       })}
-    ></img>
-  </CircleButton>
+    >
+      <img
+        src={bgImage}
+        alt="x"
+        className={css({
+          display: 'block',
+          minHeight: '20px',
+          minWeight: '20px',
+          ':hover': {
+            opacity: 0.5,
+          },
+        })}
+      ></img>
+    </Link>
+  </Tooltip>
 )

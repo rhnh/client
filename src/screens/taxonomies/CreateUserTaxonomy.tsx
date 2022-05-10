@@ -1,5 +1,7 @@
 import { css } from '@emotion/css'
 import { Hintput } from '@ribrary/hintput'
+import { Modal, ModalContents, ModalOpenButton } from 'components/modal'
+
 import { Button } from 'components/themed-button'
 import { WarnBox } from 'components/themed-components'
 
@@ -40,7 +42,11 @@ export const CreateUserTaxonomy: FC = () => {
   const handleBlur = (e: ChangeEvent<HTMLInputElement>) => {
     setFound(e.target.value)
   }
+
   useEffect(() => {
+    if (data && data?.length <= 0) {
+      return
+    }
     const i = data?.find(
       (bird: ITaxonomy) =>
         bird.englishName?.toLowerCase() === found.toLowerCase(),
@@ -81,61 +87,67 @@ export const CreateUserTaxonomy: FC = () => {
     )
   }
   return (
-    <div
-      className={css({
-        minHeight: '100vh',
-        '@media screen and (min-width:700px)': {
-          maxWidth: '1024px',
-          margin: '1em auto',
-        },
-      })}
-    >
-      <form
-        onSubmit={handleSubmit}
-        className={css({
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '.6em',
-          padding: '1em',
-        })}
-      >
-        <div>
-          <label htmlFor="englishName">Bird Name: </label>
-          <Hintput
-            items={englishNames}
-            numberOfSuggestions={3}
-            onBlur={handleBlur}
-            type="text"
-            id="englishName"
-            name="englishName"
-            placeholder="Enter bird name"
-            onChange={handleChange}
-            autoFocus
-            value={inputFieldsState?.englishName}
-          />
-        </div>
-        <div>
-          <label htmlFor="taxonomyName">Species: </label>
-          <input
-            onChange={handleChange}
-            id="taxonomyName"
-            name="taxonomyName"
-            type="text"
-            value={inputFieldsState?.taxonomyName}
-          />
-        </div>
-        <div>
-          <Button
-            variant="primary"
-            disabled={
-              inputFieldsState?.englishName === ''
-              // || inputFieldsState?.taxonomy === ''
-            }
-          >
-            Add
-          </Button>
-        </div>
-      </form>
-    </div>
+    <Modal>
+      <ModalOpenButton>
+        <Button variant="primary">Add</Button>
+      </ModalOpenButton>
+      <ModalContents title="Adding new bird to  your list">
+        <form
+          onSubmit={handleSubmit}
+          className={css({
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '.6em',
+            padding: '1em',
+            '>div': {
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '1em',
+            },
+          })}
+        >
+          <div>
+            <label htmlFor="englishName">Name: </label>
+            <Hintput
+              items={englishNames}
+              numberOfSuggestions={3}
+              onBlur={handleBlur}
+              type="text"
+              id="englishName"
+              name="englishName"
+              placeholder="Enter bird name"
+              onChange={handleChange}
+              autoFocus
+              className={css({
+                width: '98%',
+              })}
+              value={inputFieldsState?.englishName}
+            />
+          </div>
+          <div>
+            <label htmlFor="taxonomyName">Species: </label>
+            <input
+              className={css({ display: 'block' })}
+              onChange={handleChange}
+              id="taxonomyName"
+              name="taxonomyName"
+              type="text"
+              value={inputFieldsState?.taxonomyName}
+            />
+          </div>
+          <div>
+            <Button
+              variant="primary"
+              disabled={
+                inputFieldsState?.englishName === ''
+                // || inputFieldsState?.taxonomy === ''
+              }
+            >
+              Add
+            </Button>
+          </div>
+        </form>
+      </ModalContents>
+    </Modal>
   )
 }

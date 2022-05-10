@@ -3,13 +3,14 @@ import { Button } from 'components/themed-button'
 import { Input } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
 import { ChangeEvent, FC, FormEvent, useState } from 'react'
-import { useMutation } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
 import { Link } from 'react-router-dom'
 import * as colors from 'utils/colors'
 
 export const CreateList: FC = () => {
   const [listName, setListName] = useState('')
   const { isLogin, getLocalToken, username } = useAuth()
+  const queryClient = useQueryClient()
   const { mutate, isError, error, isSuccess } = useMutation(
     (listName: string) => {
       return fetch(`/api/lists/${listName}`, {
@@ -32,6 +33,11 @@ export const CreateList: FC = () => {
           throw err
         },
       )
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('lists')
+      },
     },
   )
   const isEmpty = listName === ''
@@ -67,7 +73,7 @@ export const CreateList: FC = () => {
       >
         You have successfully created {listName}
         <section>
-          Click <Link to={`/${username}/lists`}> here </Link>to see all your
+          Click <Link to={`/lists/${username}`}> here </Link>to see all your
           lists.
         </section>
       </div>
@@ -77,20 +83,25 @@ export const CreateList: FC = () => {
     <div
       className={css({
         display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
         backgroundColor: colors.plate,
         margin: 'auto',
         marginTop: '1.5em',
+        justifyContent: 'center',
+        alignItems: 'center',
         borderRadius: '5px',
         minHeight: '100vh',
+        '@media screen and (max-width:600px)': {
+          maxWidth: '500px',
+          justifyContent: 'center',
+          alignItems: 'center',
+        },
       })}
     >
       <form onSubmit={handleSubmit}>
         <div>
           <h2
             className={css({
-              background: colors.primaryText,
+              background: colors.base,
               top: 0,
               marginTop: 0,
               borderRadius: '5px 5px 0 0',

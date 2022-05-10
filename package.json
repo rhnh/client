@@ -10,7 +10,7 @@
     "@reach/dialog": "^0.16.2",
     "@reach/tooltip": "^0.16.2",
     "@reach/visually-hidden": "^0.16.0",
-    "@ribrary/hintput": "^2.4.2",
+    "@ribrary/hintput": "^3.2.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -54,7 +54,9 @@
     ]
   },
   "devDependencies": {
-    "msw": "^0.35.0"
+    "@testing-library/react-hooks": "^8.0.0",
+    "msw": "^0.35.0",
+    "react-test-renderer": "^17.0.2"
   },
   "msw": {
     "workerDirectory": "public"

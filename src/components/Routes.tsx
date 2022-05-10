@@ -1,6 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
 import { FC } from 'react'
-import { useAuth } from 'contexts/userContext'
 import { Login, Register, Profile } from 'screens/user'
 import { CreateUserTaxonomy } from 'screens/taxonomies/CreateUserTaxonomy'
 import { CreatePost, Posts } from 'screens/posts'
@@ -10,12 +9,12 @@ import { Taxonomies } from 'screens/taxonomies'
 import { SpeciesById } from 'screens/taxonomies/SpeciesById'
 import FeaturedArticle from 'screens/posts/featured'
 import { Members } from 'screens/user/Members'
-import { ShowPost } from 'screens/lists/ShowPost'
 import { ReLoginButton, InfoBox } from './themed-components'
 import { Taxonomy } from 'screens/taxonomies/Taxonomy'
+import { ShowPost } from 'screens/posts/ShowPost'
+import { Notifications } from 'screens/notifications/Notifications'
 
 export const AppRoutes: FC = () => {
-  const { username } = useAuth()
   return (
     <Routes>
       <Route path="/">
@@ -27,15 +26,12 @@ export const AppRoutes: FC = () => {
             </Main>
           }
         />
-        <Route path="/lists/list" element={<CreateList />} />
+        <Route path={`/lists/:username`} element={<Lists />} />
+        <Route path={`/lists/:username/list/:listName`} element={<List />} />
+        <Route path="/lists/:username/list" element={<CreateList />} />
         <Route path="/posts" element={<Posts />} />
         <Route path={`/posts/post/:id`} element={<ShowPost />} />
         <Route path="/posts/post" element={<CreatePost />} />
-        {username && <Route path={`/${username}/lists`} element={<Lists />} />}
-        {username && (
-          <Route path={`/${username}/list/:listName`} element={<List />} />
-        )}
-        <Route path={`/posts/post/:id`} element={<ShowPost />} />
         <Route path="/taxonomies" element={<Taxonomies />} />
         <Route path="/taxonomies/:listName" element={<CreateUserTaxonomy />} />
         <Route
@@ -43,12 +39,13 @@ export const AppRoutes: FC = () => {
           element={<Taxonomy />}
         ></Route>
         <Route path="/taxonomy/id/:id" element={<SpeciesById />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/:username" element={<Profile />} />
         <Route path="/members" element={<Members />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/posts" element={<Posts />} />{' '}
         <Route path="/about" element={<About />} />
+        <Route path="/panel" element={<Notifications />}></Route>
         <Route
           path="*"
           element={

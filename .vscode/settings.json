@@ -9,6 +9,7 @@
     "**/node_modules": true
   },
   "cSpell.words": ["Djuma", "Hintput", "ribrary", "unfeatured"],
+  "keyboard.dispatch": "keyCode",
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
