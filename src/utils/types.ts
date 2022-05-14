@@ -18,6 +18,7 @@ export interface IUserInfo extends Base {
   token: string
   isValidToken?: boolean
   role?: IRole
+  avatar?: string
 }
 export type IRank = 'species' | 'genus' | 'family' | 'order'
 export type IGender = 'female' | 'male' | 'unknown'
@@ -93,6 +94,7 @@ export interface IProfile {
   createdAt: string
   totalLists: number
   _id: string
+  avatar: string
 }
 export interface Authorization {
   token: string
