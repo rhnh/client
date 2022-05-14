@@ -3,22 +3,27 @@ import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { INotification } from 'utils/types'
 const QName = 'notifications'
 const url = '/api/notifications/'
+
 export const useSetActive = () => {
   const { userInfo, token } = useAuth()
   const queryClient = useQueryClient()
   const isAdmin = userInfo?.role === 'admin'
   return useMutation(
-    async (id: string) => {
+    async ({ id, isActive }: { id: string; isActive: boolean }) => {
       if (!isAdmin) {
         return Promise.resolve(() => [])
       }
       const res = await fetch(`${url}/notification/${id}`, {
         method: 'PUT',
+        body: JSON.stringify({ isActive }),
         headers: {
           authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
       })
+      if (res.status === 401) {
+        window.location.reload()
+      }
       return await res.json()
     },
     {
@@ -84,6 +89,9 @@ export const useCreate = () => {
 export const useGetById = (id: string) => {
   return useQuery<INotification>('notifications', async () => {
     const res = await fetch(`${url}/notification/${id}`, {})
+    if (res.status === 401) {
+      window.location.reload()
+    }
     return await res.json()
   })
 }

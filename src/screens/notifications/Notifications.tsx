@@ -63,7 +63,16 @@ export const Notifications: FC = () => {
                   'Inactive'
                 )}
               </div>
-              <button onClick={() => setActive(d._id || '')}>setActive</button>
+              <button
+                onClick={() => setActive({ id: d._id || '', isActive: true })}
+              >
+                setActive
+              </button>
+              <button
+                onClick={() => setActive({ id: d._id || '', isActive: false })}
+              >
+                setInActive
+              </button>
               <hr />
             </div>
           ))

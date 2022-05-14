@@ -32,6 +32,9 @@ export const Notification: FC = () => {
     if (res.status === 401) {
       window.location.reload()
     }
+    if (res.status === 400) {
+      return {}
+    }
     return await res.json()
   })
 
