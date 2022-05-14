@@ -13,6 +13,7 @@ import { ReLoginButton, InfoBox } from './themed-components'
 import { Taxonomy } from 'screens/taxonomies/Taxonomy'
 import { ShowPost } from 'screens/posts/ShowPost'
 import { Notifications } from 'screens/notifications/Notifications'
+import { CreateTaxonomy } from 'screens/taxonomies/CreateTaxonomy'
 
 export const AppRoutes: FC = () => {
   return (
@@ -26,24 +27,30 @@ export const AppRoutes: FC = () => {
             </Main>
           }
         />
+        {/* Lists */}
         <Route path={`/lists/:username`} element={<Lists />} />
         <Route path={`/lists/:username/list/:listName`} element={<List />} />
         <Route path="/lists/:username/list" element={<CreateList />} />
+        {/* Posts */}
         <Route path="/posts" element={<Posts />} />
         <Route path={`/posts/post/:id`} element={<ShowPost />} />
         <Route path="/posts/post" element={<CreatePost />} />
+        <Route path="/posts" element={<Posts />} />
+        {/* Taxonomies */}
         <Route path="/taxonomies" element={<Taxonomies />} />
-        <Route path="/taxonomies/:listName" element={<CreateUserTaxonomy />} />
+        <Route path="/taxonomy" element={<CreateUserTaxonomy />} />
         <Route
           path={`/taxonomy/taxonomyName/:taxonomyName`}
           element={<Taxonomy />}
-        ></Route>
+        />
+        <Route path="/taxonomies/taxonomy" element={<CreateTaxonomy />} />
         <Route path="/taxonomy/id/:id" element={<SpeciesById />} />
+        {/* Users */}
         <Route path="/profile/:username" element={<Profile />} />
         <Route path="/members" element={<Members />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/posts" element={<Posts />} />{' '}
+        {/* misc */}
         <Route path="/about" element={<About />} />
         <Route path="/panel" element={<Notifications />}></Route>
         <Route
