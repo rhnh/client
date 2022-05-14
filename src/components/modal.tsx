@@ -3,7 +3,7 @@ import * as React from 'react'
 import { callAll } from 'utils'
 
 import '@reach/dialog/styles.css'
-import { Dialog } from './themed-components'
+import { DialogContent, DialogOverlay } from '@reach/dialog'
 import { CircleButton } from './themed-button'
 
 import { css } from '@emotion/css'
@@ -24,14 +24,12 @@ const Modal: React.FC<PropsModal> = ({
   return <ModalContext.Provider value={[isOpen, setIsOpen]} {...props} />
 }
 
-function ModalDismissButton({
-  children: child,
-}: {
-  children: React.ReactElement
-}) {
+const ModalDismissButton: React.FC<
+  { children: React.ReactElement } & React.HtmlHTMLAttributes<HTMLButtonElement>
+> = ({ children }: { children: React.ReactElement }) => {
   const [, setIsOpen] = React.useContext(ModalContext)
-  return React.cloneElement(child, {
-    onClick: callAll(() => setIsOpen(false), child.props.onClick),
+  return React.cloneElement(children, {
+    onClick: callAll(() => setIsOpen(false), children.props.onClick),
   })
 }
 
@@ -41,25 +39,39 @@ function ModalOpenButton({
   children: React.ReactElement
 }) {
   const [, setIsOpen] = React.useContext(ModalContext)
+
   return React.cloneElement(child, {
     onClick: callAll(() => setIsOpen(true), child.props.onClick),
   })
 }
 
-const ModalContentsBase: React.FC = props => {
+const ModalContentsBase: React.FC = ({ children, ...props }) => {
   const [isOpen, setIsOpen] = React.useContext(ModalContext)
+
   return (
-    <Dialog
+    <DialogOverlay
       aria-label="dialog"
       isOpen={isOpen}
       onDismiss={() => setIsOpen(false)}
       {...props}
-    />
+      className={css({
+        position: 'relative',
+      })}
+    >
+      <DialogContent
+        className={css({
+          padding: '.2em',
+          position: 'relative',
+        })}
+      >
+        {children}
+      </DialogContent>
+    </DialogOverlay>
   )
 }
 
 interface PropsContent {
-  title: string
+  title?: string
 
   children: React.ReactNode
 }
@@ -70,20 +82,20 @@ const ModalContents: React.FC<PropsContent> = ({
 }: PropsContent) => {
   return (
     <ModalContentsBase {...props}>
-      <div
-        className={css({
-          marginLeft: 'auto',
-        })}
-      >
-        <ModalDismissButton>
-          <CircleButton>
-            <VisuallyHidden>Close</VisuallyHidden>
-            <span aria-hidden>×</span>
-          </CircleButton>
-        </ModalDismissButton>
-      </div>
+      <ModalDismissButton>
+        <CircleButton
+          className={css({
+            position: 'absolute',
+            top: '10px',
+            right: '10px',
+          })}
+        >
+          <VisuallyHidden>Close</VisuallyHidden>
+          <span aria-hidden>×</span>
+        </CircleButton>
+      </ModalDismissButton>
 
-      <h3>{title}</h3>
+      {title && <h3>{title}</h3>}
       {children}
     </ModalContentsBase>
   )
