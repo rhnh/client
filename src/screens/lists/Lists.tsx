@@ -27,7 +27,7 @@ export const Lists: FC = () => {
       <div>
         No list found
         <LinkedButton variant="primary" to={`/lists/${username}/list`}>
-          What is going ?
+          Create
         </LinkedButton>
       </div>
     )

@@ -7,14 +7,18 @@ export const useGetUserList = (listName: string) => {
 
   return useQuery<IListBird[]>(
     ['list', listName],
-    () => {
-      return fetch(`/api/lists/list/${listName}`, {
+    async () => {
+      const res = await fetch(`/api/lists/list/${listName}`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-      }).then(res => res.json())
+      })
+      if (res.status === 401) {
+        window.location.reload()
+      }
+      return await res.json()
     },
     {
       enabled: isLogin && token ? true : false,
@@ -34,12 +38,14 @@ export const useGetBirdIds = () => {
           'Content-Type': 'application/json',
         },
       }).then(res => {
+        if (res.status === 401) {
+          window.location.reload()
+        }
         return res.json()
       })
     },
     {
-      enabled: isLogin,
-      refetchOnWindowFocus: false,
+      enabled: isLogin && token ? true : false,
     },
   )
 }
@@ -56,7 +62,13 @@ export const useLists = () => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }).then(res => res.json()),
+      }).then(res => {
+        if (res.status === 401) {
+          window.location.reload()
+        }
+        return res.json()
+      }),
+
     { enabled: isLogin && token ? true : false },
   )
 }
@@ -69,6 +81,11 @@ export const useDeleteList = () => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+    }).then(res => {
+      if (res.status === 401) {
+        window.location.reload()
+      }
+      return res.json
     })
   }, {})
 }

@@ -19,8 +19,9 @@ export const List = () => {
   const { isLoading, isError, data } = useGetUserList(listName || '')
   const [birds, setBirds] = useState<IListBird[]>(data ?? [])
 
-  const names: string[] =
-    (data?.map(bird => bird.englishName) as string[]) || []
+  const names: string[] = Array.isArray(data)
+    ? (data?.map(bird => bird.englishName) as string[])
+    : []
 
   if (!isLogin) {
     return <ReLoginButton />
