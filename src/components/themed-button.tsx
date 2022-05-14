@@ -141,37 +141,44 @@ export const CircleButton = styled.button({
 interface Prop {
   bgImage: string
   toolTip: string
+  imgStyle?: CSSProperties
 }
 
 export const IconButtons: FC<
   Prop & ButtonHTMLAttributes<HTMLButtonElement>
-> = ({ bgImage, onClick, style, toolTip }) => (
-  <Tooltip label={toolTip}>
-    <button
-      onClick={onClick}
-      className={css({
-        border: 'none',
-        padding: 'none',
-        margin: 0,
-        background: 'transparent',
-        ...style,
-      })}
-    >
-      <img
-        src={bgImage}
-        alt="x"
+> = ({ bgImage, onClick, style, toolTip, imgStyle }) => {
+  return (
+    <Tooltip label={toolTip}>
+      <button
+        onClick={onClick}
         className={css({
-          display: 'block',
-          minHeight: '20px',
-          minWeight: '20px',
-          ':hover': {
-            opacity: 0.5,
-          },
+          border: 'none',
+          padding: '.2em',
+          background: 'transparent',
+          maxWidth: '25px',
+          maxHeight: 'auto',
+          margin: '.2em',
+          ...style,
         })}
-      ></img>
-    </button>
-  </Tooltip>
-)
+      >
+        <img
+          src={bgImage}
+          alt="x"
+          className={css({
+            display: 'block',
+            minHeight: '20px',
+            minWeight: '20px',
+            ':hover': {
+              opacity: 0.5,
+            },
+            ...imgStyle,
+          })}
+        ></img>
+      </button>
+    </Tooltip>
+  )
+}
+
 export const IconLinks: FC<Prop & LinkProps> = ({
   bgImage,
   onClick,
