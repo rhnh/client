@@ -1,7 +1,10 @@
+interface CallBack<Params extends any[]> {
+  (...args: Params): void
+}
 export const callAll =
-  (...fns: Function[]) =>
-  (...args: any) =>
-    fns.forEach(fn => fn && fn(...args))
+  <Params extends any[]>(...fns: Array<CallBack<Params> | undefined>) =>
+  (...args: Params) =>
+    fns.forEach(fn => typeof fn === 'function' && fn(...args))
 // export const getObjectKeyValue =
 //   <T extends Record<string, unknown>, U extends keyof T>(key: U) =>
 //   (obj: T) =>

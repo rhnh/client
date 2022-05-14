@@ -1,4 +1,5 @@
-import { useQuery } from 'react-query'
+import { useAuth } from 'contexts/userContext'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { httpError } from 'utils/error'
 import { IUser, IUserInfo } from 'utils/types'
 
@@ -10,6 +11,33 @@ export const useProfile = (username: string) => {
       return res.json()
     })
   })
+}
+
+export const useSetAvatar = () => {
+  const queryClient = useQueryClient()
+  const { token } = useAuth()
+  return useMutation(
+    (url: string) => {
+      return fetch('/api/users/change-avatar', {
+        method: 'POST',
+        body: JSON.stringify({ url }),
+        headers: new Headers({
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        }),
+      }).then(
+        res => res.json(),
+        err => {
+          console.error(err)
+        },
+      )
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('profile')
+      },
+    },
+  )
 }
 
 export async function verifiedToken(): Promise<IUserInfo | null> {
