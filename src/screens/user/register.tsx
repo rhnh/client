@@ -41,12 +41,12 @@ function stateReducer(state: State, action: Action): State {
 }
 
 export const Register = () => {
-  const { register, isError, error, isSuccess, isLoading, setState } = useAuth()
+  const { register, isError, error, isSuccess, isLoading, setLogin } = useAuth()
   const [state, dispatch] = useReducer(stateReducer, initialState)
 
   useEffect(() => {
-    setState('idle')
-  }, [setState])
+    setLogin('idle')
+  }, [setLogin])
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const target = e.target as typeof e.target & LoginElements

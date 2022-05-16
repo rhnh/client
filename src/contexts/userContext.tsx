@@ -25,7 +25,7 @@ export const placeHolderAuth: Authorization = {
   usernameRecovery: () => {},
   isError: false,
   isLogin: false,
-  setState: () => {},
+  setLogin: () => {},
   error: new Error(''),
   getLocalToken: () => '',
   state: 'idle',
@@ -38,6 +38,7 @@ export const placeHolderAuth: Authorization = {
 }
 
 const userContext = createContext<Authorization>(placeHolderAuth)
+type Status = 'idle' | 'loading' | 'success' | 'error'
 
 export const UserProvider: FC = ({ children }) => {
   const [isLogin, setIsLogin] = useState<boolean>(
@@ -110,6 +111,10 @@ export const UserProvider: FC = ({ children }) => {
       username: string
     }
   }
+
+  const setLogin = (state: 'idle' | 'loading' | 'success' | 'error') => {
+    setState(state)
+  }
   const register = (user: IUser) => {
     setState('idle')
     return userRegister(user).then(
@@ -168,7 +173,7 @@ export const UserProvider: FC = ({ children }) => {
     getLocalToken,
     isIdle,
     state,
-    setState,
+    setLogin,
     isSuccess,
     isLoading,
   }

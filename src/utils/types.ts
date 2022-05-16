@@ -111,7 +111,7 @@ export interface Authorization {
   error: Error
   isLoading: boolean
   isSuccess: boolean
-  setState: Dispatch<'success' | 'error' | 'loading' | 'idle'>
+  setLogin: (state: 'idle' | 'loading' | 'success' | 'error') => void
   state: 'success' | 'error' | 'loading' | 'idle'
 }
 
