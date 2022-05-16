@@ -2,7 +2,7 @@ import { useAuth } from 'contexts/userContext'
 
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { useInfiniteQuery } from 'react-query'
-import { ITaxonomy } from 'utils/types'
+import { IRank, ITaxonomy } from 'utils/types'
 
 const getTaxonomies = async () => {
   const url = `/api/taxonomies/species`
@@ -20,7 +20,7 @@ const getTaxonomies = async () => {
   }
 }
 
-export function useTaxonomiesInfinite() {
+export function useGetTaxonomiesInfinite() {
   const { isLogin, token } = useAuth()
   return useInfiniteQuery<ITaxonomy[], unknown, ITaxonomy[]>(
     'taxonomies',
@@ -33,7 +33,7 @@ export function useTaxonomiesInfinite() {
   )
 }
 
-export function useTaxonomies() {
+export function useGetTaxonomies() {
   const { isLogin, token } = useAuth()
 
   return useQuery<ITaxonomy[]>('taxonomies', getTaxonomies, {
@@ -73,7 +73,7 @@ export function useTaxonomyById({ _id }: { _id: string }) {
   )
 }
 
-export function useTaxonomyByName({
+export function useGetTaxonomyByName({
   taxonomyName = '',
 }: {
   taxonomyName: string
@@ -81,7 +81,7 @@ export function useTaxonomyByName({
   const { getLocalToken } = useAuth()
   const token = getLocalToken()
   return useQuery<ITaxonomy, Error>(
-    ['taxonomy', taxonomyName],
+    ['taxonomyName', taxonomyName],
     () => {
       return fetch(`/api/taxonomies/taxonomyName/${taxonomyName}`, {
         method: 'GET',
@@ -100,7 +100,7 @@ export function useTaxonomyByName({
       )
     },
     {
-      enabled: token ? true : false,
+      enabled: token && taxonomyName ? true : false,
     },
   )
 }
@@ -177,7 +177,7 @@ export function useRemoveListItem(listName: string) {
 /**
  * useSpeciesNameOnly
  */
-export function useSpeciesName() {
+export function useGetSpeciesName() {
   const { token } = useAuth()
   return useQuery(['taxonomy', 'names'], () => {
     return fetch('/api/taxonomies/names', {
@@ -187,5 +187,39 @@ export function useSpeciesName() {
         'Content-Type': 'application/json',
       },
     }).then(res => res.json())
+  })
+}
+
+//get by rank name
+export function useGetByRank(rank: IRank) {
+  const { token } = useAuth()
+  return useQuery(
+    ['ranks', rank],
+    () => {
+      return fetch(`/api/taxonomies/rank/${rank}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }).then(res => res.json())
+    },
+    {
+      enabled: typeof token === 'string' && token !== '' ? true : false,
+    },
+  )
+}
+
+export function useCreate() {
+  const { token } = useAuth()
+  return useMutation(({ t }: { t: ITaxonomy }) => {
+    return fetch(`/api/taxonomies`, {
+      method: 'POST',
+      body: JSON.stringify(t),
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    })
   })
 }
