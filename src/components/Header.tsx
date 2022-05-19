@@ -21,13 +21,13 @@ export const Header: FC = () => {
         <NavLink to="/taxonomies">Birds</NavLink>
       </li>
       <li>
-        <NavLink to="/login">Login</NavLink>
+        <NavLink to="/users/login">Login</NavLink>
       </li>
       <li>
-        <NavLink to="/register">Register</NavLink>
+        <NavLink to="/users/register">Register</NavLink>
       </li>
       <li>
-        <NavLink to="/about">about</NavLink>
+        <NavLink to="/main/about">about</NavLink>
       </li>
     </Nav>
   ) : (
@@ -45,10 +45,10 @@ export const Header: FC = () => {
         <NavLink to={`/lists/${username}`}>BirdLists</NavLink>
       </li>
       <li>
-        <NavLink to="/about">About</NavLink>
+        <NavLink to="/main/about">About</NavLink>
       </li>
       <li>
-        <NavLink to={`/profile/${username}`}>{username}</NavLink>
+        <NavLink to={`/users/profile/${username}`}>{username}</NavLink>
       </li>
       <li>
         <NavLink

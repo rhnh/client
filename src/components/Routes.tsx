@@ -14,6 +14,8 @@ import { Taxonomy } from 'screens/taxonomies/Taxonomy'
 import { ShowPost } from 'screens/posts/ShowPost'
 import { Notifications } from 'screens/notifications/Notifications'
 import { CreateTaxonomy } from 'screens/taxonomies/CreateTaxonomy'
+import { UnApproved } from 'screens/taxonomies/UnApproved'
+import { LinkedButton } from './themed-button'
 
 export const AppRoutes: FC = () => {
   return (
@@ -38,27 +40,33 @@ export const AppRoutes: FC = () => {
         <Route path="/posts" element={<Posts />} />
         {/* Taxonomies */}
         <Route path="/taxonomies" element={<Taxonomies />} />
-        <Route path="/taxonomy" element={<CreateUserTaxonomy />} />
+        <Route path="/taxonomies/taxonomy" element={<CreateUserTaxonomy />} />
         <Route
-          path={`/taxonomy/taxonomyName/:taxonomyName`}
+          path={`/taxonomies/taxonomyName/:taxonomyName`}
           element={<Taxonomy />}
         />
-        <Route path="/taxonomies/taxonomy" element={<CreateTaxonomy />} />
-        <Route path="/taxonomy/id/:id" element={<SpeciesById />} />
+        <Route
+          path="/taxonomies/taxonomy/create"
+          element={<CreateTaxonomy />}
+        />
+        <Route path="/taxonomies/taxonomy/id/:id" element={<SpeciesById />} />
+        <Route path="taxonomies/unapproved" element={<UnApproved />} />
         {/* Users */}
-        <Route path="/profile/:username" element={<Profile />} />
-        <Route path="/members" element={<Members />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        {/* misc */}
-        <Route path="/about" element={<About />} />
-        <Route path="/panel" element={<Notifications />}></Route>
+        <Route path="/users/profile/:username" element={<Profile />} />
+        <Route path="/users/members" element={<Members />} />
+        <Route path="/users/register" element={<Register />} />
+        <Route path="/users/login" element={<Login />} />
+        <Route path="/users/panel" element={<Notifications />}></Route>
+        {/* main */}
+        <Route path="/main/about" element={<About />} />
         <Route
           path="*"
           element={
             <InfoBox>
               Page not found! Please Login or refresh!
-              <ReLoginButton />
+              <LinkedButton to="/" variant="primary">
+                Back main page
+              </LinkedButton>
             </InfoBox>
           }
         />
