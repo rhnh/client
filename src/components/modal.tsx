@@ -44,25 +44,31 @@ function ModalOpenButton({
     onClick: callAll(() => setIsOpen(true), child.props.onClick),
   })
 }
-
-const ModalContentsBase: React.FC = ({ children, ...props }) => {
+interface I {
+  style?: React.CSSProperties
+}
+const ModalContentsBase: React.FC<I> = ({ children, ...props }) => {
   const [isOpen, setIsOpen] = React.useContext(ModalContext)
+  const propsWithStyle = { ...props, style: {} }
+  const { style } = props
 
   return (
     <DialogOverlay
-      aria-label="dialog"
+      aria-label="dialog wooo"
       isOpen={isOpen}
       onDismiss={() => setIsOpen(false)}
-      {...props}
       className={css({
         position: 'relative',
       })}
+      {...propsWithStyle}
     >
       <DialogContent
         className={css({
           padding: '.2em',
           position: 'relative',
         })}
+        aria-label="form"
+        style={style}
       >
         {children}
       </DialogContent>
@@ -75,11 +81,9 @@ interface PropsContent {
 
   children: React.ReactNode
 }
-const ModalContents: React.FC<PropsContent> = ({
-  title,
-  children,
-  ...props
-}: PropsContent) => {
+const ModalContents: React.FC<
+  PropsContent & React.HtmlHTMLAttributes<HTMLDivElement>
+> = ({ title, children, ...props }: PropsContent) => {
   return (
     <ModalContentsBase {...props}>
       <ModalDismissButton>
