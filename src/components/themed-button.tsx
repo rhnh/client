@@ -28,8 +28,8 @@ const buttonVariant: Variants = {
     color: colors.secondaryText,
   },
   danger: {
-    background: colors.primary,
-    color: colors.primaryText,
+    background: colors.danger,
+    color: colors.base,
   },
 }
 
@@ -55,7 +55,7 @@ export const Button = styled('button')<ButtonProps>(
           cursor: 'auto',
           // color: 'black',
           backgroundColor: colors.neutral,
-          color: colors.baseText,
+          color: 'grey',
           border: `1px solid ${colors.baseText}`,
         }
       : variants !== 'primary'
@@ -185,6 +185,7 @@ export const IconLinks: FC<Prop & LinkProps> = ({
   style,
   toolTip,
   onTouchCancel,
+  imgStyle,
   ...props
 }) => (
   <Tooltip label={toolTip}>
@@ -203,11 +204,12 @@ export const IconLinks: FC<Prop & LinkProps> = ({
         alt="x"
         className={css({
           display: 'block',
-          minHeight: '20px',
-          minWeight: '20px',
+          height: '20px',
+          width: '20px',
           ':hover': {
             opacity: 0.5,
           },
+          ...imgStyle,
         })}
       ></img>
     </Link>

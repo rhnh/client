@@ -16,18 +16,6 @@ export const Footer: FC = () => {
         display: 'block',
       })}
     >
-      <img
-        src={snakeSvg}
-        alt="snake"
-        className={css({
-          position: 'absolute',
-          bottom: `${snakePosition}px`,
-          margin: 'auto',
-          maxWidth: '100px',
-          height: 'auto',
-          zIndex: 1,
-        })}
-      />
       <footer
         ref={footerRef}
         className={css({

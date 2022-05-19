@@ -225,7 +225,7 @@ export const ReLoginButton = () => {
     >
       <Box type="info">
         You are not logged in! or Something went wrong
-        <LinkedButton to="/login" variant="primary">
+        <LinkedButton to="/users/login" variant="primary">
           Login
         </LinkedButton>
       </Box>
@@ -261,6 +261,16 @@ const spin = keyframes({
   '100%': { transform: 'rotate(360deg)' },
 })
 
+export const Spinner = ({ size = 20 }: { size?: number }) => (
+  <img
+    src={spinnerIcon}
+    alt="x"
+    className={css({
+      maxWidth: `${size}px`,
+      animation: `${spin} 1s linear infinite `,
+    })}
+  />
+)
 export const FullPageSpinner: FC = () => {
   return (
     <div
