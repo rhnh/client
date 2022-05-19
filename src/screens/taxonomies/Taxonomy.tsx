@@ -2,11 +2,11 @@ import { FC } from 'react'
 import { useParams } from 'react-router-dom'
 import { ITaxonomy } from 'utils/types'
 import { Species } from './Species'
-import { useTaxonomyByName } from './taxonomies-api'
+import { useGetTaxonomyByName } from './taxonomies-api'
 
 export const Taxonomy: FC = () => {
   const { taxonomyName } = useParams()
-  const { isLoading, data } = useTaxonomyByName({
+  const { isLoading, data } = useGetTaxonomyByName({
     taxonomyName: taxonomyName || '',
   })
   if (isLoading) {

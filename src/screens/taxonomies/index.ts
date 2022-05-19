@@ -1,4 +1,4 @@
-export { CreateUserTaxonomy as CreateTaxonomy } from './CreateUserTaxonomy'
+export { CreateUserTaxonomy } from './CreateUserTaxonomy'
 
 export { Taxonomies } from './Taxonomies'
-export { Species as Taxonomy } from './Species'
+export { Species } from './Species'

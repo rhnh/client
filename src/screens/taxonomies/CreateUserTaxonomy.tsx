@@ -9,7 +9,7 @@ import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react'
 
 import { useNavigate, useParams } from 'react-router-dom'
 import { ITaxonomy } from 'utils/types'
-import { useAddListItem, useTaxonomies } from './taxonomies-api'
+import { useAddListItem, useGetTaxonomies } from './taxonomies-api'
 
 export const CreateUserTaxonomy: FC = () => {
   const navigate = useNavigate()
@@ -23,16 +23,16 @@ export const CreateUserTaxonomy: FC = () => {
     approved: false,
   })
   const { listName } = useParams()
-  const { data } = useTaxonomies()
+  const { data } = useGetTaxonomies()
   const [found, setFound] = useState('')
 
   const { mutate, isError, isLoading, isSuccess } = useAddListItem(
     listName || '',
   )
 
-  const englishNames: string[] = data?.map(
-    (bird: ITaxonomy) => bird.englishName,
-  ) as string[] | []
+  const englishNames: string[] = Array.isArray(data)
+    ? (data?.map((bird: ITaxonomy) => bird.englishName) as string[])
+    : []
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target
@@ -47,10 +47,12 @@ export const CreateUserTaxonomy: FC = () => {
     if (data && data?.length <= 0) {
       return
     }
-    const i = data?.find(
-      (bird: ITaxonomy) =>
-        bird.englishName?.toLowerCase() === found.toLowerCase(),
-    )
+    const i = Array.isArray(data)
+      ? data?.find(
+          (bird: ITaxonomy) =>
+            bird.englishName?.toLowerCase() === found.toLowerCase(),
+        )
+      : ''
     if (i) {
       setInputFieldsState(i)
     }
@@ -119,7 +121,7 @@ export const CreateUserTaxonomy: FC = () => {
               onChange={handleChange}
               autoFocus
               className={css({
-                width: '98%',
+                width: '99%',
               })}
               value={inputFieldsState?.englishName}
             />

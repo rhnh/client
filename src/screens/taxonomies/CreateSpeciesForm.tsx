@@ -2,81 +2,46 @@ import { css } from '@emotion/css'
 import { Hintput } from '@ribrary/hintput'
 import { Modal, ModalContents, ModalOpenButton } from 'components/modal'
 import { Button } from 'components/themed-button'
-import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react'
-import { ITaxonomy } from 'utils/types'
-import { useGetByRank } from './taxonomies-api'
-import { IProps } from './types'
+import React, { ChangeEvent, FC, FormEvent } from 'react'
+import { IRank } from 'utils/types'
 
-export const CreateSpecies: FC = () => {
-  const { data } = useGetByRank('species')
-  const ts = (data as ITaxonomy[]) || []
-  const taxonomyNames: string[] = ts.map(t => t.taxonomyName)
-  const [isExist, setIsExist] = useState<'yes' | 'no' | 'clear'>('clear')
-  const [found, setFound] = useState('')
-  const [species, setSpecies] = useState('')
-  const [englishName, setEnglishName] = useState('')
+type Props = {
+  selectSpecies(e: IRank | ''): void
+  handleSubmit(e: FormEvent<HTMLFormElement>): void
+  taxonomyNames: string[]
+  species: string
+  handleSpeciesChange(e: ChangeEvent<HTMLInputElement>): void
+  handleBlur(e: ChangeEvent<HTMLInputElement>): void
+  englishName: string
+  handleSelectEName(s: string): void
+  handleSelectNameEvent(e: ChangeEvent<HTMLInputElement>): void
+  parents: string[]
+  handleSelectBlurParent(e: ChangeEvent<HTMLInputElement>): void
+  isExist: 'yes' | 'no' | 'none'
+  handleClearAll(): void
+}
 
-  const handleSpeciesChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSpecies(e.target.value)
-  }
-  const clearAll = () => {
-    setFound('')
-    setSpecies('')
-    setIsExist('clear')
-    setEnglishName('')
-    document.getElementById('hintput')?.focus()
-  }
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const target = e.target as typeof e.target & IProps
-    const englishName = target.englishName.value || ''
-    const parent = target.parent.value || ''
-    const order = target.order.value || ''
-    const species = target.species.value || ''
-    const family = target.family.value || ''
-    const genus = target.genus.value || ''
-    const info = target.info.value || ''
-    const image = target.image.value || ''
-
-    const nTaxonomy: ITaxonomy = {
-      ancestors: [order, family, genus],
-      parent,
-      rank: 'species',
-      taxonomyName: species,
-      image: image,
-      approved: false,
-      username: '',
-    }
-  }
-
-  useEffect(() => {
-    if (isExist && found) {
-      setEnglishName(found)
-    }
-  }, [found, isExist])
-
-  const handleBlur = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-    const n = ts.filter(t => {
-      return value
-        .toLowerCase()
-        .trim()
-        .includes(t.taxonomyName.toLocaleLowerCase().trim())
-    })
-
-    if (n[0]) {
-      setFound(n[0]?.englishName || '')
-      setIsExist('yes')
-    } else {
-      setIsExist('no')
-      setFound('')
-    }
-  }
+export const CreateSpeciesForm: FC<Props> = ({
+  selectSpecies,
+  handleSubmit,
+  handleSpeciesChange,
+  handleBlur,
+  taxonomyNames,
+  species,
+  englishName,
+  parents,
+  handleSelectEName,
+  handleSelectNameEvent,
+  handleSelectBlurParent,
+  handleClearAll,
+  isExist,
+}) => {
   return (
     <Modal>
       <ModalOpenButton>
-        <Button variant="secondary">Add New Species</Button>
+        <Button onClick={() => selectSpecies('species')} variant="secondary">
+          Add New Species
+        </Button>
       </ModalOpenButton>
       <ModalContents
         className={css({
@@ -93,11 +58,11 @@ export const CreateSpecies: FC = () => {
               gap: '1em',
             })}
           >
-            <label htmlFor="hintput">Species or Binomial Name</label>
+            <label htmlFor="species">Species or Binomial Name</label>
             <Hintput
               items={taxonomyNames}
               value={species}
-              id="hintput"
+              id="species"
               className={css({
                 width: '99%',
               })}
@@ -111,7 +76,8 @@ export const CreateSpecies: FC = () => {
               type="text"
               placeholder="English name"
               value={englishName}
-              onChange={e => setEnglishName(e.target.value)}
+              name="englishName"
+              onChange={handleSelectNameEvent}
             />
             {isExist === 'no' && (
               <>
@@ -123,7 +89,11 @@ export const CreateSpecies: FC = () => {
                   placeholder="Enter info"
                 ></textarea>
                 <label htmlFor="parent">Parent</label>
-                <input id="parent"></input>
+                <Hintput
+                  id="parent"
+                  items={parents}
+                  onBlur={handleSelectBlurParent}
+                ></Hintput>
                 <fieldset
                   className={css({
                     display: 'flex',
@@ -147,9 +117,9 @@ export const CreateSpecies: FC = () => {
                     placeholder="Enter name of the Genus"
                   ></input>
                 </fieldset>
-                <label>Image url</label>
+                <label htmlFor="image">Image url</label>
                 <input
-                  id="img_url"
+                  id="image"
                   placeholder="Image Url from img, url starting with i"
                 />
               </>
@@ -165,7 +135,7 @@ export const CreateSpecies: FC = () => {
                 </Button>
               )}
               {isExist === 'yes' && (
-                <Button variant="danger" onClick={() => clearAll()}>
+                <Button variant="danger" onClick={() => handleClearAll()}>
                   Clear
                 </Button>
               )}

@@ -1,21 +1,19 @@
 import { css } from '@emotion/css'
 import { FullPageSpinner } from 'components/themed-components'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { IProfile } from 'utils/types'
 import { useProfile, useSetAvatar } from './user-api'
 import * as colors from 'utils/colors'
 import { useAuth } from 'contexts/userContext'
 import { numberToDate } from 'utils/tools'
-import { IconButtons } from 'components/themed-button'
-import nextSvg from 'assets/next.svg'
-import changeProfile from 'assets/change-profile.svg'
+
 import { PanelNav } from '../admin/PanelNav'
-import { DialogContent, DialogOverlay } from '@reach/dialog'
+import { ThumbnailGallery } from 'components/ThumbnailGallery'
 
 export const Profile: FC = () => {
   const { username } = useParams()
-  const { username: owner } = useAuth()
+  const { username: owner, isLogin } = useAuth()
   const { data, isError, isLoading } = useProfile(username || '')
   const { mutate: changeAvatar } = useSetAvatar()
 
@@ -62,7 +60,11 @@ export const Profile: FC = () => {
                 bottom: 0,
               })}
             >
-              <ThumbnailGallery handleSubmit={handleSubmit}></ThumbnailGallery>
+              {isLogin && (
+                <ThumbnailGallery
+                  handleSubmit={handleSubmit}
+                ></ThumbnailGallery>
+              )}
             </div>
 
             <img
@@ -87,7 +89,7 @@ export const Profile: FC = () => {
             <Link to={`/lists/${user.username}`}> Lists.</Link>
           </div>
         </div>
-        <p>close account</p>
+        {isLogin && <p>close account</p>}
         <PanelNav />
       </div>
     )
@@ -120,106 +122,5 @@ export const Profile: FC = () => {
       {user.username} has {user.totalLists}
       <Link to={`/lists/${user.username}`}> Lists.</Link>
     </div>
-  )
-}
-
-const ThumbnailGallery: FC<{ handleSubmit(u: string): void }> = ({
-  handleSubmit,
-}) => {
-  const TOTAL = 245
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-
-  const totalIndex = Array.from(Array(TOTAL).keys()).map(n => n + 1)
-  const chunks = 10
-  const pics = [...Array(Math.ceil(totalIndex.length / chunks))].map(_ =>
-    totalIndex.splice(0, chunks),
-  )
-
-  const max = pics.length
-
-  const [index, setIndex] = useState(0)
-  return (
-    <>
-      <IconButtons
-        style={{ background: '#B7ADCF', opacity: 0.5 }}
-        toolTip="Change Avatar"
-        bgImage={changeProfile}
-        onClick={() => {
-          setIsOpen(true)
-        }}
-        imgStyle={{ maxWidth: '20px' }}
-      ></IconButtons>
-      <DialogOverlay isOpen={isOpen} onDismiss={() => setIsOpen(false)}>
-        <DialogContent aria-label="form avatar" className={css({})}>
-          <div
-            className={css({
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            })}
-          >
-            <IconButtons
-              toolTip="Previous"
-              bgImage={nextSvg}
-              imgStyle={{ transform: 'rotate(180deg)' }}
-              onClick={() => {
-                setIndex(i => {
-                  if (i > 0) return i - 1
-                  else {
-                    return 0
-                  }
-                })
-              }}
-            ></IconButtons>
-            <div
-              className={css({
-                display: 'grid',
-                '@media screen and (min-width:700px)': {
-                  gridTemplateColumns: 'repeat(5,1fr)',
-                  gridTemplateRows: 'repeat(2,1fr)',
-                  gap: '.6em',
-                  margin: 'auto',
-                },
-                gridTemplateColumns: 'repeat(5,1fr)',
-                gridTemplateRows: 'repeat(2,1fr)',
-                gap: '.2em',
-              })}
-            >
-              {pics[index].map(k => (
-                <img
-                  key={k}
-                  className={css({
-                    maxWidth: '50px',
-                    '@media screen and (min-width:700px)': {
-                      maxWidth: '150px',
-                    },
-                  })}
-                  src={`/thumbs/${k}.jpg`}
-                  alt="avatar"
-                  onClick={() => {
-                    handleSubmit(`${k}`)
-                    setIsOpen(false)
-                  }}
-                />
-              ))}
-            </div>
-            <IconButtons
-              toolTip="Next"
-              bgImage={nextSvg}
-              disabled={index === 3}
-              onClick={() => {
-                setIndex(i => {
-                  if (i < max - 1) return i + 1
-                  else {
-                    return max - 1
-                  }
-                })
-              }}
-              imgStyle={{ opacity: index === max ? 0 : 1 }}
-            ></IconButtons>
-          </div>
-        </DialogContent>
-      </DialogOverlay>
-    </>
   )
 }

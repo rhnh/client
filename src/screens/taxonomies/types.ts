@@ -5,6 +5,7 @@ export interface IProps {
   order: HTMLInputElement
   family: HTMLInputElement
   genus: HTMLInputElement
-  species: HTMLInputElement
+  taxonomyName: HTMLInputElement
   image: HTMLInputElement
+  rank: HTMLSelectElement
 }

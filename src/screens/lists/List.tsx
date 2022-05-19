@@ -81,7 +81,6 @@ export const List = () => {
               borderRadius: '25px',
             })}
           />
-          <Button variant="secondary">Advance Search</Button>
         </div>
         <CreateUserTaxonomy />
       </section>

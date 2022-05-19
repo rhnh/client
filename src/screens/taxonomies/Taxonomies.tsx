@@ -1,83 +1,140 @@
-import { useState } from 'react'
-import { SearchBar } from 'components/SearchBar'
-import { css } from '@emotion/css'
-import { Species } from './Species'
-import { useTaxonomies } from './taxonomies-api'
-import { FullPageSpinner } from 'components/themed-components'
+import { useEffect } from 'react'
 import { useAuth } from 'contexts/userContext'
-
+import { ITaxonomy } from 'utils/types'
+import { useInView } from 'react-intersection-observer'
+import { useInfiniteQuery } from 'react-query'
+import { Link } from 'react-router-dom'
+import { Species } from './Species'
+import { ReLoginButton } from 'components/themed-components'
+interface MYResult {
+  page: number
+  hasNextPage: boolean
+  hasPreviousPage: boolean
+  totalPages: number
+  nextPage: number
+  previousPage: number
+  totalItems: number
+  items: ITaxonomy[]
+}
 export const Taxonomies = () => {
-  const {
-    isLoading,
-    data: taxonomies,
-    isError,
-    error,
-    isFetching,
-  } = useTaxonomies()
-  const { isLogin, isLoading: isLoadingAuth } = useAuth()
+  const { isLogin, token } = useAuth()
+  const { ref, inView } = useInView()
 
-  const err = error as Error
-  const [search, setSearch] = useState('')
-
-  if (!isLogin) {
-    return <p>Not logged in</p>
-  }
-  const birds = taxonomies?.filter((bird: any) => {
-    if (search === '') {
-      return bird
-    } else {
-      if (bird?.englishName) {
-        return bird?.englishName
-          .toLocaleLowerCase()
-          .trim()
-          .includes(search.toLocaleLowerCase().trim())
-      } else {
-        return bird
-      }
+  const myFetch = async (d: unknown, token: string): Promise<MYResult> => {
+    const c: number = d as unknown as number
+    if (!isLogin || token === '') {
+      return Promise.resolve({
+        page: 1,
+        hasNextPage: false,
+        hasPreviousPage: false,
+        totalPages: 1,
+        nextPage: 1,
+        previousPage: 1,
+        totalItems: 1,
+        items: [],
+      })
     }
-  })
+    const res = await fetch(`/api/taxonomies/paginated/?page=${c}&limit=2`, {
+      method: 'get',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    })
 
-  const birdNames: string[] = (taxonomies?.map(
-    bird => bird.englishName,
-  ) as string[]) || ['']
+    if (!isLogin && res.status === 401) {
+      return Promise.resolve({
+        page: 1,
+        hasNextPage: false,
+        hasPreviousPage: false,
+        totalPages: 1,
+        nextPage: 1,
+        previousPage: 1,
+        totalItems: 1,
+        items: [],
+      })
+    }
 
-  return isLoading || isLoadingAuth ? (
-    <FullPageSpinner />
-  ) : isError ? (
-    <p>{err.message} </p>
-  ) : (
-    <>
-      <SearchBar data={birdNames} search={search} setSearch={setSearch} />
+    const j = (await res.json()) as MYResult
+    return j
+  }
+  const isAuth = isLogin && token ? true : false
+  const {
+    status,
+    data,
+    error: err,
+    isFetching,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasNextPage,
+  } = useInfiniteQuery(
+    ['taxonomies'],
+    ({ pageParam = 0 }) => myFetch(pageParam, token),
+    {
+      getNextPageParam: (currentPage, pages) => {
+        return currentPage.nextPage
+      },
+      enabled: isAuth,
+    },
+  )
 
-      <div
-        className={css({
-          display: 'flex',
-          flexDirection: 'column',
-          width: '100%',
-        })}
-      >
-        {' '}
-        {isFetching ? <p>...loading</p> : null}
-        {birds?.map(taxonomy => {
-          if (taxonomy._id === undefined && !taxonomy) {
-            return <p>Not found</p>
-          }
-          return (
-            <Species
-              key={taxonomy._id}
-              taxonomyName={taxonomy.taxonomyName}
-              rank={taxonomy.rank}
-              englishName={taxonomy.englishName}
-              image={taxonomy.image}
-              approved={false}
-              username={''}
-              _id={taxonomy._id}
-              parent={taxonomy.parent}
-              ancestors={taxonomy.ancestors}
-            />
-          )
-        })}
-      </div>
-    </>
+  const error: Error = err as Error
+
+  useEffect(() => {
+    if (inView && isLogin) {
+      fetchNextPage()
+    }
+  }, [fetchNextPage, inView, isLogin])
+  if (!isLogin) {
+    return <ReLoginButton />
+  }
+  return (
+    <div>
+      <h1>list of Birds</h1>
+      {status === 'loading' ? (
+        <p>Loading...</p>
+      ) : status === 'error' ? (
+        <span>Error: {error.message}</span>
+      ) : (
+        <>
+          {data?.pages &&
+            data?.pages.map(d =>
+              d.items.map(t => (
+                <Species
+                  key={t._id}
+                  info={t.info}
+                  _id={t._id}
+                  taxonomyName={t.taxonomyName}
+                  rank={t.rank}
+                  image={t.image}
+                  approved={t.approved}
+                  username={t.username}
+                />
+              )),
+            )}
+
+          <div>
+            <button
+              ref={ref}
+              onClick={() => fetchNextPage()}
+              disabled={!hasNextPage || isFetchingNextPage}
+            >
+              {isFetchingNextPage
+                ? 'Loading more...'
+                : hasNextPage
+                ? 'Load Newer'
+                : 'Nothing more to load'}
+            </button>
+          </div>
+          <div>
+            {isFetching && !isFetchingNextPage
+              ? 'Background Updating...'
+              : null}
+          </div>
+        </>
+      )}
+      <hr />
+      <Link to="/about"></Link>
+    </div>
   )
 }

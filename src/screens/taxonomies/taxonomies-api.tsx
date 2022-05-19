@@ -69,6 +69,7 @@ export function useTaxonomyById({ _id }: { _id: string }) {
       ),
     {
       enabled: token ? true : false,
+      refetchOnMount: false,
     },
   )
 }
@@ -191,35 +192,115 @@ export function useGetSpeciesName() {
 }
 
 //get by rank name
-export function useGetByRank(rank: IRank) {
+export function useGetByRank(rank: IRank | '') {
   const { token } = useAuth()
   return useQuery(
     ['ranks', rank],
-    () => {
-      return fetch(`/api/taxonomies/rank/${rank}`, {
+    async () => {
+      const res = await fetch(`/api/taxonomies/rank/${rank}`, {
         method: 'GET',
+
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-      }).then(res => res.json())
+      })
+
+      return await res.json()
     },
     {
-      enabled: typeof token === 'string' && token !== '' ? true : false,
+      enabled:
+        typeof token === 'string' && token !== '' && rank !== '' ? true : false,
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      refetchInterval: false,
+      retry: false,
+      refetchIntervalInBackground: false,
     },
   )
 }
 
 export function useCreate() {
+  const queryClient = useQueryClient()
   const { token } = useAuth()
-  return useMutation(({ t }: { t: ITaxonomy }) => {
-    return fetch(`/api/taxonomies`, {
-      method: 'POST',
-      body: JSON.stringify(t),
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
+  return useMutation(
+    async ({ taxonomy }: { taxonomy: ITaxonomy }) => {
+      if (
+        taxonomy.taxonomyName === '' ||
+        taxonomy.englishName === '' ||
+        taxonomy.parent === ''
+      ) {
+        return
+      }
+      console.log(taxonomy)
+      const res = await fetch(`/api/taxonomies`, {
+        method: 'post',
+        body: JSON.stringify(taxonomy),
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      })
+      return await res.json()
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('ranks')
       },
-    })
-  })
+    },
+  )
+}
+export function useGetAncestors({
+  parent,
+  rank,
+}: {
+  parent: string
+  rank: string
+}) {
+  const { token } = useAuth()
+
+  return useQuery(
+    'ancestors',
+    async () => {
+      const res = await fetch(`/api/taxonomies/ancestors/${parent}/${rank}`, {
+        method: 'get',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      })
+      return await res.json()
+    },
+    {
+      enabled:
+        typeof token === 'string' &&
+        token !== '' &&
+        parent !== '' &&
+        rank !== ''
+          ? true
+          : false,
+      refetchOnWindowFocus: false,
+    },
+  )
+}
+export function useGetUnApproved() {
+  const { token } = useAuth()
+
+  return useQuery(
+    'ancestors',
+    async () => {
+      const res = await fetch(`/api/taxonomies/unapproved`, {
+        method: 'get',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      })
+      return await res.json()
+    },
+    {
+      enabled: typeof token === 'string' && token !== '' ? true : false,
+      refetchOnWindowFocus: false,
+    },
+  )
 }

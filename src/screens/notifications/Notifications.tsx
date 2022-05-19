@@ -41,12 +41,18 @@ export const Notifications: FC = () => {
     create(n)
     setIsOpen(false)
   }
-
+  const openDialog = () => {
+    setIsOpen(true)
+  }
+  const closeDialog = () => {
+    setIsOpen(false)
+  }
   return (
     <>
       <AddNotification
         isOpen={isOpen}
-        setIsOpen={setIsOpen}
+        openDialog={openDialog}
+        closeDialog={closeDialog}
         handleSubmit={handleSubmit}
       />
 

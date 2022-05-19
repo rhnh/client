@@ -6,11 +6,12 @@ import {
 import { useAuth } from 'contexts/userContext'
 import { FC } from 'react'
 import { useParams } from 'react-router-dom'
-import { useTaxonomyById } from './taxonomies-api'
+import { ITaxonomy } from 'utils/types'
 import { Species } from './Species'
+import { useTaxonomyById } from './taxonomies-api'
 
 export const SpeciesById: FC = () => {
-  const { isLogin } = useAuth()
+  const { isLogin, username } = useAuth()
   const { id } = useParams()
   const { isLoading, data, isError } = useTaxonomyById({
     _id: id || '',
@@ -22,6 +23,8 @@ export const SpeciesById: FC = () => {
   if (!data && isLoading) {
     return <FullPageSpinner />
   }
+
+  const t: ITaxonomy = (data as ITaxonomy) ?? []
 
   return isLoading ? (
     <FullPageSpinner />

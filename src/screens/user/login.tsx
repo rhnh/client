@@ -24,7 +24,7 @@ export const Login: FC = () => {
 
   useEffect(() => {
     setLogin('idle')
-    if (isLogin && pathname === '/login') {
+    if (isLogin && pathname === '/users/login') {
       navigate('/')
     }
   }, [isLogin, navigate, pathname, setLogin])

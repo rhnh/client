@@ -3,33 +3,34 @@ import { css } from '@emotion/css'
 import { Modal, ModalDismissButton, ModalOpenButton } from 'components/modal'
 import { Button, CircleButton } from 'components/themed-button'
 import { Dialog } from 'components/themed-components'
-import React, { Dispatch, FC, FormEvent, useState } from 'react'
+import React, { FC, FormEvent, useState } from 'react'
 
 type Props = {
   isOpen: boolean
   handleSubmit(e: FormEvent<HTMLFormElement>): void
-
-  setIsOpen: Dispatch<boolean>
+  openDialog(): void
+  closeDialog(): void
 }
 
 export const AddNotification: FC<Props> = ({
   isOpen,
   handleSubmit,
-  setIsOpen,
+  openDialog,
+  closeDialog,
 }) => {
   const [isActive, setActive] = useState<boolean>(false)
   return (
     <div>
       <Modal isShow={isOpen}>
         <ModalOpenButton>
-          <Button variant="secondary" onClick={() => setIsOpen(true)}>
+          <Button variant="secondary" onClick={openDialog}>
             add
           </Button>
         </ModalOpenButton>
 
         <Dialog aria-label="form new notifications" isOpen={isOpen}>
           <ModalDismissButton>
-            <CircleButton onClick={() => setIsOpen(false)}>x</CircleButton>
+            <CircleButton onClick={closeDialog}>x</CircleButton>
           </ModalDismissButton>
           <form
             className={css({

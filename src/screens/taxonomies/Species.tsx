@@ -10,7 +10,7 @@ import { useGetBirdIds, useLists } from 'screens/lists/list-api'
 import * as colors from 'utils/colors'
 import Tooltip from '@reach/tooltip'
 
-import { AddTaxonomy } from './AddTaxonomy'
+import { AddTaxonomy } from './AddUserTaxonomy'
 import { CircleButton } from 'components/themed-button'
 import { FullPageSpinner } from 'components/themed-components'
 
@@ -20,17 +20,19 @@ export const Species: FC<ITaxonomy> = ({
   image,
   taxonomyName,
   info,
-  slug,
   ancestors,
   parent,
 }) => {
   const { data: lists, isLoading, isFetching } = useLists()
   const [isOpen, setIsOpen] = useState(false)
   const { data, isLoading: isLoadingBirdIds, isError } = useGetBirdIds()
-
+  // useEffect(() => {
+  //   window.location.reload()
+  // }, [])
   if (!data && isLoadingBirdIds && !isError) {
     return <FullPageSpinner />
   }
+
   if (!lists && !isLoading) {
     return <FullPageSpinner />
   }
@@ -40,10 +42,9 @@ export const Species: FC<ITaxonomy> = ({
   const birdIds = data ?? []
   const ids: string[] = (birdIds as string[]) || []
   const alreadyInList = Array.isArray(ids) ? ids.includes(_id || '') : false
-  // const alreadyInList = true
-  if (!_id) {
-    return null
-  }
+  // if (!_id) {
+  //   return null
+  // }
 
   const ranks = ['order', 'family', 'genus', 'species']
 
@@ -52,11 +53,11 @@ export const Species: FC<ITaxonomy> = ({
       key={_id}
       className={css({
         display: 'flex',
-        border: '2px solid #ffeae2',
+        // border: '2px solid #ffeae2',
         maxWidth: '100%',
         gap: '1em',
         padding: '1em',
-
+        transition: ' height 0.25s linear',
         margin: '1em',
         overflow: 'hidden',
         background: colors.plate,
@@ -73,7 +74,7 @@ export const Species: FC<ITaxonomy> = ({
       })}
     >
       <Link
-        to={`/taxonomy/id/${_id
+        to={`/taxonomies/taxonomy/id/${_id
           ?.toString()
           .toLowerCase()
           .replace(/[^a-z0-9]+/, '-')}`}
@@ -115,13 +116,14 @@ export const Species: FC<ITaxonomy> = ({
           display: 'flex',
           flexDirection: 'column',
           gap: '1em',
+          transition: ' height 0.25s linear',
         })}
       >
-        <div className="taxonomyName">Name: {englishName}</div>
-        <div className="taxonomy">Taxonomy: {taxonomyName}</div>
+        <div className="taxonomyName"> {englishName}</div>
+        <div className="taxonomy"> {taxonomyName}</div>
         {parent ? (
           <div className="taxonomy">
-            <Link to={`/taxonomy/taxonomyName/${parent}`}>{parent}</Link>
+            <Link to={`/taxonomies/taxonomyName/${parent}`}>{parent}</Link>
           </div>
         ) : null}
         {info ? (
@@ -132,10 +134,10 @@ export const Species: FC<ITaxonomy> = ({
         {ancestors ? (
           <div>
             {ancestors?.map((ans, i) => (
-              <div key={_id}>
+              <div key={i}>
                 <span>
                   {ranks[i].toUpperCase()}:{' '}
-                  <Link to={`/taxonomy/taxonomyName/${ans}`}> {ans}</Link>
+                  <Link to={`/taxonomies/taxonomyName/${ans}`}> {ans}</Link>
                 </span>
               </div>
             ))}
