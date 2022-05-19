@@ -19,7 +19,7 @@ export const ListItems: FC<{ birds: IListBird[] }> = ({ birds }) => {
           <p>
             Name:{' '}
             <Link
-              to={`/taxonomy/id/${bird._id
+              to={`/taxonomies/taxonomy/id/${bird._id
                 ?.toLowerCase()
                 .replace(/[^a-z0-9]+/, '-')}`}
             >
