@@ -65,7 +65,7 @@ const ModalContentsBase: React.FC<I> = ({ children, ...props }) => {
       <DialogContent
         className={css({
           padding: '.2em',
-          position: 'relative',
+          position: 'sticky',
         })}
         aria-label="form"
         style={style}
