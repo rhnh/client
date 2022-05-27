@@ -57,9 +57,6 @@ const ModalContentsBase: React.FC<I> = ({ children, ...props }) => {
       aria-label="dialog"
       isOpen={isOpen}
       onDismiss={() => setIsOpen(false)}
-      className={css({
-        position: 'relative',
-      })}
       {...propsWithStyle}
     >
       <DialogContent
