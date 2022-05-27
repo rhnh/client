@@ -2,47 +2,56 @@ import { useParams } from 'react-router-dom'
 import '@reach/dialog/styles.css'
 import { FullPageSpinner, ReLoginButton } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
-import { Hintput } from '@ribrary/hintput'
 import { ChangeEvent, useState } from 'react'
 import { useGetUserList } from './list-api'
 import { css } from '@emotion/css'
 import { ListItems } from './ListItems'
-import { IListBird } from 'utils/types'
+import { IList, ITaxonomy } from 'utils/types'
 import { CreateUserTaxonomy } from 'screens/taxonomies/CreateUserTaxonomy'
-import { Button } from 'components/themed-button'
-
+import { useEffect } from 'react'
+import { SearchBar } from 'components/SearchBar'
+const placeholder: IList = {
+  listName: '',
+  birds: [],
+  username: '',
+}
 export const List = () => {
+  const [search, setSearch] = useState('')
   const { listName } = useParams()
   const { isLogin } = useAuth()
-  const [search, setSearch] = useState('')
 
   const { isLoading, isError, data } = useGetUserList(listName || '')
-  const [birds, setBirds] = useState<IListBird[]>(data ?? [])
 
-  const names: string[] = Array.isArray(data)
-    ? (data?.map(bird => bird.englishName) as string[])
+  const [list, setList] = useState<IList>(
+    (data as unknown as IList) ?? placeholder,
+  )
+  const [birds, setBirds] = useState<ITaxonomy[]>([])
+
+  useEffect(() => {
+    setBirds(list?.birds || [])
+  }, [list?.birds])
+
+  useEffect(() => {
+    setList((data as unknown as IList) ?? placeholder)
+  }, [data])
+
+  const names: string[] = Array.isArray(birds)
+    ? (birds?.map(bird => bird?.englishName) as string[])
     : []
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value)
+    const filtered = list?.birds?.filter(bird =>
+      bird.englishName?.toLowerCase().includes(e.target.value.toLowerCase()),
+    )
+    setBirds(filtered || [])
+  }
 
   if (!isLogin) {
     return <ReLoginButton />
   }
   if (!data && isLoading) {
     return <FullPageSpinner />
-  }
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (search === '') {
-      setBirds(data ?? [])
-    } else {
-      const b: IListBird[] =
-        data?.filter(bird =>
-          bird.englishName
-            .trim()
-            .toLowerCase()
-            .includes(search.trim().toLowerCase()),
-        ) || []
-      setBirds(b)
-    }
-    setSearch(e.target.value)
   }
 
   return isLoading ? (
@@ -64,33 +73,21 @@ export const List = () => {
             display: 'flex',
             flexDirection: 'row',
           })}
-        >
-          <Hintput
-            numberOfSuggestions={2}
-            items={names}
-            onChange={handleChange}
-            onBlur={handleChange}
-            value={search}
-            placeholder="Enter names of Birds"
-            className={css({
-              padding: '10px',
-              fontSize: '17px',
-              border: '1px solid grey',
-              float: 'left',
-              width: '95%',
-              borderRadius: '25px',
-            })}
-          />
-        </div>
+        ></div>
         <CreateUserTaxonomy />
       </section>
-
+      <SearchBar
+        data={names}
+        search={search}
+        handleChange={handleChange}
+        handleBlur={() => {}}
+      />
       <section
         className={css({
           padding: '1em',
         })}
       >
-        <ListItems birds={birds} />
+        <ListItems birds={birds || []} />
       </section>
     </div>
   )

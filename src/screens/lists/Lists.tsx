@@ -32,7 +32,9 @@ export const Lists: FC = () => {
       </div>
     )
   }
-
+  if (isLoading) {
+    return <FullPageSpinner />
+  }
   return (
     <div
       className={css({
@@ -72,7 +74,6 @@ export const Lists: FC = () => {
 
                   ':hover': {
                     color: 'green',
-                    // background: 'lightGreen',
                     opacity: '0.6',
                   },
                 })}

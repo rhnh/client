@@ -29,7 +29,7 @@ export const useGetUserList = (listName: string) => {
 export const useGetBirdIds = () => {
   const { token, username, isLogin } = useAuth()
   return useQuery(
-    'birdIds',
+    'birds',
     async () => {
       return fetch(`/api/lists/birds/${username}`, {
         method: 'POST',
@@ -46,6 +46,31 @@ export const useGetBirdIds = () => {
     },
     {
       enabled: isLogin && token ? true : false,
+      refetchInterval: false,
+    },
+  )
+}
+export const useGetBird = (listName: string) => {
+  const { token, isLogin } = useAuth()
+  return useQuery(
+    'birds',
+    async () => {
+      return fetch(`/api/lists/detail/${listName}`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }).then(res => {
+        if (res.status === 401) {
+          window.location.reload()
+        }
+        return res.json()
+      })
+    },
+    {
+      enabled: isLogin && token ? true : false,
+      refetchInterval: false,
     },
   )
 }

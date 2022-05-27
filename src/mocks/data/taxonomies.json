@@ -8,7 +8,7 @@
       "parent": "Haliaeetus",
       "image": "african-fish-eagle.jpg",
       "info": "Some info about it",
-      "approved": true
+      "isApproved": true
     },
     {
       "_id": 2,
@@ -18,7 +18,7 @@
       "parent": "Haliaeetus",
       "image": "white-bellied-sea-eagle.jpg",
       "info": "Some info about it",
-      "approved": true
+      "isApproved": true
     },
     {
       "_id": 3,
@@ -28,7 +28,7 @@
       "parent": "Haliaeetus",
       "image": "madagascar-fish-eagle.jpg",
       "info": "Some info about it",
-      "approved": true
+      "isApproved": true
     },
     {
       "_id": 4,
@@ -38,7 +38,7 @@
       "parent": "Coracias",
       "image": "lilac-breasted-roller.jpg",
       "info": "Some info about it",
-      "approved": true
+      "isApproved": true
     },
     {
       "_id": 5,
@@ -48,7 +48,7 @@
       "parent": "Coracias",
       "image": "purple-roller.jpg",
       "info": "Some info about it",
-      "approved": true
+      "isApproved": true
     },
     {
       "_id": 6,
@@ -58,7 +58,7 @@
       "parent": "Coracias",
       "image": "indochinese-roller.jpg",
       "info": "Some info about it",
-      "approved": true
+      "isApproved": true
     },
     {
       "_id": 7,
@@ -68,7 +68,7 @@
       "parent": "Eurystomus",
       "image": "oriental-roller.jpg",
       "info": "Some info about it",
-      "approved": true
+      "isApproved": true
     },
     {
       "_id": 8,
@@ -78,7 +78,7 @@
       "parent": "Corvus",
       "image": "pied-crow.jpg",
       "info": "Some info about it",
-      "approved": true
+      "isApproved": true
     },
     {
       "_id": 9,
@@ -88,7 +88,7 @@
       "parent": "Corvus",
       "image": "common-raven.jpg",
       "info": "Some info about it",
-      "approved": true
+      "isApproved": true
     },
     {
       "_id": 10,
@@ -98,7 +98,7 @@
       "parent": "Corvus",
       "image": "carrion-crow.jpg",
       "info": "Some info about it",
-      "approved": true
+      "isApproved": true
     },
     {
       "_id": 11,
@@ -108,7 +108,7 @@
       "parent": "Sagittarius",
       "image": "secretarybird.jpg",
       "info": "Some info about it",
-      "approved": true
+      "isApproved": true
     }
   ]
 }

@@ -1,13 +1,13 @@
 import { css } from '@emotion/css'
 import React, { FC } from 'react'
 import { Link } from 'react-router-dom'
-import { IListBird } from 'utils/types'
 
-export const ListItems: FC<{ birds: IListBird[] }> = ({ birds }) => {
+export const ListItems: FC<{ birds: any[] }> = ({ birds }) => {
   return (
     <>
       {birds?.map(bird => (
         <div
+          key={bird._id}
           className={css({
             padding: '1em',
             border: '1px solid gray',

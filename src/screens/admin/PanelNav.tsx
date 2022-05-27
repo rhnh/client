@@ -4,6 +4,7 @@ import { FC } from 'react'
 import membersIcon from 'assets/people.svg'
 import notifyIcon from 'assets/notification.svg'
 import addBirdIcon from 'assets/add.svg'
+import approvedIcon from 'assets/approve.svg'
 import { css } from '@emotion/css'
 type Props = {}
 
@@ -31,6 +32,12 @@ export const PanelNav: FC<Props> = (props: Props) => {
           to="/taxonomies/taxonomy/create"
           toolTip="Add Taxonomy"
           bgImage={addBirdIcon}
+          imgStyle={{ width: '20px', height: 'auto' }}
+        />
+        <IconLinks
+          to="/taxonomies/unapproved"
+          toolTip="Approve"
+          bgImage={approvedIcon}
           imgStyle={{ width: '20px', height: 'auto' }}
         />
       </div>
