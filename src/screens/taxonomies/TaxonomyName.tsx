@@ -4,7 +4,7 @@ import { ITaxonomy } from 'utils/types'
 import { Species } from './Species'
 import { useGetTaxonomyByName } from './taxonomies-api'
 
-export const Taxonomy: FC = () => {
+export const TaxonomyName: FC = () => {
   const { taxonomyName } = useParams()
   const { isLoading, data } = useGetTaxonomyByName({
     taxonomyName: taxonomyName || '',
@@ -35,7 +35,7 @@ export const Taxonomy: FC = () => {
             rank={taxonomy.rank}
             englishName={taxonomy.englishName}
             image={taxonomy.image}
-            approved={false}
+            isApproved={false}
             username={''}
             info={taxonomies.length === 1 ? taxonomy.info : ''}
             _id={taxonomy._id}

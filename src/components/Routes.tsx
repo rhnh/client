@@ -10,7 +10,7 @@ import { SpeciesById } from 'screens/taxonomies/SpeciesById'
 import FeaturedArticle from 'screens/posts/featured'
 import { Members } from 'screens/user/Members'
 import { InfoBox } from './themed-components'
-import { Taxonomy } from 'screens/taxonomies/Taxonomy'
+import { TaxonomyName } from 'screens/taxonomies/TaxonomyName'
 import { ShowPost } from 'screens/posts/ShowPost'
 import { Notifications } from 'screens/notifications/Notifications'
 import { CreateTaxonomy } from 'screens/taxonomies/CreateTaxonomy'
@@ -43,7 +43,7 @@ export const AppRoutes: FC = () => {
         <Route path="/taxonomies/taxonomy" element={<CreateUserTaxonomy />} />
         <Route
           path={`/taxonomies/taxonomyName/:taxonomyName`}
-          element={<Taxonomy />}
+          element={<TaxonomyName />}
         />
         <Route
           path="/taxonomies/taxonomy/create"
