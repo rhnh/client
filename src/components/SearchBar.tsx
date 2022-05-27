@@ -28,14 +28,16 @@ export const SearchBar: FC<Props> = ({
         boxShadow: '0 6px 10px 0 rgba(0, 0, 0 , .1)',
         fontSize: '1rem',
         letterSpacing: '5px',
-
         border: '0',
         outline: '0',
         padding: '22px 18px;',
-        width: '100%',
+        width: 'auto',
         borderRadius: '25px',
         '::placeholder': {
           textAlign: 'center',
+        },
+        '@media screen and (min-width:600px) ': {
+          width: '98%',
         },
       })}
       value={search}
