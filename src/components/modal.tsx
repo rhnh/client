@@ -65,7 +65,6 @@ const ModalContentsBase: React.FC<I> = ({ children, ...props }) => {
       <DialogContent
         className={css({
           padding: '.2em',
-          position: 'sticky',
         })}
         aria-label="form"
         style={style}
@@ -86,21 +85,27 @@ const ModalContents: React.FC<
 > = ({ title, children, ...props }: PropsContent) => {
   return (
     <ModalContentsBase {...props}>
-      <ModalDismissButton>
-        <CircleButton
-          className={css({
-            position: 'absolute',
-            top: '10px',
-            right: '10px',
-          })}
-        >
-          <VisuallyHidden>Close</VisuallyHidden>
-          <span aria-hidden>×</span>
-        </CircleButton>
-      </ModalDismissButton>
+      <div
+        className={css({
+          display: 'flex',
+          flexDirection: 'column',
+        })}
+      >
+        <ModalDismissButton>
+          <CircleButton
+            className={css({
+              top: '2px',
+              right: '2px',
+            })}
+          >
+            <VisuallyHidden>Close</VisuallyHidden>
+            <span aria-hidden>×</span>
+          </CircleButton>
+        </ModalDismissButton>
 
-      {title && <h3>{title}</h3>}
-      {children}
+        {title && <h3>{title}</h3>}
+        {children}
+      </div>
     </ModalContentsBase>
   )
 }
