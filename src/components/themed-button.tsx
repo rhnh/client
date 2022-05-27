@@ -144,7 +144,11 @@ interface Prop {
   imgStyle?: CSSProperties
   toolTipDisabled?: string
 }
-
+/**
+ *
+ * @param - bgImage an imageIcon for, imgStyle for image
+ * @returns
+ */
 export const IconButtons: FC<
   Prop & ButtonHTMLAttributes<HTMLButtonElement>
 > = ({

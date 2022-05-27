@@ -1,13 +1,6 @@
 import { css } from '@emotion/css'
-import { DialogContent, DialogOverlay } from '@reach/dialog'
-import VisuallyHidden from '@reach/visually-hidden'
 import { Modal, ModalContents, ModalOpenButton } from 'components/modal'
-import {
-  Button,
-  CircleButton,
-  IconButtons,
-  LinkedButton,
-} from 'components/themed-button'
+import { Button, IconButtons, LinkedButton } from 'components/themed-button'
 import { FullPageSpinner, WarnBox } from 'components/themed-components'
 import React, { FC, Fragment, useState, FormEvent, useEffect } from 'react'
 import addIcon from 'assets/add.svg'
@@ -27,7 +20,6 @@ export const AddTaxonomy: FC<Props> = ({ englishName, taxonomyName, id }) => {
   const [isExist, setIsExist] = useState(false) // already in list
   useEffect(() => {
     const found = ids?.find((d: string) => id === d)
-    console.log(found)
     if (found) {
       setIsExist(true)
     } else setIsExist(false)
@@ -74,7 +66,8 @@ export const AddTaxonomy: FC<Props> = ({ englishName, taxonomyName, id }) => {
           className={css({
             display: 'flex',
             flexDirection: 'column',
-            // gap: '1.5em',
+            gap: '1.5em',
+            width: '100%',
           })}
         >
           <div>
@@ -88,7 +81,7 @@ export const AddTaxonomy: FC<Props> = ({ englishName, taxonomyName, id }) => {
                 backgroundColor: '#0563af',
                 color: 'white',
                 padding: '12px',
-                // width: '250px',
+                width: '100%',
                 border: 'noe',
                 fontSize: '20px',
                 boxShadow: '0 5px 25px rgba(0, 0, 0, 0.2)',

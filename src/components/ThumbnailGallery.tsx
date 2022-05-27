@@ -23,13 +23,26 @@ export const ThumbnailGallery: FC<{ handleSubmit(u: string): void }> = ({
   return (
     <>
       <IconButtons
-        style={{ background: '#B7ADCF', opacity: 0.5 }}
+        style={{
+          background: '#B7ADCF',
+          opacity: 1,
+          boxShadow: '0 5px 25px rgba(0, 0, 0, 0.2)',
+          border: '1px solid red',
+        }}
         toolTip="Change Avatar"
         bgImage={changeProfile}
         onClick={() => {
           setIsOpen(true)
         }}
-        imgStyle={{ maxWidth: '20px' }}
+        imgStyle={{
+          maxWidth: '20px',
+          background: '#B7ADCF',
+          opacity: 0.5,
+          boxShadow: '0 5px 25px rgba(0, 0, 0, 0.2)',
+          padding: '.6em',
+          margin: '.2em',
+          border: '1px solid white',
+        }}
       ></IconButtons>
       <DialogOverlay isOpen={isOpen} onDismiss={() => setIsOpen(false)}>
         <DialogContent aria-label="form avatar" className={css({})}>

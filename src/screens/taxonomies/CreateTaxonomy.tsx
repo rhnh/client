@@ -1,6 +1,11 @@
 import { css } from '@emotion/css'
 import { Hintput } from '@ribrary/hintput'
-import { Modal, ModalContents, ModalOpenButton } from 'components/modal'
+import {
+  Modal,
+  ModalContents,
+  ModalDismissButton,
+  ModalOpenButton,
+} from 'components/modal'
 import { Button } from 'components/themed-button'
 import { Spinner } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
@@ -68,7 +73,7 @@ export const CreateTaxonomy: FC = () => {
       englishName,
       info,
     }
-    save({ taxonomy })
+    return save({ taxonomy })
   }
 
   const handleBlurTN = (e: ChangeEvent<HTMLInputElement>) => {
@@ -86,13 +91,17 @@ export const CreateTaxonomy: FC = () => {
   const handlePBlur = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target?.value
     setParent(value)
-    ancestorsNames?.filter(
+    const found = ancestorsNames?.filter(
       name => name.toLowerCase().trim() === value.toLowerCase().trim(),
     )
-    if (ancestorsNames) {
+    if (found?.length === 1) {
       setOrder(ancestorsNames[0] || '')
       setFamily(ancestorsNames[1] || '')
       setGenus(ancestorsNames[2] || '')
+    } else {
+      setOrder('')
+      setFamily('')
+      setGenus('')
     }
   }
 

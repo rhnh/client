@@ -140,7 +140,6 @@ export function useAddListItem(listName: string) {
       englishName: string
       taxonomyName?: string
     }) => {
-      console.log(listName, taxonomyName, englishName)
       return fetch(`/api/lists/list/${listName}`, {
         method: 'POST',
         body: JSON.stringify({ englishName, taxonomyName }),
@@ -272,6 +271,7 @@ export function useCreate() {
     {
       onSuccess: () => {
         queryClient.invalidateQueries('ranks')
+        queryClient.invalidateQueries('unapproved')
       },
     },
   )

@@ -1,6 +1,11 @@
 import { css } from '@emotion/css'
 import { Hintput } from '@ribrary/hintput'
-import { Modal, ModalContents, ModalOpenButton } from 'components/modal'
+import {
+  Modal,
+  ModalContents,
+  ModalDismissButton,
+  ModalOpenButton,
+} from 'components/modal'
 import { Button } from 'components/themed-button'
 import React, { ChangeEvent, FC, FormEvent } from 'react'
 import { IRank } from 'utils/types'
@@ -126,18 +131,22 @@ export const CreateSpeciesForm: FC<Props> = ({
             )}
             <div>
               {isExist !== 'yes' && (
-                <Button
-                  variant="primary"
-                  type="submit"
-                  // disabled={isExist === 'yes'}
-                >
-                  Save
-                </Button>
+                <ModalDismissButton>
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    // disabled={isExist === 'yes'}
+                  >
+                    Save
+                  </Button>
+                </ModalDismissButton>
               )}
               {isExist === 'yes' && (
-                <Button variant="danger" onClick={() => handleClearAll()}>
-                  Clear
-                </Button>
+                <ModalDismissButton>
+                  <Button variant="danger" onClick={() => handleClearAll()}>
+                    Clear
+                  </Button>
+                </ModalDismissButton>
               )}
             </div>
           </div>

@@ -5,7 +5,7 @@ import { callAll } from 'utils'
 import '@reach/dialog/styles.css'
 import { DialogContent, DialogOverlay } from '@reach/dialog'
 import { CircleButton } from './themed-button'
-
+import './modal.css'
 import { css } from '@emotion/css'
 
 const ModalContext = React.createContext<
@@ -54,7 +54,7 @@ const ModalContentsBase: React.FC<I> = ({ children, ...props }) => {
 
   return (
     <DialogOverlay
-      aria-label="dialog wooo"
+      aria-label="dialog"
       isOpen={isOpen}
       onDismiss={() => setIsOpen(false)}
       className={css({
