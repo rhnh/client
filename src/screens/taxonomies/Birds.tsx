@@ -1,18 +1,21 @@
 import { css } from '@emotion/css'
 import React, { FC, useEffect, useState } from 'react'
 import { ITaxonomy } from 'utils/types'
-import { AddTaxonomy } from '../AddUserTaxonomy'
-import { Species } from '../Species'
+import { AddTaxonomy } from './AddUserTaxonomy'
+import { Species } from './Species'
 import * as colors from 'utils/colors'
+
 type Props = {
   taxonomies: ITaxonomy[]
 }
 
 export const Birds: FC<Props> = ({ taxonomies }) => {
   const [birds, setBirds] = useState<ITaxonomy[]>([])
+
   useEffect(() => {
     setBirds(taxonomies)
   }, [taxonomies])
+
   return (
     <div className={css({})}>
       {birds.map(t => (

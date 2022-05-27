@@ -313,7 +313,7 @@ export function useGetUnApproved() {
   const { token } = useAuth()
 
   return useQuery(
-    'ancestors',
+    'unapproved',
     async () => {
       const res = await fetch(`/api/taxonomies/unapproved`, {
         method: 'get',
