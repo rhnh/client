@@ -142,23 +142,35 @@ interface Prop {
   bgImage: string
   toolTip: string
   imgStyle?: CSSProperties
+  toolTipDisabled?: string
 }
 
 export const IconButtons: FC<
   Prop & ButtonHTMLAttributes<HTMLButtonElement>
-> = ({ bgImage, onClick, style, toolTip, imgStyle }) => {
+> = ({
+  bgImage,
+  onClick,
+  style,
+  toolTip,
+  imgStyle,
+  disabled,
+  toolTipDisabled,
+}) => {
+  const tip = disabled ? toolTipDisabled : toolTip
   return (
-    <Tooltip label={toolTip}>
+    <Tooltip label={tip}>
       <button
+        disabled={disabled}
         onClick={onClick}
         className={css({
           border: 'none',
-          padding: '.2em',
+          // padding: '.2em',
           background: 'transparent',
-          maxWidth: '25px',
-          maxHeight: 'auto',
-          margin: '.2em',
-          ...style,
+          // maxWidth: '25px',
+          // maxHeight: 'auto',
+          // margin: '.2em',
+          // ...style,
+          opacity: disabled ? 0.2 : 1,
         })}
       >
         <img
@@ -166,8 +178,8 @@ export const IconButtons: FC<
           alt="x"
           className={css({
             display: 'block',
-            minHeight: '20px',
-            minWeight: '20px',
+            height: '20px',
+            width: '20px',
             ':hover': {
               opacity: 0.5,
             },
