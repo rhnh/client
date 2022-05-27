@@ -23,7 +23,6 @@ export const CreateTaxonomy: FC = () => {
     rank,
   })
   const ancestors = data !== undefined ? data[0] : []
-  console.log(ancestors, data)
   const { mutate: save, isLoading: loadingSave } = useCreate()
   const ts = (ranks as ITaxonomy[]) || []
   const [isExist, setIsExist] = useState(false)
@@ -64,7 +63,7 @@ export const CreateTaxonomy: FC = () => {
       rank: 'species',
       taxonomyName,
       image: image,
-      approved: false,
+      isApproved: false,
       username,
       englishName,
       info,
@@ -121,7 +120,6 @@ export const CreateTaxonomy: FC = () => {
               name="rank"
               disabled={isLoading}
               onChange={e => {
-                console.log(e.target.value)
                 if (e.target.value) {
                   const value: IRank = e.target.value as IRank
                   setRank(value)

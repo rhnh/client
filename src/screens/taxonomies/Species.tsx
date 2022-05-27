@@ -2,17 +2,10 @@ import { css } from '@emotion/css'
 
 import '@reach/dialog/styles.css'
 import '@reach/tooltip/styles.css'
-import addSvg from 'assets/add.svg'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { ITaxonomy } from 'utils/types'
-import { useGetBirdIds, useLists } from 'screens/lists/list-api'
 import * as colors from 'utils/colors'
-import Tooltip from '@reach/tooltip'
-
-import { AddTaxonomy } from './AddUserTaxonomy'
-import { CircleButton } from 'components/themed-button'
-import { FullPageSpinner } from 'components/themed-components'
 
 export const Species: FC<ITaxonomy> = ({
   _id,
@@ -22,30 +15,8 @@ export const Species: FC<ITaxonomy> = ({
   info,
   ancestors,
   parent,
+  isApproved,
 }) => {
-  const { data: lists, isLoading, isFetching } = useLists()
-  const [isOpen, setIsOpen] = useState(false)
-  const { data, isLoading: isLoadingBirdIds, isError } = useGetBirdIds()
-  // useEffect(() => {
-  //   window.location.reload()
-  // }, [])
-  if (!data && isLoadingBirdIds && !isError) {
-    return <FullPageSpinner />
-  }
-
-  if (!lists && !isLoading) {
-    return <FullPageSpinner />
-  }
-  if (isLoading || isLoadingBirdIds || isFetching) {
-    return <FullPageSpinner />
-  }
-  const birdIds = data ?? []
-  const ids: string[] = (birdIds as string[]) || []
-  const alreadyInList = Array.isArray(ids) ? ids.includes(_id || '') : false
-  // if (!_id) {
-  //   return null
-  // }
-
   const ranks = ['order', 'family', 'genus', 'species']
 
   return (
@@ -53,19 +24,16 @@ export const Species: FC<ITaxonomy> = ({
       key={_id}
       className={css({
         display: 'flex',
-        // border: '2px solid #ffeae2',
-        maxWidth: '100%',
+
         gap: '1em',
-        padding: '1em',
+        padding: '.6em',
         transition: ' height 0.25s linear',
-        margin: '1em',
         overflow: 'hidden',
         background: colors.plate,
-        flexDirection: 'column',
+
         '@media screen and (min-width:700px)': {
           flexDirection: 'row',
-          margin: '1em auto',
-
+          width: '100%',
           maxWidth: '1024px',
         },
         img: {
@@ -79,7 +47,7 @@ export const Species: FC<ITaxonomy> = ({
           .toLowerCase()
           .replace(/[^a-z0-9]+/, '-')}`}
       >
-        {image !== undefined ? (
+        {image !== undefined && image !== '' ? (
           <div
             className={css({
               position: 'relative',
@@ -103,6 +71,8 @@ export const Species: FC<ITaxonomy> = ({
             src={`/assets/bird-placeholder.jpg`}
             className={css({
               height: 'auto',
+              width: '200px',
+              minWidth: '200px',
               '@media screen and (min-width:700px)': {
                 maxWidth: '200px',
               },
@@ -131,6 +101,11 @@ export const Species: FC<ITaxonomy> = ({
             <p> {info}</p>
           </div>
         ) : null}
+        {info ? (
+          <div className="taxonomy">
+            <p> {info}</p>
+          </div>
+        ) : null}
         {ancestors ? (
           <div>
             {ancestors?.map((ans, i) => (
@@ -143,61 +118,6 @@ export const Species: FC<ITaxonomy> = ({
             ))}
           </div>
         ) : null}
-      </div>
-      <div
-        className={css({
-          marginLeft: 'auto',
-          display: 'flex',
-          flexDirection: 'column',
-        })}
-      >
-        {alreadyInList ? (
-          <Tooltip label="You have this already in your list">
-            <CircleButton
-              className={css({
-                '@media screen and (min-width:700px)': {
-                  marginLeft: 'auto',
-                },
-              })}
-              onClick={() => setIsOpen(true)}
-            ></CircleButton>
-          </Tooltip>
-        ) : (
-          <section
-            className={css({
-              maxWidth: '120px',
-            })}
-          >
-            <Tooltip label="Add to you watch lists.">
-              <CircleButton
-                className={css({
-                  marginLeft: 'auto',
-                  maxWidth: '120px',
-                })}
-                onClick={() => setIsOpen(true)}
-              >
-                <img
-                  src={addSvg}
-                  alt="+"
-                  className={css({
-                    height: '20px',
-                    weight: '20px',
-                    ':hover': {
-                      opacity: 0.5,
-                    },
-                  })}
-                />
-              </CircleButton>
-            </Tooltip>
-            <AddTaxonomy
-              isOpen={isOpen}
-              setIsOpen={setIsOpen}
-              lists={lists}
-              englishName={englishName}
-              taxonomyName={taxonomyName}
-            />
-          </section>
-        )}
       </div>
     </div>
   )

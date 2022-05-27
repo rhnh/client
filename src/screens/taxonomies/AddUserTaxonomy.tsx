@@ -1,68 +1,53 @@
 import { css } from '@emotion/css'
 import { DialogContent, DialogOverlay } from '@reach/dialog'
-
 import VisuallyHidden from '@reach/visually-hidden'
-import { Button, CircleButton, LinkedButton } from 'components/themed-button'
+import { Modal, ModalContents, ModalOpenButton } from 'components/modal'
+import {
+  Button,
+  CircleButton,
+  IconButtons,
+  LinkedButton,
+} from 'components/themed-button'
 import { FullPageSpinner, WarnBox } from 'components/themed-components'
-import React, { FC, Dispatch, Fragment, useState, FormEvent } from 'react'
-
+import React, { FC, Fragment, useState, FormEvent, useEffect } from 'react'
+import addIcon from 'assets/add.svg'
 import { IList } from 'utils/types'
 import { useAddListItem } from './taxonomies-api'
+import { useGetBirdIds, useLists } from 'screens/lists/list-api'
 
 type Props = {
-  lists?: IList[]
+  id: string
   englishName?: string
-  taxonomyName?: string
-  isOpen: boolean
-  setIsOpen: Dispatch<boolean>
+  taxonomyName: string
 }
 
-export const AddTaxonomy: FC<Props> = ({
-  lists,
-  englishName,
-  taxonomyName,
-  isOpen,
-  setIsOpen,
-}) => {
+export const AddTaxonomy: FC<Props> = ({ englishName, taxonomyName, id }) => {
   const [listName, setListName] = useState('')
-  const {
-    mutate: save,
-    isError,
-    isLoading,
-    isSuccess,
-  } = useAddListItem(listName)
+  const { data: ids } = useGetBirdIds()
+  const [isExist, setIsExist] = useState(false) // already in list
+  useEffect(() => {
+    const found = ids?.find((d: string) => id === d)
+    console.log(found)
+    if (found) {
+      setIsExist(true)
+    } else setIsExist(false)
+  }, [id, ids])
+  const { data, isLoading: loadingLists, isFetching } = useLists()
+  let lists: IList[] = [] as IList[]
+  const { mutate: save, isError, isLoading } = useAddListItem(listName)
 
-  if (isSuccess) {
-    setIsOpen(false)
+  lists = data as IList[]
+  if (loadingLists) {
+    return <FullPageSpinner />
   }
-
-  if (!lists || !englishName || !taxonomyName) {
-    return (
-      <DialogOverlay
-        isOpen={isOpen}
-        onDismiss={() => setIsOpen(false)}
-        className={css({
-          zIndex: '50000',
-        })}
-      >
-        <DialogContent aria-label="form new taxonomy">
-          <div>
-            <h1>No list</h1>
-            You don't have any list.
-            <LinkedButton to="/lists/list" variant="primary">
-              Create
-            </LinkedButton>
-          </div>
-        </DialogContent>
-      </DialogOverlay>
-    )
-  }
-  const hasLength = lists?.length ?? 0
-  const hasData = isOpen && hasLength > 0
-
   const handleChange = (e: FormEvent<HTMLSelectElement>) => {
     setListName(e.currentTarget.value)
   }
+
+  if (!englishName || !taxonomyName) {
+    return null
+  }
+
   const handleSave = () => {
     if (listName && englishName && taxonomyName)
       save({ listName, englishName, taxonomyName })
@@ -72,74 +57,78 @@ export const AddTaxonomy: FC<Props> = ({
     <FullPageSpinner />
   ) : isError ? (
     <WarnBox>Something went wrong</WarnBox>
-  ) : (
-    <DialogOverlay
-      isOpen={isOpen}
-      onDismiss={() => setIsOpen(false)}
-      className={css({
-        zIndex: '50000',
-      })}
-    >
-      <DialogContent aria-label="form new taxonomy">
-        <CircleButton onClick={() => setIsOpen(false)}>
-          <VisuallyHidden>Close</VisuallyHidden>
-          <span aria-hidden>×</span>
-        </CircleButton>
-        {!hasData ? (
+  ) : lists?.length > 0 ? (
+    <Modal>
+      <ModalOpenButton>
+        <div>
+          <IconButtons
+            disabled={isExist}
+            bgImage={addIcon}
+            toolTip="Add to your list"
+            toolTipDisabled="You have it already in your list"
+          />
+        </div>
+      </ModalOpenButton>
+      <ModalContents>
+        <div
+          className={css({
+            display: 'flex',
+            flexDirection: 'column',
+            // gap: '1.5em',
+          })}
+        >
           <div>
-            You don't have any list.
-            <LinkedButton to="/lists/list" variant="primary">
-              Create
-            </LinkedButton>
-          </div>
-        ) : (
-          <div
-            className={css({
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '1.5em',
-            })}
-          >
-            <h1>{englishName}</h1>
-            <div>
-              <select
-                name="list"
-                id="list-select"
-                value={listName}
-                className={css({
-                  backgroundColor: '#0563af',
-                  color: 'white',
-                  padding: '12px',
-                  width: '250px',
-                  border: 'noe',
-                  fontSize: '20px',
-                  boxShadow: '0 5px 25px rgba(0, 0, 0, 0.2)',
-                  outline: ' none',
-                })}
-                onChange={handleChange}
-              >
-                <option>--Please choose list name--</option>
-                {lists?.map((list, index) => (
-                  <Fragment key={list._id}>
-                    <option value={list.listName}>
-                      {index + 1} - {list.listName}
-                    </option>
-                  </Fragment>
-                ))}
-              </select>
-            </div>
-            <Button
-              variant="primary"
+            <h3>Lists</h3>
+            {isFetching && <p>loading...</p>}
+            <select
+              name="list"
+              id="list-select"
+              value={listName}
               className={css({
-                width: '10%',
+                backgroundColor: '#0563af',
+                color: 'white',
+                padding: '12px',
+                // width: '250px',
+                border: 'noe',
+                fontSize: '20px',
+                boxShadow: '0 5px 25px rgba(0, 0, 0, 0.2)',
+                outline: ' none',
               })}
-              onClick={handleSave}
+              onChange={handleChange}
             >
-              Save
-            </Button>
+              <option>--Please choose list name--</option>
+              {lists?.map((list, index) => (
+                <Fragment key={list._id}>
+                  <option value={list.listName}>
+                    {index + 1} - {list.listName}
+                  </option>
+                </Fragment>
+              ))}
+            </select>
           </div>
-        )}
-      </DialogContent>
-    </DialogOverlay>
+          <Button
+            variant="primary"
+            className={css({
+              width: '10%',
+            })}
+            onClick={handleSave}
+          >
+            Save
+          </Button>
+        </div>
+      </ModalContents>
+    </Modal>
+  ) : (
+    <Modal>
+      <ModalContents aria-label="form new taxonomy">
+        <div>
+          <h1>No list</h1>
+          You don't have any list.
+          <LinkedButton to="/lists/list" variant="primary">
+            Create
+          </LinkedButton>
+        </div>
+      </ModalContents>
+    </Modal>
   )
 }

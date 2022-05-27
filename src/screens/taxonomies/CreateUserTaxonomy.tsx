@@ -5,74 +5,51 @@ import { Modal, ModalContents, ModalOpenButton } from 'components/modal'
 import { Button } from 'components/themed-button'
 import { WarnBox } from 'components/themed-components'
 
-import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react'
+import { ChangeEvent, FC, FormEvent, useState } from 'react'
 
 import { useNavigate, useParams } from 'react-router-dom'
 import { ITaxonomy } from 'utils/types'
-import { useAddListItem, useGetTaxonomies } from './taxonomies-api'
+import { useAddListItem, useGetSpeciesName } from './taxonomies-api'
 
 export const CreateUserTaxonomy: FC = () => {
   const navigate = useNavigate()
-
-  const [inputFieldsState, setInputFieldsState] = useState<ITaxonomy>({
-    username: 'mon',
-    taxonomyName: '',
-    rank: 'species',
-    englishName: '',
-    image: '',
-    approved: false,
-  })
   const { listName } = useParams()
-  const { data } = useGetTaxonomies()
-  const [found, setFound] = useState('')
+  const { data } = useGetSpeciesName()
+  const [englishName, setEnglishName] = useState('')
+  const [taxonomyName, setTaxonomyName] = useState('')
 
-  const { mutate, isError, isLoading, isSuccess } = useAddListItem(
-    listName || '',
-  )
-
+  const {
+    mutate: save,
+    isError,
+    isLoading,
+    isSuccess,
+  } = useAddListItem(listName || '')
+  const species: ITaxonomy[] = data ? (data as ITaxonomy[]) : []
+  const p = species.map(r => {
+    return { englishName: r.englishName, taxonomyName: r.taxonomyName }
+  })
   const englishNames: string[] = Array.isArray(data)
     ? (data?.map((bird: ITaxonomy) => bird.englishName) as string[])
     : []
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value, name } = e.target
-
-    setInputFieldsState(preValue => ({ ...preValue, [name]: value }))
+  const handleChangeName = (e: ChangeEvent<HTMLInputElement>) => {
+    setEnglishName(e.target.value)
+  }
+  const handleChangeTax = (e: ChangeEvent<HTMLInputElement>) => {
+    setTaxonomyName(e.target.value)
   }
   const handleBlur = (e: ChangeEvent<HTMLInputElement>) => {
-    setFound(e.target.value)
-  }
+    const value = e.target.value
+    const b = p.find(d => {
+      return d.englishName?.toLowerCase() === value.toLowerCase()
+    })
 
-  useEffect(() => {
-    if (data && data?.length <= 0) {
-      return
-    }
-    const i = Array.isArray(data)
-      ? data?.find(
-          (bird: ITaxonomy) =>
-            bird.englishName?.toLowerCase() === found.toLowerCase(),
-        )
-      : ''
-    if (i) {
-      setInputFieldsState(i)
-    }
-  }, [data, found])
+    setTaxonomyName(b?.taxonomyName || '')
+  }
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const englishName = inputFieldsState?.englishName
-    const taxonomyName = inputFieldsState?.taxonomyName
-
-    if (
-      englishName !== '' &&
-      taxonomyName !== '' &&
-      englishName !== undefined &&
-      listName !== undefined &&
-      taxonomyName !== undefined
-    ) {
-      mutate({ listName, englishName, taxonomyName })
-    } else {
-    }
+    save({ listName: listName || '', englishName, taxonomyName })
   }
   if (isLoading) {
     return <p>wait !</p>
@@ -88,6 +65,7 @@ export const CreateUserTaxonomy: FC = () => {
       </Button>
     )
   }
+
   return (
     <Modal>
       <ModalOpenButton>
@@ -118,35 +96,27 @@ export const CreateUserTaxonomy: FC = () => {
               id="englishName"
               name="englishName"
               placeholder="Enter bird name"
-              onChange={handleChange}
+              onChange={handleChangeName}
               autoFocus
               className={css({
                 width: '99%',
               })}
-              value={inputFieldsState?.englishName}
+              value={englishName}
             />
           </div>
           <div>
             <label htmlFor="taxonomyName">Species: </label>
             <input
               className={css({ display: 'block' })}
-              onChange={handleChange}
+              onChange={handleChangeTax}
               id="taxonomyName"
               name="taxonomyName"
               type="text"
-              value={inputFieldsState?.taxonomyName}
+              value={taxonomyName}
             />
           </div>
           <div>
-            <Button
-              variant="primary"
-              disabled={
-                inputFieldsState?.englishName === ''
-                // || inputFieldsState?.taxonomy === ''
-              }
-            >
-              Add
-            </Button>
+            <Button variant="primary">Add</Button>
           </div>
         </form>
       </ModalContents>

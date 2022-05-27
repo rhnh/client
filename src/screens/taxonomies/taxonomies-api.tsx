@@ -1,13 +1,25 @@
 import { useAuth } from 'contexts/userContext'
-
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { useInfiniteQuery } from 'react-query'
 import { IRank, ITaxonomy } from 'utils/types'
 
-const getTaxonomies = async () => {
+import { fetchTaxonomies } from './api'
+
+const getTaxonomies = async ({
+  token,
+  isLogin,
+}: {
+  token: string
+  isLogin: boolean
+}) => {
   const url = `/api/taxonomies/species`
   try {
-    const response = await fetch(url)
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
     if (response.ok) {
       const result = await response.json()
       return result
@@ -22,13 +34,16 @@ const getTaxonomies = async () => {
 
 export function useGetTaxonomiesInfinite() {
   const { isLogin, token } = useAuth()
-  return useInfiniteQuery<ITaxonomy[], unknown, ITaxonomy[]>(
-    'taxonomies',
-    getTaxonomies,
+  const isAuth = isLogin && token ? true : false
+  return useInfiniteQuery(
+    ['taxonomies'],
+    ({ pageParam = 0 }) => fetchTaxonomies({ pageParam, token, isLogin }),
     {
-      getPreviousPageParam: firstPage => firstPage ?? undefined,
-      getNextPageParam: lastPage => lastPage ?? undefined,
-      enabled: isLogin && token ? true : false,
+      getNextPageParam: (currentPage, pages) => {
+        return currentPage.nextPage
+      },
+      enabled: isAuth,
+      refetchOnWindowFocus: false,
     },
   )
 }
@@ -36,9 +51,13 @@ export function useGetTaxonomiesInfinite() {
 export function useGetTaxonomies() {
   const { isLogin, token } = useAuth()
 
-  return useQuery<ITaxonomy[]>('taxonomies', getTaxonomies, {
-    enabled: isLogin && token ? true : false,
-  })
+  return useQuery<ITaxonomy[]>(
+    'taxonomies',
+    () => getTaxonomies({ token, isLogin }),
+    {
+      enabled: isLogin && token ? true : false,
+    },
+  )
 }
 
 /**
@@ -121,6 +140,7 @@ export function useAddListItem(listName: string) {
       englishName: string
       taxonomyName?: string
     }) => {
+      console.log(listName, taxonomyName, englishName)
       return fetch(`/api/lists/list/${listName}`, {
         method: 'POST',
         body: JSON.stringify({ englishName, taxonomyName }),
@@ -135,7 +155,7 @@ export function useAddListItem(listName: string) {
         queryClient.invalidateQueries(['lists', listName])
         queryClient.invalidateQueries(['list', listName])
         queryClient.invalidateQueries('taxonomies')
-        queryClient.invalidateQueries('birdIds')
+        queryClient.invalidateQueries('birds')
       },
     },
   )
@@ -180,15 +200,22 @@ export function useRemoveListItem(listName: string) {
  */
 export function useGetSpeciesName() {
   const { token } = useAuth()
-  return useQuery(['taxonomy', 'names'], () => {
-    return fetch('/api/taxonomies/names', {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    }).then(res => res.json())
-  })
+  return useQuery(
+    ['taxonomy', 'names'],
+    async () => {
+      const res = await fetch('/api/taxonomies/names', {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      })
+      return await res.json()
+    },
+    {
+      enabled: token ? true : false,
+    },
+  )
 }
 
 //get by rank name
@@ -232,7 +259,6 @@ export function useCreate() {
       ) {
         return
       }
-      console.log(taxonomy)
       const res = await fetch(`/api/taxonomies`, {
         method: 'post',
         body: JSON.stringify(taxonomy),

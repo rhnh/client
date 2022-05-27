@@ -1,3 +1,5 @@
+import { ITaxonomy } from 'utils/types'
+
 export interface IProps {
   englishName: HTMLInputElement
   info: HTMLInputElement
@@ -8,4 +10,14 @@ export interface IProps {
   taxonomyName: HTMLInputElement
   image: HTMLInputElement
   rank: HTMLSelectElement
+}
+export interface TaxonomiesProps {
+  page: number
+  hasNextPage: boolean
+  hasPreviousPage: boolean
+  totalPages: number
+  nextPage: number
+  previousPage: number
+  totalItems: number
+  items: ITaxonomy[]
 }
