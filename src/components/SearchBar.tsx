@@ -1,22 +1,25 @@
 import { css } from '@emotion/css'
 import { Hintput } from '@ribrary/hintput'
 
-import { ChangeEvent, Dispatch, FC, SetStateAction } from 'react'
+import { ChangeEvent, FC } from 'react'
 
 interface Props {
   data: string[]
   search: string
-  setSearch: Dispatch<SetStateAction<string>>
+  handleChange: (e: ChangeEvent<HTMLInputElement>) => void
+  handleBlur?: () => void
 }
-export const SearchBar: FC<Props> = ({ data, setSearch, search }) => {
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value)
-  }
+export const SearchBar: FC<Props> = ({
+  data,
+  search,
+  handleBlur,
+  handleChange,
+}) => {
   return (
     <Hintput
       type="text"
       onChange={handleChange}
-      onBlur={handleChange}
+      onBlur={handleBlur}
       name="search"
       placeholder="Search"
       className={css({
