@@ -29,7 +29,7 @@ export interface ITaxonomy extends Base {
   rank: IRank
   image: string
   parent?: string
-  approved: boolean
+  isApproved: boolean
   username: string
   slug?: string
   info?: string
@@ -50,7 +50,7 @@ export interface LoginElements {
 export interface IList extends Base {
   username: string
   listName: string
-  birdIds?: string[]
+  birds?: ITaxonomy[]
   slug?: string
 }
 export interface IListBird extends Base {
