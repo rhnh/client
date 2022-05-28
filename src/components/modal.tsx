@@ -99,9 +99,14 @@ const ModalContents: React.FC<
             <span aria-hidden>×</span>
           </CircleButton>
         </ModalDismissButton>
-
-        {title && <h3>{title}</h3>}
-        {children}
+        <div
+          className={css({
+            padding: '.6em',
+          })}
+        >
+          {title && <h3>{title}</h3>}
+          {children}
+        </div>
       </div>
     </ModalContentsBase>
   )
