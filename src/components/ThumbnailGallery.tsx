@@ -4,6 +4,7 @@ import { IconButtons } from './themed-button'
 import nextSvg from 'assets/next.svg'
 import changeProfile from 'assets/change-profile.svg'
 import { DialogContent, DialogOverlay } from '@reach/dialog'
+import { Link } from 'react-router-dom'
 
 export const ThumbnailGallery: FC<{ handleSubmit(u: string): void }> = ({
   handleSubmit,
@@ -49,69 +50,91 @@ export const ThumbnailGallery: FC<{ handleSubmit(u: string): void }> = ({
           <div
             className={css({
               display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
+              flexDirection: 'column',
             })}
           >
-            <IconButtons
-              toolTip="Previous"
-              bgImage={nextSvg}
-              imgStyle={{ transform: 'rotate(180deg)' }}
-              onClick={() => {
-                setIndex(i => {
-                  if (i > 0) return i - 1
-                  else {
-                    return 0
-                  }
-                })
-              }}
-            ></IconButtons>
             <div
               className={css({
-                display: 'grid',
-                '@media screen and (min-width:700px)': {
-                  gridTemplateColumns: 'repeat(5,1fr)',
-                  gridTemplateRows: 'repeat(2,1fr)',
-                  gap: '.6em',
-                  margin: 'auto',
-                },
-                gridTemplateColumns: 'repeat(5,1fr)',
-                gridTemplateRows: 'repeat(2,1fr)',
-                gap: '.2em',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
               })}
             >
-              {pics[index].map(k => (
-                <img
-                  key={k}
-                  className={css({
-                    maxWidth: '50px',
-                    '@media screen and (min-width:700px)': {
-                      maxWidth: '150px',
-                    },
-                  })}
-                  src={`/thumbs/${k}.jpg`}
-                  alt="avatar"
-                  onClick={() => {
-                    handleSubmit(`${k}`)
-                    setIsOpen(false)
-                  }}
-                />
-              ))}
+              <IconButtons
+                toolTip="Previous"
+                bgImage={nextSvg}
+                imgStyle={{ transform: 'rotate(180deg)' }}
+                onClick={() => {
+                  setIndex(i => {
+                    if (i > 0) return i - 1
+                    else {
+                      return 0
+                    }
+                  })
+                }}
+              ></IconButtons>
+              <div
+                className={css({
+                  display: 'grid',
+                  '@media screen and (min-width:700px)': {
+                    gridTemplateColumns: 'repeat(5,1fr)',
+                    gridTemplateRows: 'repeat(2,1fr)',
+                    gap: '.6em',
+                    margin: 'auto',
+                  },
+                  gridTemplateColumns: 'repeat(5,1fr)',
+                  gridTemplateRows: 'repeat(2,1fr)',
+                  gap: '.2em',
+                })}
+              >
+                {pics[index].map(k => (
+                  <img
+                    key={k}
+                    className={css({
+                      maxWidth: '50px',
+                      '@media screen and (min-width:700px)': {
+                        maxWidth: '150px',
+                      },
+                    })}
+                    src={`/thumbs/${k}.jpg`}
+                    alt="avatar"
+                    onClick={() => {
+                      handleSubmit(`${k}`)
+                      setIsOpen(false)
+                    }}
+                  />
+                ))}
+              </div>
+              <IconButtons
+                toolTip="Next"
+                bgImage={nextSvg}
+                disabled={index === 3}
+                onClick={() => {
+                  setIndex(i => {
+                    if (i < max - 1) return i + 1
+                    else {
+                      return max - 1
+                    }
+                  })
+                }}
+                imgStyle={{ opacity: index === max ? 0 : 1 }}
+              ></IconButtons>
             </div>
-            <IconButtons
-              toolTip="Next"
-              bgImage={nextSvg}
-              disabled={index === 3}
-              onClick={() => {
-                setIndex(i => {
-                  if (i < max - 1) return i + 1
-                  else {
-                    return max - 1
-                  }
-                })
-              }}
-              imgStyle={{ opacity: index === max ? 0 : 1 }}
-            ></IconButtons>
+            <em
+              className={css({
+                padding: '1em',
+                display: 'flex',
+                gap: '.6em',
+                a: {
+                  textDecoration: 'none',
+                  color: '#4a5875',
+                },
+              })}
+            >
+              {' '}
+              <Link to="https://www.instagram.com/_thethumb_/">Photos</Link> by
+              <Link to="https://twitter.com/btjoubert">Bryan Joubert</Link>
+            </em>
           </div>
         </DialogContent>
       </DialogOverlay>
