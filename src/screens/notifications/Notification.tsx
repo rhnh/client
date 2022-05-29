@@ -44,10 +44,14 @@ export const Notification: FC = () => {
 
   useEffect(() => {
     if (data?.isActive) {
-      const timeId = setTimeout(() => {}, 5000)
       setIsOpen(true)
+      const timeId = setTimeout(() => {
+        setIsOpen(false)
+      }, 5000)
+
       return () => {
         setIsOpen(false)
+        console.log('hello')
         clearTimeout(timeId)
       }
     }
