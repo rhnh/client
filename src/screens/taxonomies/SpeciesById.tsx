@@ -11,7 +11,7 @@ import { Species } from './Species'
 import { useTaxonomyById } from './taxonomies-api'
 
 export const SpeciesById: FC = () => {
-  const { isLogin, username } = useAuth()
+  const { isLogin } = useAuth()
   const { id } = useParams()
   const { isLoading, data, isError } = useTaxonomyById({
     _id: id || '',
@@ -24,8 +24,7 @@ export const SpeciesById: FC = () => {
     return <FullPageSpinner />
   }
 
-  const t: ITaxonomy = (data as ITaxonomy) ?? []
-
+  // const t: ITaxonomy = (data as ITaxonomy) ?? []
   return isLoading ? (
     <FullPageSpinner />
   ) : isError ? (

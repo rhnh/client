@@ -35,6 +35,7 @@ export interface ITaxonomy extends Base {
   info?: string
   sex?: IGender | undefined
   ancestors?: string[]
+  credit?: string
 }
 
 export interface IPost extends Base {

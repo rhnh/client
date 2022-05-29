@@ -2,7 +2,7 @@ import { useAuth } from 'contexts/userContext'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { INotification } from 'utils/types'
 const QName = 'notifications'
-const url = '/api/notifications/'
+const baseURL = '/api/notifications/'
 
 export const useSetActive = () => {
   const { userInfo, token } = useAuth()
@@ -13,7 +13,7 @@ export const useSetActive = () => {
       if (!isAdmin) {
         return Promise.resolve(() => [])
       }
-      const res = await fetch(`${url}/notification/${id}`, {
+      const res = await fetch(`${baseURL}/notification/${id}`, {
         method: 'PUT',
         body: JSON.stringify({ isActive }),
         headers: {
@@ -41,7 +41,7 @@ export const useGet = () => {
   return useQuery<INotification[]>(
     QName,
     async () => {
-      const res = await fetch(`${url}`, {
+      const res = await fetch(`${baseURL}`, {
         method: 'get',
         headers: {
           authorization: `Bearer ${token}`,
@@ -67,7 +67,7 @@ export const useCreate = () => {
       if (!isAdmin) {
         return Promise.resolve(() => [])
       }
-      const res = await fetch(`${url}/notification`, {
+      const res = await fetch(`${baseURL}/notification`, {
         method: 'post',
         body: JSON.stringify(notification),
         headers: {
@@ -88,7 +88,7 @@ export const useCreate = () => {
 
 export const useGetById = (id: string) => {
   return useQuery<INotification>('notifications', async () => {
-    const res = await fetch(`${url}/notification/${id}`, {})
+    const res = await fetch(`${baseURL}/notification/${id}`, {})
     if (res.status === 401) {
       window.location.reload()
     }

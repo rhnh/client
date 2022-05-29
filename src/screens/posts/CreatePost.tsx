@@ -1,4 +1,5 @@
 import { css } from '@emotion/css'
+import { Button } from 'components/themed-button'
 
 import { useAuth } from 'contexts/userContext'
 
@@ -68,15 +69,33 @@ export const CreatePost: FC = () => {
         className={css({
           display: 'flex',
           flexDirection: 'column',
+          gap: '1em',
         })}
         onSubmit={handleSubmit}
       >
         <label htmlFor="title">Title</label>
-        <input type="text" id="title" />
-        <label htmlFor="body"></label>
-        <textarea name="" id="body" cols={30} rows={10}></textarea>
-        <input type="text" id="imageUrl" name="image-url" />
-        <button type="submit">Post Article</button>
+        <input
+          type="text"
+          id="title"
+          placeholder="Type your article's title here"
+        />
+        <label htmlFor="body">Article</label>
+        <textarea
+          name=""
+          placeholder="Type your article here"
+          id="body"
+          cols={30}
+          rows={10}
+        ></textarea>
+        <input
+          type="text"
+          id="imageUrl"
+          name="image-url"
+          placeholder="image url"
+        />
+        <Button variant="primary" type="submit">
+          Post Article
+        </Button>
       </form>
     </div>
   )

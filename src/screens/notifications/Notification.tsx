@@ -47,11 +47,10 @@ export const Notification: FC = () => {
       setIsOpen(true)
       const timeId = setTimeout(() => {
         setIsOpen(false)
-      }, 5000)
+      }, 3000)
 
       return () => {
         setIsOpen(false)
-        console.log('hello')
         clearTimeout(timeId)
       }
     }

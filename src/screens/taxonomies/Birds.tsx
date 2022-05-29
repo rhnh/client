@@ -38,6 +38,8 @@ export const Birds: FC<Props> = ({ taxonomies }) => {
             image={t.image}
             isApproved={t.isApproved}
             username={t.username}
+            credit={t.credit}
+            createdAt={t.createdAt}
           />
           <div
             className={css({

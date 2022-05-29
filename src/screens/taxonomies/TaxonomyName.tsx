@@ -35,6 +35,8 @@ export const TaxonomyName: FC = () => {
             rank={taxonomy.rank}
             englishName={taxonomy.englishName}
             image={taxonomy.image}
+            createdAt={taxonomy.createdAt}
+            credit={taxonomy.credit}
             isApproved={false}
             username={''}
             info={taxonomies.length === 1 ? taxonomy.info : ''}

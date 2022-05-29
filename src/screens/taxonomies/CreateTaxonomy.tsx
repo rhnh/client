@@ -1,34 +1,30 @@
 import { css } from '@emotion/css'
 import { Hintput } from '@ribrary/hintput'
-import {
-  Modal,
-  ModalContents,
-  ModalDismissButton,
-  ModalOpenButton,
-} from 'components/modal'
+import { Modal, ModalContents, ModalOpenButton } from 'components/modal'
 import { Button } from 'components/themed-button'
 import { Spinner } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
 import { ChangeEvent, FC, FormEvent, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { IRank, ITaxonomy } from 'utils/types'
 import { useCreate, useGetAncestors, useGetByRank } from './taxonomies-api'
 import { IProps } from './types'
 
 export const CreateTaxonomy: FC = () => {
   const { isLogin, username } = useAuth()
-  const [rank, setRank] = useState<IRank | ''>('')
-  const { data: ranks, isError, isLoading } = useGetByRank(rank)
-
   const [order, setOrder] = useState('')
   const [family, setFamily] = useState('')
   const [genus, setGenus] = useState('')
   const [parent, setParent] = useState('')
+  const [rank, setRank] = useState<IRank | ''>('')
+  const { data: ranks, isError, isLoading } = useGetByRank(rank)
   const { data, isLoading: loadingParents } = useGetAncestors({
     parent,
     rank,
   })
+
   const ancestors = data !== undefined ? data[0] : []
-  const { mutate: save, isLoading: loadingSave } = useCreate()
+  const { mutate: save, isLoading: loadingSave, isSuccess } = useCreate()
   const ts = (ranks as ITaxonomy[]) || []
   const [isExist, setIsExist] = useState(false)
 
@@ -104,7 +100,13 @@ export const CreateTaxonomy: FC = () => {
       setGenus('')
     }
   }
-
+  if (isSuccess) {
+    return (
+      <p>
+        You have successfully added new <Link to="/">Home</Link>{' '}
+      </p>
+    )
+  }
   return isLogin ? (
     <Modal>
       <ModalOpenButton>
@@ -234,6 +236,8 @@ export const CreateTaxonomy: FC = () => {
               id="image"
               placeholder="Image Url from img, url starting with i"
             />
+            <label htmlFor="credit">Credit</label>
+            <input id="credit" placeholder="credit to image copy holder" />
 
             {!isExist && (
               <Button

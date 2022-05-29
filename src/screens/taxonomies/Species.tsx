@@ -15,7 +15,9 @@ export const Species: FC<ITaxonomy> = ({
   info,
   ancestors,
   parent,
+  username,
   isApproved,
+  credit,
 }) => {
   const ranks = ['order', 'family', 'genus', 'species']
 
@@ -91,16 +93,13 @@ export const Species: FC<ITaxonomy> = ({
       >
         <div className="taxonomyName"> {englishName}</div>
         <div className="taxonomy"> {taxonomyName}</div>
+        <p>Added by:{username} </p>
         {parent ? (
           <div className="taxonomy">
             <Link to={`/taxonomies/taxonomyName/${parent}`}>{parent}</Link>
           </div>
         ) : null}
-        {info ? (
-          <div className="taxonomy">
-            <p> {info}</p>
-          </div>
-        ) : null}
+
         {info ? (
           <div className="taxonomy">
             <p> {info}</p>
@@ -116,6 +115,7 @@ export const Species: FC<ITaxonomy> = ({
                 </span>
               </div>
             ))}
+            <p>Image Credit to :{credit}</p>
           </div>
         ) : null}
       </div>
