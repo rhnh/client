@@ -10,7 +10,6 @@ import Tooltip from '@reach/tooltip'
 type ButtonProps = {
   variant: 'primary' | 'secondary' | 'danger'
   disabled?: boolean
-  style?: CSSProperties
 }
 
 interface Variants {
@@ -37,7 +36,7 @@ const buttonVariant: Variants = {
 export const Button = styled('button')<ButtonProps>(
   {
     border: 'none',
-    padding: '.6em',
+    padding: '.6em 1.6em',
     fontSize: '1em',
     borderRadius: '2em',
     // margin: '.5em .2em',
@@ -88,11 +87,10 @@ export const LinkedButton = styled(Link)<LinkedButtonProps>(
     textAlign: 'center',
     textDecoration: 'none',
     border: 'none',
-    padding: '.6em',
+    padding: '.6em 1.6em',
     fontSize: '1em',
     borderRadius: '2em',
-    width: '100%',
-    margin: '.5em .2em',
+    margin: '.5em  auto',
     textTransform: 'uppercase',
     background: colors.primary,
     transitionDuration: '0.2s',
@@ -102,7 +100,7 @@ export const LinkedButton = styled(Link)<LinkedButtonProps>(
       maxWidth: '210px',
     },
   },
-  ({ variant: variants = 'primary', disabled = false }) => {
+  ({ variant: variants = 'primary', disabled = false, style }) => {
     return disabled
       ? {
           cursor: 'auto',
@@ -110,6 +108,7 @@ export const LinkedButton = styled(Link)<LinkedButtonProps>(
           backgroundColor: colors.neutral,
           color: 'gray',
           // border: `1px solid ${colors.orangeDark}`,
+          ...style,
         }
       : variants === 'secondary'
       ? {
@@ -118,12 +117,14 @@ export const LinkedButton = styled(Link)<LinkedButtonProps>(
             opacity: '.8',
             background: colors.secondary,
             color: colors.secondaryText,
+            ...style,
           },
         }
       : {
           ...getObjectKeyValue<any, string>(variants)(buttonVariant),
           ':hover': {
             opacity: '.8',
+            ...style,
           },
         }
   },

@@ -69,6 +69,8 @@ export const CRUDNav: FC<Props> = ({ orientation = 'left', children }) => {
         <div
           className={css({
             display: 'flex',
+            padding: '.2em 1em',
+            alignItems: 'center',
           })}
         >
           {isVisible && childrenWithClick}
