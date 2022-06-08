@@ -7,6 +7,7 @@ import { useAuth } from 'contexts/userContext'
 import { FC } from 'react'
 import { useParams } from 'react-router-dom'
 import { ITaxonomy } from 'utils/types'
+import { Birds } from './Birds'
 import { Species } from './Species'
 import { useTaxonomyById } from './taxonomies-api'
 
@@ -24,12 +25,13 @@ export const SpeciesById: FC = () => {
     return <FullPageSpinner />
   }
 
-  // const t: ITaxonomy = (data as ITaxonomy) ?? []
+  const t: ITaxonomy[] = []
+  t.push(data as ITaxonomy)
   return isLoading ? (
     <FullPageSpinner />
   ) : isError ? (
     <WarnBox>error</WarnBox>
   ) : data ? (
-    <Species {...data} />
+    <Birds taxonomies={t} />
   ) : null
 }
