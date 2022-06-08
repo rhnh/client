@@ -8,7 +8,6 @@ import { FC } from 'react'
 import { useParams } from 'react-router-dom'
 import { ITaxonomy } from 'utils/types'
 import { Birds } from './Birds'
-import { Species } from './Species'
 import { useTaxonomyById } from './taxonomies-api'
 
 export const SpeciesById: FC = () => {

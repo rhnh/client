@@ -6,7 +6,7 @@ import deleteIcon from 'assets/del.svg'
 import { css } from '@emotion/css'
 import { FC, useState } from 'react'
 import { useRemoveListItem } from './list-item-api'
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { useAuth } from 'contexts/userContext'
 
 type Props = {
