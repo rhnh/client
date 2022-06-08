@@ -141,7 +141,7 @@ export const CircleButton = styled.button({
 interface Prop {
   bgImage: string
   toolTip: string
-  imgStyle?: CSSProperties
+  imgStyle?: CSSProperties | any
   toolTipDisabled?: string
 }
 /**
@@ -162,36 +162,38 @@ export const IconButtons: FC<
 }) => {
   const tip = disabled ? toolTipDisabled : toolTip
   return (
-    <Tooltip label={tip}>
-      <button
-        disabled={disabled}
-        onClick={onClick}
-        className={css({
-          border: 'none',
-          // padding: '.2em',
-          background: 'transparent',
-          // maxWidth: '25px',
-          // maxHeight: 'auto',
-          // margin: '.2em',
-          // ...style,
-          opacity: disabled ? 0.2 : 1,
-        })}
-      >
-        <img
-          src={bgImage}
-          alt="x"
+    <div>
+      <Tooltip label={tip}>
+        <button
+          disabled={disabled}
+          onClick={onClick}
           className={css({
-            display: 'block',
-            height: '20px',
-            width: '20px',
-            ':hover': {
-              opacity: 0.5,
-            },
-            ...imgStyle,
+            border: 'none',
+            // padding: '.2em',
+            background: 'transparent',
+            // maxWidth: '25px',
+            // maxHeight: 'auto',
+            // margin: '.2em',
+            ...style,
+            opacity: disabled ? 0.2 : 1,
           })}
-        ></img>
-      </button>
-    </Tooltip>
+        >
+          <img
+            src={bgImage}
+            alt="x"
+            className={css({
+              display: 'block',
+              height: '20px',
+              width: '20px',
+              ':hover': {
+                opacity: 0.5,
+              },
+              ...imgStyle,
+            })}
+          ></img>
+        </button>
+      </Tooltip>
+    </div>
   )
 }
 
