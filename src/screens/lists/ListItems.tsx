@@ -1,8 +1,13 @@
 import { css } from '@emotion/css'
 import React, { FC } from 'react'
 import { Link } from 'react-router-dom'
+import { ITaxonomy } from 'utils/types'
+import { ListItemCRUD } from './ListItemCRUD'
 
-export const ListItems: FC<{ birds: any[] }> = ({ birds }) => {
+export const ListItems: FC<{ birds: ITaxonomy[]; listName: string }> = ({
+  birds,
+  listName,
+}) => {
   return (
     <>
       {birds.length > 0 ? (
@@ -28,9 +33,13 @@ export const ListItems: FC<{ birds: any[] }> = ({ birds }) => {
               </Link>
             </p>
             <p>
-              Added to your list on:{' '}
-              <strong> {new Date(bird.createdAt).toDateString()}</strong>
+              Added to your list on: <strong></strong>
             </p>
+            <ListItemCRUD
+              englishName={bird.englishName}
+              id={bird._id}
+              listName={listName}
+            />
           </div>
         ))
       ) : (

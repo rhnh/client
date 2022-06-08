@@ -6,7 +6,7 @@ import React, { FC, Fragment, useState, FormEvent, useEffect } from 'react'
 import addIcon from 'assets/add.svg'
 import { IList } from 'utils/types'
 import { useAddListItem } from './taxonomies-api'
-import { useGetBirdIds, useLists } from 'screens/lists/list-api'
+import { useGetBirdIds, useGetLists } from 'screens/lists/list-api'
 
 type Props = {
   id: string
@@ -24,7 +24,7 @@ export const AddTaxonomy: FC<Props> = ({ englishName, taxonomyName, id }) => {
       setIsExist(true)
     } else setIsExist(false)
   }, [id, ids])
-  const { data, isLoading: loadingLists, isFetching } = useLists()
+  const { data, isLoading: loadingLists, isFetching } = useGetLists()
   let lists: IList[] = [] as IList[]
   const { mutate: save, isError, isLoading } = useAddListItem(listName)
 
