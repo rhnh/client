@@ -101,7 +101,7 @@ export const useGetLists = () => {
 export const useDeleteList = () => {
   const { token } = useAuth()
   return useMutation((listName: string) => {
-    return fetch(`/api/lists/${listName}`, {
+    return fetch(`/api/lists/list/${listName}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`,

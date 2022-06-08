@@ -10,7 +10,6 @@ import { IList, ITaxonomy } from 'utils/types'
 import { CreateUserTaxonomy } from 'screens/taxonomies/CreateUserTaxonomy'
 import { useEffect } from 'react'
 import { SearchBar } from 'components/SearchBar'
-import { CRUDNav } from 'components/CrudNav'
 import { CRUDList } from './CRUDList'
 const placeholder: IList = {
   listName: '',

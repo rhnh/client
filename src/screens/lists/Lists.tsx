@@ -32,9 +32,7 @@ export const Lists: FC = () => {
       </div>
     )
   }
-  if (isLoading) {
-    return <FullPageSpinner />
-  }
+
   return (
     <div
       className={css({

@@ -5,17 +5,24 @@ import { FC } from 'react'
 import { IList } from 'utils/types'
 import { css } from '@emotion/css'
 import { useDeleteList } from './list-api'
+import { Navigate } from 'react-router-dom'
+import { useAuth } from 'contexts/userContext'
 
 interface Props {
   list: IList
 }
 export const DeleteList: FC<Props> = ({ list }) => {
   const { listName } = list
-  const { mutate: deleteList } = useDeleteList()
+  const { username } = useAuth()
+  const { mutate: deleteList, isSuccess } = useDeleteList()
 
   const handleDeleteList = () => {
     deleteList(listName)
   }
+  if (isSuccess) {
+    return <Navigate to={`/lists/${username}`} />
+  }
+
   return (
     <Modal>
       <ModalOpenButton>
