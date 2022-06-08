@@ -132,11 +132,7 @@ export const CreateSpeciesForm: FC<Props> = ({
             <div>
               {isExist !== 'yes' && (
                 <ModalDismissButton>
-                  <Button
-                    variant="primary"
-                    type="submit"
-                    // disabled={isExist === 'yes'}
-                  >
+                  <Button variant="primary" type="submit">
                     Save
                   </Button>
                 </ModalDismissButton>

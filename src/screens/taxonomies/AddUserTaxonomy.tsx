@@ -99,13 +99,7 @@ export const AddTaxonomy: FC<Props> = ({ englishName, taxonomyName, id }) => {
               ))}
             </select>
           </div>
-          <Button
-            variant="primary"
-            className={css({
-              width: '10%',
-            })}
-            onClick={handleSave}
-          >
+          <Button variant="secondary" className={css({})} onClick={handleSave}>
             Save
           </Button>
         </div>

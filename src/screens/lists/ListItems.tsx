@@ -2,7 +2,7 @@ import { css } from '@emotion/css'
 import React, { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { ITaxonomy } from 'utils/types'
-import { ListItemCRUD } from './ListItemCRUD'
+import { CRUDListItems } from './CRUDListItems'
 
 export const ListItems: FC<{ birds: ITaxonomy[]; listName: string }> = ({
   birds,
@@ -35,7 +35,7 @@ export const ListItems: FC<{ birds: ITaxonomy[]; listName: string }> = ({
             <p>
               Added to your list on: <strong></strong>
             </p>
-            <ListItemCRUD
+            <CRUDListItems
               englishName={bird.englishName}
               id={bird._id}
               listName={listName}

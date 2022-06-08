@@ -241,7 +241,7 @@ export const CreateTaxonomy: FC = () => {
 
             {!isExist && (
               <Button
-                variant="primary"
+                variant="secondary"
                 type="submit"
                 disabled={isExist || parent === '' || tN === ''}
               >
