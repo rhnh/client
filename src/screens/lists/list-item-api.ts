@@ -1,5 +1,5 @@
 import { useAuth } from 'contexts/userContext'
-import { QueryClient, QueryErrorResetBoundary, useMutation } from 'react-query'
+import { QueryClient, useMutation } from 'react-query'
 
 export const useRemoveListItem = (listName?: string) => {
   const queryClient = new QueryClient()
@@ -17,7 +17,6 @@ export const useRemoveListItem = (listName?: string) => {
     },
     {
       onSuccess: () => {
-        console.log(listName)
         queryClient.invalidateQueries(['list', listName])
         queryClient.invalidateQueries('list')
         queryClient.invalidateQueries(listName)

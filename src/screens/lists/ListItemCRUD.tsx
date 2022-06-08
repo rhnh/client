@@ -6,7 +6,7 @@ import deleteIcon from 'assets/del.svg'
 import { css } from '@emotion/css'
 import { FC, useState } from 'react'
 import { useRemoveListItem } from './list-item-api'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { useAuth } from 'contexts/userContext'
 
 type Props = {
@@ -16,7 +16,7 @@ type Props = {
 }
 
 export const ListItemCRUD: FC<Props> = ({ id, englishName, listName }) => {
-  const navigate = useNavigate()
+  const { username } = useAuth()
   const [crudDialog, setCrudDialog] = useState<'delete' | 'update' | 'none'>(
     'none',
   )
@@ -30,7 +30,7 @@ export const ListItemCRUD: FC<Props> = ({ id, englishName, listName }) => {
   }
 
   if (successDeleted) {
-    navigate(-1)
+    return <Navigate to={`/lists/${username}`}></Navigate>
   }
 
   return (

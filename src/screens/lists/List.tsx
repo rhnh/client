@@ -90,7 +90,7 @@ export const List = () => {
           padding: '1em',
         })}
       >
-        <ListItems birds={birds || []} listName={listName} />
+        <ListItems birds={birds || []} listName={listName ?? ''} />
       </section>
     </div>
   )
