@@ -15,7 +15,7 @@ type Props = {
   listName?: string
 }
 
-export const ListItemCRUD: FC<Props> = ({ id, englishName, listName }) => {
+export const CRUDListItems: FC<Props> = ({ id, englishName, listName }) => {
   const { username } = useAuth()
   const [crudDialog, setCrudDialog] = useState<'delete' | 'update' | 'none'>(
     'none',
