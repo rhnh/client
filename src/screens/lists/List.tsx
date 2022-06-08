@@ -10,6 +10,8 @@ import { IList, ITaxonomy } from 'utils/types'
 import { CreateUserTaxonomy } from 'screens/taxonomies/CreateUserTaxonomy'
 import { useEffect } from 'react'
 import { SearchBar } from 'components/SearchBar'
+import { CRUDNav } from 'components/CrudNav'
+import { CRUDList } from './CRUDList'
 const placeholder: IList = {
   listName: '',
   birds: [],
@@ -74,8 +76,15 @@ export const List = () => {
             flexDirection: 'row',
           })}
         ></div>
-        <div>
+        <div
+          className={css({
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          })}
+        >
           <h3>{listName}</h3>
+          <CRUDList list={list} />
         </div>
         <CreateUserTaxonomy />
       </section>

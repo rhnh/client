@@ -1,31 +1,55 @@
-import Dialog from '@reach/dialog'
-
-import { Button } from 'components/themed-button'
+import { Modal, ModalContents, ModalOpenButton } from 'components/modal'
+import { Button, IconButtons } from 'components/themed-button'
+import deleteIcon from 'assets/del.svg'
 import { FC } from 'react'
+import { IList } from 'utils/types'
+import { css } from '@emotion/css'
 import { useDeleteList } from './list-api'
-import { CrudList } from './List.interface'
 
-export const DeleteList: FC<CrudList> = ({
-  listName,
-  isOpen,
-  setIsOpen,
-  handleSubmit,
-}) => {
-  const {
-    mutate: deleteList,
-    isError: isErrorDelete,
-    isSuccess,
-    isLoading: isLoadingDelete,
-  } = useDeleteList()
+interface Props {
+  list: IList
+}
+export const DeleteList: FC<Props> = ({ list }) => {
+  const { listName } = list
+  const { mutate: deleteList } = useDeleteList()
 
+  const handleDeleteList = () => {
+    deleteList(listName)
+  }
   return (
-    <Dialog onDismiss={() => setIsOpen('hide')} isOpen={isOpen}>
-      <form onSubmit={handleSubmit}>
-        <h1>Rename your list "{listName}"</h1>
-        <label htmlFor="newName"></label>
-        <input type="text" id="newName" />
-        <Button variant="secondary">Delete</Button>
-      </form>
-    </Dialog>
+    <Modal>
+      <ModalOpenButton>
+        <IconButtons bgImage={deleteIcon} toolTip="delete" />
+      </ModalOpenButton>
+      <ModalContents>
+        <div
+          className={css({
+            position: 'relative',
+            flexDirection: 'column',
+            display: 'flex',
+          })}
+        >
+          <p>
+            Are you sure want to delete{' '}
+            <em>{/* <strong> {englishName} </strong> */}</em> from your list
+            <em>{/* <strong> {listName}</strong> */}</em> ?
+          </p>
+          <div
+            className={css({
+              display: 'flex',
+              // flexDirection: 'column',
+              gap: '1em',
+            })}
+          >
+            <Button variant="danger" onClick={handleDeleteList}>
+              Yes
+            </Button>
+            <Button variant="primary" style={{ background: 'rend' }}>
+              No
+            </Button>
+          </div>
+        </div>
+      </ModalContents>
+    </Modal>
   )
 }
