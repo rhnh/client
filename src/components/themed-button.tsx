@@ -10,6 +10,7 @@ import Tooltip from '@reach/tooltip'
 type ButtonProps = {
   variant: 'primary' | 'secondary' | 'danger'
   disabled?: boolean
+  style?: CSSProperties
 }
 
 interface Variants {
@@ -39,7 +40,6 @@ export const Button = styled('button')<ButtonProps>(
     padding: '.6em',
     fontSize: '1em',
     borderRadius: '2em',
-    width: '100%',
     // margin: '.5em .2em',
     textTransform: 'uppercase',
     transitionDuration: '0.2s',
@@ -49,7 +49,7 @@ export const Button = styled('button')<ButtonProps>(
       maxWidth: '210px',
     },
   },
-  ({ variant: variants = 'primary', disabled = false }) => {
+  ({ variant: variants = 'primary', disabled = false, style }) => {
     return disabled
       ? {
           cursor: 'auto',
@@ -57,6 +57,7 @@ export const Button = styled('button')<ButtonProps>(
           backgroundColor: colors.neutral,
           color: 'grey',
           border: `1px solid ${colors.baseText}`,
+          ...style,
         }
       : variants !== 'primary'
       ? {
@@ -65,12 +66,14 @@ export const Button = styled('button')<ButtonProps>(
             opacity: '.8',
             background: colors.secondary,
             color: colors.secondaryText,
+            ...style,
           },
         }
       : {
           ...getObjectKeyValue<any, string>(variants)(buttonVariant),
           ':hover': {
             opacity: '.8',
+            ...style,
           },
         }
   },
