@@ -6,12 +6,12 @@ import { FC } from 'react'
 
 import { Link } from 'react-router-dom'
 import { IList } from 'utils/types'
-import { useLists } from './list-api'
+import { useGetLists } from './list-api'
 import * as colors from 'utils/colors'
 import { useAuth } from 'contexts/userContext'
 
 export const Lists: FC = () => {
-  const { data, isError, isLoading } = useLists()
+  const { data, isError, isLoading } = useGetLists()
   const { username } = useAuth()
   if (isLoading) {
     return <FullPageSpinner />

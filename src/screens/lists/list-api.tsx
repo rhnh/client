@@ -32,7 +32,7 @@ export const useGetBirdIds = () => {
     'birds',
     async () => {
       return fetch(`/api/lists/birds/${username}`, {
-        method: 'POST',
+        method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ export const useGetBird = (listName: string) => {
     'birds',
     async () => {
       return fetch(`/api/lists/detail/${listName}`, {
-        method: 'POST',
+        method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ export const useGetBird = (listName: string) => {
   )
 }
 
-export const useLists = () => {
+export const useGetLists = () => {
   const { token, isLogin } = useAuth()
 
   const url = '/api/lists'
@@ -83,7 +83,7 @@ export const useLists = () => {
     'lists',
     () =>
       fetch(url, {
-        method: 'POST',
+        method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
         },

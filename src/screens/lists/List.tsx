@@ -74,6 +74,9 @@ export const List = () => {
             flexDirection: 'row',
           })}
         ></div>
+        <div>
+          <h3>{listName}</h3>
+        </div>
         <CreateUserTaxonomy />
       </section>
       <SearchBar
@@ -87,7 +90,7 @@ export const List = () => {
           padding: '1em',
         })}
       >
-        <ListItems birds={birds || []} />
+        <ListItems birds={birds || []} listName={listName} />
       </section>
     </div>
   )
