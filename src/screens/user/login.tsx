@@ -4,16 +4,16 @@ import { Button } from 'components/themed-button'
 import { Input, Label, WarnBox } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation, Navigate } from 'react-router-dom'
 import * as colors from 'utils/colors'
 import { LoginElements } from 'utils/types'
 
 export const Login: FC = () => {
-  const { login, isError, error, isLogin, isSuccess, setLogin } = useAuth()
+  const navigate = useNavigate()
   const { pathname } = useLocation()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const navigate = useNavigate()
+  const { login, isError, error, isLogin, setLogin } = useAuth()
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -23,11 +23,14 @@ export const Login: FC = () => {
   }
 
   useEffect(() => {
-    setLogin('idle')
+    if (isLogin) setLogin('idle')
+  })
+
+  useEffect(() => {
     if (isLogin && pathname === '/users/login') {
       navigate('/')
     }
-  }, [isLogin, navigate, pathname, setLogin])
+  }, [isLogin, navigate, pathname])
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === 'username') {
@@ -37,12 +40,11 @@ export const Login: FC = () => {
     }
   }
 
-  if (isSuccess) {
-    navigate('/')
+  if (isLogin) {
+    return <Navigate to="/"></Navigate>
   }
 
   const isDisabled = password === '' || username === ''
-
   return (
     <div
       className={css({

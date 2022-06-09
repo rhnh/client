@@ -8,7 +8,7 @@ import {
   WarnBox,
 } from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
-import { FormEvent, useEffect, useReducer } from 'react'
+import { FormEvent, useReducer } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { Link } from 'react-router-dom'
 import * as colors from 'utils/colors'
@@ -41,12 +41,9 @@ function stateReducer(state: State, action: Action): State {
 }
 
 export const Register = () => {
-  const { register, isError, error, isSuccess, isLoading, setLogin } = useAuth()
+  const { register, isError, error, isSuccess, isLoading } = useAuth()
   const [state, dispatch] = useReducer(stateReducer, initialState)
 
-  useEffect(() => {
-    setLogin('idle')
-  }, [setLogin])
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const target = e.target as typeof e.target & LoginElements
@@ -62,8 +59,12 @@ export const Register = () => {
   if (isSuccess) {
     return (
       <InfoBox>
-        <strong>Congratulation!</strong> Click <Link to="/login"> here </Link>{' '}
-        to the Login to your new account
+        <strong>Congratulation!</strong>{' '}
+        <strong>
+          You registered as <h3>{state.username}</h3>
+        </strong>{' '}
+        Click <Link to="/users/login"> here </Link> to the Login to your new
+        account
       </InfoBox>
     )
   }
