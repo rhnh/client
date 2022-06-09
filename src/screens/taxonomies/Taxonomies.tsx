@@ -1,20 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useAuth } from 'contexts/userContext'
 import { useInView } from 'react-intersection-observer'
 import { Link } from 'react-router-dom'
 import { ReLoginButton } from 'components/themed-components'
 import { useGetTaxonomiesInfinite } from './taxonomies-api'
 import { Birds } from './Birds'
-import { ITaxonomy } from 'utils/types'
-import { SearchBar } from 'components/SearchBar'
-import { Button } from 'components/themed-button'
-import { SearchTaxonomies } from './SearchTaxonomies'
 
 export const Taxonomies = () => {
   const { isLogin } = useAuth()
   const { ref, inView } = useInView()
-  const [names, setNames] = useState<string[]>([])
-  const [name, setName] = useState('')
+
   const {
     status,
     data,

@@ -93,7 +93,7 @@ export const Species: FC<ITaxonomy> = ({
       >
         <div className="taxonomyName"> {englishName}</div>
         <div className="taxonomy"> {taxonomyName}</div>
-        <p>Added by:{username} </p>
+        {username && <p>Added by {username} </p>}
         {parent ? (
           <div className="taxonomy">
             <Link to={`/taxonomies/taxonomyName/${parent}`}>{parent}</Link>

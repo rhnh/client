@@ -88,7 +88,7 @@ export const Profile: FC = () => {
             <Link to={`/lists/${user.username}`}> Lists.</Link>
           </div>
         </div>
-        {isLogin && <p>close account</p>}
+        {/* {isLogin && <p>close account</p>} */}
         <PanelNav />
       </div>
     )
@@ -105,12 +105,14 @@ export const Profile: FC = () => {
       })}
     >
       <img
-        src="/profiles/images/profile.png"
+        src={`/thumbs/${user.avatar ?? 1}.jpg`}
         alt="profile"
         className={css({
           width: '100%',
+          display: 'block',
+          height: 'auto',
         })}
-      ></img>
+      />
       <p>
         {' '}
         They are member since <i> {numberToDate(user.createdAt)}</i>{' '}

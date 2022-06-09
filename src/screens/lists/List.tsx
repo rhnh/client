@@ -82,7 +82,7 @@ export const List = () => {
             alignItems: 'center',
           })}
         >
-          <h3>{listName}</h3>
+          <h1>{listName}</h1>
           <CRUDList list={list} />
         </div>
         <CreateUserTaxonomy />
