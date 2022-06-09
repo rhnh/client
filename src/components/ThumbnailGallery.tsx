@@ -132,8 +132,8 @@ export const ThumbnailGallery: FC<{ handleSubmit(u: string): void }> = ({
               })}
             >
               {' '}
-              <Link to="https://www.instagram.com/_thethumb_/">Photos</Link> by
-              <Link to="https://twitter.com/btjoubert">Bryan Joubert</Link>
+              <a href="https://www.instagram.com/_thethumb_/">Photos</a> by
+              <a href="https://twitter.com/btjoubert">Bryan Joubert</a>
             </em>
           </div>
         </DialogContent>
