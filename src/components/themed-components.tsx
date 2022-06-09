@@ -202,7 +202,7 @@ const Box = styled('div')(
   {
     padding: '2.5em',
     borderRadius: '10px',
-    margin: 0,
+    margin: '1em',
     backgroundSize: '30px',
     backgroundPosition: '6px 30px',
     minHeight: '10px',

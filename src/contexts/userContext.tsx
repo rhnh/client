@@ -38,7 +38,6 @@ export const placeHolderAuth: Authorization = {
 }
 
 const userContext = createContext<Authorization>(placeHolderAuth)
-type Status = 'idle' | 'loading' | 'success' | 'error'
 
 export const UserProvider: FC = ({ children }) => {
   const [isLogin, setIsLogin] = useState<boolean>(
@@ -93,6 +92,8 @@ export const UserProvider: FC = ({ children }) => {
             setIsLogin(true)
           } else {
             setUser(null)
+            const err = new Error('failed to login')
+            setError(err)
           }
         }
       },
@@ -124,6 +125,7 @@ export const UserProvider: FC = ({ children }) => {
         if (result.done) {
           if (result.data.username && result.data) {
             setState('success')
+            setIsLogin(false)
           } else {
             setUser(null)
           }

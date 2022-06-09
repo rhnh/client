@@ -34,6 +34,7 @@ interface IUseAsyncReturn<T> {
   setError: (error: Error) => void
   setData: (data: T) => void
   setState: (state: Status) => void
+  reset: () => void
   run: (p: Promise<T>) => T | any | void
 }
 
@@ -58,6 +59,7 @@ function useAsync<T>({
       if (data !== null) {
         setDataSafe(data)
         setStateSafe('success')
+      } else {
       }
     },
     [setDataSafe, setStateSafe],
@@ -66,12 +68,12 @@ function useAsync<T>({
   const setErrorSafe = useSafeDispatch(setErrorUnSafe)
   const setError = useCallback(
     (err: Error) => {
-      setErrorSafe(err)
       setStateSafe('error')
+      setErrorSafe(err)
     },
     [setErrorSafe, setStateSafe],
   )
-
+  const reset = useCallback(() => setState('idle'), [setState])
   const run = useCallback(
     async (params: Promise<any>): Promise<any> => {
       setStateSafe({
@@ -92,7 +94,6 @@ function useAsync<T>({
     },
     [setData, setError, setState, setStateSafe],
   )
-
   return {
     run,
     state,
@@ -105,6 +106,7 @@ function useAsync<T>({
     isError: state === 'error',
     isSuccess: state === 'success',
     isIdle: state === 'idle',
+    reset,
   }
 }
 
