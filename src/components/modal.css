@@ -1,12 +1,14 @@
 [data-reach-dialog-overlay] {
   position: fixed;
-
 }
 [data-reach-dialog-content] {
-width: 80vw;
+  width: 80vw;
+  position: relative;
 }
- @media only screen and (min-width: 600px) {
-[data-reach-dialog-content] {
+@media only screen and (min-width: 600px) {
+  [data-reach-dialog-content] {
     width: 50vw;
+    padding: 1rem;
+    position: relative;
   }
- }
+}

@@ -1,10 +1,10 @@
 import VisuallyHidden from '@reach/visually-hidden'
 import * as React from 'react'
 import { callAll } from 'utils'
-
+import * as colors from 'utils/colors'
 import '@reach/dialog/styles.css'
 import { DialogContent, DialogOverlay } from '@reach/dialog'
-import { CircleButton } from './themed-button'
+
 import './modal.css'
 import { css } from '@emotion/css'
 
@@ -82,23 +82,46 @@ const ModalContents: React.FC<
 > = ({ title, children, ...props }: PropsContent) => {
   return (
     <ModalContentsBase {...props}>
+      <ModalDismissButton>
+        <button
+          className={css({
+            borderRadius: '30px',
+            position: 'absolute',
+            padding: '0',
+            margin: 0,
+            width: '40px',
+            right: '1px',
+            height: '40px',
+            lineHeight: '1',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            // background: 'red',
+            // color: 'white',
+            // border: `1px solid gray`,
+            border: 'none',
+            cursor: 'pointer',
+            background: 'transparent',
+            color: '#000',
+            top: '1px',
+            '>*': {
+              fontSize: '2rem',
+            },
+            ':hover': {
+              color: colors.danger,
+            },
+          })}
+        >
+          <VisuallyHidden>Close</VisuallyHidden>
+          <span aria-hidden>×</span>
+        </button>
+      </ModalDismissButton>
       <div
         className={css({
           display: 'flex',
           flexDirection: 'column',
         })}
       >
-        <ModalDismissButton>
-          <CircleButton
-            className={css({
-              top: '2px',
-              right: '2px',
-            })}
-          >
-            <VisuallyHidden>Close</VisuallyHidden>
-            <span aria-hidden>×</span>
-          </CircleButton>
-        </ModalDismissButton>
         <div
           className={css({
             padding: '.6em',
@@ -112,4 +135,10 @@ const ModalContents: React.FC<
   )
 }
 
-export { Modal, ModalDismissButton, ModalOpenButton, ModalContents }
+export {
+  Modal,
+  ModalDismissButton,
+  ModalOpenButton,
+  ModalContents,
+  ModalContentsBase,
+}
