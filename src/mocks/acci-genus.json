@@ -1,0 +1,466 @@
+{
+  "Accipitridae": [
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Aegypius",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Aquila",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Aviceda",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Busarellus",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Butastur",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Buteo",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Buteogallus",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Chelictinia",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Chondrohierax",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Circaetus",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Circus",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Dryotriorchis",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Elanoides",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Elanus",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Erythrotriorchis",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Eutriorchis",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Gampsonyx",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Geranoaetus",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Geranospiza",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Gypaetus",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Gypohierax",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Gyps",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Haliaeetus",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Haliastur",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Hamirostra",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Harpagus",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Harpia",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Harpyhaliaetus",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Harpyopsis",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Helicolestes",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Henicopernis",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Hieraaetus",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Icthyophaga",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Ictinaetus",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Ictinia",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Kaupifalco",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Leptodon",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Leucopternis",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Lophaetus",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Lophoictinia",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Lophotriorchis",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Macheiramphus",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Megatriorchis",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Melierax",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Micronisus",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Milvus",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Morphnus",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Necrosyrtes",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Neophron",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Nisaetus",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Parabuteo",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Percnohierax",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Pernis",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Pithecophaga",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Polemaetus",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Polyboroides",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Rostrhamus",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Rupornis",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Sarcogyps",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Spilornis",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Spizaetus",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Stephanoaetus",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Terathopius",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Torgos",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Trigonoceps",
+      "parent": "Accipitridae"
+    },
+    {
+      "ancestors": ["Accipitriformes", "Accipitridae"],
+      "isApproved": true,
+      "rank": "genus",
+      "taxonomyName": "Urotriorchis",
+      "parent": "Accipitridae"
+    }
+  ]
+}
