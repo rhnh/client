@@ -1,54 +1,59 @@
 import VisuallyHidden from '@reach/visually-hidden'
-import * as React from 'react'
 import { callAll } from 'utils'
-import * as colors from 'utils/colors'
 import '@reach/dialog/styles.css'
 import { DialogContent, DialogOverlay } from '@reach/dialog'
 
 import './modal.css'
 import { css } from '@emotion/css'
+import { CloseButton } from './themed-button'
+import {
+  createContext,
+  cloneElement,
+  CSSProperties,
+  Dispatch,
+  FC,
+  HtmlHTMLAttributes,
+  ReactElement,
+  ReactNode,
+  SetStateAction,
+  useContext,
+  useState,
+} from 'react'
 
-const ModalContext = React.createContext<
-  [isOpen: boolean, setIsOpen: React.Dispatch<React.SetStateAction<boolean>>]
+const ModalContext = createContext<
+  [isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>>]
 >([false, () => {}])
 
 interface PropsModal {
   isShow?: boolean
-  children: React.ReactNode
+  children: ReactNode
 }
-const Modal: React.FC<PropsModal> = ({
-  isShow = false,
-  ...props
-}: PropsModal) => {
-  const [isOpen, setIsOpen] = React.useState(isShow)
+const Modal: FC<PropsModal> = ({ isShow = false, ...props }: PropsModal) => {
+  const [isOpen, setIsOpen] = useState(isShow)
   return <ModalContext.Provider value={[isOpen, setIsOpen]} {...props} />
 }
 
-const ModalDismissButton: React.FC<
-  { children: React.ReactElement } & React.HtmlHTMLAttributes<HTMLButtonElement>
-> = ({ children }: { children: React.ReactElement }) => {
-  const [, setIsOpen] = React.useContext(ModalContext)
-  return React.cloneElement(children, {
+const ModalDismissButton: FC<
+  { children: ReactElement } & HtmlHTMLAttributes<HTMLButtonElement>
+> = ({ children }: { children: ReactElement }) => {
+  const [, setIsOpen] = useContext(ModalContext)
+  return cloneElement(children, {
     onClick: callAll(() => setIsOpen(false), children.props.onClick),
   })
 }
 
-function ModalOpenButton({
-  children: child,
-}: {
-  children: React.ReactElement
-}) {
-  const [, setIsOpen] = React.useContext(ModalContext)
+function ModalOpenButton({ children: child }: { children: ReactElement }) {
+  const [, setIsOpen] = useContext(ModalContext)
 
-  return React.cloneElement(child, {
+  return cloneElement(child, {
     onClick: callAll(() => setIsOpen(true), child.props.onClick),
   })
 }
 interface I {
-  style?: React.CSSProperties
+  style?: CSSProperties
 }
-const ModalContentsBase: React.FC<I> = ({ children, ...props }) => {
-  const [isOpen, setIsOpen] = React.useContext(ModalContext)
+const ModalContentsBase: FC<I> = ({ children, ...props }) => {
+  const [isOpen, setIsOpen] = useContext(ModalContext)
   const propsWithStyle = { ...props, style: {} }
   const { style } = props
 
@@ -75,46 +80,20 @@ const ModalContentsBase: React.FC<I> = ({ children, ...props }) => {
 interface PropsContent {
   title?: string
 
-  children: React.ReactNode
+  children: ReactNode
 }
-const ModalContents: React.FC<
-  PropsContent & React.HtmlHTMLAttributes<HTMLDivElement>
-> = ({ title, children, ...props }: PropsContent) => {
+const ModalContents: FC<PropsContent & HtmlHTMLAttributes<HTMLDivElement>> = ({
+  title,
+  children,
+  ...props
+}: PropsContent) => {
   return (
     <ModalContentsBase {...props}>
       <ModalDismissButton>
-        <button
-          className={css({
-            borderRadius: '30px',
-            position: 'absolute',
-            padding: '0',
-            margin: 0,
-            width: '40px',
-            right: '1px',
-            height: '40px',
-            lineHeight: '1',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            // background: 'red',
-            // color: 'white',
-            // border: `1px solid gray`,
-            border: 'none',
-            cursor: 'pointer',
-            background: 'transparent',
-            color: '#000',
-            top: '1px',
-            '>*': {
-              fontSize: '2rem',
-            },
-            ':hover': {
-              color: colors.danger,
-            },
-          })}
-        >
+        <CloseButton>
           <VisuallyHidden>Close</VisuallyHidden>
           <span aria-hidden>×</span>
-        </button>
+        </CloseButton>
       </ModalDismissButton>
       <div
         className={css({

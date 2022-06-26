@@ -13,7 +13,7 @@ import { InfoBox } from './themed-components'
 import { TaxonomyName } from 'screens/taxonomies/TaxonomyName'
 import { ShowPost } from 'screens/posts/ShowPost'
 import { Notifications } from 'screens/notifications/Notifications'
-import { CreateTaxonomy } from 'screens/taxonomies/CreateTaxonomy'
+import { TaxonomyRoute } from 'screens/taxonomies/create/TaxonomyRoute'
 import { UnApproved } from 'screens/taxonomies/UnApproved'
 import { LinkedButton } from './themed-button'
 
@@ -45,10 +45,7 @@ export const AppRoutes: FC = () => {
           path={`/taxonomies/taxonomyName/:taxonomyName`}
           element={<TaxonomyName />}
         />
-        <Route
-          path="/taxonomies/taxonomy/create"
-          element={<CreateTaxonomy />}
-        />
+        <Route path="/taxonomies/taxonomy/create" element={<TaxonomyRoute />} />
         <Route path="/taxonomies/taxonomy/id/:id" element={<SpeciesById />} />
         <Route path="taxonomies/unapproved" element={<UnApproved />} />
         {/* Users */}

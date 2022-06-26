@@ -53,7 +53,7 @@ export const Header: FC = () => {
       <li>
         <NavLink
           className={css({
-            color: colors.darkSecondary,
+            color: colors.secondaryDark,
           })}
           to="/logout"
           onClick={() => logout()}
