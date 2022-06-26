@@ -8,16 +8,17 @@ import { Link, useMatch, useResolvedPath } from 'react-router-dom'
 import { LinkedButton } from './themed-button'
 import { FC, InputHTMLAttributes } from 'react'
 import spinnerIcon from 'assets/spinner.svg'
+import { Hintput } from '@ribrary/hintput'
 type ULProps = {
   isMobile: boolean
 }
 
 const fadeIn = keyframes`
     from {
-    opacity: 0;
+    opacity: 0,
   }
   to {
-    opacity: 1;
+    opacity: 1,
   }
 `
 export const NavUL = styled('ul')<ULProps>(
@@ -109,7 +110,7 @@ export const Input = styled('input')({
   // display: 'block',
   // border: 'none',
   borderBottom: `1px solid ${colors.redText}`,
-  width: '100%',
+  width: 'auto',
 
   padding: '12px 20px',
   margin: '8px 0',
@@ -119,7 +120,7 @@ export const Input = styled('input')({
 })
 
 export const Label = styled('label')({
-  fontSize: '1.2rem;',
+  fontSize: '1.2rem,',
   margin: '.2em 0',
   display: 'block',
 })
@@ -191,7 +192,7 @@ const Box = styled('div')(
   ({ type }: IPlate) => {
     return type === 'warn'
       ? {
-          background: colors.danger,
+          background: colors.tertiary,
           backgroundImage: `url(${warnIcon})`,
         }
       : {
@@ -293,3 +294,48 @@ export const FullPageSpinner: FC = () => {
     </div>
   )
 }
+
+export const Form = styled('form')({
+  display: 'flex',
+  margin: '1em',
+  marginRight: ' auto',
+  marginLeft: ' auto',
+  flexDirection: 'column',
+  width: '100%',
+  '* label': {
+    fontFamily: 'Georgia, "Times New Roman", Times, serif',
+    fontSize: '18px',
+    color: '#112A46',
+    height: '20px',
+    marginTop: '10px',
+    marginLeft: '10px',
+    textAlign: 'right',
+    clear: 'both',
+    float: 'left',
+    marginRight: '15px',
+  },
+  ' input': {
+    height: '20px',
+    width: '80%',
+    border: '1px solid #000',
+    marginTop: '10px',
+    float: 'left',
+  },
+})
+
+export const HintputStyled = styled(Hintput)({
+  border: 0,
+  zIndex: 1,
+  backgroundColor: 'transparent',
+  borderBottom: `2px solid ${colors.secondaryDark}`,
+  font: 'inherit',
+  fontSize: '1.125rem',
+  padding: '.25rem 0',
+  color: colors.tertiary,
+})
+
+export const FlexColumn = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '1em',
+})

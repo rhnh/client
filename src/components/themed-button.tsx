@@ -28,15 +28,15 @@ const buttonVariant: Variants = {
     color: colors.secondaryText,
   },
   danger: {
-    background: colors.danger,
-    color: colors.base,
+    color: colors.baseText,
+    background: colors.tertiary,
   },
 }
 
 export const Button = styled('button')<ButtonProps>(
   {
     border: 'none',
-    padding: '.6em 1.6em',
+    padding: '.2em 0.6em',
     fontSize: '1em',
     borderRadius: '2em',
     // margin: '.5em .2em',
@@ -44,8 +44,10 @@ export const Button = styled('button')<ButtonProps>(
     transitionDuration: '0.2s',
     cursor: 'pointer',
     color: colors.primaryText,
+    margin: '.6em',
     '@media only screen and (min-width: 600px)': {
       maxWidth: '210px',
+      padding: '.4em 1.6em',
     },
   },
   ({ variant: variants = 'primary', disabled = false, style }) => {
@@ -131,14 +133,14 @@ export const LinkedButton = styled(Link)<LinkedButtonProps>(
 )
 
 export const CircleButton = styled.button({
-  fontsize: '1.5rem',
+  fontsize: '1rem',
   alignItems: 'center',
   justifyContent: 'center',
   cursor: 'pointer',
   border: 'none',
   background: 'none',
   color: colors.redText,
-  padding: '1em',
+  // padding: '1em',
   marginLeft: 'auto',
 })
 
@@ -147,6 +149,8 @@ interface Prop {
   toolTip: string
   imgStyle?: CSSProperties | any
   toolTipDisabled?: string
+  title?: string
+  titleColor?: string
 }
 /**
  *
@@ -163,6 +167,8 @@ export const IconButtons: FC<
   imgStyle,
   disabled,
   toolTipDisabled,
+  title,
+  titleColor,
 }) => {
   const tip = disabled ? toolTipDisabled : toolTip
   return (
@@ -182,19 +188,47 @@ export const IconButtons: FC<
             opacity: disabled ? 0.2 : 1,
           })}
         >
-          <img
-            src={bgImage}
-            alt="x"
-            className={css({
-              display: 'block',
-              height: '20px',
-              width: '20px',
-              ':hover': {
-                opacity: 0.5,
-              },
-              ...imgStyle,
-            })}
-          ></img>
+          {bgImage ? (
+            <img
+              src={bgImage}
+              alt={title ?? 'x'}
+              className={css({
+                display: 'block',
+                height: '20px',
+                color: titleColor ?? 'black',
+                border: `1px solid ${titleColor}`,
+                borderRadius: '50%',
+                padding: '.2em',
+                textAlign: 'center',
+                lineHeight: '20px',
+                width: '20px',
+                ':hover': {
+                  opacity: 0.5,
+                  cursor: 'pointer',
+                },
+                ...imgStyle,
+              })}
+            ></img>
+          ) : (
+            <span
+              className={css({
+                height: '6px',
+                width: '6px',
+                justifyContent: 'center',
+                alignItems: 'center',
+                display: 'flex',
+                color: titleColor ?? 'black',
+                border: `2px solid ${titleColor}`,
+                borderRadius: '50%',
+                lineHeight: '5px',
+                textAlign: 'center',
+                padding: '6px',
+                margin: 'auto',
+              })}
+            >
+              {title}
+            </span>
+          )}
         </button>
       </Tooltip>
     </div>
@@ -237,3 +271,31 @@ export const IconLinks: FC<Prop & LinkProps> = ({
     </Link>
   </Tooltip>
 )
+
+export const CloseButton = styled('button')({
+  borderRadius: '30px',
+  position: 'absolute',
+  padding: '0',
+  margin: 0,
+  width: '40px',
+  right: '1px',
+  height: '40px',
+  lineHeight: '1',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  // background: 'red',
+  // color: 'white',
+  // border: `1px solid gray`,
+  border: 'none',
+  cursor: 'pointer',
+  background: 'transparent',
+  color: '#000',
+  top: '1px',
+  '>*': {
+    fontSize: '2rem',
+  },
+  ':hover': {
+    color: colors.tertiary,
+  },
+})
