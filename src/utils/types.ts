@@ -1,10 +1,11 @@
-import { ChangeEvent, Dispatch, KeyboardEvent, SetStateAction } from 'react'
+import { ChangeEvent, Dispatch, SetStateAction } from 'react'
 
 export interface Base {
   _id?: string
   createdAt?: string
 }
 export type IRole = 'mod' | 'admin' | 'user'
+
 export interface IUser extends Base {
   username: string
   password: string
@@ -20,7 +21,18 @@ export interface IUserInfo extends Base {
   role?: IRole
   avatar?: string
 }
-export type IRank = 'species' | 'genus' | 'family' | 'order'
+
+export type IRank =
+  | 'species'
+  | 'subspecies'
+  | 'genus'
+  | 'subgenus'
+  | 'family'
+  | 'subfamily'
+  | 'suborder'
+  | 'order'
+  | 'none'
+
 export type IGender = 'female' | 'male' | 'unknown'
 
 export interface ITaxonomy extends Base {
@@ -48,17 +60,20 @@ export interface LoginElements {
   username: HTMLInputElement
   password: HTMLInputElement
 }
+
 export interface IList extends Base {
   username: string
   listName: string
   birds?: ITaxonomy[]
   slug?: string
 }
+
 export interface IListBird extends Base {
   taxonomyName: string
   createdAt: string
   englishName: string
 }
+
 export interface IHintDisplay {
   inputName: string
   placeholder: string

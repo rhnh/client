@@ -27,16 +27,24 @@ document.body.appendChild(node)
 
 export const Notification: FC = () => {
   const { userInfo } = useAuth()
-  const { data } = useQuery<INotification>(['notification'], async () => {
-    const res = await fetch('/api/notifications/active')
-    if (res.status === 401) {
-      window.location.reload()
-    }
-    if (res.status === 400) {
-      return {}
-    }
-    return await res.json()
-  })
+  const { data } = useQuery<INotification>(
+    ['notification'],
+    async () => {
+      const res = await fetch('/api/notifications/active')
+      if (res.status === 401) {
+        window.location.reload()
+      }
+      if (res.status === 400) {
+        return {}
+      }
+      return await res.json()
+    },
+    {
+      retry: false,
+      refetchInterval: false,
+      refetchOnWindowFocus: false,
+    },
+  )
 
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const message = data?.message ?? ''

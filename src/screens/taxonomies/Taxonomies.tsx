@@ -24,9 +24,9 @@ export const Taxonomies = () => {
 
   useEffect(() => {
     if (inView && isLogin) {
-      fetchNextPage()
+      if (hasNextPage) fetchNextPage()
     }
-  }, [fetchNextPage, inView, isLogin])
+  }, [fetchNextPage, hasNextPage, inView, isLogin])
 
   if (!isLogin) {
     return <ReLoginButton />
@@ -34,7 +34,7 @@ export const Taxonomies = () => {
 
   return (
     <div>
-      <h1>list of Birds</h1>
+      <h1>List of Birds</h1>
       {status === 'loading' ? (
         <p>Loading...</p>
       ) : status === 'error' ? (
@@ -43,7 +43,7 @@ export const Taxonomies = () => {
         <>
           {data?.pages &&
             data?.pages.map((page, index) => (
-              <Birds taxonomies={page.items} key={index} />
+              <Birds taxonomies={page.items} key={index} hasSearch={true} />
             ))}
           <div>
             <button

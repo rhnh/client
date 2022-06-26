@@ -10,6 +10,7 @@ export const fetchTaxonomies = async ({
   isLogin: boolean
 }): Promise<TaxonomiesProps> => {
   const c: number = pageParam as unknown as number
+
   if (!isLogin || token === '') {
     return Promise.resolve({
       page: 1,
@@ -43,6 +44,6 @@ export const fetchTaxonomies = async ({
     })
   }
 
-  const j = (await res.json()) as TaxonomiesProps
-  return j
+  const result = (await res.json()) as TaxonomiesProps
+  return result
 }

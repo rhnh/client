@@ -1,5 +1,5 @@
 import { Modal, ModalContents, ModalOpenButton } from 'components/modal'
-import { SearchBar } from 'components/SearchBar'
+// import { SearchBar } from 'components/SearchBar'
 import { Button } from 'components/themed-button'
 import React, { FC } from 'react'
 /**
@@ -14,7 +14,7 @@ export const SearchTaxonomies: FC = () => {
       </ModalOpenButton>
       <ModalContents aria-label="Search form" style={{ maxWidth: '100%' }}>
         <form>
-          <SearchBar search="" handleChange={() => {}} data={[]} />
+          {/* <SearchBar search="" handleChange={() => {}} data={[]} /> */}
         </form>
       </ModalContents>
     </Modal>

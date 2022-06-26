@@ -9,8 +9,8 @@ import { ListItems } from './ListItems'
 import { IList, ITaxonomy } from 'utils/types'
 import { CreateUserTaxonomy } from 'screens/taxonomies/CreateUserTaxonomy'
 import { useEffect } from 'react'
-import { SearchBar } from 'components/SearchBar'
 import { CRUDList } from './CRUDList'
+import { SearchBar } from 'components/SearchBar'
 const placeholder: IList = {
   listName: '',
   birds: [],
@@ -87,11 +87,11 @@ export const List = () => {
         </div>
         <CreateUserTaxonomy />
       </section>
+
       <SearchBar
-        data={names}
         search={search}
         handleChange={handleChange}
-        handleBlur={() => {}}
+        reset={() => setSearch('')}
       />
       <section
         className={css({

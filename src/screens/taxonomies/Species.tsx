@@ -16,7 +16,6 @@ export const Species: FC<ITaxonomy> = ({
   ancestors,
   parent,
   username,
-  isApproved,
   credit,
 }) => {
   const ranks = ['order', 'family', 'genus', 'species']
@@ -32,7 +31,7 @@ export const Species: FC<ITaxonomy> = ({
         transition: ' height 0.25s linear',
         overflow: 'hidden',
         background: colors.plate,
-
+        flexDirection: 'column',
         '@media screen and (min-width:700px)': {
           flexDirection: 'row',
           width: '100%',
@@ -93,7 +92,7 @@ export const Species: FC<ITaxonomy> = ({
       >
         <div className="taxonomyName"> {englishName}</div>
         <div className="taxonomy"> {taxonomyName}</div>
-        {username && <p>Added by {username} </p>}
+
         {parent ? (
           <div className="taxonomy">
             <Link to={`/taxonomies/taxonomyName/${parent}`}>{parent}</Link>
@@ -118,6 +117,9 @@ export const Species: FC<ITaxonomy> = ({
             <p>Image Credit to :{credit}</p>
           </div>
         ) : null}
+        {username && (
+          <i className={css({ alginSelf: 'flex-end' })}>Added by {username} </i>
+        )}
       </div>
     </div>
   )

@@ -16,6 +16,7 @@ export const PanelNav: FC<Props> = (props: Props) => {
         className={css({
           display: 'flex',
           gap: '1em',
+          marginTop: '1em',
         })}
       >
         <IconLinks

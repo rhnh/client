@@ -69,8 +69,8 @@ export const CreateUserTaxonomy: FC = () => {
   return (
     <Modal>
       <ModalOpenButton>
-        <Button className={css({ margin: '1em' })} variant="primary">
-          Click here to new!
+        <Button className={css({ margin: '1em' })} variant="secondary">
+          Add New
         </Button>
       </ModalOpenButton>
       <ModalContents title="Adding new bird to  your list">
