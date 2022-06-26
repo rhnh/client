@@ -3,6 +3,7 @@ import { useAuth } from 'contexts/userContext'
 import { FC } from 'react'
 import { useParams } from 'react-router-dom'
 import {
+  useDeletePost,
   usePostById,
   useSetFeatured,
   useUnSetFeatured,
@@ -12,7 +13,7 @@ import pin from 'assets/pin.svg'
 import unpin from 'assets/unpin.svg'
 import delBtn from 'assets/del.svg'
 import { css } from '@emotion/css'
-import { CircleButton } from 'components/themed-button'
+import { CircleButton, LinkedButton } from 'components/themed-button'
 import { numberToDate } from 'utils/tools'
 
 export const ShowPost: FC = () => {
@@ -20,14 +21,30 @@ export const ShowPost: FC = () => {
   const { isError, isLoading, data } = usePostById(id || '')
   const post = data as typeof data & IPost
   const { userInfo } = useAuth()
-  const { mutate: setFeatured } = useSetFeatured()
-  const { mutate: UnSetFeatured } = useUnSetFeatured()
+  const { mutate: setFeatured, isSuccess: successFeatured } = useSetFeatured()
+  const { mutate: UnSetFeatured, isSuccess: successUnFeatured } =
+    useUnSetFeatured()
+  const { mutate: deletePost, isSuccess: successDelete } = useDeletePost()
+
   const handleSetFeatured = () => {
     setFeatured(id ?? '')
   }
   const handleUnSetFeatured = () => {
     UnSetFeatured(id ?? '')
   }
+
+  const handleDelete = () => {
+    deletePost(id ?? '')
+  }
+
+  if (successFeatured || successDelete || successUnFeatured) {
+    return (
+      <LinkedButton variant="primary" to="/posts">
+        Click to see all posts
+      </LinkedButton>
+    )
+  }
+
   const isAuthorized = userInfo?.role === 'mod'
 
   return isLoading ? (
@@ -98,7 +115,7 @@ export const ShowPost: FC = () => {
               </CircleButton>
             </div>
           )}
-          <CircleButton onClick={handleSetFeatured}>
+          <CircleButton onClick={handleDelete}>
             <img
               src={delBtn}
               alt="x"

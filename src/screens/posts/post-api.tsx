@@ -86,3 +86,23 @@ export function useUnSetFeatured() {
     { onSuccess: () => queryClient.invalidateQueries('posts') },
   )
 }
+
+export function useDeletePost() {
+  const { token } = useAuth()
+  const queryClient = useQueryClient()
+
+  return useMutation(
+    async (id: string) => {
+      const res = await fetch(`/api/posts/post/${id}`, {
+        method: 'delete',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      res.json()
+    },
+
+    { onSuccess: () => queryClient.invalidateQueries('posts') },
+  )
+}
