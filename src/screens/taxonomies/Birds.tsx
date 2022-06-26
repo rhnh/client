@@ -14,9 +14,6 @@ export const Birds: FC<Props> = ({ taxonomies, hasSearch = false }) => {
   const [birds, setBirds] = useState<ITaxonomy[]>([])
 
   const [search, setSearch] = useState<string>('')
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value)
-  }
 
   useEffect(() => {
     setBirds(taxonomies)
@@ -28,62 +25,48 @@ export const Birds: FC<Props> = ({ taxonomies, hasSearch = false }) => {
 
   return (
     <div className={css({})}>
-      {hasSearch && (
-        <SearchBar
-          search={search}
-          reset={() => setSearch('')}
-          handleChange={handleChange}
-        />
-      )}
-
-      {birds
-        .filter(f =>
-          f.englishName === ''
-            ? f
-            : f.englishName?.toLowerCase().includes(search.toLowerCase()),
-        )
-        .map(t => (
+      {birds.map(t => (
+        <div
+          key={t._id}
+          className={css({
+            display: 'flex',
+            flexDirection: 'row',
+            width: '100%',
+            justifyContent: 'space-between',
+            alignItems: 'stretch',
+            margin: '2px',
+          })}
+        >
+          <Species
+            _id={t._id}
+            taxonomyName={t.taxonomyName}
+            rank={t.rank}
+            englishName={t.englishName}
+            image={t.image}
+            isApproved={t.isApproved}
+            username={t.username}
+            credit={t.credit}
+            createdAt={t.createdAt}
+          />
           <div
-            key={t._id}
             className={css({
-              display: 'flex',
-              flexDirection: 'row',
-              width: '100%',
-              justifyContent: 'space-between',
-              alignItems: 'stretch',
-              margin: '2px',
+              flexDirection: 'column',
+              height: 'auto',
+              width: 'auto',
+              maxWidth: '100%',
+              backgroundColor: colors.plate,
+              padding: '1em',
+              transition: 'height 0.5s linear',
             })}
           >
-            <Species
-              _id={t._id}
-              taxonomyName={t.taxonomyName}
-              rank={t.rank}
+            <AddTaxonomy
+              id={t._id || ''}
               englishName={t.englishName}
-              image={t.image}
-              isApproved={t.isApproved}
-              username={t.username}
-              credit={t.credit}
-              createdAt={t.createdAt}
+              taxonomyName={t.taxonomyName}
             />
-            <div
-              className={css({
-                flexDirection: 'column',
-                height: 'auto',
-                width: 'auto',
-                maxWidth: '100%',
-                backgroundColor: colors.plate,
-                padding: '1em',
-                transition: 'height 0.5s linear',
-              })}
-            >
-              <AddTaxonomy
-                id={t._id || ''}
-                englishName={t.englishName}
-                taxonomyName={t.taxonomyName}
-              />
-            </div>
           </div>
-        ))}
+        </div>
+      ))}
     </div>
   )
 }

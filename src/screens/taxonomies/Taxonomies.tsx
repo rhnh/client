@@ -1,15 +1,16 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useAuth } from 'contexts/userContext'
 import { useInView } from 'react-intersection-observer'
 import { Link } from 'react-router-dom'
 import { ReLoginButton } from 'components/themed-components'
 import { useGetTaxonomiesInfinite } from './taxonomies-api'
 import { Birds } from './Birds'
+import { SearchBar } from 'components/SearchBar'
 
 export const Taxonomies = () => {
   const { isLogin } = useAuth()
   const { ref, inView } = useInView()
-
+  const [search, setSearch] = useState<string>('')
   const {
     status,
     data,
@@ -41,9 +42,26 @@ export const Taxonomies = () => {
         <span>Error: {error.message}</span>
       ) : (
         <>
+          <SearchBar
+            search={search}
+            reset={() => setSearch('')}
+            handleChange={e => {
+              setSearch(e.target.value)
+            }}
+          />
           {data?.pages &&
             data?.pages.map((page, index) => (
-              <Birds taxonomies={page.items} key={index} hasSearch={true} />
+              <Birds
+                taxonomies={page.items.filter(f =>
+                  f.englishName === ''
+                    ? f
+                    : f.englishName
+                        ?.toLowerCase()
+                        .includes(search.toLowerCase()),
+                )}
+                key={index}
+                hasSearch={true}
+              />
             ))}
           <div>
             <button
