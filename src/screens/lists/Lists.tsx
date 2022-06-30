@@ -1,6 +1,10 @@
 import { css } from '@emotion/css'
 import { LinkedButton } from 'components/themed-button'
-import { FullPageSpinner, WarnBox } from 'components/themed-components'
+import {
+  FlexColumn,
+  FullPageSpinner,
+  WarnBox,
+} from 'components/themed-components'
 
 import { FC } from 'react'
 
@@ -24,12 +28,14 @@ export const Lists: FC = () => {
 
   if (!lists || lists.length <= 0) {
     return (
-      <div>
+      <FlexColumn className={css({ margin: '1em' })}>
         <div>No list found</div>
-        <LinkedButton variant="primary" to={`/lists/${username}/list`}>
-          Create
-        </LinkedButton>
-      </div>
+        <div>
+          <LinkedButton variant="primary" to={`/lists/${username}/list`}>
+            Create
+          </LinkedButton>
+        </div>
+      </FlexColumn>
     )
   }
 
@@ -95,12 +101,12 @@ export const Lists: FC = () => {
             </section>
           </div>
         ) : (
-          <div>
+          <FlexColumn>
             <p>No list found</p>
             <LinkedButton variant="primary" to={`/lists/${username}/list`}>
               Create New List
             </LinkedButton>
-          </div>
+          </FlexColumn>
         )}
       </section>
     </div>

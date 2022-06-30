@@ -71,10 +71,13 @@ export const ShowPost: FC = () => {
           })}
           alt={post.title}
         />
-        <h2>{post.title}</h2>
-        <span> {numberToDate(post.createdAt)}</span>
+        <div className={css({ margin: '1em' })}>
+          <h2>{post.title}</h2>
+          <span> {numberToDate(post.createdAt)}</span>
+        </div>
       </section>
-      <section>
+
+      <section className={css({ margin: '1em' })}>
         <p>{post.body}</p>
       </section>
       {isAuthorized && (

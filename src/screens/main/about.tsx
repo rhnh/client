@@ -22,28 +22,16 @@ export const About: FC = () => {
           SVGs are from{' '}
           <a
             href="
-
-          https://freesvg.org/"
-          >
-            FreeSVG
-          </a>{' '}
-          and{' '}
-          <a
-            href="
           https://svgrepo.com/"
           >
             svgrepo
           </a>
         </li>
-        <li>
-          Background image is by <span>Damian Patkowski</span>
-          link to{' '}
-          <a href=" https://unsplash.com/photos/yABuQgOY2js">unsplash</a>
-        </li>
       </ul>
       <div>
         <h2>Privacy</h2>
-        safarilive.org doesn't collect user data.Neither send to 3rd party
+        safarilive.org neither collect personal information or send it to the
+        third party.
       </div>
       <h2>Contribute</h2>
       github.com/rhnh/

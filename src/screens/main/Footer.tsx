@@ -5,6 +5,7 @@ import * as colors from 'utils/colors'
 import github from 'assets/github.svg'
 import twitter from 'assets/twitter.svg'
 import snakeSvg from 'assets/snake.svg'
+import Tooltip from '@reach/tooltip'
 export const Footer: FC = () => {
   const footerRef = useRef<HTMLDivElement>(null)
   const footerHeight = footerRef.current?.clientHeight || 100
@@ -76,28 +77,32 @@ export const Footer: FC = () => {
             </a>
           </li>
           <li className="social-list__item">
-            <a
-              className="social-list__link"
-              href="https://github.com/rhnh/client"
-            >
-              <img
-                src={github}
-                width="20px"
-                alt="https://github.com/rhnh/client/"
-              />
-            </a>
+            <Tooltip label="Frontend" title="Frontend">
+              <a
+                className="social-list__link"
+                href="https://github.com/rhnh/client"
+              >
+                <img
+                  src={github}
+                  width="20px"
+                  alt="https://github.com/rhnh/client/"
+                />
+              </a>
+            </Tooltip>
           </li>
           <li className="social-list__item">
-            <a
-              className="social-list__link"
-              href="https://github.com/rhnh/salio-server"
-            >
-              <img
-                src={github}
-                width="20px"
-                alt="https://github.com/rhnh/salio-server/"
-              />
-            </a>
+            <Tooltip label="Backend" title="Frontend">
+              <a
+                className="social-list__link"
+                href="https://github.com/rhnh/salio-server"
+              >
+                <img
+                  src={github}
+                  width="20px"
+                  alt="https://github.com/rhnh/salio-server/"
+                />
+              </a>
+            </Tooltip>
           </li>
         </ul>
       </footer>
