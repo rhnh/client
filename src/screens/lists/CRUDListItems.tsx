@@ -1,18 +1,12 @@
 import { CRUDNav } from 'components/CrudNav'
-import { Button, IconButtons, LinkedButton } from 'components/themed-button'
+import { Button, IconButtons } from 'components/themed-button'
 // import editIcon from 'assets/edit.svg'
 import deleteIcon from 'assets/del.svg'
 import { css } from '@emotion/css'
-import { FC, FormEvent, useEffect, useState } from 'react'
+import { FC, FormEvent, useEffect } from 'react'
 import { useRemoveListItem } from './list-item-api'
-import { useNavigate } from 'react-router-dom'
 import { useAuth } from 'contexts/userContext'
-import {
-  Modal,
-  ModalContents,
-  ModalDismissButton,
-  ModalOpenButton,
-} from 'components/modal'
+import { Modal, ModalContents, ModalOpenButton } from 'components/modal'
 import {
   FullPageSpinner,
   ReLoginButton,

@@ -45,61 +45,64 @@ export const Lists: FC = () => {
     >
       <section
         className={css({
-          marginBottom: '1em',
+          margin: '1em',
         })}
       >
         <span>You have {lists.length} lists</span>
       </section>
-      {lists && lists?.length > 0 ? (
-        <div
-          className={css({
-            '@media screen and (min-width:700px)': {
-              maxWidth: '230px',
-            },
-          })}
-        >
-          <section className={css({ margin: '2em 0' })}>
-            {lists?.map(list => (
-              <div key={list._id}>
-                <Link
-                  to={`/lists/${username}/list/${list?.slug}`}
-                  className={css({
-                    display: 'flex',
-                    flexDirection: 'column',
-
-                    textDecoration: 'none',
-                    textTransform: 'capitalize',
-                    color: colors.red,
-
-                    ':hover': {
-                      color: 'green',
-                      opacity: '0.6',
-                    },
-                  })}
-                >
-                  <span>{list.listName}</span>
-                </Link>
-              </div>
-            ))}
-          </section>
-          <section
+      <section className={css({ margin: '1em' })}>
+        {lists && lists?.length > 0 ? (
+          <div
             className={css({
-              marginTop: '1em',
+              '@media screen and (min-width:700px)': {
+                maxWidth: '230px',
+              },
             })}
           >
+            <section className={css({ margin: '2em 0' })}>
+              {lists?.map(list => (
+                <div key={list._id}>
+                  <Link
+                    to={`/lists/${username}/list/${list?.slug}`}
+                    className={css({
+                      display: 'flex',
+                      flexDirection: 'column',
+
+                      textDecoration: 'none',
+                      textTransform: 'capitalize',
+                      color: colors.red,
+
+                      ':hover': {
+                        color: 'green',
+                        opacity: '0.6',
+                      },
+                    })}
+                  >
+                    <span>{list.listName}</span>
+                  </Link>
+                </div>
+              ))}
+            </section>
+
+            <section
+              className={css({
+                marginTop: '1em',
+              })}
+            >
+              <LinkedButton variant="primary" to={`/lists/${username}/list`}>
+                Create List
+              </LinkedButton>
+            </section>
+          </div>
+        ) : (
+          <div>
+            <p>No list found</p>
             <LinkedButton variant="primary" to={`/lists/${username}/list`}>
-              Create List
+              Create New List
             </LinkedButton>
-          </section>
-        </div>
-      ) : (
-        <div>
-          <p>No list found</p>
-          <LinkedButton variant="primary" to={`/lists/${username}/list`}>
-            Create New List
-          </LinkedButton>
-        </div>
-      )}
+          </div>
+        )}
+      </section>
     </div>
   )
 }

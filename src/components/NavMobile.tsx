@@ -41,7 +41,7 @@ export const NavMobile: FC = ({ children }) => {
           src={logo}
           alt="safarilive.org"
           className={css({
-            padding: 0,
+            padding: '1em',
             margin: 0,
             marginTop: '10px',
             marginLeft: '10px',
