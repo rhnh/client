@@ -54,7 +54,6 @@ export const CRUDListItems: FC<Props> = ({
   }
   const handleRemoveItem = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    alert('asdf')
     remove({ id, seen })
   }
 
