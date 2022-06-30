@@ -54,6 +54,7 @@ export const CRUDListItems: FC<Props> = ({
   }
   const handleRemoveItem = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    alert('asdf')
     remove({ id, seen })
   }
 
@@ -65,51 +66,50 @@ export const CRUDListItems: FC<Props> = ({
     <WarnBox>Something went wrong</WarnBox>
   ) : (
     <CRUDNav orientation="right">
-      <section>
-        <Modal aria-label="edit form">
-          <ModalOpenButton>
-            <IconButtons
-              bgImage={deleteIcon}
-              imgStyle={{ width: '15px', innerHeight: 'auto' }}
-              toolTip="Do you want to remove if your list ?"
-            />
-          </ModalOpenButton>
-          <ModalContents>
-            <form onSubmit={handleRemoveItem}>
+      <Modal aria-label="edit form">
+        <ModalOpenButton>
+          <IconButtons
+            bgImage={deleteIcon}
+            imgStyle={{ width: '15px', innerHeight: 'auto' }}
+            toolTip="Do you want to remove if your list ?"
+          />
+        </ModalOpenButton>
+        <ModalContents>
+          <form onSubmit={handleRemoveItem}>
+            <div
+              className={css({
+                position: 'relative',
+                flexDirection: 'column',
+                display: 'flex',
+              })}
+            >
+              <p>
+                Are you sure want to delete{' '}
+                <em>
+                  <strong> {englishName} </strong>
+                </em>{' '}
+                from your list
+                <em>
+                  <strong> {listName}</strong>
+                </em>{' '}
+                ?
+              </p>
               <div
                 className={css({
-                  position: 'relative',
-                  flexDirection: 'column',
                   display: 'flex',
+                  // flexDirection: 'column',
+                  gap: '1em',
                 })}
               >
-                <p>
-                  Are you sure want to delete{' '}
-                  <em>
-                    <strong> {englishName} </strong>
-                  </em>{' '}
-                  from your list
-                  <em>
-                    <strong> {listName}</strong>
-                  </em>{' '}
-                  ?
-                </p>
-                <div
-                  className={css({
-                    display: 'flex',
-                    // flexDirection: 'column',
-                    gap: '1em',
-                  })}
-                >
-                  <Button variant="danger">Yes</Button>
+                <Button variant="danger">Yes</Button>
 
-                  <Button variant="primary">No</Button>
-                </div>
+                <Button variant="primary">No</Button>
               </div>
-            </form>
-          </ModalContents>
-        </Modal>
-        {/* {!isApproved ? (
+            </div>
+          </form>
+        </ModalContents>
+      </Modal>
+      {/* {!isApproved ? (
           <Modal aria-label="edit form">
             <ModalOpenButton>
               <IconButtons
@@ -157,7 +157,6 @@ export const CRUDListItems: FC<Props> = ({
         ) : (
           <></>
         )} */}
-      </section>
     </CRUDNav>
   )
 }
