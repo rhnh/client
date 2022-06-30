@@ -3,27 +3,22 @@ import { Hintput } from '@ribrary/hintput'
 import { Modal, ModalContents, ModalOpenButton } from 'components/modal'
 
 import { Button } from 'components/themed-button'
-import { WarnBox } from 'components/themed-components'
+import { FullPageSpinner, WarnBox } from 'components/themed-components'
 
 import { ChangeEvent, FC, FormEvent, useState } from 'react'
 
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { ITaxonomy } from 'utils/types'
 import { useAddListItem, useGetSpeciesName } from './taxonomies-api'
 
 export const CreateUserTaxonomy: FC = () => {
-  const navigate = useNavigate()
   const { listName } = useParams()
   const { data } = useGetSpeciesName()
   const [englishName, setEnglishName] = useState('')
   const [taxonomyName, setTaxonomyName] = useState('')
+  const [location, setLocation] = useState('')
 
-  const {
-    mutate: save,
-    isError,
-    isLoading,
-    isSuccess,
-  } = useAddListItem(listName || '')
+  const { mutate: save, isError, isLoading } = useAddListItem(listName || '')
   const species: ITaxonomy[] = data ? (data as ITaxonomy[]) : []
   const p = species.map(r => {
     return { englishName: r.englishName, taxonomyName: r.taxonomyName }
@@ -34,6 +29,10 @@ export const CreateUserTaxonomy: FC = () => {
 
   const handleChangeName = (e: ChangeEvent<HTMLInputElement>) => {
     setEnglishName(e.target.value)
+  }
+
+  const handleChangeLocation = (e: ChangeEvent<HTMLInputElement>) => {
+    setLocation(e.target.value)
   }
   const handleChangeTax = (e: ChangeEvent<HTMLInputElement>) => {
     setTaxonomyName(e.target.value)
@@ -48,22 +47,14 @@ export const CreateUserTaxonomy: FC = () => {
   }
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    save({ listName: listName || '', englishName, taxonomyName })
+    save({ listName: listName || '', englishName, taxonomyName, location })
   }
   if (isLoading) {
-    return <p>wait !</p>
-  }
-  if (isError) {
-    return <WarnBox>Something went wrong.</WarnBox>
+    return <FullPageSpinner />
   }
 
-  if (isSuccess) {
-    return (
-      <Button variant="secondary" onClick={() => navigate(-1)}>
-        Back
-      </Button>
-    )
+  if (isError) {
+    return <WarnBox>Something went wrong.</WarnBox>
   }
 
   return (
@@ -117,6 +108,18 @@ export const CreateUserTaxonomy: FC = () => {
               value={taxonomyName}
             />
           </div>
+          <div>
+            <label htmlFor="taxonomyName">Location: </label>
+            <input
+              className={css({ display: 'block' })}
+              onChange={handleChangeLocation}
+              id="taxonomyName"
+              name="taxonomyName"
+              type="text"
+              value={location}
+            />
+          </div>
+
           <div>
             <Button variant="primary">Add</Button>
           </div>

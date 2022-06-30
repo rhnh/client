@@ -1,11 +1,11 @@
 import { useAuth } from 'contexts/userContext'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { IListBird } from 'utils/types'
-
-export const useGetUserList = (listName: string) => {
+import slugify from 'slugify'
+import { IListTaxonomy } from 'utils/types'
+// get list with all its items
+export const useGetListItems = (listName: string) => {
   const { token, isLogin } = useAuth()
-
-  return useQuery<IListBird[]>(
+  return useQuery<IListTaxonomy[]>(
     ['list', listName],
     async () => {
       const res = await fetch(`/api/lists/list/${listName}`, {
@@ -18,7 +18,9 @@ export const useGetUserList = (listName: string) => {
       if (res.status === 401) {
         window.location.reload()
       }
-      return await res.json()
+
+      const result = await res.json()
+      return result
     },
     {
       enabled: isLogin && token ? true : false,
@@ -101,7 +103,7 @@ export const useGetLists = () => {
 export const useDeleteList = () => {
   const { token } = useAuth()
   return useMutation((listName: string) => {
-    return fetch(`/api/lists/list/${listName}`, {
+    return fetch(`/api/lists/list/${slugify(listName)}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -117,12 +119,12 @@ export const useDeleteList = () => {
 export const useUpdateList = (listName: string) => {
   const queryClient = useQueryClient()
 
-  const { token } = useAuth()
+  const { token, username } = useAuth()
   return useMutation(
-    ({ listId, newListName }: { listId: string; newListName: string }) => {
-      return fetch(`/api/lists/list/${listId}`, {
+    ({ listName, newListName }: { listName: string; newListName: string }) => {
+      return fetch(`/api/lists/list/${slugify(listName)}`, {
         method: 'PUT',
-        body: JSON.stringify({ newListName }),
+        body: JSON.stringify({ newListName, listName, username }),
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',

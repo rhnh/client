@@ -25,7 +25,7 @@ export const Lists: FC = () => {
   if (!lists || lists.length <= 0) {
     return (
       <div>
-        No list found
+        <div>No list found</div>
         <LinkedButton variant="primary" to={`/lists/${username}/list`}>
           Create
         </LinkedButton>
@@ -58,40 +58,37 @@ export const Lists: FC = () => {
             },
           })}
         >
-          {lists?.map(list => (
-            <div key={list._id}>
-              <Link
-                to={`/lists/${username}/list/${list?.slug}`}
-                className={css({
-                  display: 'flex',
-                  flexDirection: 'column',
+          <section className={css({ margin: '2em 0' })}>
+            {lists?.map(list => (
+              <div key={list._id}>
+                <Link
+                  to={`/lists/${username}/list/${list?.slug}`}
+                  className={css({
+                    display: 'flex',
+                    flexDirection: 'column',
 
-                  textDecoration: 'none',
-                  textTransform: 'capitalize',
-                  color: colors.red,
+                    textDecoration: 'none',
+                    textTransform: 'capitalize',
+                    color: colors.red,
 
-                  ':hover': {
-                    color: 'green',
-                    opacity: '0.6',
-                  },
-                })}
-              >
-                {/* <img
-                  src={listIcon}
-                  alt=""
-                  className={css({ width: '50px', height: 'auto' })}
-                /> */}
-                <span>{list.listName}</span>
-              </Link>
-            </div>
-          ))}
+                    ':hover': {
+                      color: 'green',
+                      opacity: '0.6',
+                    },
+                  })}
+                >
+                  <span>{list.listName}</span>
+                </Link>
+              </div>
+            ))}
+          </section>
           <section
             className={css({
               marginTop: '1em',
             })}
           >
             <LinkedButton variant="primary" to={`/lists/${username}/list`}>
-              Create New List
+              Create List
             </LinkedButton>
           </section>
         </div>

@@ -10,16 +10,16 @@ import { Navigate } from 'react-router-dom'
 import { useAuth } from 'contexts/userContext'
 
 interface Props {
-  list: IList
+  listName: string
 }
 
 interface InputForm {
   newListName: HTMLInputElement
 }
 
-export const UpdateList: FC<Props> = ({ list }) => {
+export const UpdateList: FC<Props> = ({ listName }) => {
   const { username } = useAuth()
-  const { listName, _id } = list
+
   const {
     mutate: updateListName,
     isSuccess,
@@ -31,7 +31,7 @@ export const UpdateList: FC<Props> = ({ list }) => {
     e.preventDefault()
     const target = e.target as typeof e.target & InputForm
     const value = target.newListName.value
-    updateListName({ listId: _id || '', newListName: value })
+    updateListName({ listName, newListName: value })
   }
 
   return isError ? (

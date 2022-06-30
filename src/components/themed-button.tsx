@@ -85,21 +85,20 @@ interface LinkedButtonProps extends ButtonProps {
 }
 export const LinkedButton = styled(Link)<LinkedButtonProps>(
   {
-    display: 'block',
-    textAlign: 'center',
-    textDecoration: 'none',
     border: 'none',
-    padding: '.6em 1.6em',
+    padding: '.2em 0.6em',
     fontSize: '1em',
     borderRadius: '2em',
-    margin: '.5em  auto',
+    // margin: '.5em .2em',
     textTransform: 'uppercase',
-    background: colors.primary,
     transitionDuration: '0.2s',
     cursor: 'pointer',
-
+    color: colors.primaryText,
+    textDecoration: 'none',
+    margin: '.6em',
     '@media only screen and (min-width: 600px)': {
       maxWidth: '210px',
+      padding: '.4em 1.6em',
     },
   },
   ({ variant: variants = 'primary', disabled = false, style }) => {

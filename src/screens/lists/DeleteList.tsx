@@ -2,17 +2,16 @@ import { Modal, ModalContents, ModalOpenButton } from 'components/modal'
 import { Button, IconButtons } from 'components/themed-button'
 import deleteIcon from 'assets/del.svg'
 import { FC } from 'react'
-import { IList } from 'utils/types'
+
 import { css } from '@emotion/css'
 import { useDeleteList } from './list-api'
 import { Navigate } from 'react-router-dom'
 import { useAuth } from 'contexts/userContext'
 
 interface Props {
-  list: IList
+  listName: string
 }
-export const DeleteList: FC<Props> = ({ list }) => {
-  const { listName } = list
+export const DeleteList: FC<Props> = ({ listName }) => {
   const { username } = useAuth()
   const { mutate: deleteList, isSuccess } = useDeleteList()
 

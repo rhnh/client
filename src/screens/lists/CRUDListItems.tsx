@@ -1,128 +1,163 @@
-import Dialog from '@reach/dialog'
 import { CRUDNav } from 'components/CrudNav'
-import { Button, IconButtons } from 'components/themed-button'
-import editIcon from 'assets/edit.svg'
+import { Button, IconButtons, LinkedButton } from 'components/themed-button'
+// import editIcon from 'assets/edit.svg'
 import deleteIcon from 'assets/del.svg'
 import { css } from '@emotion/css'
-import { FC, useState } from 'react'
+import { FC, FormEvent, useEffect, useState } from 'react'
 import { useRemoveListItem } from './list-item-api'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from 'contexts/userContext'
+import {
+  Modal,
+  ModalContents,
+  ModalDismissButton,
+  ModalOpenButton,
+} from 'components/modal'
+import {
+  FullPageSpinner,
+  ReLoginButton,
+  WarnBox,
+} from 'components/themed-components'
+import { QueryClient } from 'react-query'
 
 type Props = {
   id?: string
   englishName?: string
   listName?: string
+  seen: string
+  isApproved: boolean
 }
+const queryClient = new QueryClient()
 
-export const CRUDListItems: FC<Props> = ({ id, englishName, listName }) => {
-  const { username } = useAuth()
-  const [crudDialog, setCrudDialog] = useState<'delete' | 'update' | 'none'>(
-    'none',
-  )
-  const { mutate: remove, isSuccess: successDeleted } =
-    useRemoveListItem(listName)
+export const CRUDListItems: FC<Props> = ({
+  id,
+  englishName,
+  listName,
+  seen,
+}) => {
+  const { isLogin } = useAuth()
+
+  const {
+    mutate: remove,
+    isSuccess: successDeleted,
+    isLoading,
+    isError,
+  } = useRemoveListItem(listName)
+  useEffect(() => {
+    if (successDeleted) {
+      queryClient.invalidateQueries(listName)
+    }
+  }, [listName, successDeleted])
+
   if (!id || !englishName || !listName) {
     return null
   }
-  const removeItem = () => {
-    remove({ id })
+  const handleRemoveItem = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    remove({ id, seen })
   }
 
-  if (successDeleted) {
-    return <Navigate to={`/lists/${username}`}></Navigate>
-  }
+  if (!isLogin) return <ReLoginButton />
 
-  return (
-    <section>
-      <CRUDNav orientation="right">
-        <IconButtons
-          bgImage={editIcon}
-          toolTip="edit"
-          onClick={() => setCrudDialog('update')}
-        />
+  return isLoading ? (
+    <FullPageSpinner />
+  ) : isError ? (
+    <WarnBox>Something went wrong</WarnBox>
+  ) : (
+    <CRUDNav orientation="right">
+      <section>
+        <Modal aria-label="edit form">
+          <ModalOpenButton>
+            <IconButtons
+              bgImage={deleteIcon}
+              imgStyle={{ width: '15px', innerHeight: 'auto' }}
+              toolTip="Do you want to remove if your list ?"
+            />
+          </ModalOpenButton>
+          <ModalContents>
+            <form onSubmit={handleRemoveItem}>
+              <div
+                className={css({
+                  position: 'relative',
+                  flexDirection: 'column',
+                  display: 'flex',
+                })}
+              >
+                <p>
+                  Are you sure want to delete{' '}
+                  <em>
+                    <strong> {englishName} </strong>
+                  </em>{' '}
+                  from your list
+                  <em>
+                    <strong> {listName}</strong>
+                  </em>{' '}
+                  ?
+                </p>
+                <div
+                  className={css({
+                    display: 'flex',
+                    // flexDirection: 'column',
+                    gap: '1em',
+                  })}
+                >
+                  <Button variant="danger">Yes</Button>
 
-        <IconButtons
-          bgImage={deleteIcon}
-          toolTip="delete"
-          onClick={() => setCrudDialog('delete')}
-        />
-      </CRUDNav>
-      <Dialog
-        isOpen={crudDialog === 'update'}
-        onDismiss={() => setCrudDialog('none')}
-        aria-label="update form"
-      >
-        <div className={css({ position: 'relative' })}>
-          <IconButtons
-            style={{
-              top: 0,
-              position: 'absolute',
-              right: 0,
-              margin: 0,
-            }}
-            bgImage=""
-            toolTip="close"
-            onClick={() => setCrudDialog('none')}
-          />
-
-          <div>
-            <form>
-              <label htmlFor="name">Name</label>
-              <input type="text" />
+                  <Button variant="primary">No</Button>
+                </div>
+              </div>
             </form>
-          </div>
-        </div>
-      </Dialog>
-      <Dialog
-        isOpen={crudDialog === 'delete'}
-        onDismiss={() => setCrudDialog('none')}
-        aria-label="delete form"
-      >
-        <div
-          className={css({
-            position: 'relative',
-            flexDirection: 'column',
-            display: 'flex',
-          })}
-        >
-          <IconButtons
-            style={{
-              top: 0,
-              position: 'absolute',
-              right: 0,
-              margin: 0,
-              gap: '1em',
-            }}
-            bgImage=""
-            toolTip="close"
-            onClick={() => setCrudDialog('none')}
-          />
-          <p>
-            Are you sure want to delete{' '}
-            <em>
-              <strong> {englishName} </strong>
-            </em>{' '}
-            from your list
-            <em>
-              <strong> {listName}</strong>
-            </em>{' '}
-            ?
-          </p>
-          <div
-            className={css({
-              display: 'flex',
-              // flexDirection: 'column',
-              gap: '1em',
-            })}
-          >
-            <Button variant="danger" onClick={removeItem}>
-              Yes
-            </Button>
-            <Button variant="primary">No</Button>
-          </div>
-        </div>
-      </Dialog>
-    </section>
+          </ModalContents>
+        </Modal>
+        {/* {!isApproved ? (
+          <Modal aria-label="edit form">
+            <ModalOpenButton>
+              <IconButtons
+                bgImage={editIcon}
+                imgStyle={{ width: '15px', innerHeight: 'auto' }}
+                toolTip="edit"
+              />
+            </ModalOpenButton>
+            <ModalContents>
+              <div
+                className={css({
+                  position: 'relative',
+                  flexDirection: 'column',
+                  display: 'flex',
+                })}
+              >
+                <p>
+                  Are you sure want to delete{' '}
+                  <em>
+                    <strong> {englishName} </strong>
+                  </em>{' '}
+                  from your list
+                  <em>
+                    <strong> {listName}</strong>
+                  </em>{' '}
+                  ?
+                </p>
+                <div
+                  className={css({
+                    display: 'flex',
+                    // flexDirection: 'column',
+                    gap: '1em',
+                  })}
+                >
+                  <Button variant="danger" onClick={removeItem}>
+                    Yes
+                  </Button>
+                  <ModalDismissButton>
+                    <Button variant="primary">No</Button>
+                  </ModalDismissButton>
+                </div>
+              </div>
+            </ModalContents>
+          </Modal>
+        ) : (
+          <></>
+        )} */}
+      </section>
+    </CRUDNav>
   )
 }

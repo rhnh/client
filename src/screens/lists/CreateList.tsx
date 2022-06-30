@@ -5,6 +5,7 @@ import { useAuth } from 'contexts/userContext'
 import { ChangeEvent, FC, FormEvent, useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { Link } from 'react-router-dom'
+import { PanelNav } from 'screens/admin/PanelNav'
 import * as colors from 'utils/colors'
 
 export const CreateList: FC = () => {
@@ -80,32 +81,20 @@ export const CreateList: FC = () => {
     )
   }
   return isLogin ? (
-    <div
-      className={css({
-        display: 'flex',
-        backgroundColor: colors.plate,
-        margin: 'auto',
-        marginTop: '1.5em',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: '5px',
-        minHeight: '100vh',
-        '@media screen and (max-width:600px)': {
-          maxWidth: '500px',
-          justifyContent: 'center',
-          alignItems: 'center',
-        },
-      })}
-    >
+    <div>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div
+          className={css({
+            width: '50%',
+            margin: 'auto',
+          })}
+        >
           <h2
             className={css({
               background: colors.base,
               top: 0,
               marginTop: 0,
               borderRadius: '5px 5px 0 0',
-
               padding: '1em',
               color: colors.primaryText,
             })}
@@ -115,9 +104,12 @@ export const CreateList: FC = () => {
           <section
             className={css({
               padding: '1em',
+              display: 'flex',
+              gap: '1em',
+              flexDirection: 'column',
             })}
           >
-            <label htmlFor="list-name">Enter List Name</label>
+            <label htmlFor="listName">Enter List Name</label>
             <Input
               type="text"
               id="listName"

@@ -20,14 +20,16 @@ export function useAddListItem(listName: string) {
       listName,
       taxonomyName,
       englishName,
+      location,
     }: {
       listName: string
+      location: string
       englishName: string
       taxonomyName?: string
     }) => {
       return fetch(`/api/lists/list/${listName}`, {
         method: 'POST',
-        body: JSON.stringify({ englishName, taxonomyName }),
+        body: JSON.stringify({ englishName, taxonomyName, location }),
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -36,10 +38,7 @@ export function useAddListItem(listName: string) {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(['lists', listName])
         queryClient.invalidateQueries(['list', listName])
-        queryClient.invalidateQueries('taxonomies')
-        queryClient.invalidateQueries('birds')
       },
     },
   )

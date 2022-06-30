@@ -30,7 +30,7 @@ export const CreateOrder: FC = () => {
   const { data: alreadyExistingOrder } = useGetByRank('order')
   const [isExist, setIsExit] = useState(false)
 
-  const { mutate: save, isSuccess } = useCreateTaxonomy()
+  const { mutate: save } = useCreateTaxonomy()
 
   const names: string[] = alreadyExistingOrder?.map(
     (t: ITaxonomy) => t.englishName,
@@ -57,9 +57,7 @@ export const CreateOrder: FC = () => {
   if (!isLogin) {
     return <ReLoginButton />
   }
-  if (isSuccess) {
-    return <p>hooo</p>
-  }
+
   return (
     <Modal>
       <ModalOpenButton>

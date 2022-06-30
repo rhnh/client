@@ -48,6 +48,7 @@ export interface ITaxonomy extends Base {
   sex?: IGender | undefined
   ancestors?: string[]
   credit?: string
+  seen?: string
 }
 
 export interface IPost extends Base {
@@ -68,12 +69,15 @@ export interface IList extends Base {
   slug?: string
 }
 
-export interface IListBird extends Base {
+export interface IListTaxonomy extends IList, ITaxonomy {
+  listName: string
+  username: string
+  seen: string
+  location: string
   taxonomyName: string
-  createdAt: string
   englishName: string
+  birdId: string
 }
-
 export interface IHintDisplay {
   inputName: string
   placeholder: string

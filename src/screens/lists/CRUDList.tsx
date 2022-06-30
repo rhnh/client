@@ -1,19 +1,19 @@
 import { CRUDNav } from 'components/CrudNav'
 import { FC } from 'react'
-import { IList } from 'utils/types'
+
 import { DeleteList } from './DeleteList'
 import { UpdateList } from './UpdateList'
 
 type Props = {
-  list: IList
+  listName?: string
 }
 
-export const CRUDList: FC<Props> = ({ list }) => {
+export const CRUDList: FC<Props> = ({ listName = '' }) => {
   return (
     <section>
       <CRUDNav orientation="left">
-        <UpdateList list={list} />
-        <DeleteList list={list} />
+        <UpdateList listName={listName} />
+        <DeleteList listName={listName} />
       </CRUDNav>
     </section>
   )

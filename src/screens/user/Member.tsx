@@ -48,7 +48,7 @@ export const Member: FC<IUser> = ({ username, createdAt, role }) => {
         >
           {role}
         </p>
-        <p>{createdAt}</p>
+        <p>{new Date(createdAt ?? '').toDateString()}</p>
       </section>
       <form onSubmit={handleRole}>
         <select onChange={handleSelectChange} id="selectForm">

@@ -42,7 +42,7 @@ export const AddTaxonomy: FC<Props> = ({ englishName, taxonomyName, id }) => {
 
   const handleSave = () => {
     if (listName && englishName && taxonomyName)
-      save({ listName, englishName, taxonomyName })
+      save({ listName, englishName, taxonomyName, location: '' })
   }
 
   return isLoading ? (

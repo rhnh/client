@@ -45,11 +45,12 @@ export const Posts: FC = () => {
           })}
         </div>
       )}
-      {role === 'admin' && (
-        <LinkedButton variant="primary" to="/posts/post">
-          Create New
-        </LinkedButton>
-      )}
+      {role === 'admin' ||
+        (role === 'mod' && (
+          <LinkedButton variant="primary" to="/posts/post">
+            Create New
+          </LinkedButton>
+        ))}
     </div>
   )
 }
