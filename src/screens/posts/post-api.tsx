@@ -106,3 +106,26 @@ export function useDeletePost() {
     { onSuccess: () => queryClient.invalidateQueries('posts') },
   )
 }
+
+export const useCreatePost = () => {
+  const queryClient = useQueryClient()
+
+  const { token } = useAuth()
+  return useMutation(
+    (post: { post: IPost }) => {
+      return fetch(`/api/posts`, {
+        method: 'POST',
+        body: JSON.stringify({ ...post }),
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      })
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('posts')
+      },
+    },
+  )
+}

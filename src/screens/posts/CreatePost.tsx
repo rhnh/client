@@ -6,6 +6,7 @@ import { useAuth } from 'contexts/userContext'
 import { FC, FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { IPost } from 'utils/types'
+import { useCreatePost } from './post-api'
 
 interface PostInputElements {
   title: HTMLInputElement
@@ -14,14 +15,39 @@ interface PostInputElements {
 }
 
 export const CreatePost: FC = () => {
-  const { isLogin, userInfo } = useAuth()
-  const role = userInfo?.role
+  const { isLogin /*userInfo*/ } = useAuth()
+  const { mutate: save, isSuccess } = useCreatePost()
   const navigate = useNavigate()
 
   if (!isLogin) {
     navigate(-1)
   }
-  if (isLogin && role !== 'mod' && role !== 'admin') {
+
+  if (isSuccess) {
+    return (
+      <div>
+        <Button onClick={() => navigate(-1)} variant="primary">
+          Thanks for adding new post!
+        </Button>
+      </div>
+    )
+  }
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const target = e.target as typeof e.target & PostInputElements
+    const { title, body, imageUrl } = target
+    const post: IPost = {
+      title: title.value,
+      body: body.value,
+      image_url: imageUrl.value,
+      createdAt: '',
+    }
+    save({ post })
+  }
+
+  if (!isLogin) {
+    // if (isLogin && role !== 'mod' && role !== 'admin') {
     return (
       <div>
         <span>You are not authorized to write an article.</span>
@@ -43,24 +69,6 @@ export const CreatePost: FC = () => {
         to go back to home page.
       </div>
     )
-  }
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const target = e.target as typeof e.target & PostInputElements
-    const { title, body, imageUrl } = target
-    const post: IPost = {
-      title: title.value,
-      body: body.value,
-      image_url: imageUrl.value,
-    }
-
-    fetch(`/api/posts`, {
-      method: 'POST',
-      body: JSON.stringify(post),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }).then(res => res.json())
   }
 
   return (

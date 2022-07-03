@@ -80,6 +80,9 @@ export const ShowPost: FC = () => {
       <section className={css({ margin: '1em' })}>
         <p>{post.body}</p>
       </section>
+      <section>
+        Posted by <i>{post.username}</i>
+      </section>
       {isAuthorized && (
         <div
           className={css({
