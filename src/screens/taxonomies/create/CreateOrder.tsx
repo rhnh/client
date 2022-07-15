@@ -1,7 +1,11 @@
 import { css } from '@emotion/css'
 import * as colors from 'utils/colors'
 import { Button } from 'components/themed-button'
-import { FlexColumn, ReLoginButton } from 'components/themed-components'
+import {
+  FlexColumn,
+  InfoBox,
+  ReLoginButton,
+} from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
 import { ChangeEvent, FC, FormEvent, useState } from 'react'
 import { ITaxonomy } from 'utils/types'
@@ -30,7 +34,22 @@ export const CreateOrder: FC = () => {
   const { data: alreadyExistingOrder } = useGetByRank('order')
   const [isExist, setIsExit] = useState(false)
 
-  const { mutate: save } = useCreateTaxonomy()
+  const { mutate: save, isSuccess, reset } = useCreateTaxonomy()
+
+  if (isSuccess) {
+    return (
+      <Modal>
+        <ModalContents>
+          <InfoBox>Thanks for add new {taxonomy.rank}</InfoBox>
+          <ModalDismissButton>
+            <Button variant="secondary" onClick={() => reset()}>
+              Close
+            </Button>
+          </ModalDismissButton>
+        </ModalContents>
+      </Modal>
+    )
+  }
 
   const names: string[] = alreadyExistingOrder?.map(
     (t: ITaxonomy) => t.englishName,

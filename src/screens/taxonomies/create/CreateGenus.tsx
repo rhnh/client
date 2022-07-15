@@ -11,23 +11,25 @@ import {
   StepperNavButtons,
 } from 'components/Stepper.util'
 import { Button, LinkedButton } from 'components/themed-button'
-import { FlexColumn, ReLoginButton } from 'components/themed-components'
+import {
+  FlexColumn,
+  InfoBox,
+  ReLoginButton,
+} from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
 import { FC, FormEvent, useReducer } from 'react'
 import { ITaxonomy } from 'utils/types'
 import { useCreateTaxonomy } from '../taxonomies-api'
 import { BaseTaxonomy } from './BaseTaxonomy'
 
-type Props = {}
-
 const reducer = (state: ITaxonomy, action: ITaxonomy) => {
   return { ...state, ...action }
 }
 
-export const CreateGenus: FC = (props: Props) => {
+export const CreateGenus: FC = () => {
   const { username, isLogin } = useAuth()
 
-  const { mutate: save, isSuccess } = useCreateTaxonomy()
+  const { mutate: save, isSuccess, reset } = useCreateTaxonomy()
   const [taxonomy, dispatch] = useReducer(reducer, {
     rank: 'genus',
     isApproved: false,
@@ -42,6 +44,21 @@ export const CreateGenus: FC = (props: Props) => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     save({ taxonomy })
+  }
+
+  if (isSuccess) {
+    return (
+      <Modal>
+        <ModalContents>
+          <InfoBox>Thanks for add new {taxonomy.rank}</InfoBox>
+          <ModalDismissButton>
+            <Button variant="secondary" onClick={() => reset()}>
+              Close
+            </Button>
+          </ModalDismissButton>
+        </ModalContents>
+      </Modal>
+    )
   }
 
   const updateState = (t: ITaxonomy) => {
@@ -66,9 +83,27 @@ export const CreateGenus: FC = (props: Props) => {
                 <FlexColumn>
                   <legend>Ancestors</legend>
                   <label htmlFor="order">Order</label>
-                  <input type="text" id="order" />
+                  <input
+                    type="text"
+                    id="order"
+                    value={taxonomy?.ancestors[0] || ''}
+                    onChange={e => {
+                      const temp: ITaxonomy = taxonomy
+                      temp.ancestors[0] = e.target.value
+                      dispatch(temp)
+                    }}
+                  />
                   <label htmlFor="family">Family</label>
-                  <input type="text" id="family" />
+                  <input
+                    type="text"
+                    id="family"
+                    value={taxonomy?.ancestors[1] || ''}
+                    onChange={e => {
+                      const temp: ITaxonomy = taxonomy
+                      temp.ancestors[1] = e.target.value
+                      dispatch(temp)
+                    }}
+                  />
                 </FlexColumn>
               </fieldset>
               <div>

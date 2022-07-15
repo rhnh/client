@@ -6,6 +6,7 @@ import { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { ITaxonomy } from 'utils/types'
 import * as colors from 'utils/colors'
+import { getParentRank } from 'utils/tools'
 
 export const Species: FC<ITaxonomy> = ({
   _id,
@@ -17,6 +18,7 @@ export const Species: FC<ITaxonomy> = ({
   parent,
   username,
   credit,
+  rank,
 }) => {
   const ranks = ['order', 'family', 'genus', 'species']
 
@@ -90,11 +92,28 @@ export const Species: FC<ITaxonomy> = ({
           transition: ' height 0.25s linear',
         })}
       >
-        <div className="taxonomyName"> {englishName}</div>
-        <div className="taxonomy"> {taxonomyName}</div>
+        <div className="taxonomyName">
+          {' '}
+          {rank === 'species' && (
+            <span>
+              <i>Species:</i>{' '}
+            </span>
+          )}{' '}
+          {englishName}
+        </div>
+        <div className="taxonomy">
+          <span>
+            <i> {rank === 'species' ? 'Binomial' : rank}:</i>
+          </span>
+
+          {taxonomyName}
+        </div>
 
         {parent ? (
           <div className="taxonomy">
+            <span>
+              <i>{getParentRank(rank).toUpperCase()}: </i>
+            </span>
             <Link to={`/taxonomies/taxonomyName/${parent}`}>{parent}</Link>
           </div>
         ) : null}
@@ -114,11 +133,16 @@ export const Species: FC<ITaxonomy> = ({
                 </span>
               </div>
             ))}
-            <p>Image Credit to :{credit}</p>
           </div>
         ) : null}
         {username && (
           <i className={css({ alginSelf: 'flex-end' })}>Added by {username} </i>
+        )}
+        {credit && (
+          <p>
+            Thanks to{' '}
+            <a href={`https://unsplash.com/@${credit}`}>unsplash.com</a>{' '}
+          </p>
         )}
       </div>
     </div>

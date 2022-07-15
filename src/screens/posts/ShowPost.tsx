@@ -13,7 +13,11 @@ import pin from 'assets/pin.svg'
 import unpin from 'assets/unpin.svg'
 import delBtn from 'assets/del.svg'
 import { css } from '@emotion/css'
-import { CircleButton, LinkedButton } from 'components/themed-button'
+import {
+  CircleButton,
+  IconButtons,
+  LinkedButton,
+} from 'components/themed-button'
 import { numberToDate } from 'utils/tools'
 
 export const ShowPost: FC = () => {
@@ -88,52 +92,28 @@ export const ShowPost: FC = () => {
           className={css({
             display: 'flex',
             // flexDirection: 'column',
+            justifyContent: 'space-around',
+            maxWidth: '100px',
           })}
         >
           {post.featured ? (
-            <CircleButton onClick={handleUnSetFeatured}>
-              <img
-                src={unpin}
-                alt="+"
-                className={css({
-                  minHeight: '50px',
-                  minWeight: '50px',
-                  ':hover': {
-                    opacity: 0.5,
-                  },
-                })}
-              ></img>
-            </CircleButton>
+            <IconButtons
+              toolTip="unfeatured"
+              bgImage={unpin}
+              onClick={handleUnSetFeatured}
+            />
           ) : (
-            <div>
-              <CircleButton onClick={handleSetFeatured}>
-                <img
-                  src={pin}
-                  alt="+"
-                  className={css({
-                    minHeight: '50px',
-                    minWeight: '50px',
-                    ':hover': {
-                      opacity: 0.5,
-                    },
-                  })}
-                ></img>
-              </CircleButton>
-            </div>
+            <IconButtons
+              toolTip="feature"
+              bgImage={pin}
+              onClick={handleSetFeatured}
+            />
           )}
-          <CircleButton onClick={handleDelete}>
-            <img
-              src={delBtn}
-              alt="x"
-              className={css({
-                minHeight: '50px',
-                minWeight: '50px',
-                ':hover': {
-                  opacity: 0.5,
-                },
-              })}
-            ></img>
-          </CircleButton>
+          <IconButtons
+            toolTip="delete"
+            onClick={handleDelete}
+            bgImage={delBtn}
+          />
         </div>
       )}
     </div>

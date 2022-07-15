@@ -1,23 +1,20 @@
 import { css } from '@emotion/css'
-import React, { ChangeEvent, FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { ITaxonomy } from 'utils/types'
 import { AddTaxonomy } from './AddUserTaxonomy'
 import { Species } from './Species'
 import * as colors from 'utils/colors'
-import { SearchBar } from 'components/SearchBar'
+
 type Props = {
   taxonomies: ITaxonomy[]
-  hasSearch?: boolean
 }
 
-export const Birds: FC<Props> = ({ taxonomies, hasSearch = false }) => {
+export const Birds: FC<Props> = ({ taxonomies }) => {
   const [birds, setBirds] = useState<ITaxonomy[]>([])
-
-  const [search, setSearch] = useState<string>('')
-
+  console.log(birds)
   useEffect(() => {
     setBirds(taxonomies)
-  }, [birds, search, taxonomies])
+  }, [birds, taxonomies])
 
   if (!birds) {
     return <p>No bird found</p>
@@ -47,6 +44,8 @@ export const Birds: FC<Props> = ({ taxonomies, hasSearch = false }) => {
             username={t.username}
             credit={t.credit}
             createdAt={t.createdAt}
+            parent={t.parent}
+            ancestors={t.ancestors || []}
           />
           <div
             className={css({

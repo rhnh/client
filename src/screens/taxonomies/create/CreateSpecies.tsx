@@ -11,23 +11,25 @@ import {
   StepperNavButtons,
 } from 'components/Stepper.util'
 import { Button, LinkedButton } from 'components/themed-button'
-import { FlexColumn, ReLoginButton } from 'components/themed-components'
+import {
+  FlexColumn,
+  InfoBox,
+  ReLoginButton,
+} from 'components/themed-components'
 import { useAuth } from 'contexts/userContext'
 import { FC, FormEvent, useReducer } from 'react'
 import { ITaxonomy } from 'utils/types'
 import { useCreateTaxonomy } from '../taxonomies-api'
 import { BaseTaxonomy } from './BaseTaxonomy'
 
-type Props = {}
-
 const reducer = (state: ITaxonomy, action: ITaxonomy) => {
   return { ...state, ...action }
 }
 
-export const CreateSpecies: FC = (props: Props) => {
+export const CreateSpecies: FC = () => {
   const { username, isLogin } = useAuth()
-
-  const { mutate: save, isSuccess } = useCreateTaxonomy()
+  const { mutate: save, isSuccess, reset } = useCreateTaxonomy()
+  console.log(username)
   const [taxonomy, dispatch] = useReducer(reducer, {
     rank: 'species',
     isApproved: false,
@@ -36,7 +38,7 @@ export const CreateSpecies: FC = (props: Props) => {
     englishName: '',
     parent: '',
     image: '',
-    ancestors: [''],
+    ancestors: [],
   })
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -51,6 +53,22 @@ export const CreateSpecies: FC = (props: Props) => {
   if (!isLogin) {
     return <ReLoginButton />
   }
+
+  if (isSuccess) {
+    return (
+      <Modal>
+        <ModalContents>
+          <InfoBox>Thanks for add new {taxonomy.rank}</InfoBox>
+          <ModalDismissButton>
+            <Button variant="secondary" onClick={() => reset()}>
+              Close
+            </Button>
+          </ModalDismissButton>
+        </ModalContents>
+      </Modal>
+    )
+  }
+
   return (
     <Modal>
       <ModalOpenButton>
@@ -66,13 +84,58 @@ export const CreateSpecies: FC = (props: Props) => {
                 <FlexColumn>
                   <legend>Ancestors</legend>
                   <label htmlFor="order">Order</label>
-                  <input type="text" id="order" />
+                  <input
+                    type="text"
+                    id="order"
+                    value={taxonomy?.ancestors[0] || ''}
+                    onChange={e => {
+                      const temp: ITaxonomy = taxonomy
+                      temp.ancestors[0] = e.target.value
+                      dispatch(temp)
+                    }}
+                  />
                   <label htmlFor="family">Family</label>
-                  <input type="text" id="family" />
+                  <input
+                    type="text"
+                    id="family"
+                    value={taxonomy?.ancestors[1] || ''}
+                    onChange={e => {
+                      const temp: ITaxonomy = taxonomy
+                      temp.ancestors[1] = e.target.value
+                      dispatch(temp)
+                    }}
+                  />
                   <label htmlFor="genus">Genus</label>
-                  <input type="text" id="genus" />
+                  <input
+                    type="text"
+                    id="genus"
+                    value={taxonomy?.ancestors[2] || ''}
+                    onChange={e => {
+                      const temp: ITaxonomy = taxonomy
+                      temp.ancestors[2] = e.target.value
+                      dispatch(temp)
+                    }}
+                  />
                 </FlexColumn>
               </fieldset>
+              <FlexColumn>
+                <label htmlFor="credit">Credit for image</label>
+                <input
+                  type="text"
+                  id="credit"
+                  onChange={e =>
+                    dispatch({ ...taxonomy, credit: e.target.value })
+                  }
+                />
+                <label htmlFor="image">Image</label>
+                <input
+                  type="text"
+                  id="image"
+                  onChange={e =>
+                    dispatch({ ...taxonomy, image: e.target.value })
+                  }
+                ></input>
+              </FlexColumn>
               <div>
                 {isSuccess ? (
                   <FlexColumn>

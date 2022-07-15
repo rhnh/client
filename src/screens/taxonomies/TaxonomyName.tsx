@@ -42,6 +42,7 @@ export const TaxonomyName: FC = () => {
             info={taxonomies.length === 1 ? taxonomy.info : ''}
             _id={taxonomy._id}
             parent={taxonomy.parent}
+            ancestors={[]}
           />
         )
       })}

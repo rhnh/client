@@ -8,20 +8,6 @@ import { IPost } from 'utils/types'
 import { Post } from './Post'
 import { usePosts } from './post-api'
 
-interface RPost extends IPost {
-  createdAt: Required<string>
-}
-
-// function compare(a: , b: ) {
-//   if (a?.createdAt < b?.createdAt) {
-//     return -1
-//   }
-//   if (a?.createdAt > b?.createdAt) {
-//     return 1
-//   }
-//   return 0
-// }
-
 export const Posts: FC = () => {
   const { /*userInfo,*/ isLogin } = useAuth()
   // const role = userInfo?.role

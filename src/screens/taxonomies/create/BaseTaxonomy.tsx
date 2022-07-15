@@ -12,6 +12,12 @@ type Props = {
   taxonomy: ITaxonomy
   updateTaxonomy(t: ITaxonomy): void
 }
+
+interface Inputs {
+  credit: HTMLInputElement
+  image: HTMLInputElement
+}
+
 /**
  *
  * @param taxonomy a taxonomy that will be used for inputs values

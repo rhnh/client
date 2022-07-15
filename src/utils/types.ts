@@ -46,7 +46,7 @@ export interface ITaxonomy extends Base {
   slug?: string
   info?: string
   sex?: IGender | undefined
-  ancestors?: string[]
+  ancestors: string[]
   credit?: string
   seen?: string
 }
