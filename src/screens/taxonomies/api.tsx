@@ -10,19 +10,19 @@ export const fetchTaxonomies = async ({
   isLogin: boolean
 }): Promise<TaxonomiesProps> => {
   const c: number = pageParam as unknown as number
-
-  if (!isLogin || token === '') {
-    return Promise.resolve({
-      page: 1,
-      hasNextPage: false,
-      hasPreviousPage: false,
-      totalPages: 1,
-      nextPage: 1,
-      previousPage: 1,
-      totalItems: 1,
-      items: [],
-    })
-  }
+  //for now
+  // if (!isLogin || token === '') {
+  //   return Promise.resolve({
+  //     page: 1,
+  //     hasNextPage: false,
+  //     hasPreviousPage: false,
+  //     totalPages: 1,
+  //     nextPage: 1,
+  //     previousPage: 1,
+  //     totalItems: 1,
+  //     items: [],
+  //   })
+  // }
   const res = await fetch(`/api/taxonomies/paginated/?page=${c}&limit=2`, {
     method: 'get',
     headers: {

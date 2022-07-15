@@ -109,7 +109,7 @@ const getTaxonomies = async ({
 export function useGetTaxonomiesInfinite() {
   const { isLogin, token } = useAuth()
 
-  const isAuth = isLogin && token ? true : false
+  // const isAuth = isLogin && token ? true : false //for now
   return useInfiniteQuery(
     ['taxonomies'],
     ({ pageParam = 0 }) => fetchTaxonomies({ pageParam, token, isLogin }),
@@ -119,7 +119,7 @@ export function useGetTaxonomiesInfinite() {
           return currentPage.nextPage
         }
       },
-      enabled: isAuth,
+      // enabled: isAuth, //for now
       refetchOnWindowFocus: false,
     },
   )
