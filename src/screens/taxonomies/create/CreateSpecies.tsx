@@ -29,7 +29,7 @@ const reducer = (state: ITaxonomy, action: ITaxonomy) => {
 export const CreateSpecies: FC = () => {
   const { username, isLogin } = useAuth()
   const { mutate: save, isSuccess, reset } = useCreateTaxonomy()
-  console.log(username)
+
   const [taxonomy, dispatch] = useReducer(reducer, {
     rank: 'species',
     isApproved: false,

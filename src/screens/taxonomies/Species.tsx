@@ -57,7 +57,7 @@ export const Species: FC<ITaxonomy> = ({
             })}
           >
             <img
-              src={`/assets/${image}`}
+              src={`${image}`}
               className={css({
                 width: '200px',
                 height: 'auto',
@@ -140,7 +140,7 @@ export const Species: FC<ITaxonomy> = ({
         )}
         {credit && (
           <p>
-            Thanks to{' '}
+            Thanks to imgur.com and Thanks to {credit} on <br />
             <a href={`https://unsplash.com/@${credit}`}>unsplash.com</a>{' '}
           </p>
         )}

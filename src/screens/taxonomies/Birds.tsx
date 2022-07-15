@@ -11,7 +11,7 @@ type Props = {
 
 export const Birds: FC<Props> = ({ taxonomies }) => {
   const [birds, setBirds] = useState<ITaxonomy[]>([])
-  console.log(birds)
+
   useEffect(() => {
     setBirds(taxonomies)
   }, [birds, taxonomies])
