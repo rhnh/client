@@ -112,7 +112,8 @@ export function useGetTaxonomiesInfinite() {
   // const isAuth = isLogin && token ? true : false //for now
   return useInfiniteQuery(
     ['taxonomies'],
-    ({ pageParam = 0 }) => fetchTaxonomies({ pageParam, token, isLogin }),
+    //!the default pageParam should be 1 not 0
+    ({ pageParam = 1 }) => fetchTaxonomies({ pageParam, token, isLogin }),
     {
       getNextPageParam: (currentPage, pages) => {
         if (currentPage.hasNextPage) {
