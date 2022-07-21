@@ -17,7 +17,13 @@ export const TaxonomyName: FC = () => {
     return null
   }
   if (taxonomies?.length === 0) {
-    return <p>No resources found</p>
+    return (
+      <section>
+        <p>No resources found</p>
+        If you want to contribute, please register and send a tweet
+        twitter.com/safariliveorg
+      </section>
+    )
   }
   return (
     <div>
