@@ -209,6 +209,10 @@ const Box = styled('div')(
     minHeight: '10px',
     backgroundRepeat: 'no-repeat',
     textAlign: 'left',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 )
 

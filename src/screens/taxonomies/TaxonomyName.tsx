@@ -21,7 +21,10 @@ export const TaxonomyName: FC = () => {
       <section>
         <p>No resources found</p>
         If you want to contribute, please register and send a tweet
-        twitter.com/safariliveorg
+        <dl>
+          <dt>Twitter:</dt>
+          <dd>twitter.com/safariliveorg</dd>
+        </dl>
       </section>
     )
   }
