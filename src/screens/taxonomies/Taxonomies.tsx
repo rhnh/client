@@ -27,10 +27,10 @@ export const Taxonomies = () => {
   }, [fetchNextPage, hasNextPage, inView])
 
   return (
-    <div>
+    <section>
       <h1>List of Birds</h1>
       {status === 'loading' ? (
-        <p>Loading...</p>
+        <h4>Loading...</h4>
       ) : status === 'error' ? (
         <span>Error: {error.message}</span>
       ) : (
@@ -55,7 +55,7 @@ export const Taxonomies = () => {
                 key={index}
               />
             ))}
-          <div>
+          <section>
             <button
               ref={ref}
               onClick={() => fetchNextPage()}
@@ -67,16 +67,16 @@ export const Taxonomies = () => {
                 ? 'Load Newer'
                 : 'Nothing more to load'}
             </button>
-          </div>
-          <div>
+          </section>
+          <section>
             {isFetching && !isFetchingNextPage
               ? 'Background Updating...'
               : null}
-          </div>
+          </section>
         </>
       )}
       <hr />
       <Link to="/about"></Link>
-    </div>
+    </section>
   )
 }

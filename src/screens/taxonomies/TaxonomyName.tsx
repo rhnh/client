@@ -29,7 +29,7 @@ export const TaxonomyName: FC = () => {
     )
   }
   return (
-    <div>
+    <section>
       {taxonomies && taxonomies.length >= 0 ? (
         <>
           <span>There are {taxonomies?.length} birds that belong to </span>
@@ -55,6 +55,6 @@ export const TaxonomyName: FC = () => {
           />
         )
       })}
-    </div>
+    </section>
   )
 }

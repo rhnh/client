@@ -222,7 +222,7 @@ export const InfoBox: FC = ({ children }) => <Box type="info">{children}</Box>
 
 export const ReLoginButton = () => {
   return (
-    <div
+    <section
       className={css({
         maxWidth: '60%',
         margin: '2em auto',
@@ -234,7 +234,7 @@ export const ReLoginButton = () => {
           Login
         </LinkedButton>
       </Box>
-    </div>
+    </section>
   )
 }
 
@@ -278,7 +278,7 @@ export const Spinner = ({ size = 20 }: { size?: number }) => (
 )
 export const FullPageSpinner: FC = () => {
   return (
-    <div
+    <section
       className={css({
         fontSize: '4em',
         height: '100vh',
@@ -295,7 +295,7 @@ export const FullPageSpinner: FC = () => {
         })}
         alt="Loading..."
       />
-    </div>
+    </section>
   )
 }
 

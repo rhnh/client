@@ -23,7 +23,7 @@ export const Species: FC<ITaxonomy> = ({
   const ranks = ['order', 'family', 'genus', 'species']
 
   return (
-    <div
+    <section
       key={_id}
       className={css({
         display: 'flex',
@@ -84,7 +84,7 @@ export const Species: FC<ITaxonomy> = ({
           />
         )}
       </Link>
-      <div
+      <section
         className={css({
           display: 'flex',
           flexDirection: 'column',
@@ -92,59 +92,62 @@ export const Species: FC<ITaxonomy> = ({
           transition: ' height 0.25s linear',
         })}
       >
-        <div className="taxonomyName">
+        <section className="taxonomyName">
           {' '}
-          {rank === 'species' && (
-            <span>
-              <i>Species:</i>{' '}
-            </span>
-          )}{' '}
-          {englishName}
-        </div>
-        <div className="taxonomy">
-          <span>
-            <i> {rank === 'species' ? 'Binomial' : rank}:</i>
-          </span>
-
-          {taxonomyName}
-        </div>
+          {rank === 'species' && <span>Species: </span>} <em>{englishName}</em>
+        </section>
+        <section className="taxonomy">
+          <span>{rank === 'species' ? 'Binomial' : rank}:</span>
+          <em>{taxonomyName}</em>
+        </section>
 
         {parent ? (
-          <div className="taxonomy">
+          <section className="taxonomy">
             <span>
               <i>{getParentRank(rank).toUpperCase()}: </i>
             </span>
             <Link to={`/taxonomies/taxonomyName/${parent}`}>{parent}</Link>
-          </div>
+          </section>
         ) : null}
 
         {info ? (
-          <div className="taxonomy">
+          <section className="taxonomy">
             <p> {info}</p>
-          </div>
+          </section>
         ) : null}
         {ancestors ? (
-          <div>
+          <section>
             {ancestors?.map((ans, i) => (
-              <div key={i}>
+              <section key={i}>
                 <span>
                   {ranks[i].toUpperCase()}:{' '}
                   <Link to={`/taxonomies/taxonomyName/${ans}`}> {ans}</Link>
                 </span>
-              </div>
+              </section>
             ))}
-          </div>
+          </section>
         ) : null}
         {username && (
-          <i className={css({ alginSelf: 'flex-end' })}>Added by {username} </i>
+          <section>
+            Added by:
+            <em className={css({ alginSelf: 'flex-end' })}> {username} </em>
+          </section>
         )}
         {credit && (
-          <p>
-            Thanks to imgur.com and Thanks to {credit} on <br />
-            <a href={`https://unsplash.com/@${credit}`}>unsplash.com</a>{' '}
-          </p>
+          <section>
+            <p>
+              Thanks to:
+              <em> imgur.com</em>
+            </p>
+            <p>
+              Thanks to:
+              <em>
+                <a href={`https://unsplash.com/@${credit}`}>{credit}</a>{' '}
+              </em>
+            </p>
+          </section>
         )}
-      </div>
-    </div>
+      </section>
+    </section>
   )
 }
