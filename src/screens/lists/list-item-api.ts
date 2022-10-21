@@ -1,5 +1,6 @@
 import { useAuth } from 'contexts/userContext'
 import { useMutation, useQueryClient } from 'react-query'
+import { SERVER_URL } from 'utils/configs'
 
 export const useRemoveListItem = (listName?: string) => {
   const queryClient = useQueryClient()
@@ -7,7 +8,7 @@ export const useRemoveListItem = (listName?: string) => {
   return useMutation(
     ({ id, seen }: { id: string; seen: string }) => {
       if (!id || !listName) Promise.resolve(() => {})
-      return fetch(`/api/lists/list/${listName}/bird/${id}/${seen}`, {
+      return fetch(`${SERVER_URL}/lists/list/${listName}/bird/${id}/${seen}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,

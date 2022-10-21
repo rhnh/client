@@ -1,5 +1,6 @@
 import { useAuth } from 'contexts/userContext'
 import { useMutation, useQueryClient } from 'react-query'
+import { SERVER_URL } from 'utils/configs'
 
 import { IRole } from 'utils/types'
 
@@ -14,7 +15,7 @@ const client = ({
   pathname: string
   body?: any
 }) => {
-  return fetch(`/api/${pathname}`, {
+  return fetch(`${SERVER_URL}/api/${pathname}`, {
     method,
     body: body ? JSON.stringify(body) : undefined,
     headers: {
