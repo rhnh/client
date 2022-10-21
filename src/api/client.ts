@@ -1,6 +1,8 @@
+import { SERVER_URL } from 'utils/configs'
+
 async function client(endpoint: string, data: any) {
   return window
-    .fetch(`/api/${endpoint}`, {
+    .fetch(`${SERVER_URL}/api/${endpoint}`, {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {

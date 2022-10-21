@@ -1,11 +1,12 @@
 import { useAuth } from 'contexts/userContext'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
+import { SERVER_URL } from 'utils/configs'
 import { httpError } from 'utils/error'
 import { IUser, IUserInfo } from 'utils/types'
 
 export const useProfile = (username: string) => {
   return useQuery('profile', () => {
-    return fetch(`/api/users/user/profile/${username}`, {
+    return fetch(`${SERVER_URL}/api/users/user/profile/${username}`, {
       method: 'get',
     }).then(res => {
       return res.json()
@@ -18,7 +19,7 @@ export const useSetAvatar = () => {
   const { token } = useAuth()
   return useMutation(
     (url: string) => {
-      return fetch('/api/users/change-avatar', {
+      return fetch('${SERVER_URL}/api/users/change-avatar', {
         method: 'POST',
         body: JSON.stringify({ url }),
         headers: new Headers({
@@ -44,7 +45,7 @@ export async function verifiedToken(): Promise<IUserInfo | null> {
   const token = getLocalToken()
   if (token) {
     return window
-      .fetch(`/api/users/verify-user`, {
+      .fetch(`${SERVER_URL}/api/users/verify-user`, {
         method: 'post',
         headers: new Headers({
           Authorization: `Bearer ${token}`,
@@ -93,18 +94,20 @@ export async function userClient(
   }
   let status, statusText
   try {
-    return window.fetch(`/api/${endpoint}`, config).then(async response => {
-      status = response.status
-      statusText = response.statusText
-      httpError(status)
+    return window
+      .fetch(`${SERVER_URL}/api/${endpoint}`, config)
+      .then(async response => {
+        status = response.status
+        statusText = response.statusText
+        httpError(status)
 
-      if (response.ok) {
-        const data = await response.json()
-        return data
-      } else {
-        return Promise.reject(data)
-      }
-    })
+        if (response.ok) {
+          const data = await response.json()
+          return data
+        } else {
+          return Promise.reject(data)
+        }
+      })
   } catch (error) {
     const err: Error = error as Error
     err.status = status
