@@ -16,8 +16,7 @@ import {
   ModalDismissButton,
   ModalOpenButton,
 } from 'components/modal'
-
-import { Hintput } from '@ribrary/hintput'
+import { Hintput } from 'components/Hintput'
 
 export const CreateOrder: FC = () => {
   const { username, isLogin } = useAuth()

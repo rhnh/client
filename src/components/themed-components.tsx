@@ -8,7 +8,7 @@ import { Link, useMatch, useResolvedPath } from 'react-router-dom'
 import { LinkedButton } from './themed-button'
 import { FC, InputHTMLAttributes } from 'react'
 import spinnerIcon from 'assets/spinner.svg'
-import { Hintput } from '@ribrary/hintput'
+import { Hintput } from './Hintput'
 type ULProps = {
   isMobile: boolean
 }

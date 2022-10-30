@@ -1,5 +1,6 @@
 import { css } from '@emotion/css'
-import { Hintput } from '@ribrary/hintput'
+import { Hintput } from 'components/Hintput'
+
 import { Modal, ModalContents, ModalOpenButton } from 'components/modal'
 
 import { Button } from 'components/themed-button'

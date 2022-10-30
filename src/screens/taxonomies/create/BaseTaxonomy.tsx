@@ -1,5 +1,6 @@
 import { css } from '@emotion/css'
-import { Hintput } from '@ribrary/hintput'
+import { Hintput } from 'components/Hintput'
+
 import { Button } from 'components/themed-button'
 import { FlexColumn } from 'components/themed-components'
 import { ChangeEvent, FC, useState } from 'react'
