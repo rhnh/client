@@ -9,7 +9,7 @@ import { FC } from 'react'
 import deleteIcon from 'assets/del.svg'
 import { useAuth } from 'contexts/userContext'
 import { useMutation, useQueryClient } from 'react-query'
-import { SERVER_URL } from 'utils/configs'
+
 type Props = {
   _id?: string
 }
@@ -18,7 +18,7 @@ export const DeleteApproveForm: FC<Props> = ({ _id }) => {
   const queryClient = useQueryClient()
   const { mutate: deleteTax } = useMutation(
     (id: string) => {
-      return fetch(`${SERVER_URL}/api/taxonomies/taxonomy/${id}`, {
+      return fetch(`/api/taxonomies/taxonomy/${id}`, {
         method: 'delete',
         headers: {
           Authorization: `Bearer ${token}`,

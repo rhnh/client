@@ -1,9 +1,9 @@
 import { useAuth } from 'contexts/userContext'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { SERVER_URL } from 'utils/configs'
+
 import { INotification } from 'utils/types'
 const QName = 'notifications'
-const baseURL = `${SERVER_URL}/api/notifications/`
+const baseURL = `/api/notifications/`
 
 export const useSetActive = () => {
   const { userInfo, token } = useAuth()

@@ -6,7 +6,6 @@ import { ChangeEvent, FC, FormEvent, useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { Link } from 'react-router-dom'
 import * as colors from 'utils/colors'
-import { SERVER_URL } from 'utils/configs'
 
 export const CreateList: FC = () => {
   const [listName, setListName] = useState('')
@@ -14,7 +13,7 @@ export const CreateList: FC = () => {
   const queryClient = useQueryClient()
   const { mutate, isError, error, isSuccess } = useMutation(
     (listName: string) => {
-      return fetch(`${SERVER_URL}/api/lists/${listName}`, {
+      return fetch(`/api/lists/${listName}`, {
         body: JSON.stringify({ listName }),
         method: 'POST',
         headers: {

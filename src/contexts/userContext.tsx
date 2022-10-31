@@ -8,7 +8,6 @@ import {
   userLogin,
   userRegister,
 } from 'screens/user/user-api'
-import { SERVER_URL } from 'utils/configs'
 
 import { Authorization, IUser, IUserInfo } from 'utils/types'
 
@@ -63,7 +62,7 @@ export const UserProvider: FC = ({ children }) => {
   const token = getLocalToken()
   useEffect(() => {
     if (token)
-      fetch(`${SERVER_URL}/api/users/verify-user`, {
+      fetch(`/api/users/verify-user`, {
         method: 'post',
         headers: new Headers({
           Authorization: `Bearer ${token}`,

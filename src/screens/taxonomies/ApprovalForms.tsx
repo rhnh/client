@@ -9,7 +9,6 @@ import React, { FC } from 'react'
 import correct from 'assets/correct.svg'
 import { useMutation, useQueryClient } from 'react-query'
 import { useAuth } from 'contexts/userContext'
-import { SERVER_URL } from 'utils/configs'
 
 type Props = {
   _id?: string
@@ -20,7 +19,7 @@ export const ApprovalForm: FC<Props> = ({ _id }) => {
   const queryClient = useQueryClient()
   const { mutate: approve } = useMutation(
     (id: string) => {
-      return fetch(`${SERVER_URL}/api/taxonomies/set-approve/${id}`, {
+      return fetch(`/api/taxonomies/set-approve/${id}`, {
         method: 'post',
         headers: {
           Authorization: `Bearer ${token}`,

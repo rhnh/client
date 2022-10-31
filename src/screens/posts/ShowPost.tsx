@@ -13,11 +13,7 @@ import pin from 'assets/pin.svg'
 import unpin from 'assets/unpin.svg'
 import delBtn from 'assets/del.svg'
 import { css } from '@emotion/css'
-import {
-  CircleButton,
-  IconButtons,
-  LinkedButton,
-} from 'components/themed-button'
+import { IconButtons, LinkedButton } from 'components/themed-button'
 import { numberToDate } from 'utils/tools'
 
 export const ShowPost: FC = () => {

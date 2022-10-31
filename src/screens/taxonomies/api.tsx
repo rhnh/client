@@ -1,4 +1,3 @@
-import { SERVER_URL } from 'utils/configs'
 import { TaxonomiesProps } from './types'
 
 export const fetchTaxonomies = async ({
@@ -24,16 +23,13 @@ export const fetchTaxonomies = async ({
   //     items: [],
   //   })
   // }
-  const res = await fetch(
-    `${SERVER_URL}/api/taxonomies/paginated/?page=${c}&limit=2`,
-    {
-      method: 'get',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
+  const res = await fetch(`/api/taxonomies/paginated/?page=${c}&limit=2`, {
+    method: 'get',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
     },
-  )
+  })
 
   if (!isLogin && res.status === 401) {
     return Promise.resolve({

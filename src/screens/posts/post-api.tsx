@@ -1,16 +1,16 @@
 import { useAuth } from 'contexts/userContext'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { SERVER_URL } from 'utils/configs'
+
 import { IPost } from 'utils/types'
 
 export const getPostById = (_id: string) => {
-  return fetch(`${SERVER_URL}/api/posts/post/${_id}`).then(res => res.json())
+  return fetch(`/api/posts/post/${_id}`).then(res => res.json())
 }
 export function usePostById<IPost>(_id: string) {
   return useQuery<IPost, Error>(
     ['posts', _id],
     () =>
-      fetch(`${SERVER_URL}/api/posts/post/${_id}`, {
+      fetch(`/api/posts/post/${_id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ export function usePosts() {
   return useQuery(
     'posts',
     () => {
-      return fetch(`${SERVER_URL}/api/posts`).then(res => res.json())
+      return fetch(`/api/posts`).then(res => res.json())
     },
     {
       retry: 1,
@@ -43,7 +43,7 @@ export function usePosts() {
 }
 export function useFeaturedPost() {
   return useQuery<IPost[]>('featured', () => {
-    return fetch(`${SERVER_URL}/api/posts/featured`).then(res => {
+    return fetch(`/api/posts/featured`).then(res => {
       return res.json()
     })
   })
@@ -54,7 +54,7 @@ export function useSetFeatured() {
   const queryClient = useQueryClient()
   return useMutation(
     (id: string) => {
-      return fetch(`${SERVER_URL}/api/posts/featured/${id}`, {
+      return fetch(`/api/posts/featured/${id}`, {
         method: 'put',
         headers: {
           'Content-Type': 'application/json',
@@ -73,7 +73,7 @@ export function useUnSetFeatured() {
 
   return useMutation(
     (id: string) => {
-      return fetch(`${SERVER_URL}/api/posts/unfeatured/${id}`, {
+      return fetch(`/api/posts/unfeatured/${id}`, {
         method: 'put',
         headers: {
           'Content-Type': 'application/json',
@@ -94,7 +94,7 @@ export function useDeletePost() {
 
   return useMutation(
     async (id: string) => {
-      const res = await fetch(`${SERVER_URL}/api/posts/post/${id}`, {
+      const res = await fetch(`/api/posts/post/${id}`, {
         method: 'delete',
         headers: {
           'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ export const useCreatePost = () => {
   const { token } = useAuth()
   return useMutation(
     (post: { post: IPost }) => {
-      return fetch(`${SERVER_URL}/api/posts`, {
+      return fetch(`/api/posts`, {
         method: 'POST',
         body: JSON.stringify({ ...post }),
         headers: {

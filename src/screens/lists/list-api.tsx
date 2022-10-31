@@ -1,7 +1,6 @@
 import { useAuth } from 'contexts/userContext'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import slugify from 'slugify'
-import { SERVER_URL } from 'utils/configs'
 import { IListTaxonomy } from 'utils/types'
 // get list with all its items
 export const useGetListItems = (listName: string) => {
@@ -9,7 +8,7 @@ export const useGetListItems = (listName: string) => {
   return useQuery<IListTaxonomy[]>(
     ['list', listName],
     async () => {
-      const res = await fetch(`${SERVER_URL}/api/lists/list/${listName}`, {
+      const res = await fetch(`/api/lists/list/${listName}`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -34,7 +33,7 @@ export const useGetBirdIds = () => {
   return useQuery(
     'birds',
     async () => {
-      return fetch(`${SERVER_URL}/api/lists/birds/${username}`, {
+      return fetch(`/api/lists/birds/${username}`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -58,7 +57,7 @@ export const useGetBird = (listName: string) => {
   return useQuery(
     'birds',
     async () => {
-      return fetch(`${SERVER_URL}/api/lists/detail/${listName}`, {
+      return fetch(`/api/lists/detail/${listName}`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -104,7 +103,7 @@ export const useGetLists = () => {
 export const useDeleteList = () => {
   const { token } = useAuth()
   return useMutation((listName: string) => {
-    return fetch(`${SERVER_URL}/api/lists/list/${slugify(listName)}`, {
+    return fetch(`/api/lists/list/${slugify(listName)}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -123,7 +122,7 @@ export const useUpdateList = (listName: string) => {
   const { token, username } = useAuth()
   return useMutation(
     ({ listName, newListName }: { listName: string; newListName: string }) => {
-      return fetch(`${SERVER_URL}/api/lists/list/${slugify(listName)}`, {
+      return fetch(`/api/lists/list/${slugify(listName)}`, {
         method: 'PUT',
         body: JSON.stringify({ newListName, listName, username }),
         headers: {

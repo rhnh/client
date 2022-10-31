@@ -12,7 +12,6 @@ import { createPortal } from 'react-dom'
 import { useQuery } from 'react-query'
 import { INotification } from 'utils/types'
 import { useAuth } from 'contexts/userContext'
-import { SERVER_URL } from 'utils/configs'
 
 const fadeOut = keyframes`
     from {
@@ -31,7 +30,7 @@ export const Notification: FC = () => {
   const { data } = useQuery<INotification>(
     ['notification'],
     async () => {
-      const res = await fetch(`${SERVER_URL}/api/notifications/active`)
+      const res = await fetch(`/api/notifications/active`)
       if (res.status === 401) {
         window.location.reload()
       }

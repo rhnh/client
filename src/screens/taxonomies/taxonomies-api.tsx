@@ -1,7 +1,7 @@
 import { useAuth } from 'contexts/userContext'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { useInfiniteQuery } from 'react-query'
-import { SERVER_URL } from 'utils/configs'
+
 import { IRank, ITaxonomy } from 'utils/types'
 
 import { fetchTaxonomies } from './api'
@@ -28,7 +28,7 @@ export function useAddListItem(listName: string) {
       englishName: string
       taxonomyName?: string
     }) => {
-      return fetch(`${SERVER_URL}/api/lists/list/${listName}`, {
+      return fetch(`/api/lists/list/${listName}`, {
         method: 'POST',
         body: JSON.stringify({ englishName, taxonomyName, location }),
         headers: {
@@ -55,7 +55,7 @@ export function useCreateTaxonomy() {
       ) {
         return
       }
-      const res = await fetch(`${SERVER_URL}/api/taxonomies`, {
+      const res = await fetch(`/api/taxonomies`, {
         method: 'post',
         body: JSON.stringify(taxonomy),
         headers: {
@@ -150,7 +150,7 @@ export function useTaxonomyById({ _id }: { _id: string }) {
   return useQuery<ITaxonomy, Error>(
     ['taxonomy', _id],
     () =>
-      fetch(`${SERVER_URL}/api/taxonomies/id/${_id}`, {
+      fetch(`/api/taxonomies/id/${_id}`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -182,16 +182,13 @@ export function useGetTaxonomyByName({
   return useQuery<ITaxonomy, Error>(
     ['taxonomyName', taxonomyName],
     () => {
-      return fetch(
-        `${SERVER_URL}/api/taxonomies/taxonomyName/${taxonomyName}`,
-        {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
+      return fetch(`/api/taxonomies/taxonomyName/${taxonomyName}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
         },
-      ).then(
+      }).then(
         res => {
           if (res.ok) return res.json()
           throw new Error('something went wrong')
@@ -215,7 +212,7 @@ export function useGetSpeciesName() {
   return useQuery(
     ['taxonomy', 'names'],
     async () => {
-      const res = await fetch('${SERVER_URL}/api/taxonomies/names', {
+      const res = await fetch('/api/taxonomies/names', {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -240,7 +237,7 @@ export function useGetByRank(rank: IRank | '') {
   return useQuery(
     ['ranks', rank],
     async () => {
-      const res = await fetch(`${SERVER_URL}/api/taxonomies/rank/${rank}`, {
+      const res = await fetch(`/api/taxonomies/rank/${rank}`, {
         method: 'GET',
 
         headers: {
@@ -278,7 +275,7 @@ export function useGetByParent(parent: string) {
   return useQuery(
     ['taxonomy', parent],
     async () => {
-      const res = await fetch(`${SERVER_URL}/api/taxonomies/parent/${parent}`, {
+      const res = await fetch(`/api/taxonomies/parent/${parent}`, {
         method: 'GET',
 
         headers: {
@@ -320,16 +317,13 @@ export function useGetAncestors({
   return useQuery(
     'ancestors',
     async () => {
-      const res = await fetch(
-        `${SERVER_URL}/api/taxonomies/ancestors/${parent}/${rank}`,
-        {
-          method: 'get',
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
+      const res = await fetch(`/api/taxonomies/ancestors/${parent}/${rank}`, {
+        method: 'get',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
         },
-      )
+      })
       return await res.json()
     },
     {
@@ -354,7 +348,7 @@ export function useGetUnApproved() {
   return useQuery(
     'unapproved',
     async () => {
-      const res = await fetch(`${SERVER_URL}/api/taxonomies/unapproved`, {
+      const res = await fetch(`/api/taxonomies/unapproved`, {
         method: 'get',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -390,7 +384,7 @@ export function useRemoveListItem(listName: string) {
       englishName: string
       taxonomy: string
     }) => {
-      return fetch(`${SERVER_URL}/api/lists/list/${listName}`, {
+      return fetch(`/api/lists/list/${listName}`, {
         method: 'DELETE',
         body: JSON.stringify({ englishName, taxonomy }),
         headers: {
@@ -428,7 +422,7 @@ export function useUpdateTaxonomy() {
       ) {
         return
       }
-      const res = await fetch(`${SERVER_URL}/api/taxonomies/taxonomy/${id}`, {
+      const res = await fetch(`/api/taxonomies/taxonomy/${id}`, {
         method: 'put',
         body: JSON.stringify(taxonomy),
         headers: {
